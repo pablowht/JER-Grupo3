@@ -32,6 +32,7 @@ Las características principales del juego son:
 *	Simpleza: El estilo de *Ratones a los fogones* es llamativo y la historia simple, para que el jugador se centre en el objetivo del juego sin tener distracciones.   
 *	Fluidez: El movimiento del personaje debe ser agradable para el jugador, ya que un manejo complicado puede ser molesto a la hora de jugar un juego competitivo.  
 *	Dificultad: *Ratones a los fogones* consta de 3 niveles, a cada cual con un mayor nivel de dificultad.  
+  
 **3. Género**  
 El género principal de Ratones a los fogones es de plataformas. En este género los jugadores avanzan por el escenario evitando obstáculos de cualquier forma (saltando, agachándose, etc.).  
 Al género plataformas se añade el de juegos de carreras, donde el principal objetivo es alcanzar la meta antes que el contrincante. De esta forma, mezclando los dos géneros, se consigue un juego competitivo y multijugador, donde la forma de alcanzar el objetivo es esquivando obstáculos.  
@@ -50,7 +51,8 @@ Ratones a los fogones es un juego de estilo simple y píxel art parecido a juego
 <p align="center">
   <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/da260a40-7264-4197-a19a-32299181c755">
   <br><br>
-  <b>Ilustración 1. Ejemplo estilo visual. "Monkey Island"  </b>
+  <b>Ilustración 1. Ejemplo estilo visual. "Monkey Island" </b>
+ <br><br>
 </p>
 
 **7. Alcance**  
@@ -70,7 +72,7 @@ El desarrollo de una partida de *Ratones a los fogones* empieza en la pantalla d
 Finalmente, cuando uno de los dos llegue a la meta se da paso a la pantalla de fin de nivel, donde se mostrará el ganador y se dará a elegir si pasar al siguiente nivel o regresar a la pantalla de inicio.  
 De esta manera la curva de dificultad quedaría de la siguiente manera:  
 <p align="center">
-  <img src="![image](https://github.com/pablowht/JER-Grupo3/assets/100693446/13dfcd20-a981-43aa-b5ab-65ea9162b40f)">
+  <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/13dfcd20-a981-43aa-b5ab-65ea9162b40f">
   <br><br>
 </p>
 
@@ -99,21 +101,110 @@ ___
 ### Interfaces ###
 **1. Diagrama de flujo**  
 <p align="center">
-  <img src="![image](https://github.com/pablowht/JER-Grupo3/assets/100693446/807fb465-5d80-4d99-8ffe-ec1ebbd339a3)">
-  <b>Ilustración 2. Diagrama de flujo</b>
+  <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/807fb465-5d80-4d99-8ffe-ec1ebbd339a3">
   <br><br>
+  <b>Ilustración 2. Diagrama de flujo</b>
+ <br><br>
 </p>
   
 **2. Menú Principal**  
 La interfaz del menú principal se inspira en la cubertería de un restaurante con un estilo minimalista, mostrando los botones básicos de elegir el modo de juego (local u online), y de los créditos.  
 <p align="center">
-  <img src="![image](https://github.com/pablowht/JER-Grupo3/assets/100693446/a79f9329-9a65-41cb-830f-7c463652913d)">
-  <b>Ilustración 2. Diagrama de flujo</b>
+  <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/a79f9329-9a65-41cb-830f-7c463652913d">
+ <br><br>
+  <b>Ilustración 3. Menú Principal</b>
   <br><br>
 </p>
 
+**3. Selección de perfil**  
+Después de elegir el modo de juego que se prefiere, se pasará a la selección del perfil de los jugadores 1 y 2. Los dos personajes que representarán a cada jugador serán ratones con distintos colores y complementos que podrá elegir el jugador con los botones de las flechas. Cuando el jugador esté listo, pulsará el botón OK, y proseguirá a la pantalla de niveles.   
+<p align="center">
+  <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/5d19bb3a-93f4-460a-9000-4060ddf4e378">
+  <br><br>
+  <b>Ilustración 4. Menú de Selección de Perfil</b>
+ <br><br>
+</p>
 
+**4. Selección de nivel**  
+La pantalla de selección de nivel tiene un estilo minimalista, en el que primeramente solo se dejará jugar el nivel 1 y terminado este se irán desbloqueando los siguientes.  
+<p align="center">
+  <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/fd45de40-7874-4671-8e5a-92bac86f30a1">
+  <br><br>
+  <b>Ilustración 5. Menú de Selección de Nivel</b>
+ <br><br>
+</p>
 
+**5. Menú de pausa, ajustes y controles**  
+<p align="center">
+  <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/c5ac7a2f-3fff-40e1-b828-ee60934ea515">
+  <br><br>
+  <b>Ilustración 6. Interfaz de Pausa, Ajustes y Controles</b>
+ <br><br>
+</p>
+
+**6. Nivel**  
+La interfaz in-game se basa en una pantalla dividida a la mitad horizontalmente donde el jugador 1 (el cual usará las teclas W, A, S, D) utilizará la pantalla de arriba, y el jugador 2 (mediante las teclas de las flechas) utilizará la de abajo. Cada jugador dispondrá de una barra arriba de su pantalla que mostrará el porcentaje de recorrido que han avanzado dentro del nivel.  
+<p align="center">
+  <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/0d4f630c-0a6d-450e-a0ed-c427b71d8c4c">
+  <br><br>
+  <b>Ilustración 7. Interfaz de Nivel</b>
+ <br><br>
+</p>
+
+**7. Fin de Nivel**  
+La pantalla de fin de nivel mostrará el ganador, el marcador con el resultado de momento y las opciones de volver al menú principal o salir.  
+<p align="center">
+  <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/274367b1-870b-4be2-9579-40e05f93c3ab">
+  <br><br>
+  <b>Ilustración 8. Interfaz de Fin de Nivel</b>
+ <br><br>
+</p>
+
+**8. Créditos**  
+La pantalla de fin de nivel mostrará el ganador, el marcador con el resultado de momento y las opciones de volver al menú principal o salir.  
+<p align="center">
+  <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/7b6df575-786e-4324-8f5c-12f1c87cb4de">
+  <br><br>
+  <b>Ilustración 9. Interfaz de Créditos</b>
+ <br><br>
+</p>
+
+___
+
+### Arte ###
+*Ratones a los fogones* debe tener un estilo amigable y caricaturesco. Los personajes son unos pequeños ratones que tratan de escapar de una cocina evitando trampas. Los colores en todo momento deben ser llamativos y acorde al escenario.  
+**1.	Concept Art**  
+*	Diseños orgánicos  
+    - Personajes (modificaciones de color para diferenciar entre un jugador y otro)  
+*	Diseños inorgánicos  
+    -	Trampas para ratones  
+    -	Objetos de cocina (cuchillos, cacerolas, etc.)  
+    -	Mesas  
+    -	Fuego, charcos de agua, cáscaras de plátano
+
+**2.	Audio**
+La música se convertirá a .ogg mientras que los efectos de sonido estarán en .wav.  
+* Música:
+    -	Menú principal: Música alegre que invite a empezar una partida.  
+    -	Menú de ajustes: Se mantiene la música que esté sonando, pero en un volumen inferior.  
+    -	In-Game: Música competitiva y tensa. Los ratones deben escapar de la cocina, por lo que la música tiene que dar un sentimiento de urgencia.  
+    -	Fin de partida: Fragmento de música corto que sirve como recompensa para el jugador ganador y como castigo para el perdedor. Debe de ser una música triunfal.  
+* Efectos de sonido:  
+    -	Navegación por menú: al pasar el ratón por encima de alguna opción.
+    -	Selección de una opción: al hacer clic sobre uno de los botones de inicio.
+    -	Movimiento del personaje (saltar, agacharse, pisadas): volumen bajo para no molestar.
+    -	Golpe: al chocar con un obstáculo.
+ ___
+### Referencias ###
+* Dibujo Rata  
+Cute Cartoon standing mouse. (s. f.).   
+https://www.vexels.com/png-svg/preview/236277/cute-cartoon-standing-mouse  
+* Dibujo Cubiertos  
+Mauri. (s. f.). TENEDOR-PNG-SLIDE. Hoshigaki Spain.   
+https://hoshigaki.es/tenedor-png-slide/  
+Descargar Cuchara Aislada PNG transparente - StickPNG. (s/f). Stickpng.com. Recuperado el 15 de octubre de 2023, de   
+https://www.stickpng.com/es/img/download/5b26a1658f68598d6f5a461e   
+___
 
 
 
