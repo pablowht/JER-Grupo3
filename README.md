@@ -56,7 +56,7 @@ Ratones a los fogones es un juego de estilo simple y píxel art parecido a juego
 </p>
 
 **7. Alcance**  
-El objetivo principal es desarrollar un videojuego que se pueda actualizar incluyendo más niveles, nuevos power-ups y modos de juegos. En esta primera versión se desarrollará una unidad básica ampliable en vistas de futuro.  
+El objetivo principal es desarrollar un videojuego que se pueda actualizar incluyendo más niveles, nuevos power-ups (intercambiar la posición de ambos jugadores) y modos de juegos. En esta primera versión se desarrollará una unidad básica ampliable en vistas de futuro.  
 ___
 
 ### Mecánicas de juego ###
