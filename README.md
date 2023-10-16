@@ -99,6 +99,8 @@ Los obstáculos dinámicos aumentarán la dificultad de la partida y podrán des
 Para los objetos que generen un condicionamiento de recompensa, los power-ups variarán entre efectos positivos para el propio jugador o negativos para el adversario. En cuanto a los primeros, variarán entre un aumento de la velocidad del jugador e inmunidad por unos segundos. Los efectos negativos para el adversario se compondrán de congelación y reducción del campo de visión, ambos de forma momentánea.  
 ___
 ### Interfaces ###
+Todo el diseño de las interfaces excepto el diagrama de flujo ha sido creado en la herramienta Figma.
+
 **1. Diagrama de flujo**  
 <p align="center">
   <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/807fb465-5d80-4d99-8ffe-ec1ebbd339a3">
@@ -203,7 +205,9 @@ https://www.vexels.com/png-svg/preview/236277/cute-cartoon-standing-mouse
 Mauri. (s. f.). TENEDOR-PNG-SLIDE. Hoshigaki Spain.   
 https://hoshigaki.es/tenedor-png-slide/  
 Descargar Cuchara Aislada PNG transparente - StickPNG. (s/f). Stickpng.com. Recuperado el 15 de octubre de 2023, de   
-https://www.stickpng.com/es/img/download/5b26a1658f68598d6f5a461e   
+https://www.stickpng.com/es/img/download/5b26a1658f68598d6f5a461e
+* Figma Interfaces:  
+ https://www.figma.com/file/EHHxC5EN9gM78CxVDQKwqt/interfaces-Ratones-aLosFogonestype=design&nodeid=0%3A1&mode=design&t=vvNZQHbM3PMg4PnY-1  
 ___
 
 
