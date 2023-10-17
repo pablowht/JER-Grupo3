@@ -49,7 +49,7 @@ Ratones a los fogones está formado por tres niveles con diferente complejidad. 
 Ratones a los fogones es un juego de estilo simple y píxel art parecido a juegos antiguos de aventura gráfica. La idea detrás de este estilo es la creación de un juego llamativo, con personajes y escenarios sencillos y de estilo caricaturesco.
   
 <p align="center">
-  <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/da260a40-7264-4197-a19a-32299181c755">
+  <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/f6572ac0-00b6-4e76-bacc-64400ee97caa">
   <br><br>
   <b>Ilustración 1. Ejemplo estilo visual. "Monkey Island" </b>
  <br><br>
@@ -72,7 +72,7 @@ El desarrollo de una partida de *Ratones a los fogones* empieza en la pantalla d
 Finalmente, cuando uno de los dos llegue a la meta se da paso a la pantalla de fin de nivel, donde se mostrará el ganador y se dará a elegir si pasar al siguiente nivel o regresar a la pantalla de inicio.  
 De esta manera la curva de dificultad quedaría de la siguiente manera:  
 <p align="center">
-  <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/13dfcd20-a981-43aa-b5ab-65ea9162b40f">
+  <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/f1cc9b0f-d8ad-40fd-be5d-802127f61e3c">
   <br><br>
 </p>
 
@@ -103,7 +103,7 @@ Todo el diseño de las interfaces excepto el diagrama de flujo ha sido creado en
 
 **1. Diagrama de flujo**  
 <p align="center">
-  <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/807fb465-5d80-4d99-8ffe-ec1ebbd339a3">
+  <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/67f5a05e-8831-4807-9a79-90cce3a32626">
   <br><br>
   <b>Ilustración 2. Diagrama de flujo</b>
  <br><br>
@@ -112,7 +112,7 @@ Todo el diseño de las interfaces excepto el diagrama de flujo ha sido creado en
 **2. Menú Principal**  
 La interfaz del menú principal se inspira en la cubertería de un restaurante con un estilo minimalista, mostrando los botones básicos de elegir el modo de juego (local u online), y de los créditos.  
 <p align="center">
-  <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/a79f9329-9a65-41cb-830f-7c463652913d">
+  <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/010306fa-25de-445a-8163-a4e69c5cc382">
  <br><br>
   <b>Ilustración 3. Menú Principal</b>
   <br><br>
@@ -121,7 +121,7 @@ La interfaz del menú principal se inspira en la cubertería de un restaurante c
 **3. Selección de perfil**  
 Después de elegir el modo de juego que se prefiere, se pasará a la selección del perfil de los jugadores 1 y 2. Los dos personajes que representarán a cada jugador serán ratones con distintos colores y complementos que podrá elegir el jugador con los botones de las flechas. Cuando el jugador esté listo, pulsará el botón OK, y proseguirá a la pantalla de niveles.   
 <p align="center">
-  <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/5d19bb3a-93f4-460a-9000-4060ddf4e378">
+  <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/51b10c5b-b566-43b9-b5f7-ee7514b7c588">
   <br><br>
   <b>Ilustración 4. Menú de Selección de Perfil</b>
  <br><br>
@@ -130,7 +130,7 @@ Después de elegir el modo de juego que se prefiere, se pasará a la selección 
 **4. Selección de nivel**  
 La pantalla de selección de nivel tiene un estilo minimalista, en el que primeramente solo se dejará jugar el nivel 1 y terminado este se irán desbloqueando los siguientes.  
 <p align="center">
-  <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/fd45de40-7874-4671-8e5a-92bac86f30a1">
+  <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/a1010281-7794-44de-99b7-5735990e85ea">
   <br><br>
   <b>Ilustración 5. Menú de Selección de Nivel</b>
  <br><br>
@@ -138,7 +138,7 @@ La pantalla de selección de nivel tiene un estilo minimalista, en el que primer
 
 **5. Menú de pausa, ajustes y controles**  
 <p align="center">
-  <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/c5ac7a2f-3fff-40e1-b828-ee60934ea515">
+  <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/94d1ac2a-1d64-43af-8a10-d7156d356237">
   <br><br>
   <b>Ilustración 6. Interfaz de Pausa, Ajustes y Controles</b>
  <br><br>
@@ -147,7 +147,7 @@ La pantalla de selección de nivel tiene un estilo minimalista, en el que primer
 **6. Nivel**  
 La interfaz in-game se basa en una pantalla dividida a la mitad horizontalmente donde el jugador 1 (el cual usará las teclas W, A, S, D) utilizará la pantalla de arriba, y el jugador 2 (mediante las teclas de las flechas) utilizará la de abajo. Cada jugador dispondrá de una barra arriba de su pantalla que mostrará el porcentaje de recorrido que han avanzado dentro del nivel.  
 <p align="center">
-  <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/0d4f630c-0a6d-450e-a0ed-c427b71d8c4c">
+  <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/2d53a79d-3f23-4e61-bb2a-18c2fdc2f5dd">
   <br><br>
   <b>Ilustración 7. Interfaz de Nivel</b>
  <br><br>
@@ -156,7 +156,7 @@ La interfaz in-game se basa en una pantalla dividida a la mitad horizontalmente 
 **7. Fin de Nivel**  
 La pantalla de fin de nivel mostrará el ganador, el marcador con el resultado de momento y las opciones de volver al menú principal o salir.  
 <p align="center">
-  <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/274367b1-870b-4be2-9579-40e05f93c3ab">
+  <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/9bf6a9b2-7be9-47de-80bc-6c8cc0303039">
   <br><br>
   <b>Ilustración 8. Interfaz de Fin de Nivel</b>
  <br><br>
@@ -165,7 +165,7 @@ La pantalla de fin de nivel mostrará el ganador, el marcador con el resultado d
 **8. Créditos**  
 La pantalla de fin de nivel mostrará el ganador, el marcador con el resultado de momento y las opciones de volver al menú principal o salir.  
 <p align="center">
-  <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/7b6df575-786e-4324-8f5c-12f1c87cb4de">
+  <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/f103f1b8-5033-4645-bf7e-5fd77b65a632">
   <br><br>
   <b>Ilustración 9. Interfaz de Créditos</b>
  <br><br>
