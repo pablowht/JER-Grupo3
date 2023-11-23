@@ -162,8 +162,7 @@ La pantalla de fin de nivel mostrará el ganador, el marcador con el resultado d
  <br><br>
 </p>
 
-**8. Créditos**  
-La pantalla de fin de nivel mostrará el ganador, el marcador con el resultado de momento y las opciones de volver al menú principal o salir.  
+**8. Créditos**    
 <p align="center">
   <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/f103f1b8-5033-4645-bf7e-5fd77b65a632">
   <br><br>
