@@ -17,6 +17,7 @@ var player1;
 
 function preload(){
     this.load.image('tile_pared', 'assets/tiles/Tiles_Pared.png');
+    this.load.image('mapa_recto_1600x182', 'assets/tiles/Tiles_mapa_recto_1600x182.png');
     this.load.spritesheet('raton_player_1','assets/ratones/Raton_Base_WALK_RIGHT_20x30.png',{ frameWidth: 20, frameHeight: 30 } );
 }
 
