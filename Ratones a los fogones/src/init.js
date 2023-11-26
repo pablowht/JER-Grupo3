@@ -1,7 +1,8 @@
 var config = {
     type: Phaser.AUTO,
     width: 1600, //hay que cambiar el tamaño de acuerdo al tamaño TOTAL del nivel
-    height: 364, //hay que cambiar el tamaño de acuerdo al tamaño TOTAL del nivel
+    height: 380, //hay que cambiar el tamaño de acuerdo al tamaño TOTAL del nivel
+    //364
     autoResize: true,
 
     //FISICAS
@@ -9,7 +10,8 @@ var config = {
         default: 'arcade',
         arcade: {
             debug:false,
-            gravity: {y: 500 }
+            //gravity: {y: 500 }
+            //He quitado la gravedad a la fisica porque si no el suelo se cae
         }
     },
 
@@ -22,6 +24,8 @@ var config = {
 };
 
 //variables:
+//Crear grupo de walkable donde poner todas las plataformas
+var walkable;
 var game = new Phaser.Game(config);
 var player1;
 var player2;
@@ -29,8 +33,11 @@ var velocidad = 100;
 const alturaSalto = -200;
 
 function preload(){
+    //this.load.image('sueloMapa', 'assets/tiles/Tope_mapa_1600x128.png');
+    this.load.image('sueloMapa', 'assets/tiles/Tope_suelo_1600x6.png');
+    this.load.image('paredMapa', 'assets/tiles/Tope_paredes_324x122.png')
     this.load.image('tile_pared', 'assets/tiles/Tiles_Pared.png');
-    this.load.image('mapa', 'assets/tiles/mapa_recto_1600x182.png');
+    this.load.image('mapa', 'assets/tiles/mapa_V2_1600x310.png');
     this.load.spritesheet('raton_gris','ASSETS/RATONES/SpriteSheets/Raton_Gris.png',{ frameWidth: 32, frameHeight: 32 } );
     this.load.spritesheet('raton_blanco','ASSETS/RATONES/SpriteSheets/Raton_Blanco.png',{ frameWidth: 32, frameHeight: 32 } );
     this.load.spritesheet('raton_marron','ASSETS/RATONES/SpriteSheets/Raton_Marron.png',{ frameWidth: 32, frameHeight: 32 } );
@@ -38,7 +45,11 @@ function preload(){
 
 function create(){
     //MAPA
-    this.add.image(0,0,'mapa');
+    this.add.image(800,210,'mapa');
+    walkable = this.physics.add.sprite(800,360,'sueloMapa');
+    //walkable = this.physics.add.sprite(352,300, 'paredMapa' )
+    walkable.setImmovable();
+
     //CONTROL TECLAS
     cursors = this.input.keyboard.createCursorKeys();
     izqFlecha = cursors.left;
@@ -60,7 +71,8 @@ function create(){
     //PLAYER 1
     player1 = this.physics.add.sprite(90, 145, colorRaton1, 0);
     player1.setCollideWorldBounds(true);
-    //this.physics.add.collider(player1, walkable);
+    player1.body.setGravityY(500);
+    this.physics.add.collider(player1, walkable);
 
     //Animaciones
     this.anims.create({
@@ -94,7 +106,8 @@ function create(){
     //PLAYER 2
     player2 = this.physics.add.sprite(150, 145, colorRaton2, 0);
     player2.setCollideWorldBounds(true);
-    //this.physics.add.collider(player1, walkable);
+    player2.body.setGravityY(500);
+    this.physics.add.collider(player2, walkable);
 
     //Animaciones
     this.anims.create({
