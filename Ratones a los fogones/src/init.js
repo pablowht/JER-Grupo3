@@ -8,7 +8,7 @@ var config = {
     //364
     autoResize: true,
     //COSAS DE LA ESCENA
-    scene: [MenuScene,GameScene], //escena inicial
+    scene: [MenuScene,SelectLevelScene,SelectMouseScene,GameScene,GameOverScene,CreditsScene,PauseScene,LoadingScene], //escena inicial
     //FISICAS
     physics:{
         default: 'arcade',
