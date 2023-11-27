@@ -25,7 +25,7 @@ ___
 ### Introducción ###  
 *Ratones a los fogones* es un videojuego para PC de modalidad multijugador, en concreto de dos jugadores, e implementará en el lado del servidor Java con SpringBoot y en el lado del cliente JavaScript con el framework Phaser 3. Este escrito tiene como objetivo principal plasmar los elementos que debe incluir *Ratones a los fogones* y servir de carta de presentación en caso de buscar colaboradores en un futuro.   
 **1. Concepto del juego**  
-*Ratones a los fogones* es un videojuego de dos jugadores en el que cada uno controla una pequeña rata antropomórfica que debe salir de la cocina antes de ser atrapada. Ambas competirán para ser la primera en llegar a la puerta, esquivando por el camino todo tipo de obstáculos e intentando huir antes de que se acabe el tiempo.  
+*Ratones a los fogones* es un videojuego de dos jugadores en el que cada uno controla un pequeño ratón antropomórfico que debe salir de la cocina antes de ser atrapado. Ambos competirán para ser el primero en llegar a la puerta, esquivando por el camino todo tipo de obstáculos e intentando huir antes de que se acabe el tiempo.  
 **2. Características principales**  
 Las características principales del juego son:  
 *	Competición: *Ratones a los fogones* principalmente se centra en la competitividad que se crea al jugar a un juego multijugador contra un amigo.  
@@ -43,32 +43,32 @@ Ratones a los fogones está dirigido a jugadores de un amplio rango de edades si
 Ratones a los fogones está formado por tres niveles con diferente complejidad. La principal motivación es salir el primero de la cocina, esquivando obstáculos y, perjudicando al otro jugador mediante power-ups. Para que sea posible se encuentran diferentes elementos:  
 1.	Movilidad: cada personaje será controlado por un jugador. Los movimientos que se pueden realizar son: desplazamiento lateral, salto y agacharse. De esta manera se esquivarán los obstáculos y/o se cogerán los power-ups.  
 2.	Obstáculos: objetos que el jugador debe esquivar. Si no se hace, el personaje se ralentizará obteniendo una desventaja frente a su contrincante. Además, habrá dos tipos de obstáculos: estáticos y dinámicos.  
-3.	Power-ups: se generan proceduralmente. La finalidad de estos es beneficiarse o perjudicar al adversario.
+3.	Power-ups: tendrán una posición fija en cada nivel. La finalidad de estos es beneficiarse o perjudicar al adversario.
  
-**6. Estilo Visual**  
-Ratones a los fogones es un juego de estilo simple y píxel art parecido a juegos antiguos de aventura gráfica. La idea detrás de este estilo es la creación de un juego llamativo, con personajes y escenarios sencillos y de estilo caricaturesco.
+**6. Estilo Visual y Referencias**  
+Ratones a los fogones es un juego de estilo simple y pixel art parecido a juegos antiguos de aventura gráfica. La idea detrás de este estilo es la creación de un juego llamativo, con personajes y escenarios sencillos y de estilo caricaturesco. Se han tomado inspiraciones de juegos multijugador familiares propios de la Wii como el Wii Sports Resort y el Wii Party.
   
 <p align="center">
-  <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/f6572ac0-00b6-4e76-bacc-64400ee97caa">
+  <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/997cd59e-c215-4892-a6c0-84f944679334">
   <br><br>
-  <b>Ilustración 1. Ejemplo estilo visual. "Monkey Island" </b>
+  <b>Ilustración 1. Ejemplo de referencias. "Wii Sports" y "Wii Party" </b>
  <br><br>
 </p>
 
 **7. Alcance**  
-El objetivo principal es desarrollar un videojuego que se pueda actualizar incluyendo más niveles, nuevos power-ups (intercambiar la posición de ambos jugadores) y modos de juegos. En esta primera versión se desarrollará una unidad básica ampliable en vistas de futuro.  
+El objetivo principal es desarrollar un videojuego que se pueda actualizar incluyendo más niveles, nuevos power-ups (intercambiar la posición de ambos jugadores...) y modos de juegos. En esta primera versión se desarrollará una unidad básica ampliable en vistas de futuro.  
 ___
 
 ### Mecánicas de juego ###
 En este apartado se profundizará acerca de las mecánicas de *Ratones a los fogones*, como es: jugabilidad, con especial atención a las acciones que podrá hacer el jugador en la partida; el flujo de juego y la curva de dificultad. Se especificarán los controles, al igual que el movimiento y las físicas empleadas y, por último, se profundizará en los personajes y en los diferentes objetos.  
 **1. Jugabilidad**  
-*Ratones a los fogones* consta de tres niveles que se desarrollan en el mismo lugar, la cocina, pero cada uno se caracteriza por la dificultad y por los objetos nuevos que aparecen.  
+*Ratones a los fogones* consta en primera instancia de tres niveles que se desarrollan en el mismo lugar, la cocina, pero cada uno se caracteriza por la dificultad y por los objetos nuevos que aparecen.  
 La mecánica principal se basa en evitar los diferentes objetos que van a aparecer en la escena, saltando o agachándose. Otra de las mecánicas es coger objetos (power-ups) para conseguir una ventaja.  
 **2.	Flujo de juego y curva de dificultad**
-El desarrollo de una partida de *Ratones a los fogones* empieza en la pantalla de inicio. Aquí se podrán ver los créditos, ajustes y controles, y dos opciones para jugar online o en local.  Una vez dado a jugar, se dejará customizar el personaje y una vez terminado, se dará paso a la elección de nivel.    
-* Nivel 1: la cámara empezará a moverse obligando al jugador a hacerlo. Mientras se desarrolla únicamente aparecerán obstáculos estáticos que se deberán saltar o pasar por debajo.   
-* Nivel 2: la cámara incrementa su velocidad. Se mantienen los obstáculos estáticos y aparecen los primeros power-ups que cruzan la pantalla de derecha a izquierda, permitiendo al jugador recogerlos.  
-* Nivel 3: además de que la cámara aumente la velocidad de movimiento, se añade a todo lo anterior obstáculos dinámicos que se moverán de manera vertical y se deberá saltar o pasar por debajo según sea más conveniente. En el trayecto final del nivel, la cámara aumentará un poco más la velocidad.  
+El desarrollo de una partida de *Ratones a los fogones* empieza en la pantalla de inicio. Aquí se podrán ver los créditos, ajustes y controles, y dos opciones para jugar online o en local.  Una vez dado a jugar, se dejará customizar el personaje y una vez terminado, se dará paso a la elección de nivel. Según se pase de nivel la velocidad de cada jugador irá en aumento para aumentar al mismo tiempo la dificultad.    
+* Nivel 1: únicamente aparecerán obstáculos estáticos que se deberán saltar o pasar por debajo.   
+* Nivel 2: se mantienen los obstáculos estáticos y aparecen los primeros power-ups que cruzan la pantalla de derecha a izquierda, permitiendo al jugador recogerlos.  
+* Nivel 3: se añade a todo lo anterior obstáculos dinámicos que se moverán de manera vertical y se deberá saltar o pasar por debajo según sea más conveniente.
 Finalmente, cuando uno de los dos llegue a la meta se da paso a la pantalla de fin de nivel, donde se mostrará el ganador y se dará a elegir si pasar al siguiente nivel o regresar a la pantalla de inicio.  
 De esta manera la curva de dificultad quedaría de la siguiente manera:  
 <p align="center">
