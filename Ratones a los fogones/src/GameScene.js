@@ -1,9 +1,9 @@
 class GameScene extends Phaser.Scene
 {
+
     //variables:
 //Crear grupo de walkable donde poner todas las plataformas
     walkable;
-
     player1;
     player2;
     velocidad = 100;
