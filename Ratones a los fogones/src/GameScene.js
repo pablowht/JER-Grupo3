@@ -1,6 +1,8 @@
 class GameScene extends Phaser.Scene
 {
-
+    constructor(){
+        super("Game");
+    }
     //variables:
 //Crear grupo de walkable donde poner todas las plataformas
     walkable;
@@ -8,7 +10,7 @@ class GameScene extends Phaser.Scene
     player2;
     velocidad = 100;
     alturaSalto = -200;
-    camera;
+    //camera;
 
     preload(){
     //this.load.image('sueloMapa', 'assets/tiles/Tope_mapa_1600x128.png');
@@ -23,7 +25,7 @@ class GameScene extends Phaser.Scene
     create(){
         //camera = this.cameras.main;
         //camera.setBounds(0,0,1600,380);
-        this.camera = new CameraMovement(this);
+        //this.camera = new CameraMovement(this);
         //MAPA
         this.add.image(800,210,'mapa');
         this.walkable = this.physics.add.sprite(800,360,'sueloMapa');
@@ -119,8 +121,8 @@ class GameScene extends Phaser.Scene
         });
     }
     update(){
-        this.camera.moveCameraFunction();
-        this.physics.world.bounds.centerX = this.camera.getScrollCam() + config.width/2;
+        //this.camera.moveCameraFunction();
+        //this.physics.world.bounds.centerX = this.camera.getScrollCam() + config.width/2;
 
         //camera.scrollX += 0.5;
 
