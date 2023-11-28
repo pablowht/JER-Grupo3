@@ -4,7 +4,7 @@ var config = {
     //width: 230, //hay que cambiar el tamaño de acuerdo al tamaño TOTAL del nivel
     //height: 350, //hay que cambiar el tamaño de acuerdo al tamaño TOTAL del nivel
     width: 1600,
-    height: 380,
+    height: 710,
     //364
     autoResize: true,
     //COSAS DE LA ESCENA
