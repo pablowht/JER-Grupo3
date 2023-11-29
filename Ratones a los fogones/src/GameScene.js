@@ -18,11 +18,13 @@ class GameScene extends Phaser.Scene
     //camera;
 
     preload(){
-        //this.load.image('sueloMapa', 'assets/tiles/Tope_mapa_1600x128.png');
-        this.load.image('techo', 'assets/tiles/Tope_techo_1600x27.png');
+        this.load.image('techoMapa', 'assets/tiles/Tope_techo_1600x27.png');
         this.load.image('sueloMapa1', 'assets/tiles/Tope_suelo_1600x6.png');
-        //this.load.image('sueloMapa2', 'assets/tiles/Tope_Suelo_N2_1202x6.png');
         this.load.image('paredesMapa1', 'assets/tiles/Tope_paredes_324x122.png');
+        this.load.image('sueloMapa2', 'assets/tiles/Tope_Suelo_N2_1202x6.png');
+        this.load.image('paredMapa2', 'assets/tiles/Tope_Suelo_N2_610x44.png');
+        this.load.image('sueloMapa2N2', 'assets/tiles/Tope_Suelo_N2_3_212x53.png');
+        this.load.image('sueloMapa2N3', 'assets/tiles/Tope_Suelo_N2_3_404x91.png');
         //this.load.image('tile_pared', 'assets/tiles/Tiles_Pared.png');
         this.load.image('mapa2', 'assets/tiles/mapa2_V4_1600x310.png');
         this.load.image('mapa1', 'assets/tiles/mapa1_V4_1600x310.png');
@@ -48,26 +50,74 @@ class GameScene extends Phaser.Scene
         //camera = this.cameras.main;
         //camera.setBounds(0,0,1600,380);
         //this.camera = new CameraMovement(this);
-        //MAPA
-        this.add.image(800,155,'mapa1');// Y=210
-        this.add.image(800,555,'mapa1'); //X=800 Y=525
-        //PARA PONER EL SEGUNDO TIPO DE MAPA CAMBIAR 'mapa1' POR 'mapa2', las plataformas no van a estar bien, pero para comprobar que estan los dos
-        //MAPA PLAYER1
-        this.walkable = this.physics.add.staticGroup();
-        this.walkable.create(353,240,'paredesMapa1');
-        this.walkable.create(800,305,'sueloMapa1');
-        this.walkable.create(155,270,'armarioBajo1').setScale(2).refreshBody();
-        //Colocar las plataformas
-        this.walkable.create(300,270,'armarioBajo2').setScale(2).refreshBody();
-        this.walkable.create(500,270,'armarioBajo3').setScale(2).refreshBody();
+        //MAPAS
         //this.walkable = this.physics.add.sprite(800,360,'sueloMapa');
         //this.walkable.setImmovable();
+        //1
+        this.add.image(800,155,'mapa1');// Y=210
+        this.add.image(800,555,'mapa1'); //X=800 Y=525
+        //2
+        //this.add.image(800,155,'mapa2');
+        //this.add.image(800,555,'mapa2');
+        //3
+        //Todavia no hecho jiji
+        this.walkable = this.physics.add.staticGroup();
+        //MAPA PLAYER1
+        this.walkable.create(800,10,'techoMapa');
+        ////////////////////////////////////// FORMA MÁS EFICIENTE DE CREAR LOS MAPAS??? //////////////////////////////////////
+        //MAPA1
 
+        //this.platforms = this.physics.add.staticGroup();//No funciona platforms, no colisionan los personajes
+        this.walkable.create(353,240,'paredesMapa1');
+        this.walkable.create(800,305,'sueloMapa1');
+        //Colocar las plataformas
+        this.walkable.create(155,270,'armarioBajo1').setScale(2).refreshBody();
+        this.walkable.create(553,270,'armarioBajo2').setScale(2).refreshBody();
+        this.walkable.create(900,270,'armarioBajo3').setScale(2).refreshBody();
+        this.walkable.create(968,270,'armarioBajo2').setScale(2).refreshBody();
+
+        this.walkable.create(1150,220,'armarioAlto1').setScale(2).refreshBody();
+        this.walkable.create(1220,220,'armarioAlto1').setScale(2).refreshBody();
+
+/*
+        //MAPA2
+        this.walkable.create(1397,266,'sueloMapa2N3');
+        this.walkable.create(680,247,'sueloMapa2N2');
+        this.walkable.create(575,288,'paredMapa2');
+        this.walkable.create(600,305,'sueloMapa2');
+        //Colocar las plataformas
+        this.walkable.create(1040,270,'armarioBajo2').setScale(2).refreshBody();
+
+        this.walkable.create(170,220,'armarioAlto2').setScale(2).refreshBody();
+        this.walkable.create(340,140,'armarioAlto2').setScale(2).refreshBody();
+*/
         //MAPA PLAYER2
+        this.walkable.create(800,410,'techoMapa');
+        //MAPA1
+
         this.walkable.create(353,640,'paredesMapa1');
         this.walkable.create(800,705,'sueloMapa1');
+        //Colocar plataformas
         this.walkable.create(158,670,'armarioBajo1').setScale(2).refreshBody();
+        this.walkable.create(553,670,'armarioBajo2').setScale(2).refreshBody();
+        this.walkable.create(900,670,'armarioBajo3').setScale(2).refreshBody();
+        this.walkable.create(968,670,'armarioBajo2').setScale(2).refreshBody();
 
+        this.walkable.create(1150,620,'armarioAlto1').setScale(2).refreshBody();
+        this.walkable.create(1220,620,'armarioAlto1').setScale(2).refreshBody();
+
+        //MAPA2
+        /*
+        this.walkable.create(1397,662,'sueloMapa2N3');
+        this.walkable.create(680,644,'sueloMapa2N2');
+        this.walkable.create(575,686,'paredMapa2');
+        this.walkable.create(600,705,'sueloMapa2');
+        //Colocar plataformas
+        this.walkable.create(1040,670,'armarioBajo2').setScale(2).refreshBody();
+
+        this.walkable.create(170,610,'armarioAlto2').setScale(2).refreshBody();
+        this.walkable.create(340,560,'armarioAlto2').setScale(2).refreshBody();
+        */
         //CONTROL TECLAS
         this.cursors = this.input.keyboard.createCursorKeys();
         this.izqFlecha = this.cursors.left;
