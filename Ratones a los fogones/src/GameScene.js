@@ -50,6 +50,12 @@ class GameScene extends Phaser.Scene
         this.load.image('powerupAmarillo','assets/POWERUPS/QUESO/QuesoAmarillo_12x14.png');
         this.load.image('powerupAzul','assets/POWERUPS/QUESO/QuesoAzul_14x14.png');
         this.load.image('powerupRojo','assets/POWERUPS/QUESO/QuesoRojo_17x16t.png');
+
+
+        //OBSTACULOS
+        this.load.image('CascaraPlatano','ASSETS/OBSTACULOS/Cascara_Platano.png');
+        this.load.image('TrampaRatones','ASSETS/OBSTACULOS/MouseTrapR_48x18.png');
+
     }
     create(){
 
@@ -60,14 +66,14 @@ class GameScene extends Phaser.Scene
         //this.walkable = this.physics.add.sprite(800,360,'sueloMapa');
         //this.walkable.setImmovable();
         //1
-        //this.add.image(800,155,'mapa1');// Y=210
-        //this.add.image(800,555,'mapa1'); //X=800 Y=525
+        this.add.image(800,155,'mapa1');// Y=210
+        this.add.image(800,555,'mapa1'); //X=800 Y=525
         //2
         //this.add.image(800,155,'mapa2');
         //this.add.image(800,555,'mapa2');
         //3
-        this.add.image(800,155,'mapa3');
-        this.add.image(800,555,'mapa3');
+       // this.add.image(800,155,'mapa3');
+       // this.add.image(800,555,'mapa3');
         this.walkable = this.physics.add.staticGroup();
         this.platforms = this.physics.add.staticGroup();
         //MAPA PLAYER1
@@ -76,7 +82,7 @@ class GameScene extends Phaser.Scene
 
         this.walkable.create(800,10,'techoMapa');
         //MAPA1
-        /*
+
         this.walkable.create(353,240,'paredesMapa1');
         this.walkable.create(800,305,'sueloMapa1');
         //Colocar las plataformas
@@ -87,7 +93,7 @@ class GameScene extends Phaser.Scene
 
         this.platforms.create(1150,220,'armarioAlto1').setScale(2).refreshBody();
         this.platforms.create(1220,220,'armarioAlto1').setScale(2).refreshBody();
-*/
+
 /*
         //MAPA2
         this.walkable.create(1397,266,'sueloMapa2N3');
@@ -100,7 +106,7 @@ class GameScene extends Phaser.Scene
         this.platforms.create(170,220,'armarioAlto2').setScale(2).refreshBody();
         this.platforms.create(340,140,'armarioAlto2').setScale(2).refreshBody();
 */
-        //MAPA3
+ /*       //MAPA3
         this.walkable.create(1055,309,'sueloMapa3');
         this.walkable.create(417,274,'sueloMapa3N1');
         this.walkable.create(160,213,'sueloMapa3N2');
@@ -112,11 +118,11 @@ class GameScene extends Phaser.Scene
         this.platforms.create(240,120,'armarioAlto1').setScale(2).refreshBody();
         this.platforms.create(310,120,'armarioAlto1').setScale(2).refreshBody();
         this.platforms.create(1130,220,'armarioAlto2').setScale(2).refreshBody();
-
+*/
         //MAPA PLAYER2
         this.walkable.create(800,410,'techoMapa');
         //MAPA1
-        /*
+
         this.walkable.create(353,640,'paredesMapa1');
         this.walkable.create(800,705,'sueloMapa1');
         //Colocar plataformas
@@ -127,7 +133,7 @@ class GameScene extends Phaser.Scene
 
         this.platforms.create(1150,620,'armarioAlto1').setScale(2).refreshBody();
         this.platforms.create(1220,620,'armarioAlto1').setScale(2).refreshBody();
-        */
+
         //MAPA2
         /*
         this.walkable.create(1397,662,'sueloMapa2N3');
@@ -140,7 +146,8 @@ class GameScene extends Phaser.Scene
         this.platforms.create(170,610,'armarioAlto2').setScale(2).refreshBody();
         this.platforms.create(340,560,'armarioAlto2').setScale(2).refreshBody();
         */
-        //MAPA3
+
+       /* //MAPA3
         this.walkable.create(1055,709,'sueloMapa3');
         this.walkable.create(417,674,'sueloMapa3N1');
         this.walkable.create(160,613,'sueloMapa3N2');
@@ -152,7 +159,8 @@ class GameScene extends Phaser.Scene
         this.platforms.create(240,520,'armarioAlto1').setScale(2).refreshBody();
         this.platforms.create(310,520,'armarioAlto1').setScale(2).refreshBody();
         this.platforms.create(1130,620,'armarioAlto2').setScale(2).refreshBody();
-
+*/
+        //OBSTACULOS ESTATICOS NIVEL 1
 
         //CONTROL TECLAS
         this.cursors = this.input.keyboard.createCursorKeys();
@@ -165,6 +173,10 @@ class GameScene extends Phaser.Scene
         this.drcD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
         this.upW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         this.downS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
+
+        //Para pausa
+        this.esc=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
+
 
         //JUGADORES
         //Aqui iria la funcion de cambiar el raton para cada personaje
@@ -317,6 +329,13 @@ class GameScene extends Phaser.Scene
     {
         this.player1.anims.play('down1', true);
     }
+
+    //para cambiar de in-game a ajustes
+    if(this.esc.isDown)
+    {
+        this.scene.start("Pause");
+    }
+
 }
     movementControlsP2(){
     //CONTROLES MOVIMIENTO PLAYER 2
@@ -346,6 +365,12 @@ class GameScene extends Phaser.Scene
     if (this.downFlecha.isDown)
     {
         this.player2.anims.play('down2', true);
+    }
+
+    //para cambiar de in-game a ajustes
+    if(this.esc.isDown)
+    {
+        this.scene.start("Pause");
     }
 }
 
