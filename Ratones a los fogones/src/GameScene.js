@@ -15,8 +15,11 @@ class GameScene extends Phaser.Scene
     powerupRoj = new PowerupClass(3, 750,250);
     obstaculos;
     obstFogon;
+    colliderObstaculosP1;
+    colliderObstaculosP2;
     //TIMED EVENT
     timedEvent;
+    removePowerEvent;
 
     //camera;
     preloader() {
@@ -60,12 +63,15 @@ class GameScene extends Phaser.Scene
         this.load.image('armarioAlto1', 'assets/tiles/ARMARIOS_ALTOS/Tiles_Armario_Alto_1Puerta.png');
         this.load.image('armarioAlto2', 'assets/tiles/ARMARIOS_ALTOS/Tiles_Armario_Alto_2Puertas.png');
 
-
-
         //OBSTACULOS ESTATICOS NIVEL 1
         this.load.image('CascaraPlatano','ASSETS/OBSTACULOS/Cascara_Platano.png');
         this.load.image('TrampaRatones','ASSETS/OBSTACULOS/MouseTrapR_48x18.png');
         this.load.spritesheet('Fogon','ASSETS/OBSTACULOS/Fogon_25x55.png',{frameWidth:25,frameHeight:55});
+
+        //POWERUPS:
+        this.powerupAma.loadImages(this);
+        this.powerupAz.loadImages(this);
+        this.powerupRoj.loadImages(this);
 
         //PLAYERS:
         this.player1.loadSpriteSheets(this);
@@ -172,26 +178,40 @@ class GameScene extends Phaser.Scene
         this.player1.fisicas = this.physics.add.sprite(this.player1.x, this.player1.y, this.player1.color, 0); //x = 150, y = 145
         this.player1.fisicas.setCollideWorldBounds(true);
         this.player1.fisicas.body.setGravityY(500);
+        this.player1.fisicas.texture.key = 1;
         this.physics.add.collider(this.player1.fisicas, this.walkable);
-        this.physics.add.collider(this.player1.fisicas, this.platforms);
+        this.colliderObstaculosP1 = this.physics.add.collider(this.player1.fisicas, this.platforms);
 
         //PLAYER 2
         this.player2.fisicas = this.physics.add.sprite(this.player2.x, this.player2.y, this.player2.color, 0); //x = 150, y = 145
         this.player2.fisicas.setCollideWorldBounds(true);
         this.player2.fisicas.body.setGravityY(500);
+        this.player2.fisicas.texture.key = 2;
         this.physics.add.collider(this.player2.fisicas, this.walkable);
-        this.physics.add.collider(this.player2.fisicas, this.platforms);
+        this.colliderObstaculosP2 = this.physics.add.collider(this.player1.fisicas, this.platforms);
 
         //Para pausa
         this.esc = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
 
-        this.powerupAma.fisicas = this.physics.add.sprite(this.powerupAma.x,this.powerupAma.y,'powerupAmarillo');
-        this.powerupAz.fisicas = this.physics.add.sprite(this.powerupAz.x,this.powerupAz.y,'powerupAzul');
-        this.powerupRoj.fisicas = this.physics.add.sprite(this.powerupRoj.x,this.powerupRoj.y,'powerupRojo');
+        //POWERUPS:
+        this.powerupAma.addSprites(this);
+        this.powerupAz.addSprites(this);
+        this.powerupRoj.addSprites(this);
 
-        this.physics.add.overlap(this.player1.fisicas.body, this.powerupAma.fisicas.body, this.collectPowerUp, null, this);
+        this.powerupAma.fisicas = this.physics.add.sprite(this.powerupAma.x,this.powerupAma.y,'powerupAmarillo');
+        this.powerupAma.fisicas.texture.key = 1;
+        this.powerupAz.fisicas = this.physics.add.sprite(this.powerupAz.x,this.powerupAz.y,'powerupAzul');
+        this.powerupAz.fisicas.texture.key = 2;
+        this.powerupRoj.fisicas = this.physics.add.sprite(this.powerupRoj.x,this.powerupRoj.y,'powerupRojo');
+        this.powerupRoj.fisicas.texture.key = 3;
+
+        this.physics.add.overlap(this.player1.fisicas, this.powerupAma.fisicas,  this.collectPowerUp, null, this);
+        this.physics.add.overlap(this.player1.fisicas, this.powerupAz.fisicas,  this.collectPowerUp, null, this);
+        this.physics.add.overlap(this.player1.fisicas, this.powerupRoj.fisicas,  this.collectPowerUp, null, this);
+
     }
     update(timeNum, timeDelta){
+
         //this.camera.moveCameraFunction();
         //this.physics.world.bounds.centerX = this.camera.getScrollCam() + config.width/2;
 
@@ -201,7 +221,7 @@ class GameScene extends Phaser.Scene
         this.movementControlsPlayer(this.player2);
         //this.encenderFogon();
 
-        this.timedEvent = this.time.addEvent({ delay: 1000, callback: this.encenderFogon, callbackScope: this });
+        this.timedEvent = this.time.addEvent({ delay: 3000, callback: this.encenderFogon, callbackScope: this });
         //this.timedEvent = this.time.addEvent({ delay: 3000, callback: this.apagarFogon, callbackScope: this });
         //this.controlFogon();
     }
@@ -235,23 +255,61 @@ class GameScene extends Phaser.Scene
 
     collectPowerUp (player, powerup){
 
-        powerup.fisicas.disableBody(true, true);
-        console.log(powerup.tipo);
-        //establecer según el tipo lo que sea
-        if(powerup.tipo == 1){
-            console.log("colison tipo 1");
+        powerup.disableBody(true, true);
 
-            player.velocity += 50;
-            this.events.add(Phaser.Timer.SECOND*2, function(){
-                player.velocity -=50;
-            });
+        if(powerup.texture.key === 1){
+            this.isRecolected = true;
+            if(player.texture.key === 1) {
+                this.player1.velocity += 50;
+                //this.removePowerEvent = this.time.addEvent({ delay: 10000, callback: this.removePowerUp(this.player1, powerup.texture.key), callbackScope: this });
+                this.game.time.events.add(5000, function(){
+                    this.player1.velocity -= 50;
+                }, this);
+            }
+            else {
+                this.player2.velocity += 50;
+                this.removePowerEvent = this.time.addEvent({ delay: 10000, callback: this.removePowerUp(this.player2, powerup.texture.key), callbackScope: this });
+            }
+
         }
-        else if(powerup.tipo == 2){
-            console.log("colison tipo 2");
-            player.jumpAmount -= 100;
-            this.events.add(Phaser.Timer.SECOND*2, function(){
-                player.jumpAmount += 100;
-            });
+        else if(powerup.texture.key === 2){
+            if(player.texture.key === 1) {
+                this.player1.jumpAmount -= 100;
+                this.removePowerEvent = this.time.addEvent({ delay: 10000, callback: this.removePowerUp(this.player1, powerup.texture.key), callbackScope: this });
+            }
+            else {
+                this.player2.jumpAmount -= 100;
+                this.removePowerEvent = this.time.addEvent({ delay: 10000, callback: this.removePowerUp(this.player2, powerup.texture.key), callbackScope: this });
+            }
+        }
+        else{
+            if(player.texture.key === 1) {
+                this.physics.world.removeCollider(this.colliderObstaculosP1);
+                this.removePowerEvent = this.time.addEvent({ delay: 10000, callback: this.removePowerUp(this.player1, powerup.texture.key), callbackScope: this });
+            }
+            else {
+                this.physics.world.removeCollider(this.colliderObstaculosP2);
+                this.removePowerEvent = this.time.addEvent({ delay: 10000, callback: this.removePowerUp(this.player2, powerup.texture.key), callbackScope: this });
+            }
+        }
+    }
+
+    removePowerUp(player,powerup){
+        if(powerup === 1) {
+            if (player.fisicas.texture.key === 1)   this.player1.velocity -= 50;
+            else    this.player2.velocity -= 50;
+            console.log("quitando super velocity");
+        }
+        else if(powerup === 2){
+            if(player.fisicas.texture.key === 1)    this.player1.jumpAmount += 100;
+            else    this.player2.jumpAmount += 100;
+            console.log("quitando super jump");
+
+        }
+        else{
+            if(player.fisicas.texture.key === 1)    this.physics.world.addCollider(this.colliderObstaculosP1);
+            else this.physics.world.addCollider(this.colliderObstaculosP2);
+            console.log("quitando super inmunidad");
         }
     }
     encenderFogon(){
@@ -261,23 +319,4 @@ class GameScene extends Phaser.Scene
     //apagarFogon(){
     //    this.obstFogon.anims.play('fogon_apagado', true);
     //}
-
-    /*
-    controlFogon() {
-        this.obstFogon.anims.play('fogon_apagado', true);
-        let apagado = false;
-
-        while (apagado != null) {
-            if (apagado) {
-                this.obstFogon.anims.play('fogon_encendido', true);
-                apagado = true;
-            } else {
-                this.obstFogon.anims.play('fogon_apagado', true);
-                let apagado = false;
-            }
-        }
-    }
-*/
-
-
 }

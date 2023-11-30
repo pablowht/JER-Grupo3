@@ -11,14 +11,14 @@ class PowerupClass {
         if(this.tipo === 3) escena.load.image('powerupRojo','assets/POWERUPS/QUESO/QuesoRojo_17x16t.png');
     }
     addSprites(escena){
-        if(this.tipo == 1){
-            escena.add.image(this._x, this._y, 'powerupAmarillo');
+        if(this.tipo === 1){
+            escena.add.image(this.x, this.y, 'powerupAmarillo');
         }
-        else if(this.tipo == 2){
-            escena.add.image( this._x, this._y, 'powerupAzul');
+        else if(this.tipo === 2){
+            escena.add.image( this.x, this.y, 'powerupAzul');
         }
-        else if(this._tipo == 3) {
-            escena.add.image( this._x, this._y, 'powerupRojo',);
+        else if(this._tipo === 3) {
+            escena.add.image( this.x, this.y, 'powerupRojo',);
         }
     }
 }
