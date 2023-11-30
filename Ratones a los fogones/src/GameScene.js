@@ -1,5 +1,6 @@
 class GameScene extends Phaser.Scene
 {
+
     constructor(){
         super("Game");
     }
@@ -15,6 +16,12 @@ class GameScene extends Phaser.Scene
     powerupAma;
     powerupAz;
     powerupRoj;
+    obstaculos;
+    obstFogon;
+    //TIMED EVENT
+    //timedEvent;
+
+
     //camera;
 
     preload(){
@@ -51,10 +58,10 @@ class GameScene extends Phaser.Scene
         this.load.image('powerupAzul','assets/POWERUPS/QUESO/QuesoAzul_14x14.png');
         this.load.image('powerupRojo','assets/POWERUPS/QUESO/QuesoRojo_17x16t.png');
 
-
-        //OBSTACULOS
+        //OBSTACULOS ESTATICOS NIVEL 1
         this.load.image('CascaraPlatano','ASSETS/OBSTACULOS/Cascara_Platano.png');
         this.load.image('TrampaRatones','ASSETS/OBSTACULOS/MouseTrapR_48x18.png');
+        this.load.spritesheet('Fogon','ASSETS/OBSTACULOS/Fogon_25x55.png',{frameWidth:25,frameHeight:55});
 
     }
     create(){
@@ -76,6 +83,10 @@ class GameScene extends Phaser.Scene
        // this.add.image(800,555,'mapa3');
         this.walkable = this.physics.add.staticGroup();
         this.platforms = this.physics.add.staticGroup();
+
+        //OBSTACULOS
+        this.obstaculos= this.physics.add.staticGroup();
+        this.obstFogon = 'Fogon';
         //MAPA PLAYER1
 
         ////////////////////////////////////// FORMA MÁS EFICIENTE DE CREAR LOS MAPAS??? //////////////////////////////////////
@@ -93,6 +104,28 @@ class GameScene extends Phaser.Scene
 
         this.platforms.create(1150,220,'armarioAlto1').setScale(2).refreshBody();
         this.platforms.create(1220,220,'armarioAlto1').setScale(2).refreshBody();
+
+        //OBSTACULOS NINVEL 1 PLAYER 1
+        this.obstaculos.create(400,170,'CascaraPlatano');
+        this.obstaculos.create(1120,295,'CascaraPlatano');
+        this.obstaculos.create(1370,295,'CascaraPlatano');
+        this.obstaculos.create(280,170,'TrampaRatones');
+        this.obstaculos.create(700,295,'TrampaRatones');
+        this.obstaculos.create(1210,200,'CascaraPlatano');
+        this.anims.create({
+            key: 'fogon_apagado',
+            frames: this.anims.generateFrameNumbers('Fogon', { start: 0, end: 1 }),
+            frameRate: 5,
+
+        });
+        this.anims.create({
+            key: 'fogon_encendido',
+            frames: this.anims.generateFrameNumbers('Fogon', { start: 2, end: 11 }),
+            frameRate: 5,
+
+        });
+        this.obstaculos.create(968,220,'Fogon');
+        //this.timedEvent = this.time.addEvent({ delay: 2000, callback: encenderFogon, callbackScope: this });
 
 /*
         //MAPA2
@@ -160,7 +193,13 @@ class GameScene extends Phaser.Scene
         this.platforms.create(310,520,'armarioAlto1').setScale(2).refreshBody();
         this.platforms.create(1130,620,'armarioAlto2').setScale(2).refreshBody();
 */
-        //OBSTACULOS ESTATICOS NIVEL 1
+        //OBSTACULOS ESTATICOS NIVEL 1 PLAYER 2
+         this.obstaculos.create(400,570,'CascaraPlatano');
+         this.obstaculos.create(1120,695,'CascaraPlatano');
+         this.obstaculos.create(1370,695,'CascaraPlatano');
+        this.obstaculos.create(280,570,'TrampaRatones');
+        this.obstaculos.create(700,695,'TrampaRatones');
+        this.obstaculos.create(1210,600,'CascaraPlatano');
 
         //CONTROL TECLAS
         this.cursors = this.input.keyboard.createCursorKeys();
@@ -299,6 +338,8 @@ class GameScene extends Phaser.Scene
         this.movementControlsP1();
         this.movementControlsP2();
 
+        //this.timedEvent = this.time.addEvent({ delay: 2000, callback: this.encenderFogon, callbackScope: this });
+        //this.controlFogon();
     }
     movementControlsP1(){
     //CONTROLES MOVIMIENTO PLAYER 1
@@ -397,5 +438,26 @@ class GameScene extends Phaser.Scene
             });
         }
     }
+
+    /*encenderFogon(){
+        this.obstFogon.anims.play('fogon_encendido', true);
+        this.obstFogon.anims.play('fogon_apagado', true);
+    }
+
+    controlFogon(){
+        this.obstFogon.anims.play('fogon_apagado', true);
+        let apagado = false;
+
+       while(apagado != null) {
+           if (apagado) {
+               this.obstFogon.anims.play('fogon_encendido', true);
+               apagado=true;
+           } else {
+               this.obstFogon.anims.play('fogon_apagado', true);
+               let apagado = false;
+           }
+       }
+    }*/
+
 
 }

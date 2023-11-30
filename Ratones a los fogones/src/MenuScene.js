@@ -15,13 +15,13 @@ class MenuScene extends Phaser.Scene{
         this.add.text(20,20,"Loading time...");
 
         this.add.image(960,540,'Fondo_Menu');
-        let BotonJugar = this.add.image(760,140,'BOTON_JUGAR');
+        let BotonJugar = this.add.image(990,540,'BOTON_JUGAR');
         BotonJugar.setInteractive();
 
-        let BotonCreditos = this.add.image(760,340,'BOTON_CREDITOS');
+        let BotonCreditos = this.add.image(990,680,'BOTON_CREDITOS');
         BotonCreditos.setInteractive();
 
-        let BotonAjustes = this.add.image(760,540,'BOTON_AJUSTES');
+        let BotonAjustes = this.add.image(990,820,'BOTON_AJUSTES');
         BotonAjustes.setInteractive();
 
 
