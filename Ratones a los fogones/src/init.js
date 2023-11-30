@@ -9,32 +9,15 @@ var config = {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH,
 
-        // Or put game size here
         width: 1920,
         height: 1080,
-
-        // Minimum size
-       /* min: {
-            width: 800,
-            height: 600
-        },
-        // Or set minimum size like these
-
-        // Maximum size
-        max: {
-            width: 1920,
-            height: 1080
-        },
-
-        */
-        // Or set maximum size like these
 
         zoom: 1,  // Size of game canvas = game size * zoom
     },
     //autoRound: false,
     autoResize: true,
     //COSAS DE LA ESCENA
-    scene:[MenuScene,GameScene,CreditsScene,PauseScene], //escena inicial
+    scene:[MenuScene,LoadingScene,GameScene,CreditsScene,PauseScene], //escena inicial
     //FISICAS
     physics:{
         default: 'arcade',

@@ -2,19 +2,21 @@ class MenuScene extends Phaser.Scene{
     constructor(){
         super("Menu");
     }
+
+
+
     preload(){
         this.load.image('Fondo_Menu','ASSETS/INTERFACES/Menu/Fondo_Menu.png');
         this.load.image('BOTON_AJUSTES','ASSETS/INTERFACES/Menu/BOTON_AJUSTES.png');
         this.load.image('BOTON_CREDITOS','ASSETS/INTERFACES/Menu/BOTON_CREDITOS .png');
         this.load.image('BOTON_JUGAR','ASSETS/INTERFACES/Menu/BOTON_JUGAR.png');
-
-
-
+        this.load.image('Fondo_Loading', 'ASSETS/INTERFACES/Loading/Fondo_ConBarraCargando.png');
+        this.load.image('Barra_Loading', 'ASSETS/INTERFACES/Loading/BarraLoading_Barra.png');
     }
     create(){
         this.add.text(20,20,"Loading time...");
 
-        this.add.image(960,540,'Fondo_Menu');
+        this.add.image(0,0,'Fondo_Menu').setOrigin(0, 0);
         let BotonJugar = this.add.image(990,540,'BOTON_JUGAR');
         BotonJugar.setInteractive();
 
