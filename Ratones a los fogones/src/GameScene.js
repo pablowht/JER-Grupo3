@@ -18,16 +18,22 @@ class GameScene extends Phaser.Scene
     //camera;
 
     preload(){
-        this.load.image('techoMapa', 'assets/tiles/Tope_techo_1600x27.png');
-        this.load.image('sueloMapa1', 'assets/tiles/Tope_suelo_1600x6.png');
-        this.load.image('paredesMapa1', 'assets/tiles/Tope_paredes_324x122.png');
-        this.load.image('sueloMapa2', 'assets/tiles/Tope_Suelo_N2_1202x6.png');
-        this.load.image('paredMapa2', 'assets/tiles/Tope_Suelo_N2_610x44.png');
-        this.load.image('sueloMapa2N2', 'assets/tiles/Tope_Suelo_N2_3_212x53.png');
-        this.load.image('sueloMapa2N3', 'assets/tiles/Tope_Suelo_N2_3_404x91.png');
+        this.load.image('techoMapa', 'assets/tiles/MAPAS/Tope_techo_1600x27.png');
+        this.load.image('sueloMapa1', 'assets/tiles/MAPAS/Tope_Suelo_M1_1600x6.png');
+        this.load.image('paredesMapa1', 'assets/tiles/MAPAS/Tope_paredes_324x122.png');
+        this.load.image('sueloMapa2', 'assets/tiles/MAPAS/Tope_Suelo_M2_1202x6.png');
+        this.load.image('paredMapa2', 'assets/tiles/MAPAS/Tope_Suelo_M2_610x44.png');
+        this.load.image('sueloMapa2N2', 'assets/tiles/MAPAS/Tope_Suelo_M2_3_212x53.png');
+        this.load.image('sueloMapa2N3', 'assets/tiles/MAPAS/Tope_Suelo_M2_3_404x91.png');
+
+        this.load.image('sueloMapa3', 'assets/tiles/MAPAS/Tope_Suelo_M3.1_1091x6.png');
+        this.load.image('sueloMapa3N1', 'assets/tiles/MAPAS/Tope_Suelo_M3.2_193x75.png');
+        this.load.image('sueloMapa3N2', 'assets/tiles/MAPAS/Tope_Suelo_M3.3_322x59.png');
+
         //this.load.image('tile_pared', 'assets/tiles/Tiles_Pared.png');
-        this.load.image('mapa2', 'assets/tiles/mapa2_V4_1600x310.png');
-        this.load.image('mapa1', 'assets/tiles/mapa1_V4_1600x310.png');
+        this.load.image('mapa3', 'assets/tiles/MAPAS/mapa3_V4_1600x310.png');
+        this.load.image('mapa2', 'assets/tiles/MAPAS/mapa2_V4_1600x310.png');
+        this.load.image('mapa1', 'assets/tiles/MAPAS/mapa1_V4_1600x310.png');
 
         //PLATAFORMAS
         this.load.image('armarioBajo1', 'assets/tiles/ARMARIOS_BAJOS/Tiles_Armario_2Puertas.png');
@@ -54,31 +60,34 @@ class GameScene extends Phaser.Scene
         //this.walkable = this.physics.add.sprite(800,360,'sueloMapa');
         //this.walkable.setImmovable();
         //1
-        this.add.image(800,155,'mapa1');// Y=210
-        this.add.image(800,555,'mapa1'); //X=800 Y=525
+        //this.add.image(800,155,'mapa1');// Y=210
+        //this.add.image(800,555,'mapa1'); //X=800 Y=525
         //2
         //this.add.image(800,155,'mapa2');
         //this.add.image(800,555,'mapa2');
         //3
-        //Todavia no hecho jiji
+        this.add.image(800,155,'mapa3');
+        this.add.image(800,555,'mapa3');
         this.walkable = this.physics.add.staticGroup();
+        this.platforms = this.physics.add.staticGroup();
         //MAPA PLAYER1
-        this.walkable.create(800,10,'techoMapa');
-        ////////////////////////////////////// FORMA MÁS EFICIENTE DE CREAR LOS MAPAS??? //////////////////////////////////////
-        //MAPA1
 
-        //this.platforms = this.physics.add.staticGroup();//No funciona platforms, no colisionan los personajes
+        ////////////////////////////////////// FORMA MÁS EFICIENTE DE CREAR LOS MAPAS??? //////////////////////////////////////
+
+        this.walkable.create(800,10,'techoMapa');
+        //MAPA1
+        /*
         this.walkable.create(353,240,'paredesMapa1');
         this.walkable.create(800,305,'sueloMapa1');
         //Colocar las plataformas
-        this.walkable.create(155,270,'armarioBajo1').setScale(2).refreshBody();
-        this.walkable.create(553,270,'armarioBajo2').setScale(2).refreshBody();
-        this.walkable.create(900,270,'armarioBajo3').setScale(2).refreshBody();
-        this.walkable.create(968,270,'armarioBajo2').setScale(2).refreshBody();
+        this.platforms.create(155,270,'armarioBajo1').setScale(2).refreshBody();
+        this.platforms.create(553,270,'armarioBajo2').setScale(2).refreshBody();
+        this.platforms.create(900,270,'armarioBajo3').setScale(2).refreshBody();
+        this.platforms.create(968,270,'armarioBajo2').setScale(2).refreshBody();
 
-        this.walkable.create(1150,220,'armarioAlto1').setScale(2).refreshBody();
-        this.walkable.create(1220,220,'armarioAlto1').setScale(2).refreshBody();
-
+        this.platforms.create(1150,220,'armarioAlto1').setScale(2).refreshBody();
+        this.platforms.create(1220,220,'armarioAlto1').setScale(2).refreshBody();
+*/
 /*
         //MAPA2
         this.walkable.create(1397,266,'sueloMapa2N3');
@@ -86,26 +95,39 @@ class GameScene extends Phaser.Scene
         this.walkable.create(575,288,'paredMapa2');
         this.walkable.create(600,305,'sueloMapa2');
         //Colocar las plataformas
-        this.walkable.create(1040,270,'armarioBajo2').setScale(2).refreshBody();
+        this.platforms.create(1040,270,'armarioBajo2').setScale(2).refreshBody();
 
-        this.walkable.create(170,220,'armarioAlto2').setScale(2).refreshBody();
-        this.walkable.create(340,140,'armarioAlto2').setScale(2).refreshBody();
+        this.platforms.create(170,220,'armarioAlto2').setScale(2).refreshBody();
+        this.platforms.create(340,140,'armarioAlto2').setScale(2).refreshBody();
 */
+        //MAPA3
+        this.walkable.create(1055,309,'sueloMapa3');
+        this.walkable.create(417,274,'sueloMapa3N1');
+        this.walkable.create(160,213,'sueloMapa3N2');
+        //Colocar las plataformas
+        this.platforms.create(553,270,'armarioBajo2').setScale(2).refreshBody();
+        this.platforms.create(900,270,'armarioBajo2').setScale(2).refreshBody();
+        this.platforms.create(968,270,'armarioBajo3').setScale(2).refreshBody();
+
+        this.platforms.create(240,120,'armarioAlto1').setScale(2).refreshBody();
+        this.platforms.create(310,120,'armarioAlto1').setScale(2).refreshBody();
+        this.platforms.create(1130,220,'armarioAlto2').setScale(2).refreshBody();
+
         //MAPA PLAYER2
         this.walkable.create(800,410,'techoMapa');
         //MAPA1
-
+        /*
         this.walkable.create(353,640,'paredesMapa1');
         this.walkable.create(800,705,'sueloMapa1');
         //Colocar plataformas
-        this.walkable.create(158,670,'armarioBajo1').setScale(2).refreshBody();
-        this.walkable.create(553,670,'armarioBajo2').setScale(2).refreshBody();
-        this.walkable.create(900,670,'armarioBajo3').setScale(2).refreshBody();
-        this.walkable.create(968,670,'armarioBajo2').setScale(2).refreshBody();
+        this.platforms.create(158,670,'armarioBajo1').setScale(2).refreshBody();
+        this.platforms.create(553,670,'armarioBajo2').setScale(2).refreshBody();
+        this.platforms.create(900,670,'armarioBajo3').setScale(2).refreshBody();
+        this.platforms.create(968,670,'armarioBajo2').setScale(2).refreshBody();
 
-        this.walkable.create(1150,620,'armarioAlto1').setScale(2).refreshBody();
-        this.walkable.create(1220,620,'armarioAlto1').setScale(2).refreshBody();
-
+        this.platforms.create(1150,620,'armarioAlto1').setScale(2).refreshBody();
+        this.platforms.create(1220,620,'armarioAlto1').setScale(2).refreshBody();
+        */
         //MAPA2
         /*
         this.walkable.create(1397,662,'sueloMapa2N3');
@@ -113,11 +135,25 @@ class GameScene extends Phaser.Scene
         this.walkable.create(575,686,'paredMapa2');
         this.walkable.create(600,705,'sueloMapa2');
         //Colocar plataformas
-        this.walkable.create(1040,670,'armarioBajo2').setScale(2).refreshBody();
+        this.platforms.create(1040,670,'armarioBajo2').setScale(2).refreshBody();
 
-        this.walkable.create(170,610,'armarioAlto2').setScale(2).refreshBody();
-        this.walkable.create(340,560,'armarioAlto2').setScale(2).refreshBody();
+        this.platforms.create(170,610,'armarioAlto2').setScale(2).refreshBody();
+        this.platforms.create(340,560,'armarioAlto2').setScale(2).refreshBody();
         */
+        //MAPA3
+        this.walkable.create(1055,709,'sueloMapa3');
+        this.walkable.create(417,674,'sueloMapa3N1');
+        this.walkable.create(160,613,'sueloMapa3N2');
+        //Colocar las plataformas
+        this.platforms.create(553,670,'armarioBajo2').setScale(2).refreshBody();
+        this.platforms.create(900,670,'armarioBajo2').setScale(2).refreshBody();
+        this.platforms.create(968,670,'armarioBajo3').setScale(2).refreshBody();
+
+        this.platforms.create(240,520,'armarioAlto1').setScale(2).refreshBody();
+        this.platforms.create(310,520,'armarioAlto1').setScale(2).refreshBody();
+        this.platforms.create(1130,620,'armarioAlto2').setScale(2).refreshBody();
+
+
         //CONTROL TECLAS
         this.cursors = this.input.keyboard.createCursorKeys();
         this.izqFlecha = this.cursors.left;
@@ -140,6 +176,7 @@ class GameScene extends Phaser.Scene
         this.player1.setCollideWorldBounds(true);
         this.player1.body.setGravityY(500);
         this.physics.add.collider(this.player1, this.walkable);
+        this.physics.add.collider(this.player1, this.platforms);
 
         //Animaciones
         this.anims.create({
@@ -175,6 +212,7 @@ class GameScene extends Phaser.Scene
         this.player2.setCollideWorldBounds(true);
         this.player2.body.setGravityY(500);
         this.physics.add.collider(this.player2, this.walkable);
+        this.physics.add.collider(this.player2, this.platforms);
 
         //Animaciones
         this.anims.create({
@@ -214,7 +252,7 @@ class GameScene extends Phaser.Scene
             //******muy importante el Step para el jueguito xd
         });
         this.powerupAz = this.physics.add.group({ //creamos un grupo llamado stars
-            //en este caso las estrellas son dinámicas
+            //en este caso las estrellas son dinámicas 
             key: 'powerupAzul', //textura
             repeat: 1, //valor de repetición -> se repine n+1, es decir 12 veces en este caso
             setXY: { x: 700, y: 250, stepX: 0 } //para establecer la posición de los 12 elementos, stepX -> incremento
