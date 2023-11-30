@@ -20,9 +20,17 @@ ___
 ### Documento del Diseño del Videojuego ###
 ___
 ### Cambios ###  
-Cambios con respecto a versiones anteriores:  
+Cambios con respecto a versiones anteriores:
+1. Referencias de juegos similares
+2. Cambio de imágenes de las interfaces por las definitivas
+3. Imágenes de los objetos incluidas
+4. Actualizaciones de cambios en las mecánicas de los niveles
 ___
 ### Introducción ###  
+<p align="center">
+  <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/6fd14212-b270-4b98-8996-3d5124b252ef">
+ <br><br>
+</p>
 *Ratones a los fogones* es un videojuego para PC de modalidad multijugador, en concreto de dos jugadores, e implementará en el lado del servidor Java con SpringBoot y en el lado del cliente JavaScript con el framework Phaser 3. Este escrito tiene como objetivo principal plasmar los elementos que debe incluir *Ratones a los fogones* y servir de carta de presentación en caso de buscar colaboradores en un futuro.   
 **1. Concepto del juego**  
 *Ratones a los fogones* es un videojuego de dos jugadores en el que cada uno controla un pequeño ratón antropomórfico que debe salir de la cocina antes de ser atrapado. Ambos competirán para ser el primero en llegar a la puerta, esquivando por el camino todo tipo de obstáculos e intentando huir antes de que se acabe el tiempo.  
@@ -78,7 +86,7 @@ De esta manera la curva de dificultad quedaría de la siguiente manera:
 
 **3. Movimiento y físicas**  
   **i.	Interacción con objetos**  
-Dentro del escenario se encuentra los obstáculos y los power-ups, pero la interacción con ambos es diferente. Si el jugador se topa con un obstáculo, el movimiento del personaje se ralentiza dándose una colisión. Mientras que, si se topa contra un power-up, desaparecerá de la escena y dará pie a la acción correspondiente del mismo.  
+Dentro del escenario se encuentran los obstáculos y los power-ups, pero la interacción con ambos es diferente. Si el jugador se topa con un obstáculo, el movimiento del personaje se ralentiza temporalmente. Mientras que, si se topa contra un power-up, desaparecerá de la escena y dará pie a la acción correspondiente del mismo.  
   **ii.	Controles**  
 1.	Jugador 1:  
   *	Movimiento lateral: teclas A, D.  
@@ -96,10 +104,15 @@ Un eje fundamental de Ratones a los fogones son los objetos, los cuales se divid
 Los obstáculos tomarán el papel de la dificultad del nivel que se esté ejecutando, alterando sus efectos y sus velocidades dependiendo del momento. Se tomará la forma de enseñanza de refuerzo negativo, en concreto condicionamiento de evitación, por la cual el jugador tiene más probabilidades de no repetir las acciones que conlleven problemas negativos. Cuando el jugador colisione con alguno de estos obstáculos recibirá una penalización en su velocidad de movimiento, pues su personaje quedará aturdido y su contrincante podrá tomarle la delantera.  
 El movimiento de dichos objetos podrá ser nulo, dice ser que estarán en puntos fijos del escenario y el jugador deberá evitar caer en ellos. Estos serán de menor dificultad, pues su evitación es más sencilla. Variarán entre trampas para ratones, fuego, charcos de agua, ralladores, cáscaras de plátano, ollas y sartenes calientes y demás.  
 Los obstáculos dinámicos aumentarán la dificultad de la partida y podrán desplazarse vertical y horizontalmente. Sus diseños variarán entre cuchillos, tenedores, batidoras, rodillos, hornos que se abren y se cierran y otras alternativas parecidas.  
-Para los objetos que generen un condicionamiento de recompensa, los power-ups variarán entre efectos positivos para el propio jugador o negativos para el adversario. En cuanto a los primeros, variarán entre un aumento de la velocidad del jugador e inmunidad por unos segundos. Los efectos negativos para el adversario se compondrán de congelación y reducción del campo de visión, ambos de forma momentánea.  
+Para los objetos que generen un condicionamiento de recompensa, los power-ups variarán entre efectos positivos para el propio jugador o negativos para el adversario. En cuanto a los primeros, variarán entre un aumento de la velocidad del jugador e inmunidad por unos segundos. Los efectos negativos para el adversario se compondrán de congelación y reducción del campo de visión, ambos de forma momentánea.
+<p align="center">
+  <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/c0ff999f-6a0e-4824-8657-d5594f3dfddd">
+  <br><br>
+</p>
 ___
+
 ### Interfaces ###
-Todo el diseño de las interfaces excepto el diagrama de flujo ha sido creado en la herramienta Figma.
+Las interfaces que se han incluido quedan definidas a continuación.
 
 **1. Diagrama de flujo**  
 <p align="center">
@@ -110,18 +123,18 @@ Todo el diseño de las interfaces excepto el diagrama de flujo ha sido creado en
 </p>
   
 **2. Menú Principal**  
-La interfaz del menú principal se inspira en la cubertería de un restaurante con un estilo minimalista, mostrando los botones básicos de elegir el modo de juego (local u online), y de los créditos.  
+La interfaz del menú principal se inspira en la cubertería de un restaurante con un estilo minimalista, mostrando los botones básicos de jugar y ajustes (que en un futuro se añadirá la opción de local u online), y de los créditos.  
 <p align="center">
-  <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/010306fa-25de-445a-8163-a4e69c5cc382">
- <br><br>
+  <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/9069a50d-2635-4c60-921f-352255d56887">
+   <br><br>
   <b>Ilustración 3. Menú Principal</b>
   <br><br>
 </p>
 
 **3. Selección de perfil**  
-Después de elegir el modo de juego que se prefiere, se pasará a la selección del perfil de los jugadores 1 y 2. Los dos personajes que representarán a cada jugador serán ratones con distintos colores y complementos que podrá elegir el jugador con los botones de las flechas. Cuando el jugador esté listo, pulsará el botón OK, y proseguirá a la pantalla de niveles.   
+Después de elegir el modo de juego que se prefiere, se pasará a la selección del perfil de los jugadores 1 y 2. Los dos personajes que representarán a cada jugador serán ratones con distintos colores. Cuando el jugador esté listo, pulsará el botón LISTO, y proseguirá a la pantalla de niveles.   
 <p align="center">
-  <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/51b10c5b-b566-43b9-b5f7-ee7514b7c588">
+  <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/69e8f411-1527-4337-8485-0433cf7ef79f">
   <br><br>
   <b>Ilustración 4. Menú de Selección de Perfil</b>
  <br><br>
@@ -138,35 +151,44 @@ La pantalla de selección de nivel tiene un estilo minimalista, en el que primer
 
 **5. Menú de pausa, ajustes y controles**  
 <p align="center">
-  <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/94d1ac2a-1d64-43af-8a10-d7156d356237">
+  <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/fcebf1cd-4801-4280-878a-8df673063303">
   <br><br>
   <b>Ilustración 6. Interfaz de Pausa, Ajustes y Controles</b>
  <br><br>
 </p>
 
 **6. Nivel**  
-La interfaz in-game se basa en una pantalla dividida a la mitad horizontalmente donde el jugador 1 (el cual usará las teclas W, A, S, D) utilizará la pantalla de arriba, y el jugador 2 (mediante las teclas de las flechas) utilizará la de abajo. Cada jugador dispondrá de una barra arriba de su pantalla que mostrará el porcentaje de recorrido que han avanzado dentro del nivel.  
+La interfaz in-game se basa en una pantalla dividida a la mitad horizontalmente donde el jugador 1 (el cual usará las teclas W, A, S, D) utilizará la pantalla de arriba, y el jugador 2 (mediante las teclas de las flechas) utilizará la de abajo. Cada jugador dispondrá de una barra arriba de su pantalla que mostrará el porcentaje de recorrido que han avanzado dentro del nivel y a ser posible un dibujo significativo del power up del que se esté haciendo uso.  
 <p align="center">
-  <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/2d53a79d-3f23-4e61-bb2a-18c2fdc2f5dd">
+  <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/325b8ac8-e2e9-464d-94ab-775b8e1e89e6">
   <br><br>
   <b>Ilustración 7. Interfaz de Nivel</b>
  <br><br>
 </p>
 
 **7. Fin de Nivel**  
-La pantalla de fin de nivel mostrará el ganador, el marcador con el resultado de momento y las opciones de volver al menú principal o salir.  
+La pantalla de fin de nivel mostrará el ganador en el podio y las opciones de volver al menú principal o pasar al siguiente nivel.  
 <p align="center">
-  <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/9bf6a9b2-7be9-47de-80bc-6c8cc0303039">
+  <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/375d8e18-3737-4b90-863c-269e6af84869">
   <br><br>
   <b>Ilustración 8. Interfaz de Fin de Nivel</b>
  <br><br>
 </p>
 
-**8. Créditos**    
+**8. Pantalla de Carga**  
+La pantalla de carga simplemente tendrá una barra de color amarillo y un pequeño texto que mostrará el progreso entre pantallas.  
+<p align="center">
+  <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/df1286bf-5032-4103-913b-35720ace6c6b">
+  <br><br>
+  <b>Ilustración 9. Interfaz de Carga</b>
+ <br><br>
+</p>
+
+**9. Créditos**    
 <p align="center">
   <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/f103f1b8-5033-4645-bf7e-5fd77b65a632">
   <br><br>
-  <b>Ilustración 9. Interfaz de Créditos</b>
+  <b>Ilustración 10. Interfaz de Créditos</b>
  <br><br>
 </p>
 
@@ -176,7 +198,15 @@ ___
 *Ratones a los fogones* debe tener un estilo amigable y caricaturesco. Los personajes son unos pequeños ratones que tratan de escapar de una cocina evitando trampas. Los colores en todo momento deben ser llamativos y acorde al escenario.  
 **1.	Concept Art**  
 *	Diseños orgánicos  
-    - Personajes (modificaciones de color para diferenciar entre un jugador y otro)  
+    - Personajes (modificaciones de color para diferenciar entre un jugador y otro)
+  
+<p align="center">
+    <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/2ad65561-de7e-401d-917e-baba0af699ad">
+    <br><br>
+    <b>Ilustración 11. Ratones</b>
+   <br><br>
+</p>
+
 *	Diseños inorgánicos  
     -	Trampas para ratones  
     -	Objetos de cocina (cuchillos, cacerolas, etc.)  
@@ -197,15 +227,7 @@ La música se convertirá a .ogg mientras que los efectos de sonido estarán en 
     -	Golpe: al chocar con un obstáculo.
  ___
 ### Referencias ###
-* Dibujo Rata  
-Cute Cartoon standing mouse. (s. f.).   
-https://www.vexels.com/png-svg/preview/236277/cute-cartoon-standing-mouse  
-* Dibujo Cubiertos  
-Mauri. (s. f.). TENEDOR-PNG-SLIDE. Hoshigaki Spain.   
-https://hoshigaki.es/tenedor-png-slide/  
-Descargar Cuchara Aislada PNG transparente - StickPNG. (s/f). Stickpng.com. Recuperado el 15 de octubre de 2023, de   
-https://www.stickpng.com/es/img/download/5b26a1658f68598d6f5a461e
-* Figma Interfaces:  
+* Figma Boceto Interfaces:  
  https://www.figma.com/file/EHHxC5EN9gM78CxVDQKwqt/interfaces-Ratones-aLosFogonestype=design&nodeid=0%3A1&mode=design&t=vvNZQHbM3PMg4PnY-1  
 ___
 
