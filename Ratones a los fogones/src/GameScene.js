@@ -10,21 +10,45 @@ class GameScene extends Phaser.Scene
     platforms;
     player1;
     player2;
+
     velocidad1 = 100;
     velocidad2 = 100;
-    alturaSalto = -200;
+    alturaSalto = -300;
     powerupAma;
     powerupAz;
     powerupRoj;
     obstaculos;
     obstFogon;
     //TIMED EVENT
-    //timedEvent;
-
+    timedEvent;
 
     //camera;
 
+    preloader(){
+        this.load.image('fondo_loading', 'assets/tiles/MAPAS/Tope_techo_1600x27.png');
+        var progressBar = this.add.graphics();
+        var progressBox = this.add.graphics();
+        progressBox.fillStyle(0x222222, 0.8);
+        progressBox.fillRect(240, 270, 1000, 50);
+        this.load.on('progress', function (value) {
+            progressBar.clear();
+            progressBar.fillStyle(0xffffff, 1);
+            progressBar.fillRect(250, 280, 1000 * value, 30);
+        });
+
+        this.load.on('fileprogress', function (file) {
+            //console.log(file.src);
+        });
+        this.load.on('complete', function () {
+            progressBar.destroy();
+            progressBox.destroy();
+        });
+    }
+
     preload(){
+
+        this.preloader();
+
         this.load.image('techoMapa', 'assets/tiles/MAPAS/Tope_techo_1600x27.png');
         this.load.image('sueloMapa1', 'assets/tiles/MAPAS/Tope_Suelo_M1_1600x6.png');
         this.load.image('paredesMapa1', 'assets/tiles/MAPAS/Tope_paredes_324x122.png');
@@ -49,14 +73,10 @@ class GameScene extends Phaser.Scene
         this.load.image('armarioAlto1', 'assets/tiles/ARMARIOS_ALTOS/Tiles_Armario_Alto_1Puerta.png');
         this.load.image('armarioAlto2', 'assets/tiles/ARMARIOS_ALTOS/Tiles_Armario_Alto_2Puertas.png');
 
-        //PLAYERS
-        this.load.spritesheet('raton_gris','ASSETS/RATONES/SpriteSheets/Raton_Gris.png',{ frameWidth: 32, frameHeight: 32 } );
-        this.load.spritesheet('raton_blanco','ASSETS/RATONES/SpriteSheets/Raton_Blanco.png',{ frameWidth: 32, frameHeight: 32 } );
-        this.load.spritesheet('raton_marron','ASSETS/RATONES/SpriteSheets/Raton_Marron.png',{ frameWidth: 32, frameHeight: 32 } );
-
         this.load.image('powerupAmarillo','assets/POWERUPS/QUESO/QuesoAmarillo_12x14.png');
         this.load.image('powerupAzul','assets/POWERUPS/QUESO/QuesoAzul_14x14.png');
         this.load.image('powerupRojo','assets/POWERUPS/QUESO/QuesoRojo_17x16t.png');
+
 
         //OBSTACULOS ESTATICOS NIVEL 1
         this.load.image('CascaraPlatano','ASSETS/OBSTACULOS/Cascara_Platano.png');
@@ -66,9 +86,38 @@ class GameScene extends Phaser.Scene
     }
     create(){
 
+        //Color Ratones
+        this.colorRaton1 = "raton_gris";
+        this.colorRaton2 = "raton_blanco";
+        //Inicialización de los jugadores
+        this.player1 = new PlayerClass(1,90,145,100,-300,this.colorRaton1);
+        this.player2 = new PlayerClass(2,90,450,100,-300,this.colorRaton2);
+        this.player1.loadSpriteSheets(this);
+        this.player2.loadSpriteSheets(this);
+        this.player1.assignControls(this);
+        this.player2.assignControls(this);
+        this.player1.createAnimsPlayer(this);
+        this.player2.createAnimsPlayer(this);
+
+        //PLAYER 1
+        this.player1.fisicas = this.physics.add.sprite(this.player1.x, this.player1.y, this.player1.color, 0); //x = 150, y = 145
+        this.player1.fisicas.setCollideWorldBounds(true);
+        this.player1.fisicas.body.setGravityY(500);
+        this.physics.add.collider(this.player1, this.walkable);
+        this.physics.add.collider(this.player1, this.platforms);
+
+        //PLAYER 2
+        this.player2.fisicas = this.physics.add.sprite(this.player2.x, this.player2.y, this.player2.color, 0); //x = 150, y = 145
+        this.player2.fisicas.setCollideWorldBounds(true);
+        this.player2.fisicas.body.setGravityY(500);
+        this.physics.add.collider(this.player2, this.walkable);
+        this.physics.add.collider(this.player2, this.platforms);
+
+        console.log(this.player1.flechaIzquierda);
         //camera = this.cameras.main;
         //camera.setBounds(0,0,1600,380);
         //this.camera = new CameraMovement(this);
+
         //MAPAS
         //this.walkable = this.physics.add.sprite(800,360,'sueloMapa');
         //this.walkable.setImmovable();
@@ -86,7 +135,6 @@ class GameScene extends Phaser.Scene
 
         //OBSTACULOS
         this.obstaculos= this.physics.add.staticGroup();
-        this.obstFogon = 'Fogon';
         //MAPA PLAYER1
 
         ////////////////////////////////////// FORMA MÁS EFICIENTE DE CREAR LOS MAPAS??? //////////////////////////////////////
@@ -105,7 +153,7 @@ class GameScene extends Phaser.Scene
         this.platforms.create(1150,220,'armarioAlto1').setScale(2).refreshBody();
         this.platforms.create(1220,220,'armarioAlto1').setScale(2).refreshBody();
 
-        //OBSTACULOS NINVEL 1 PLAYER 1
+        //OBSTACULOS NIVEL 1 PLAYER 1
         this.obstaculos.create(400,170,'CascaraPlatano');
         this.obstaculos.create(1120,295,'CascaraPlatano');
         this.obstaculos.create(1370,295,'CascaraPlatano');
@@ -116,7 +164,6 @@ class GameScene extends Phaser.Scene
             key: 'fogon_apagado',
             frames: this.anims.generateFrameNumbers('Fogon', { start: 0, end: 1 }),
             frameRate: 5,
-
         });
         this.anims.create({
             key: 'fogon_encendido',
@@ -124,34 +171,12 @@ class GameScene extends Phaser.Scene
             frameRate: 5,
 
         });
-        this.obstaculos.create(968,220,'Fogon');
+        this.obstFogon = this.add.sprite(968, 220, 'Fogon', 0);
+        this.obstaculos.add(this.obstFogon);
+        //this.obstaculos.create(968,220,'Fogon');
         //this.timedEvent = this.time.addEvent({ delay: 2000, callback: encenderFogon, callbackScope: this });
 
-/*
-        //MAPA2
-        this.walkable.create(1397,266,'sueloMapa2N3');
-        this.walkable.create(680,247,'sueloMapa2N2');
-        this.walkable.create(575,288,'paredMapa2');
-        this.walkable.create(600,305,'sueloMapa2');
-        //Colocar las plataformas
-        this.platforms.create(1040,270,'armarioBajo2').setScale(2).refreshBody();
 
-        this.platforms.create(170,220,'armarioAlto2').setScale(2).refreshBody();
-        this.platforms.create(340,140,'armarioAlto2').setScale(2).refreshBody();
-*/
- /*       //MAPA3
-        this.walkable.create(1055,309,'sueloMapa3');
-        this.walkable.create(417,274,'sueloMapa3N1');
-        this.walkable.create(160,213,'sueloMapa3N2');
-        //Colocar las plataformas
-        this.platforms.create(553,270,'armarioBajo2').setScale(2).refreshBody();
-        this.platforms.create(900,270,'armarioBajo2').setScale(2).refreshBody();
-        this.platforms.create(968,270,'armarioBajo3').setScale(2).refreshBody();
-
-        this.platforms.create(240,120,'armarioAlto1').setScale(2).refreshBody();
-        this.platforms.create(310,120,'armarioAlto1').setScale(2).refreshBody();
-        this.platforms.create(1130,220,'armarioAlto2').setScale(2).refreshBody();
-*/
         //MAPA PLAYER2
         this.walkable.create(800,410,'techoMapa');
         //MAPA1
@@ -167,132 +192,17 @@ class GameScene extends Phaser.Scene
         this.platforms.create(1150,620,'armarioAlto1').setScale(2).refreshBody();
         this.platforms.create(1220,620,'armarioAlto1').setScale(2).refreshBody();
 
-        //MAPA2
-        /*
-        this.walkable.create(1397,662,'sueloMapa2N3');
-        this.walkable.create(680,644,'sueloMapa2N2');
-        this.walkable.create(575,686,'paredMapa2');
-        this.walkable.create(600,705,'sueloMapa2');
-        //Colocar plataformas
-        this.platforms.create(1040,670,'armarioBajo2').setScale(2).refreshBody();
-
-        this.platforms.create(170,610,'armarioAlto2').setScale(2).refreshBody();
-        this.platforms.create(340,560,'armarioAlto2').setScale(2).refreshBody();
-        */
-
-       /* //MAPA3
-        this.walkable.create(1055,709,'sueloMapa3');
-        this.walkable.create(417,674,'sueloMapa3N1');
-        this.walkable.create(160,613,'sueloMapa3N2');
-        //Colocar las plataformas
-        this.platforms.create(553,670,'armarioBajo2').setScale(2).refreshBody();
-        this.platforms.create(900,670,'armarioBajo2').setScale(2).refreshBody();
-        this.platforms.create(968,670,'armarioBajo3').setScale(2).refreshBody();
-
-        this.platforms.create(240,520,'armarioAlto1').setScale(2).refreshBody();
-        this.platforms.create(310,520,'armarioAlto1').setScale(2).refreshBody();
-        this.platforms.create(1130,620,'armarioAlto2').setScale(2).refreshBody();
-*/
         //OBSTACULOS ESTATICOS NIVEL 1 PLAYER 2
-         this.obstaculos.create(400,570,'CascaraPlatano');
-         this.obstaculos.create(1120,695,'CascaraPlatano');
-         this.obstaculos.create(1370,695,'CascaraPlatano');
+        this.obstaculos.create(400,570,'CascaraPlatano');
+        this.obstaculos.create(1120,695,'CascaraPlatano');
+        this.obstaculos.create(1370,695,'CascaraPlatano');
         this.obstaculos.create(280,570,'TrampaRatones');
         this.obstaculos.create(700,695,'TrampaRatones');
         this.obstaculos.create(1210,600,'CascaraPlatano');
 
-        //CONTROL TECLAS
-        this.cursors = this.input.keyboard.createCursorKeys();
-        this.izqFlecha = this.cursors.left;
-        this.drcFlecha = this.cursors.right;
-        this.upFlecha = this.cursors.up;
-        this.downFlecha = this.cursors.down;
-
-        this.izqA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
-        this.drcD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
-        this.upW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
-        this.downS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
 
         //Para pausa
         this.esc=this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
-
-
-        //JUGADORES
-        //Aqui iria la funcion de cambiar el raton para cada personaje
-        this.colorRaton1 = 'raton_gris';
-        this.colorRaton2 = 'raton_blanco';
-
-        //PLAYER 1
-        this.player1 = this.physics.add.sprite(90, 145, this.colorRaton1, 0);
-        this.player1.setCollideWorldBounds(true);
-        this.player1.body.setGravityY(500);
-        this.physics.add.collider(this.player1, this.walkable);
-        this.physics.add.collider(this.player1, this.platforms);
-
-        //Animaciones
-        this.anims.create({
-            key: 'idle1',
-            frames: this.anims.generateFrameNumbers(this.colorRaton1, { start: 0, end: 2 }),
-            frameRate: 5,
-            repeat: -1
-        });
-        this.anims.create({
-            key: 'walk1',
-            frames: this.anims.generateFrameNumbers(this.colorRaton1, { start: 3, end: 5 }),
-            frameRate: 10,
-            repeat: -1
-        });
-        this.anims.create({
-            key: 'jump1',
-            frames: this.anims.generateFrameNumbers(this.colorRaton1, { start: 7, end: 8 }),
-            frameRate: 10
-        });
-        this.anims.create({
-            key: 'down1',
-            frames: this.anims.generateFrameNumbers(this.colorRaton1, { start: 9, end: 10 }),
-            frameRate: 5
-        });
-        this.anims.create({
-            key: 'hurt1',
-            frames: this.anims.generateFrameNumbers(this.colorRaton1, 11 ),
-            frameRate: 10
-        });
-
-        //PLAYER 2
-        this.player2 = this.physics.add.sprite(90, 450, this.colorRaton2, 0); //x = 150, y = 145
-        this.player2.setCollideWorldBounds(true);
-        this.player2.body.setGravityY(500);
-        this.physics.add.collider(this.player2, this.walkable);
-        this.physics.add.collider(this.player2, this.platforms);
-
-        //Animaciones
-        this.anims.create({
-            key: 'idle2',
-            frames: this.anims.generateFrameNumbers(this.colorRaton2, { start: 0, end: 2 }),
-            frameRate: 5,
-            repeat: -1
-        });
-        this.anims.create({
-            key: 'walk2',
-            frames: this.anims.generateFrameNumbers(this.colorRaton2, { start: 3, end: 5 }),
-            frameRate: 10,
-            repeat: -1
-        });
-        this.anims.create({
-            key: 'jump2',
-            frames: this.anims.generateFrameNumbers(this.colorRaton2, { start: 7, end: 8 }),
-            frameRate: 10
-        });
-        this.anims.create({
-            key: 'down2',
-            frames: this.anims.generateFrameNumbers(this.colorRaton2, { start: 9, end: 10 }),
-            frameRate: 10
-        });
-        this.anims.create({
-            key: 'hurt2',
-            frames: this.anims.generateFrameNumbers(this.colorRaton2, 11 ),
-            frameRate: 10
-        });
 
         this.powerupAma = this.physics.add.group({ //creamos un grupo llamado stars
             //en este caso las estrellas son dinámicas
@@ -315,12 +225,6 @@ class GameScene extends Phaser.Scene
             repeat: 1, //valor de repetición -> se repine n+1, es decir 12 veces en este caso
             setXY: { x: 750, y: 250, stepX: 0 } //para establecer la posición de los 12 elementos, stepX -> incremento
         });
-        //this.powerupAma.tipo = 1;
-        //this.powerupAz.tipo = 1;
-        //this.powerupRoj.tipo = 1;
-        //this.powerupAma.tipo = 1;
-        //console.log(this.powerupAma.tipo);
-
         this.physics.add.overlap(this.player1, this.powerupAma, this.collectPowerUp, null, this);
         //this.powerupAma = this.physics.add.sprite(600,250,'powerupAmarillo');
         //this.powerupAz = this.physics.add.sprite(650,250,'powerupAzul');
@@ -335,42 +239,45 @@ class GameScene extends Phaser.Scene
         //camera.scrollX += 0.5;
 
         //Controles de los jugadores
+
         this.movementControlsP1();
         this.movementControlsP2();
+        //this.encenderFogon();
 
-        //this.timedEvent = this.time.addEvent({ delay: 2000, callback: this.encenderFogon, callbackScope: this });
+        this.timedEvent = this.time.addEvent({ delay: 2000, callback: this.encenderFogon, callbackScope: this });
         //this.controlFogon();
     }
+
+
     movementControlsP1(){
     //CONTROLES MOVIMIENTO PLAYER 1
-    if (this.izqA.isDown)
+    if (this.player1.flechaIzquierda.isDown)
     {
-        this.player1.setVelocityX(-this.velocidad1);
+        this.player1.fisicas.setVelocityX(-this.velocidad1);
         this.player1.anims.play('walk1', true);
         this.player1.flipX = true;
     }
-    else if (this.drcD.isDown)
+    else if (this.player1.flechaDerecha.isDown)
     {
-        this.player1.setVelocityX(this.velocidad1);
+        this.player1.fisicas.setVelocityX(this.velocidad1);
         this.player1.anims.play('walk1', true);
         this.player1.flipX = false;
     }
     else
     {
-        this.player1.setVelocityX(0);
+        console.log(this.player1);
+        this.player1.fisicas.setVelocityX(0);
         this.player1.anims.play('idle1', true);
     }
-    if (this.upW.isDown)
+    if (this.player1.flechaArriba.isDown && this.player1.body.touching.down)
     {
-        //&& player1.body.touching.down
-        this.player1.setVelocityY(this.alturaSalto);
+        this.player1.fisicas.setVelocityY(this.alturaSalto);
         this.player1.anims.play('jump1', true);
     }
-    if (this.downS.isDown)
+    if (this.player1.flechaAbajo.isDown)
     {
         this.player1.anims.play('down1', true);
     }
-
     //para cambiar de in-game a ajustes
     if(this.esc.isDown)
     {
@@ -380,32 +287,31 @@ class GameScene extends Phaser.Scene
 }
     movementControlsP2(){
     //CONTROLES MOVIMIENTO PLAYER 2
-    if (this.izqFlecha.isDown)
+    if (this.player2.flechaIzquierda.isDown)
     {
-        this.player2.setVelocityX(-this.velocidad2);
-        this.player2.anims.play('walk2', true);
+        this.player2.fisicas.setVelocityX(-this.velocidad2);
+        this.player2.anims.play('walk1', true);
         this.player2.flipX = true;
     }
-    else if (this.drcFlecha.isDown)
+    else if (this.player2.flechaDerecha.isDown)
     {
-        this.player2.setVelocityX(this.velocidad2);
-        this.player2.anims.play('walk2', true);
+        this.player2.fisicas.setVelocityX(this.velocidad2);
+        this.player2.anims.play('walk1', true);
         this.player2.flipX = false;
     }
     else
     {
-        this.player2.setVelocityX(0);
-        this.player2.anims.play('idle2', true);
+        this.player2.fisicas.setVelocityX(0);
+        this.player2.anims.play('idle1', true);
     }
-    if (this.upFlecha.isDown)
+    if (this.player2.flechaArriba.isDown && this.player2.body.touching.down)
     {
-        //&& player2.body.touching.down
-        this.player2.setVelocityY(this.alturaSalto);
-        this.player2.anims.play('jump2', true);
+        this.player2.fisicas.setVelocityY(this.alturaSalto);
+        this.player2.anims.play('jump1', true);
     }
-    if (this.downFlecha.isDown)
+    if (this.player2.flechaAbajo.isDown)
     {
-        this.player2.anims.play('down2', true);
+        this.player2.anims.play('down1', true);
     }
 
     //para cambiar de in-game a ajustes
@@ -414,7 +320,6 @@ class GameScene extends Phaser.Scene
         this.scene.start("Pause");
     }
 }
-
 
     collectPowerUp (player, powerup){
 
@@ -438,26 +343,27 @@ class GameScene extends Phaser.Scene
             });
         }
     }
-
-    /*encenderFogon(){
+    encenderFogon(){
         this.obstFogon.anims.play('fogon_encendido', true);
         this.obstFogon.anims.play('fogon_apagado', true);
     }
 
-    controlFogon(){
+    /*
+    controlFogon() {
         this.obstFogon.anims.play('fogon_apagado', true);
         let apagado = false;
 
-       while(apagado != null) {
-           if (apagado) {
-               this.obstFogon.anims.play('fogon_encendido', true);
-               apagado=true;
-           } else {
-               this.obstFogon.anims.play('fogon_apagado', true);
-               let apagado = false;
-           }
-       }
-    }*/
+        while (apagado != null) {
+            if (apagado) {
+                this.obstFogon.anims.play('fogon_encendido', true);
+                apagado = true;
+            } else {
+                this.obstFogon.anims.play('fogon_apagado', true);
+                let apagado = false;
+            }
+        }
+    }
+*/
 
 
 }
