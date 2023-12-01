@@ -9,11 +9,11 @@ class PauseScene extends Phaser.Scene {
         console.log("PANTALLA AJUSTES");
         //PAUSA
         this.add.image(0, 0, 'FondoPausa').setOrigin(0, 0);
-        let BotonContinuar=this.add.image(753, 940, 'BotonContinuar');
+        let BotonContinuar=this.add.image(753, 960, 'BotonContinuar');
         BotonContinuar.setInteractive();
-        let BotonSalir=this.add.image(1167, 940, 'BotonSalir');
+        let BotonSalir=this.add.image(1167, 960, 'BotonSalir');
         BotonSalir.setInteractive();
-        let BotonSonido=this.add.image(960,850,'BotonSonido');
+        let BotonSonido=this.add.image(960,810,'BotonSonido');
 
         BotonSonido.setInteractive();
         this.esc = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);

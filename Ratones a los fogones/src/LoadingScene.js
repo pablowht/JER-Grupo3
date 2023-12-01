@@ -31,6 +31,8 @@ class LoadingScene extends Phaser.Scene {
         this.load.image('RatonBlancoGrande', 'ASSETS/INTERFACES/PlayerSelection/RatonBlanco_Grande.png');
         this.load.image('RatonGrisGrande', 'ASSETS/INTERFACES/PlayerSelection/RatonGris_Grande.png');
         this.load.image('RatonMarronGrande', 'ASSETS/INTERFACES/PlayerSelection/RatonMarron_Grande.png');
+        this.load.image('Boton1RatonSeleccionado', 'ASSETS/INTERFACES/PlayerSelection/Boton1_RatonSeleccionado.png');
+        this.load.image('Boton2RatonSeleccionado', 'ASSETS/INTERFACES/PlayerSelection/Boton2_RatonSeleccionado.png');
 
         this.load.image('techoMapa', 'assets/tiles/MAPAS/Tope_techo_3200x27.png');
         this.load.image('techoMapa2', 'assets/tiles/MAPAS/Tope_techo_444x129.png');

@@ -11,6 +11,9 @@ class PlayerClass {
         this.isRecolected = false;
         this.powerUpRecolectedType = null;
         this.timedEvent = null;
+        this.color = null;
+        this.initialVelocity = _velocity;
+        this.wasCollided = false;
     }
 
     assignControls(){
@@ -34,34 +37,34 @@ class PlayerClass {
         this.scene.load.spritesheet('raton_marron','ASSETS/RATONES/SpriteSheets/Raton_Marron.png',{ frameWidth: 32, frameHeight: 32 } );
     }
 
-    createAnimsPlayer(color){
+    createAnimsPlayer(){
         //Animaciones
         this.scene.anims.create({
             key: 'idle'+this.playerNumber,
-            frames: this.scene.anims.generateFrameNumbers(color, { start: 0, end: 2 }),
+            frames: this.scene.anims.generateFrameNumbers(this.color, { start: 0, end: 2 }),
             frameRate: 5,
             repeat: -1
         });
 
         this.scene.anims.create({
             key: 'walk'+this.playerNumber,
-            frames: this.scene.anims.generateFrameNumbers(color, { start: 3, end: 5 }),
+            frames: this.scene.anims.generateFrameNumbers(this.color, { start: 3, end: 5 }),
             frameRate: 10,
             repeat: -1
         });
         this.scene.anims.create({
             key: 'jump'+this.playerNumber,
-            frames: this.scene.anims.generateFrameNumbers(color, { start: 7, end: 8 }),
+            frames: this.scene.anims.generateFrameNumbers(this.color, { start: 7, end: 8 }),
             frameRate: 10
         });
         this.scene.anims.create({
             key: 'down'+this.playerNumber,
-            frames: this.scene.anims.generateFrameNumbers(color, { start: 9, end: 10 }),
+            frames: this.scene.anims.generateFrameNumbers(this.color, { start: 9, end: 10 }),
             frameRate: 5
         });
         this.scene.anims.create({
             key: 'hurt'+this.playerNumber,
-            frames: this.scene.anims.generateFrameNumbers(color, 11 ),
+            frames: this.scene.anims.generateFrameNumbers(this.color, 11 ),
             frameRate: 10
         });
     }
@@ -99,9 +102,29 @@ class PlayerClass {
         if (this.flechaArriba.isDown && this.fisicas.body.touching.down) {
             this.fisicas.setVelocityY(this.jumpAmount);
             this.fisicas.play('jump'+this.playerNumber, true);
-        }this
+        }
         if (this.flechaAbajo.isDown) {
             this.fisicas.play('down'+this.playerNumber, true);
+        }
+    }
+
+    update(time, delta){
+        this.movementControlsPlayer();
+
+        if(this.isRecolected === true){
+            this.timedEvent += delta;
+            if(this.timedEvent >= 5000){
+                this.removePowerUp();
+                this.timedEvent = 0;
+            }
+        }
+
+        if(this.wasCollided === true){
+            this.timedEvent += delta;
+            if(this.timedEvent >= 2000){
+                this.removePenaltization();
+                this.timedEvent = 0;
+            }
         }
     }
 
@@ -119,24 +142,11 @@ class PlayerClass {
         }
     }
 
-    update(time, delta){
-        this.movementControlsPlayer();
-
-        if(this.isRecolected === true){
-            this.timedEvent += delta;
-            if(this.timedEvent >= 5000){
-                this.removePowerUp();
-                this.timedEvent = 0;
-            }
-            
-        }
-    }
-
     removePowerUp(){
         this.isRecolected = false;
         if(this.powerUpRecolectedType === 1) {
             this.velocity -= 50;
-            console.log("rvelocity of")
+            console.log("velocity of")
         }
         else if(this.powerUpRecolectedType === 2) {
             this.jumpAmount += 100;
@@ -149,6 +159,15 @@ class PlayerClass {
     }
 
     gestionCollision(obj){
-        console.log("colison con un obj");
+        this.fisicas.setTint(0xff0000);
+        this.velocity -= 15;
+        this.wasCollided = true;
+    }
+
+    removePenaltization(){
+        console.log("uitando penalización");
+        this.fisicas.clearTint();
+        this.velocity = this.initialVelocity;
+        this.wasCollided = false;
     }
 }

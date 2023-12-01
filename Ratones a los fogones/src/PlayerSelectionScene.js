@@ -35,13 +35,17 @@ class PlayerSelectionScene extends Phaser.Scene {
         });
 
         BotonP1Listo.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
-            this.p1Ready = true;
-            this.scene.start("Game")
+            if(this.raton1 !== undefined){
+                this.p1Ready = true;
+                //this.scene.start("Game")
+            }
         });
 
         BotonP2Listo.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
-            this.p2Ready = true;
-            this.scene.start("Game")
+            if(this.raton2 !== undefined){
+                this.p2Ready = true;
+                this.scene.start("Game")
+            }
         });
 
 
@@ -49,14 +53,16 @@ class PlayerSelectionScene extends Phaser.Scene {
             if(!this.p1Ready){
                 this.raton1 = "raton_blanco";
                 this.add.image(300,510,'RatonBlancoGrande');
+                BotonRatonBlanco = this.add.image(1200,530,'Boton1RatonSeleccionado');
             }
             if(this.p1Ready && !this.p2Ready){
                 this.raton2 = "raton_blanco"
                 this.add.image(1625,510,'RatonBlancoGrande');
+                BotonRatonBlanco = this.add.image(1200,530,'Boton2RatonSeleccionado');
             }
-            this.raton1
-            this.add.image(300,510,'RatonBlancoGrande');
-            this.add.image(1625,510,'RatonBlancoGrande');
+
+            //this.add.image(300,510,'RatonBlancoGrande');
+            //this.add.image(1625,510,'RatonBlancoGrande');
             //console.log("boton volver creditos");
             //this.scene.start("Menu")
         });
