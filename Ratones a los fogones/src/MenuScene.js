@@ -30,7 +30,8 @@ class MenuScene extends Phaser.Scene{
         //CAMBIO DE ESCENA DEL MENU A LA ESCENA IN-GAME
         BotonJugar.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
             console.log("boton pulsado")
-            this.scene.start("Game")
+            this.scene.start("Game") //Niveles
+            //Cuando este selector de nivel, poner que al jugar vaya antes a "Niveles"
         });
 
         //CAMBIO DE ESCENA DEL MENU A CREDITOS

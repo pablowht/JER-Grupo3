@@ -19,7 +19,7 @@ var config = {
     //COSAS DE LA ESCENA
     scene:[MenuScene,LoadingScene,GameScene,CreditsScene,PauseScene], //escena inicial
     //FISICAS
-    physics:{
+    physics:{ 
         default: 'arcade',
         arcade: {
             debug:false,
