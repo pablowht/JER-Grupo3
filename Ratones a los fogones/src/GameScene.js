@@ -9,11 +9,10 @@ class GameScene extends Phaser.Scene {
     platforms;
     player1 = new PlayerClass(1, 90, 145, 100, -300, this);
     player2 = new PlayerClass(2, 90, 450, 100, -300, this);
-    powerupAma = new PowerupClass(1, 650, 250, this);
+    powerupAma = new PowerupClass(3, 650, 250, this);
     powerupAz = new PowerupClass(2, 700, 250, this);
-    powerupRoj = new PowerupClass(3, 750, 250, this);
+    powerupRoj = new PowerupClass(1, 750, 250, this);
     obstaculos;
-    obstFogon;
     preload() {
         //POWERUPS:
         this.powerupAma.loadImages();
@@ -60,14 +59,18 @@ class GameScene extends Phaser.Scene {
         this.platforms.create(553, 270, 'armarioBajo2');
         this.platforms.create(900, 270, 'armarioBajo3');
         this.platforms.create(968, 270, 'armarioBajo6');
-        this.platforms.create(1400, 270, 'armarioBajo1');
-        this.platforms.create(1468, 270, 'armarioBajo2');
-
+        this.platforms.create(1100, 270, 'armarioBajo3');
+        this.platforms.create(1168, 270, 'armarioBajo3');
+        this.platforms.create(1300, 270, 'armarioBajo1');
+        this.platforms.create(1368, 270, 'armarioBajo2');
+        this.platforms.create(1600, 270, 'armarioBajo3');
+       // this.platforms.create(968, 270, 'armarioBajo6');
 
         this.platforms.create(620, 140, 'armarioAlto1');
         this.platforms.create(770, 190, 'armarioAlto1');
         this.platforms.create(890, 120, 'armarioAlto1');
-
+        this.platforms.create(1700,140, 'armarioAlto1');
+        this.platforms.create(1780,120, 'armarioAlto1');
         /*
         //MAPA2
                 this.walkable.create(1397,266,'sueloMapa2N3');
@@ -82,10 +85,10 @@ class GameScene extends Phaser.Scene {
         */
         //OBSTACULOS NIVEL 1 PLAYER 1
         this.obstaculos.create(400, 170, 'CascaraPlatano');
-        this.obstaculos.create(1120, 295, 'CascaraPlatano');
         this.obstaculos.create(280, 170, 'TrampaRatones');
         this.obstaculos.create(700, 295, 'TrampaRatones');
-        this.obstaculos.create(1210, 200, 'CascaraPlatano');
+        this.obstaculos.create(1315, 230, 'CascaraPlatano');
+
 
         this.anims.create({
             key: 'fogon_apagado',
@@ -102,8 +105,23 @@ class GameScene extends Phaser.Scene {
         // this.obstaculos.add(this.obstFogon);
         this.obstFogon2 = this.add.sprite(543, 220, 'Fogon', 0);
         this.obstFogon3 = this.add.sprite(565, 220, 'Fogon', 0);
-        this.obstaculos.add(this.obstFogon2);
-        this.obstaculos.add(this.obstFogon3);
+        this.obstFogon4 = this.add.sprite(1020, 275, 'Fogon', 0);
+        this.obstFogon5 = this.add.sprite(1045, 275, 'Fogon', 0);
+        this.obstFogon6 = this.add.sprite(1220, 275, 'Fogon', 0);
+        this.obstFogon7 = this.add.sprite(1245, 275, 'Fogon', 0);
+
+        this.obstaculos.create(543, 220, 'Fogon');
+        this.obstaculos.create(565, 220, 'Fogon');
+        this.obstaculos.create(1020, 275, 'Fogon');
+        this.obstaculos.create(1045, 275, 'Fogon');
+        this.obstaculos.create(1220, 275, 'Fogon');
+        this.obstaculos.create(1245, 275, 'Fogon');
+
+        //this.obstaculos.create(this.obstFogon3);
+        //this.obstaculos.create(this.obstFogon4);
+        //this.obstaculos.create(this.obstFogon5);
+        //this.obstaculos.create(this.obstFogon6);
+        //this.obstaculos.create(this.obstFogon7);
 
         //MAPA PLAYER2
         this.walkable.create(800, 410, 'techoMapa');
@@ -142,13 +160,11 @@ class GameScene extends Phaser.Scene {
         this.player1.createPhysics();
         this.player1.establishColliderObj(this.walkable);
         this.player1.establishColliderObj(this.platforms);
-        this.player1.establishColliderObstacles(this.obstaculos);
 
         //PLAYER 2
         this.player2.createPhysics();
         this.player2.establishColliderObj(this.walkable);
         this.player2.establishColliderObj(this.platforms);
-        this.player2.establishColliderObstacles(this.obstaculos);
 
         //POWERUPS:
         this.powerupAma.createPhysics();
@@ -158,10 +174,13 @@ class GameScene extends Phaser.Scene {
         this.physics.add.overlap(this.player1.fisicas, this.powerupAma.fisicas, this.collectPowerUp, null, this);
         this.physics.add.overlap(this.player1.fisicas, this.powerupAz.fisicas, this.collectPowerUp, null, this);
         this.physics.add.overlap(this.player1.fisicas, this.powerupRoj.fisicas, this.collectPowerUp, null, this);
-        //LO MISMO CON EL PLAYER DOS XD
         this.physics.add.overlap(this.player2.fisicas, this.powerupAma.fisicas, this.collectPowerUp, null, this);
         this.physics.add.overlap(this.player2.fisicas, this.powerupAz.fisicas, this.collectPowerUp, null, this);
         this.physics.add.overlap(this.player2.fisicas, this.powerupRoj.fisicas, this.collectPowerUp, null, this);
+
+        this.physics.add.overlap(this.player1.fisicas, this.obstaculos, this.hitAnyObstacle, null, this);
+        this.physics.add.overlap(this.player2.fisicas, this.obstaculos, this.hitAnyObstacle, null, this);
+
     }
 
     update(timeNum, timeDelta) {
@@ -174,6 +193,11 @@ class GameScene extends Phaser.Scene {
 
         this.activateFogon(this.obstFogon2);
         this.activateFogon(this.obstFogon3);
+        this.activateFogon(this.obstFogon4);
+        this.activateFogon(this.obstFogon5);
+        this.activateFogon(this.obstFogon6);
+        this.activateFogon(this.obstFogon7);
+
 
         //Para pausa
         this.esc = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
@@ -197,6 +221,7 @@ class GameScene extends Phaser.Scene {
     }
 
     hitAnyObstacle(player, obstacle){
+        obstacle.disableBody(true,true);
         if (player.texture.key === 1) {
             this.player1.gestionCollision(obstacle);
         } else if (player.texture.key === 2) {

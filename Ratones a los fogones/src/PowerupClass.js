@@ -13,7 +13,7 @@ class PowerupClass {
     }
     createPhysics(){
         if(this.tipo === 1){
-            this.fisicas = this.scene.physics.add.sprite(this.x,this.y,'powerupAmarillo');
+            this.fisicas = this.scene.physics.add.sprite(this.x,this.y,'powerupRojo');
             this.fisicas.texture.key = this.tipo;
         }
         else if(this.tipo === 2){
@@ -21,7 +21,7 @@ class PowerupClass {
             this.fisicas.texture.key = this.tipo;
         }
         else if(this.tipo === 3) {
-            this.fisicas = this.scene.physics.add.sprite(this.x,this.y,'powerupRojo');
+            this.fisicas = this.scene.physics.add.sprite(this.x,this.y,'powerupAmarillo');
             this.fisicas.texture.key = this.tipo;
         }
     }
