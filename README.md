@@ -143,7 +143,7 @@ Después de elegir el modo de juego que se prefiere, se pasará a la selección 
 **4. Selección de nivel**  
 La pantalla de selección de nivel tiene un estilo minimalista, en el que primeramente solo se dejará jugar el nivel 1 y terminado este se irán desbloqueando los siguientes.  
 <p align="center">
-  <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/a1010281-7794-44de-99b7-5735990e85ea">
+  <img src="https://github.com/pablowht/JER-Grupo3/assets/139124884/df003123-fbad-4c43-b8a6-487ffc3433b7">
   <br><br>
   <b>Ilustración 5. Menú de Selección de Nivel</b>
  <br><br>
@@ -186,7 +186,7 @@ La pantalla de carga simplemente tendrá una barra de color amarillo y un peque�
 
 **9. Créditos**    
 <p align="center">
-  <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/f103f1b8-5033-4645-bf7e-5fd77b65a632">
+  <img src="https://github.com/pablowht/JER-Grupo3/assets/139124884/2ee834df-e380-4d48-b39f-4bb26bc83340">
   <br><br>
   <b>Ilustración 10. Interfaz de Créditos</b>
  <br><br>
@@ -228,7 +228,10 @@ La música se convertirá a .ogg mientras que los efectos de sonido estarán en 
  ___
 ### Referencias ###
 * Figma Boceto Interfaces:  
- https://www.figma.com/file/EHHxC5EN9gM78CxVDQKwqt/interfaces-Ratones-aLosFogonestype=design&nodeid=0%3A1&mode=design&t=vvNZQHbM3PMg4PnY-1  
+ https://www.figma.com/file/EHHxC5EN9gM78CxVDQKwqt/interfaces-Ratones-aLosFogonestype=design&nodeid=0%3A1&mode=design&t=vvNZQHbM3PMg4PnY-1
+
+* Estructura GDD:  dsaltares (2016). Sion Tower - GDD.
+https://github.com/dsaltares/sion-tower/blob/master/doc/gdd/gdd.pdf 
 ___
 
 
