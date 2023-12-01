@@ -1,14 +1,23 @@
 class PlayerSelectionScene extends Phaser.Scene {
 
-    constructor() {
+    constructor(numRaton) {
         super("PlayerSelection");
     }
     preload() {}
 
-    p1Ready = false;
-    p2Ready= false;
+    p1Ready;
+    p2Ready;
     raton1;
     raton2;
+    Boton1RatonSelected;
+    Boton2RatonSelected;
+    RatonGrande1;
+    RatonGrande2;
+    boton1Pulsado;
+    boton2Pulsado;
+    ratonGElegido;
+    ratonBElegido;
+    ratonMElegido;
 
     create(){
         this.add.image(0,0,'FondoCustom').setOrigin(0, 0);
@@ -30,60 +39,125 @@ class PlayerSelectionScene extends Phaser.Scene {
         BotonRatonMarron.setInteractive();
 
         BotonVolver.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
-            //console.log("boton volver creditos");
             this.scene.start("Menu")
         });
 
         BotonP1Listo.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
-            if(this.raton1 !== undefined){
+            if(this.raton1 !== undefined && this.boton1Pulsado){
+                this.BotonP1Listo = this.add.image(300,870,'Boton1ListoPressed');
+                console.log(this.raton1);
                 this.p1Ready = true;
-                //this.scene.start("Game")
             }
         });
 
         BotonP2Listo.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
-            if(this.raton2 !== undefined){
+            if(this.raton2 !== undefined && this.boton2Pulsado){
+                this.BotonP2Listo = this.add.image(300,870,'Boton2ListoPressed');
                 this.p2Ready = true;
-                this.scene.start("Game")
+
+                console.log(this.raton2);
+
+                this.scene.start("Game");
             }
         });
-
-
+        
         BotonRatonBlanco.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
-            if(!this.p1Ready){
+            if(this.boton1Pulsado && !this.p1Ready){
+                this.Boton1RatonSelected.destroy();
+                this.RatonGrande1.destroy();
+                this.boton1Pulsado = false;
+                this.ratonBElegido = false;
+                this.ratonMElegido = false;
+                this.ratonGElegido = false;
+                return;
+            }
+            if(this.boton2Pulsado && !this.p2Ready){
+                this.Boton2RatonSelected.destroy();
+                this.RatonGrande2.destroy();
+                this.boton2Pulsado = false;
+                return;
+            }
+
+            if(!this.p1Ready && !this.boton1Pulsado){
                 this.raton1 = "raton_blanco";
-                this.add.image(300,510,'RatonBlancoGrande');
-                BotonRatonBlanco = this.add.image(1200,530,'Boton1RatonSeleccionado');
+                this.RatonGrande1 = this.add.image(300,510,'RatonBlancoGrande');
+                this.Boton1RatonSelected = this.add.image(1200,530,'Boton1RatonSeleccionado');
+                this.boton1Pulsado = true;
+                this.ratonBElegido = true;
             }
-            if(this.p1Ready && !this.p2Ready){
+            if(this.p1Ready && !this.p2Ready && !this.ratonBElegido){
                 this.raton2 = "raton_blanco"
-                this.add.image(1625,510,'RatonBlancoGrande');
-                BotonRatonBlanco = this.add.image(1200,530,'Boton2RatonSeleccionado');
+                this.RatonGrande2 = this.add.image(1625,510,'RatonBlancoGrande');
+                this.Boton2RatonSelected = this.add.image(1200,530,'Boton2RatonSeleccionado');
+                this.boton2Pulsado = true;
+            }
+        });
+
+        BotonRatonMarron.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
+            if(this.boton1Pulsado && !this.p1Ready){
+                this.Boton1RatonSelected.destroy();
+                this.RatonGrande1.destroy();
+                this.boton1Pulsado = false;
+                this.ratonBElegido = false;
+                this.ratonMElegido = false;
+                this.ratonGElegido = false;
+                return;
+            }
+            if(this.boton2Pulsado && !this.p2Ready){
+                this.Boton2RatonSelected.destroy();
+                this.RatonGrande2.destroy();
+                this.boton2Pulsado = false;
+                return;
             }
 
-            //this.add.image(300,510,'RatonBlancoGrande');
-            //this.add.image(1625,510,'RatonBlancoGrande');
-            //console.log("boton volver creditos");
-            //this.scene.start("Menu")
+            if(!this.p1Ready){
+                this.raton1 = "raton_marron";
+                this.RatonGrande1 = this.add.image(300,510,'RatonMarronGrande');
+                this.Boton1RatonSelected = this.add.image(866,800,'Boton1RatonSeleccionado');
+                this.boton1Pulsado = true;
+                this.ratonMElegido = true;
+            }
+            if(this.p1Ready && !this.p2Ready && !this.ratonMElegido){
+                this.raton2 = "raton_marron"
+                this.RatonGrande2 = this.add.image(1625,510,'RatonMarronGrande');
+                this.Boton2RatonSelected = this.add.image(866,800,'Boton2RatonSeleccionado');
+                this.boton2Pulsado = true;
+            }
         });
-        BotonRatonMarron.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
-            this.add.image(300,510,'RatonMarronGrande');
-            this.add.image(1625,510,'RatonMarronGrande');
-            //console.log("boton volver creditos");
-            //this.scene.start("Menu")
-        });
+
         BotonRatonGris.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
-            this.add.image(300,510,'RatonGrisGrande');
-            this.add.image(1625,510,'RatonGrisGrande');
-            //console.log("boton volver creditos");
-            //this.scene.start("Menu")
+            if(this.boton1Pulsado && !this.p1Ready){
+                this.Boton1RatonSelected.destroy();
+                this.RatonGrande1.destroy();
+                this.boton1Pulsado = false;
+                this.ratonBElegido = false;
+                this.ratonMElegido = false;
+                this.ratonGElegido = false;
+                return;
+            }
+            if(this.boton2Pulsado && !this.p2Ready){
+                this.Boton2RatonSelected.destroy();
+                this.RatonGrande2.destroy();
+                this.boton2Pulsado = false;
+                return;
+            }
+
+            if(!this.p1Ready){
+                this.raton1 = "raton_gris";
+                this.RatonGrande1 = this.add.image(300,510,'RatonGrisGrande');
+                this.Boton1RatonSelected = this.add.image(866,265,'Boton1RatonSeleccionado');
+                this.boton1Pulsado = true;
+                this.ratonGElegido = true;
+            }
+            if(this.p1Ready && !this.p2Ready && !this.ratonGElegido){
+                this.raton2 = "raton_gris"
+                this.RatonGrande2 = this.add.image(1625,510,'RatonGrisGrande');
+                this.Boton2RatonSelected = this.add.image(866,265,'Boton2RatonSeleccionado');
+                this.boton2Pulsado = true;
+            }
         });
 
     }
-    update(){
-
-        if(this.p1Ready && this.p2Ready){
-            //this.scene.launch("Game");
-        }
-    }
+    getColorRaton1(){ console.log(this.raton1); return this.raton1; }
+    getColorRaton2(){ console.log(this.raton2); return this.raton2; }
 }

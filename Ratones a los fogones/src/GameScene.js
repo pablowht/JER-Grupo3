@@ -9,6 +9,9 @@ class GameScene extends Phaser.Scene {
     platforms;
     player1 = new PlayerClass(1, 90, 145, 100, -300, this);
     player2 = new PlayerClass(2, 90, 450, 100, -300, this);
+    colorRaton1 = new PlayerSelectionScene();
+    colorRaton2 = new PlayerSelectionScene();
+
     powerupAma = new PowerupClass(3, 650, 250, this);
     powerupAz = new PowerupClass(2, 700, 250, this);
     powerupRoj = new PowerupClass(1, 750, 250, this);
@@ -149,8 +152,8 @@ class GameScene extends Phaser.Scene {
         this.player2.assignControls();
 
         //Color Ratones
-        this.player1.color = 'raton_gris';
-        this.player2.color = 'raton_blanco';
+        this.player1.color = this.colorRaton1.getColorRaton1();
+        this.player2.color = this.colorRaton2.getColorRaton2();
 
         //añadimos las animaciones
         this.player1.createAnimsPlayer(this.player1.color);
