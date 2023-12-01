@@ -1,10 +1,6 @@
 
 var config = {
     type: Phaser.AUTO,
-    //width: 230, //hay que cambiar el tamaño de acuerdo al tamaño TOTAL del nivel
-    //height: 350, //hay que cambiar el tamaño de acuerdo al tamaño TOTAL del nivel
-
-    //364
     scale: {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH,
@@ -12,12 +8,12 @@ var config = {
         width: 1920,
         height: 1080,
 
-        zoom: 1,  // Size of game canvas = game size * zoom
+        zoom: 1,
     },
     //autoRound: false,
     autoResize: true,
     //COSAS DE LA ESCENA
-    scene:[MenuScene,LoadingScene,GameScene,CreditsScene,PauseScene], //escena inicial
+    scene:[GameOverScene,MenuScene,LoadingScene,GameScene,CreditsScene,PauseScene, PlayerSelectionScene], //escena inicial
     //FISICAS
     physics:{ 
         default: 'arcade',

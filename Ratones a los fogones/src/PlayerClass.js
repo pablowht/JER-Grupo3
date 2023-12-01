@@ -1,62 +1,154 @@
 class PlayerClass {
 
-    constructor(_playerNumber, _x, _y, _velocity, _jumpAmount) {
+    constructor(_playerNumber, _x, _y, _velocity, _jumpAmount, _scene) {
         this.playerNumber = _playerNumber;
         this.x = _x;
         this.y = _y;
         this.velocity = _velocity;
         this.jumpAmount = _jumpAmount;
-
+        this.scene = _scene;
+        this.colliderObstaculosPlayer = null;
+        this.isRecolected = false;
+        this.powerUpRecolectedType = null;
+        this.timedEvent = null;
     }
 
-    assignControls(_escena){
-        if(this.playerNumber == '1'){
-            this.flechaIzquierda = _escena.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
-            this.flechaDerecha = _escena.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
-            this.flechaArriba = _escena.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
-            this.flechaAbajo = _escena.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
+    assignControls(){
+        if(this.playerNumber == 1){
+            this.flechaIzquierda = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+            this.flechaDerecha = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+            this.flechaArriba = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+            this.flechaAbajo = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         }
-        else if(this.playerNumber == '2') {
-            this.flechaDerecha = _escena.input.keyboard.createCursorKeys().right;
-            this.flechaIzquierda = _escena.input.keyboard.createCursorKeys().left;
-            this.flechaArriba = _escena.input.keyboard.createCursorKeys().up;
-            this.flechaAbajo = _escena.input.keyboard.createCursorKeys().down;
+        else if(this.playerNumber == 2) {
+            this.flechaDerecha = this.scene.input.keyboard.createCursorKeys().right;
+            this.flechaIzquierda = this.scene.input.keyboard.createCursorKeys().left;
+            this.flechaArriba = this.scene.input.keyboard.createCursorKeys().up;
+            this.flechaAbajo = this.scene.input.keyboard.createCursorKeys().down;
         }
     }
-    loadSpriteSheets(escena){
-        escena.load.spritesheet('raton_gris','ASSETS/RATONES/SpriteSheets/Raton_Gris.png',{ frameWidth: 32, frameHeight: 32 } );
-        escena.load.spritesheet('raton_blanco','ASSETS/RATONES/SpriteSheets/Raton_Blanco.png',{ frameWidth: 32, frameHeight: 32 } );
-        escena.load.spritesheet('raton_marron','ASSETS/RATONES/SpriteSheets/Raton_Marron.png',{ frameWidth: 32, frameHeight: 32 } );
+
+    loadSpriteSheets(){
+        this.scene.load.spritesheet('raton_gris','ASSETS/RATONES/SpriteSheets/Raton_Gris.png',{ frameWidth: 32, frameHeight: 32 } );
+        this.scene.load.spritesheet('raton_blanco','ASSETS/RATONES/SpriteSheets/Raton_Blanco.png',{ frameWidth: 32, frameHeight: 32 } );
+        this.scene.load.spritesheet('raton_marron','ASSETS/RATONES/SpriteSheets/Raton_Marron.png',{ frameWidth: 32, frameHeight: 32 } );
     }
-    createAnimsPlayer(escena, color){
+
+    createAnimsPlayer(color){
         //Animaciones
-        escena.anims.create({
+        this.scene.anims.create({
             key: 'idle'+this.playerNumber,
-            frames: escena.anims.generateFrameNumbers(color, { start: 0, end: 2 }),
+            frames: this.scene.anims.generateFrameNumbers(color, { start: 0, end: 2 }),
             frameRate: 5,
             repeat: -1
         });
 
-        escena.anims.create({
+        this.scene.anims.create({
             key: 'walk'+this.playerNumber,
-            frames: escena.anims.generateFrameNumbers(color, { start: 3, end: 5 }),
+            frames: this.scene.anims.generateFrameNumbers(color, { start: 3, end: 5 }),
             frameRate: 10,
             repeat: -1
         });
-        escena.anims.create({
+        this.scene.anims.create({
             key: 'jump'+this.playerNumber,
-            frames: escena.anims.generateFrameNumbers(color, { start: 7, end: 8 }),
+            frames: this.scene.anims.generateFrameNumbers(color, { start: 7, end: 8 }),
             frameRate: 10
         });
-        escena.anims.create({
+        this.scene.anims.create({
             key: 'down'+this.playerNumber,
-            frames: escena.anims.generateFrameNumbers(color, { start: 9, end: 10 }),
+            frames: this.scene.anims.generateFrameNumbers(color, { start: 9, end: 10 }),
             frameRate: 5
         });
-        escena.anims.create({
+        this.scene.anims.create({
             key: 'hurt'+this.playerNumber,
-            frames: escena.anims.generateFrameNumbers(color, 11 ),
+            frames: this.scene.anims.generateFrameNumbers(color, 11 ),
             frameRate: 10
         });
+    }
+
+    createPhysics(){
+        this.fisicas = this.scene.physics.add.sprite(this.x, this.y, this.color, 0); 
+        this.fisicas.setCollideWorldBounds(true);
+        this.fisicas.body.setGravityY(500);
+        this.fisicas.texture.key = this.playerNumber;
+    }
+
+    establishColliderObj(obj){
+        this.scene.physics.add.collider(this.fisicas, obj);
+    }
+
+    establishColliderObstacles(obj){
+        this.colliderObstaculosPlayer = this.scene.physics.add.collider(this.fisicas, obj);
+        this.obstaculos = obj;
+    }
+
+    movementControlsPlayer() {
+        //CONTROLES MOVIMIENTO PLAYER 1
+        if (this.flechaIzquierda.isDown) {
+            this.fisicas.setVelocityX(-this.velocity);
+            this.fisicas.play('walk'+this.playerNumber, true);
+            this.fisicas.flipX = true;
+        } else if (this.flechaDerecha.isDown) {
+            this.fisicas.setVelocityX(this.velocity);
+            this.fisicas.play('walk'+this.playerNumber, true);
+            this.fisicas.flipX = false;
+        } else {
+            this.fisicas.setVelocityX(0);
+            this.fisicas.play('idle'+this.playerNumber, true);
+        }
+        if (this.flechaArriba.isDown && this.fisicas.body.touching.down) {
+            this.fisicas.setVelocityY(this.jumpAmount);
+            this.fisicas.play('jump'+this.playerNumber, true);
+        }this
+        if (this.flechaAbajo.isDown) {
+            this.fisicas.play('down'+this.playerNumber, true);
+        }
+    }
+
+    gestionPowerUp(obj){
+        this.isRecolected = true;
+        this.powerUpRecolectedType = obj.texture.key;
+        if(obj.texture.key === 1) {
+            this.velocity += 50;
+        }
+        else if(obj.texture.key === 2) {
+            this.jumpAmount -= 100;
+        }
+        else {
+            this.scene.physics.world.removeCollider(this.colliderObstaculosPlayer);
+        }
+    }
+
+    update(time, delta){
+        this.movementControlsPlayer();
+
+        if(this.isRecolected === true){
+            this.timedEvent += delta;
+            if(this.timedEvent >= 5000){
+                this.removePowerUp();
+                this.timedEvent = 0;
+            }
+            
+        }
+    }
+
+    removePowerUp(){
+        this.isRecolected = false;
+        if(this.powerUpRecolectedType === 1) {
+            this.velocity -= 50;
+            console.log("rvelocity of")
+        }
+        else if(this.powerUpRecolectedType === 2) {
+            this.jumpAmount += 100;
+            console.log("jump of")
+        }
+        else {
+            this.establishColliderObstacles(this.obstaculos);
+            console.log("obstacles of")
+        }
+    }
+
+    gestionCollision(obj){
+        console.log("colison con un obj");
     }
 }
