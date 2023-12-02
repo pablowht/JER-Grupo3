@@ -11,23 +11,26 @@ class PlayerSelectionScene extends Phaser.Scene {
         this.musicaMenu = data.musicaMenu;
     }
 
-    p1Ready=null;
-    p2Ready=null;
-    raton1=null;
-    raton2=null;
-    Boton1RatonSelected=null;
-    Boton2RatonSelected=null;
-    RatonGrande1=null;
-    RatonGrande2=null;
-    boton1Pulsado=null;
-    boton2Pulsado=null;
-    ratonGElegido=null;
-    ratonBElegido=null;
-    ratonMElegido=null;
+    p1Ready;
+    p2Ready;
+    raton1;
+    raton2;
+    Boton1RatonSelected;
+    Boton2RatonSelected;
+    RatonGrande1;
+    RatonGrande2;
+    boton1Pulsado;
+    boton2Pulsado;
+    ratonGElegido;
+    ratonBElegido;
+    ratonMElegido;
 
     musicaMenu;
 
     create(){
+
+        this.ReiniciarVariables();
+
         this.add.image(0,0,'FondoCustom').setOrigin(0, 0);
 
         let BotonP1Listo = this.add.image(300,870,'BotonP1Listo');
@@ -62,6 +65,8 @@ class PlayerSelectionScene extends Phaser.Scene {
                 this.BotonP2Listo = this.add.image(31630,870,'Boton2ListoPressed');
                 this.p2Ready = true;
 
+                console.log("raton 1: " + this.raton1);
+                console.log("raton 2: " + this.raton2);
                 this.add.image(0,0, 'PlayersReady').setOrigin(0,0);
                 this.time.delayedCall(2000, this.StartPlaying, [], this);
             }
@@ -124,7 +129,7 @@ class PlayerSelectionScene extends Phaser.Scene {
                 this.ratonMElegido = true;
             }
             if(this.p1Ready && !this.p2Ready && !this.ratonMElegido){
-                this.raton2 = "raton_marron"
+                this.raton2 = "raton_marron";
                 this.RatonGrande2 = this.add.image(1625,510,'RatonMarronGrande');
                 this.Boton2RatonSelected = this.add.image(866,800,'Boton2RatonSeleccionado');
                 this.boton2Pulsado = true;
@@ -168,6 +173,20 @@ class PlayerSelectionScene extends Phaser.Scene {
     StartPlaying(){
         this.musicaMenu.stop();
         this.scene.start("Game", {colorRaton1: this.raton1, colorRaton2:this.raton2});
+    }
+
+    ReiniciarVariables(){
+        this.p1Ready = false;
+        this.p2Ready = false;
+        this.raton1 = undefined;
+        this.raton2 = undefined;
+        this.Boton1RatonSelected = false;
+        this.Boton2RatonSelected = false;
+        this.boton1Pulsado = false;
+        this.boton2Pulsado = false;
+        this.ratonGElegido = false;
+        this.ratonBElegido = false;
+        this.ratonMElegido = false;
     }
 
 }

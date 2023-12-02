@@ -10,10 +10,10 @@ class GameOverScene extends Phaser.Scene {
     ganador2;
 
     init(data){
-        this.colorRaton1 = data.colorRaton1;
-        this.colorRaton2 = data.colorRaton2;
         this.raton1 = data.raton1;
         this.raton2 = data.raton2;
+        this.ganador1 = data.ganador1;
+        this.ganador2 = data.ganador2;
     }
     preload()
     {
@@ -21,7 +21,7 @@ class GameOverScene extends Phaser.Scene {
 
     }
     create(){
-        this.add.image(0,0,'Fondo_GameOver').setOrigin(0, 0);
+        this.add.image(0,0,'FondoGameOver').setOrigin(0, 0);
         if(PlayerSelectionScene.player1Won===true){ //En caso de que pierda el jugador 1
             console.log("GANA 1");
             console.log(this.colorRaton1);
