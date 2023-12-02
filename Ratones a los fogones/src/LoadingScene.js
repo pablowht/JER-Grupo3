@@ -26,7 +26,7 @@ class LoadingScene extends Phaser.Scene {
         this.load.image('BotonMute','ASSETS/INTERFACES/Pause/BOTON_MUTE.png');
 
         //GameOver
-        this.load.image('Fondo','ASSETS/INTERFACES/LevelEnd/Fondo_FinDeNivel.png');
+        this.load.image('FondoGameOver','ASSETS/INTERFACES/LevelEnd/Fondo_FinDeNivel.png');
         this.load.image('Boton_Salir','ASSETS/INTERFACES/LevelEnd/Boton_Salir.png');
         this.load.image('RatónGanadorB','ASSETS/INTERFACES/LevelEnd/RatonBlanco_Winner.png');
         this.load.image('RatónPerdedorB','ASSETS/INTERFACES/LevelEnd/RatonBlanco_Loser.png');

@@ -12,7 +12,8 @@ class GameScene extends Phaser.Scene {
     player2 = new PlayerClass(2, 90, 450, 100, -300, this);
     colorRaton1;
     colorRaton2;
-
+    camera0;
+    camera1;
     powerupAma = new PowerupClass(3, 650, 250, this);
     powerupAz = new PowerupClass(2, 700, 250, this);
     powerupRoj = new PowerupClass(1, 750, 250, this);
@@ -54,12 +55,29 @@ class GameScene extends Phaser.Scene {
         //this.cameras.getCamera('camera1').setZoom(1.74,1.74);
 
         this.physics.world.setBounds(0,0,3200,1080);
-        this.cameras.main.setBounds(0,0,3600, 540);
-        this.cameras.main.setZoom(1.74,1.74);
+        //this.cameras.main.setBounds(0,0,3600, 540);
+        //this.cameras.main.setZoom(1.74,1.74);
+        //
+        //this.cameras.add(0,0,3600,540,false, 'camera1');
+        //this.cameras.getCamera('camera1').setZoom(1.74,1.74);
+        //this.cameras.getCamera('camera1').setPosition(0,540);
 
-        this.cameras.add(0,0,3600,540,false, 'camera1');
-        this.cameras.getCamera('camera1').setZoom(1.74,1.74);
-        this.cameras.getCamera('camera1').setPosition(0,540);
+        // this.cameras.main.setSize(3600, 540);
+
+        // this.camera0 = this.cameras.add(0,0,3600,540);
+        // this.camera0.setZoom(1.74,1.74);
+        // this.camera0.setPosition(0,0);
+        // this.camera1 = this.cameras.add(0, 540, 3600, 540);
+        // this.camera1.setZoom(1.74,1.74);
+        // this.camera1.setPosition(-100,540);
+
+        this.cameras.main.setBounds(0,0,3200, 540);
+        this.camera0 = this.cameras.main;
+        this.camera0.setZoom(1.74,1.74);
+        this.camera0.setPosition(0,0);
+        this.camera1 = this.cameras.add(0, 540, 3200, 540);
+        this.camera1.setZoom(1.74,1.74);
+        this.camera1.setPosition(0,560);
 
 
         //this.cameras.main.setOrigin(-100,-100);
@@ -73,16 +91,9 @@ class GameScene extends Phaser.Scene {
         //this.cameras.getCamera('camera2').setSize(1920, 540);
 
 
-        //MAPAS
-        //1
+        //MAPA
         this.add.image(1600, 155, 'mapa1');  // X=800 Y=210
         this.add.image(1600, 555, 'mapa1'); //X=800 Y=525
-        //2
-        //this.add.image(800,155,'mapa2');
-        //this.add.image(800,555,'mapa2');
-        //3
-        // this.add.image(800,155,'mapa3');
-        // this.add.image(800,555,'mapa3');
         this.walkable = this.physics.add.staticGroup();
         this.platforms = this.physics.add.staticGroup();
         this.meta = this.physics.add.staticGroup();
@@ -111,30 +122,23 @@ class GameScene extends Phaser.Scene {
         this.platforms.create(1368, 270, 'armarioBajo2');
         this.platforms.create(1600, 270, 'armarioBajo3');
 
-        //this.meta.create(800,155,'Meta');
-
-
         this.platforms.create(620, 140, 'armarioAlto1');
         this.platforms.create(770, 190, 'armarioAlto1');
         this.platforms.create(890, 120, 'armarioAlto1');
         this.platforms.create(1700,140, 'armarioAlto1');
         this.platforms.create(1780,120, 'armarioAlto1');
 
+        this.platforms.create(1850,120, 'armarioAlto1');
+        this.platforms.create(1920,120, 'armarioAlto1');
+        this.platforms.create(2040,150, 'armarioAlto1');
+        
+
+        this.platforms.create(2510,270, 'armarioBajo3');
+        this.platforms.create(2635,270, 'armarioBajo3');
+        this.platforms.create(2760,270, 'armarioBajo3');
         //Meta
         this.meta.create(800,155,'Meta');
 
-        /*
-        //MAPA2
-                this.walkable.create(1397,266,'sueloMapa2N3');
-                this.walkable.create(680,247,'sueloMapa2N2');
-                this.walkable.create(575,288,'paredMapa2');
-                this.walkable.create(600,305,'sueloMapa2');
-                //Colocar las plataformas
-                this.platforms.create(1040,270,'armarioBajo2').setScale(2).refreshBody();
-
-                this.platforms.create(170,220,'armarioAlto2').setScale(2).refreshBody();
-                this.platforms.create(340,140,'armarioAlto2').setScale(2).refreshBody();
-        */
         //OBSTACULOS NIVEL 1 PLAYER 1
         this.obstaculos.create(400, 170, 'CascaraPlatano');
         this.obstaculos.create(280, 170, 'TrampaRatones');
@@ -246,11 +250,17 @@ class GameScene extends Phaser.Scene {
 
         this.physics.add.overlap(this.player1.fisicas, this.obstaculos, this.hitAnyObstacle, null, this);
         this.physics.add.overlap(this.player2.fisicas, this.obstaculos, this.hitAnyObstacle, null, this);
-        this.cameras.main.startFollow(this.player1.fisicas, true, 0.09, 0.09);
+
+         // this.cameras.main.startFollow(this.player1.fisicas, true, 0.09, 0.09);
+         // this.cameras.getCamera('camera1').startFollow(this.player2.fisicas, true, 0.09, 0.09);
+         //this.cameras.getCamera('camera1').scrollY = 0;
+        this.camera0.startFollow(this.player1.fisicas, true, 0.09,0.09);
+        this.camera1.startFollow(this.player2.fisicas, true, 0.09,0.09);
 
         //META
         this.physics.add.overlap(this.player1.fisicas, this.meta, this.hitMeta, null, this);
         this.physics.add.overlap(this.player2.fisicas, this.meta, this.hitMeta, null, this);
+
 
         //MUSICA
         this.backgroundMusic = this.sound.add('RaceMusic', {loop: true});
@@ -262,6 +272,7 @@ class GameScene extends Phaser.Scene {
     update(timeNum, timeDelta) {
         //this.camera1.moveCameraFunction();
         //this.camera2.moveCameraFunction();
+
 
 
         //this.camera.scrollX += 0.5;
@@ -327,7 +338,7 @@ class GameScene extends Phaser.Scene {
     }
 
     EndGame(){
-        this.scene.start("GameOver", {colorRaton1: this.raton1, colorRaton2:this.raton2});
+        this.scene.start("GameOver", {raton1: this.colorRaton1, raton2:this.colorRaton2, ganador1:this.player1Won,ganador2:this.player1Won});
     }
 
 }
