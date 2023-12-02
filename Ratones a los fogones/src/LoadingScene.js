@@ -25,6 +25,13 @@ class LoadingScene extends Phaser.Scene {
         this.load.image('BotonSonido','ASSETS/INTERFACES/Pause/BOTON_SONIDO.png');
         this.load.image('BotonMute','ASSETS/INTERFACES/Pause/BOTON_MUTE.png');
 
+        //InGame
+        this.load.image('BarraDivisoria', 'ASSETS/INTERFACES/InGame/BarraDivisoriaMorada.png');
+        this.load.image('BarraPlayer1', 'ASSETS/INTERFACES/InGame/BarraProgresoP1_Fondo.png');
+        this.load.image('BarraPlayer2', 'ASSETS/INTERFACES/InGame/BarraProgresoP2_Fondo.png');
+        this.load.image('BarraRellenoPlayer1', 'ASSETS/INTERFACES/InGame/BarraProgresoP1_Barra.png');
+        this.load.image('BarraRellenoPlayer2', 'ASSETS/INTERFACES/InGame/BarraProgresoP2_Barra.png');
+
         //GameOver
         this.load.image('FondoGameOver','ASSETS/INTERFACES/LevelEnd/Fondo_FinDeNivel.png');
         this.load.image('Boton_Salir','ASSETS/INTERFACES/LevelEnd/Boton_Salir.png');
@@ -45,7 +52,11 @@ class LoadingScene extends Phaser.Scene {
         this.load.image('Fondo_Creditos','ASSETS/INTERFACES/Interfaces_FondoRallado.png');
         this.load.image('Flecha','ASSETS/INTERFACES/Interfaces_Botón_Retroceso.png');
         this.load.image('Nombres','ASSETS/INTERFACES/Credits/Nombres.png');
-        this.load.image('Titulo','ASSETS/INTERFACES/Credits/Titulo_Creditos.png')
+        this.load.image('Titulo','ASSETS/INTERFACES/Credits/Titulo_Creditos.png');
+        this.load.image('RatonB','ASSETS/INTERFACES/Credits/Cabeza_RatonBlanco.png');
+        this.load.image('RatonM','ASSETS/INTERFACES/Credits/Cabeza_RatonMarron.png');
+        this.load.image('RatonG','ASSETS/INTERFACES/Credits/Cabeza_RatonGris.png');
+
 
         //Personalizacion de personajes
         this.load.image('FondoCustom', 'ASSETS/INTERFACES/PlayerSelection/Fondo_SeleccionPersonaje.png');

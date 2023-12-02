@@ -22,51 +22,54 @@ class GameOverScene extends Phaser.Scene {
     }
     create(){
         this.add.image(0,0,'FondoGameOver').setOrigin(0, 0);
-        if(PlayerSelectionScene.player1Won===true){ //En caso de que pierda el jugador 1
+        if(this.ganador1){ //En caso de que gane el jugador 1
+            //GANADOR
             console.log("GANA 1");
-            console.log(this.colorRaton1);
-            console.log(this.colorRaton2);
-            if(this.colorRaton1 === 'raton_blanco'){
+            if(this.raton1 === 'raton_blanco'){
                 console.log(this.raton1);
                 this.add.image(470,600,'RatónGanadorB');
             }
-            else if(this.colorRaton1 === 'raton_marron'){
+            else if(this.raton1 === 'raton_marron'){
                 this.add.image(470,600,'RatónGanadorM');
             }
-            else{
+            else if(this.raton1 === 'raton_gris'){
                 this.add.image(470,600,'RatónGanadorG');
             }
+            //PERDEDOR
             this.add.image(1350,260,'TextoGana1');
-            if(this.colorRaton2 === 'raton_blanco'){
+            if(this.raton2 === 'raton_blanco'){
                 this.add.image(1050,800,'RatónPerdedorB');
             }
-            else if(this.colorRaton2 === 'raton_marron'){
+            else if(this.raton2 === 'raton_marron'){
                 this.add.image(1050,800,'RatónPerdedorM');
             }
-            else{
+            else if (this.raton2 === 'raton_gris'){
                 this.add.image(1050,800,'RatónPerdedorG');
             }
             this.add.image(1350,360,'TextoPierde2');
         }
-        else{   //En caso de que pierda el jugador 2
+        else{   //En caso de que gane el jugador 2
+            //GANADOR
             console.log("GANA 2");
-            if(this.colorRaton2 === 'raton_blanco'){
+            console.log(this.colorRaton2);
+            if(this.raton2 === 'raton_blanco'){
                 this.add.image(470,600,'RatónGanadorB');
             }
-            else if(this.colorRaton2 === 'raton_marron'){
+            else if(this.raton2 === 'raton_marron'){
                 this.add.image(470,600,'RatónGanadorM');
             }
-            else{
+            else if(this.raton2 === 'raton_gris'){
                 this.add.image(470,600,'RatónGanadorG');
             }
             this.add.image(1350,260,'TextoGana2');
-            if(this.colorRaton1 === 'raton_blanco'){
+            //PERDEDOR
+            if(this.raton1 === 'raton_blanco'){
                 this.add.image(1050,800,'RatónPerdedorB');
             }
-            else if(this.colorRaton1 === 'raton_marron'){
+            else if(this.raton1 === 'raton_marron'){
                 this.add.image(1050,800,'RatónPerdedorM');
             }
-            else{
+            else if(this.raton1 === 'raton_gris'){
                 this.add.image(1050,800,'RatónPerdedorG');
             }
             this.add.image(1350,360,'TextoPierde1');

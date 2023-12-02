@@ -14,7 +14,7 @@ class PauseScene extends Phaser.Scene {
     create(){
 
         console.log("PANTALLA AJUSTES");
-        //PAUSA
+        //FONDO
         this.add.image(0, 0, 'FondoPausa').setOrigin(0, 0);
 
         let BotonContinuar = this.add.image(753, 960, 'BotonContinuar');
@@ -27,8 +27,8 @@ class PauseScene extends Phaser.Scene {
         let BotonSonido=this.add.image(960,810,'BotonSonido');
         BotonSonido.setInteractive();
 
-        BotonSonido.setInteractive();
         this.esc = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
+
         BotonContinuar.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
             console.log("boton pulsado")
             //this.scene.stop();
@@ -49,15 +49,14 @@ class PauseScene extends Phaser.Scene {
         });
 
         BotonSonido.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
-            if(this.muted){
-                this.BotonSonido = this.add.image(960,810,'BotonSonido');
-                this.sound.setMute(false);
-                this.muted = false;
-            }
             if(!this.muted) {
                 this.BotonSonido = this.add.image(960,810,'BotonMute');
                 this.sound.setMute(true);
-                this.muted = true;
+                this.muted = !this.muted;}
+            else {
+                this.BotonSonido = this.add.image(960,810,'BotonSonido');
+                this.sound.setMute(false);
+                this.muted = !this.muted;
             }
         });
 

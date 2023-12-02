@@ -178,8 +178,6 @@ class PlayerSelectionScene extends Phaser.Scene {
     ReiniciarVariables(){
         this.p1Ready = false;
         this.p2Ready = false;
-        this.raton1 = undefined;
-        this.raton2 = undefined;
         this.Boton1RatonSelected = false;
         this.Boton2RatonSelected = false;
         this.boton1Pulsado = false;
