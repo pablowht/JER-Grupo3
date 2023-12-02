@@ -195,7 +195,7 @@ La pantalla de carga simplemente tendrá una barra de color amarillo y un peque�
 </p>
 
 **10. ¡A correr!**  
-Al iniciar el juego y probar varias veces, se descubrió que al termunar de elegir a los personajes el juego se iniciaba inmediatemente, debido a esto se ha decidido añadir una nueva interfaz entre la selección de personaje y el juego en sí.
+Al iniciar el juego y probar varias veces, se descubrió que al terminar de elegir a los personajes el juego se iniciaba inmediatemente, debido a esto, se ha decidido añadir una nueva interfaz entre la selección de personaje y el juego en sí.
 <p align="center">
   <img src="https://github.com/pablowht/JER-Grupo3/assets/100694175/bc806c19-2a1b-47f5-8ca1-64cdc52b0326">
   <br><br>
