@@ -170,7 +170,8 @@ La interfaz in-game se basa en una pantalla dividida a la mitad horizontalmente 
 **7. Fin de Nivel**  
 La pantalla de fin de nivel mostrará el ganador en el podio y las opciones de volver al menú principal o pasar al siguiente nivel.  
 <p align="center">
-  <img src="https://github.com/pablowht/JER-Grupo3/assets/100694175/bfa9275c-602e-4962-8da2-a1516ec7a125">
+  <img src="https://github.com/pablowht/JER-Grupo3/assets/100694175/1cd669c4-816d-4f3f-96d8-60f3bfbb41a4">
+  
   <br><br>
   <b>Ilustración 8. Interfaz de Fin de Nivel</b>
  <br><br>
