@@ -102,6 +102,13 @@ class LoadingScene extends Phaser.Scene {
         this.load.image('TrampaRatones', 'ASSETS/OBSTACULOS/MouseTrapR_48x18.png');
         this.load.spritesheet('Fogon', 'ASSETS/OBSTACULOS/Fogon_25x55.png', {frameWidth: 25, frameHeight: 55});
 
+        //MUSICA
+        this.load.audio('RaceMusic', ['/ASSETS/AUDIO/Race_Music.ogg', '/ASSETS/AUDIO/Race_Music.mp3']);
+        this.load.audio('MenuMusic', ['/ASSETS/AUDIO/Menu_Music.ogg', '/ASSETS/AUDIO/Menu_Music.mp3']);
+        this.load.audio('InteractSound', '/ASSETS/AUDIO/Interact_Sound.ogg');
+        this.load.audio('HurtSound', '/ASSETS/AUDIO/Hurt_Sound.ogg');
+        this.load.audio('PowerUpGoneSound', '/ASSETS/AUDIO/PowerUp_Gone.ogg');
+        this.load.audio('PowerUpGrabSound', '/ASSETS/AUDIO/PowerUp_Grab.ogg');
     }
 
     create(){

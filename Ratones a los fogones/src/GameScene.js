@@ -20,6 +20,8 @@ class GameScene extends Phaser.Scene {
 
     meta;
 
+    backgroundMusic;
+
     preload() {
         //POWERUPS:
         this.powerupAma.loadImages();
@@ -220,11 +222,13 @@ class GameScene extends Phaser.Scene {
 
         //PLAYER 1
         this.player1.createPhysics();
+        this.player1.createSounds();
         this.player1.establishColliderObj(this.walkable);
         this.player1.establishColliderObj(this.platforms);
 
         //PLAYER 2
         this.player2.createPhysics();
+        this.player2.createSounds();
         this.player2.establishColliderObj(this.walkable);
         this.player2.establishColliderObj(this.platforms);
 
@@ -247,6 +251,11 @@ class GameScene extends Phaser.Scene {
         //META
         this.physics.add.overlap(this.player1.fisicas, this.meta, this.hitMeta, null, this);
         this.physics.add.overlap(this.player2.fisicas, this.meta, this.hitMeta, null, this);
+
+        //MUSICA
+        this.backgroundMusic = this.sound.add('RaceMusic', {loop: true});
+        this.backgroundMusic.play();
+        this.backgroundMusic.volume = 0.2;
 
     }
 

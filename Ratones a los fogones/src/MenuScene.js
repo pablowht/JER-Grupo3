@@ -21,7 +21,7 @@ class MenuScene extends Phaser.Scene{
         //CAMBIO DE ESCENA DEL MENU A LA ESCENA IN-GAME
         BotonJugar.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
             console.log("boton pulsado")
-            this.scene.start("PlayerSelection") //Niveles
+            this.scene.start("PlayerSelection", {musicaMenu: this.backgroundMusic}) //Niveles
             //Cuando este selector de nivel, poner que al jugar vaya antes a "Niveles"
         });
 
@@ -37,9 +37,9 @@ class MenuScene extends Phaser.Scene{
             this.scene.start("Pause", {isPaused:false});
         });
 
-
-    }
-    update(){
+        //MUSICA
+        this.backgroundMusic = this.sound.add('MenuMusic', {loop:true});
+        this.backgroundMusic.play();
 
     }
 

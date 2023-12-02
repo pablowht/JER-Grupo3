@@ -7,6 +7,10 @@ class PlayerSelectionScene extends Phaser.Scene {
     }
     preload() {}
 
+    init(data){
+        this.musicaMenu = data.musicaMenu;
+    }
+
     p1Ready=null;
     p2Ready=null;
     raton1=null;
@@ -20,6 +24,8 @@ class PlayerSelectionScene extends Phaser.Scene {
     ratonGElegido=null;
     ratonBElegido=null;
     ratonMElegido=null;
+
+    musicaMenu;
 
     create(){
         this.add.image(0,0,'FondoCustom').setOrigin(0, 0);
@@ -47,7 +53,6 @@ class PlayerSelectionScene extends Phaser.Scene {
         BotonP1Listo.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
             if(this.raton1 !== undefined && this.boton1Pulsado){
                 this.BotonP1Listo = this.add.image(300,870,'Boton1ListoPressed');
-                console.log(this.raton1);
                 this.p1Ready = true;
             }
         });
@@ -56,8 +61,6 @@ class PlayerSelectionScene extends Phaser.Scene {
             if(this.raton2 !== undefined && this.boton2Pulsado){
                 this.BotonP2Listo = this.add.image(31630,870,'Boton2ListoPressed');
                 this.p2Ready = true;
-
-                console.log(this.raton2);
 
                 this.add.image(0,0, 'PlayersReady').setOrigin(0,0);
                 this.time.delayedCall(2000, this.StartPlaying, [], this);
@@ -163,6 +166,7 @@ class PlayerSelectionScene extends Phaser.Scene {
     }
 
     StartPlaying(){
+        this.musicaMenu.stop();
         this.scene.start("Game", {colorRaton1: this.raton1, colorRaton2:this.raton2});
     }
 

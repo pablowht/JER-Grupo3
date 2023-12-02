@@ -70,6 +70,12 @@ class PlayerClass {
         });
     }
 
+    createSounds(){
+        this.powerUpCollected = this.scene.sound.add('PowerUpGrabSound');
+        this.powerUpGone = this.scene.sound.add('PowerUpGoneSound');
+        this.hurtSound = this.scene.sound.add('HurtSound');
+    }
+
     createPhysics(){
         this.fisicas = this.scene.physics.add.sprite(this.x, this.y, this.color, 0); 
         this.fisicas.setCollideWorldBounds(true);
@@ -113,6 +119,7 @@ class PlayerClass {
         this.movementControlsPlayer();
 
         if(this.isRecolected === true){
+            this.powerUpCollected.play();
             this.timedEvent += delta;
             if(this.timedEvent >= 5000){
                 this.removePowerUp();
@@ -121,6 +128,7 @@ class PlayerClass {
         }
 
         if(this.wasCollided === true){
+            this.powerUpGone.play();
             this.timedEvent += delta;
             if(this.timedEvent >= 2000){
                 this.removePenaltization();
@@ -164,6 +172,7 @@ class PlayerClass {
     }
 
     gestionCollision(obj){
+        this.hurtSound.play();
         this.fisicas.setTint(0xC71E1E );
         this.velocity -= 15;
         this.wasCollided = true;
