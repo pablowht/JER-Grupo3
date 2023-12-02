@@ -1,23 +1,25 @@
+
 class PlayerSelectionScene extends Phaser.Scene {
+
 
     constructor(numRaton) {
         super("PlayerSelection");
     }
     preload() {}
 
-    p1Ready;
-    p2Ready;
-    raton1;
-    raton2;
-    Boton1RatonSelected;
-    Boton2RatonSelected;
-    RatonGrande1;
-    RatonGrande2;
-    boton1Pulsado;
-    boton2Pulsado;
-    ratonGElegido;
-    ratonBElegido;
-    ratonMElegido;
+    p1Ready=null;
+    p2Ready=null;
+    raton1=null;
+    raton2=null;
+    Boton1RatonSelected=null;
+    Boton2RatonSelected=null;
+    RatonGrande1=null;
+    RatonGrande2=null;
+    boton1Pulsado=null;
+    boton2Pulsado=null;
+    ratonGElegido=null;
+    ratonBElegido=null;
+    ratonMElegido=null;
 
     create(){
         this.add.image(0,0,'FondoCustom').setOrigin(0, 0);
@@ -28,7 +30,7 @@ class PlayerSelectionScene extends Phaser.Scene {
         let BotonP2Listo = this.add.image(1630,870,'BotonP2Listo');
         BotonP2Listo.setInteractive();
 
-        let BotonVolver = this.add.image(150,100,'Flecha_volver');
+        let BotonVolver = this.add.image(150,100,'Flecha');
         BotonVolver.setInteractive();
 
         let BotonRatonGris = this.add.image(866,265,'BotonRatonGris');
@@ -52,12 +54,13 @@ class PlayerSelectionScene extends Phaser.Scene {
 
         BotonP2Listo.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
             if(this.raton2 !== undefined && this.boton2Pulsado){
-                this.BotonP2Listo = this.add.image(300,870,'Boton2ListoPressed');
+                this.BotonP2Listo = this.add.image(31630,870,'Boton2ListoPressed');
                 this.p2Ready = true;
 
                 console.log(this.raton2);
 
-                this.scene.start("Game");
+                this.add.image(0,0, 'PlayersReady').setOrigin(0,0);
+                this.time.delayedCall(2000, this.StartPlaying, [], this);
             }
         });
         
@@ -158,6 +161,9 @@ class PlayerSelectionScene extends Phaser.Scene {
         });
 
     }
-    getColorRaton1(){ console.log(this.raton1); return this.raton1; }
-    getColorRaton2(){ console.log(this.raton2); return this.raton2; }
+
+    StartPlaying(){
+        this.scene.start("Game", {colorRaton1: this.raton1, colorRaton2:this.raton2});
+    }
+
 }

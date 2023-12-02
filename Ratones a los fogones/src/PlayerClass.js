@@ -14,6 +14,7 @@ class PlayerClass {
         this.color = null;
         this.initialVelocity = _velocity;
         this.wasCollided = false;
+        this.fisicas = null;
     }
 
     assignControls(){
@@ -132,18 +133,22 @@ class PlayerClass {
         this.isRecolected = true;
         this.powerUpRecolectedType = obj.texture.key;
         if(obj.texture.key === 1) {
+            this.fisicas.setTint(0xFF9728);
             this.velocity += 50;
         }
         else if(obj.texture.key === 2) {
+            this.fisicas.setTint(0x1FBBFF);
             this.jumpAmount -= 100;
         }
         else {
+            this.fisicas.setTint(0xFFF51F);
             this.scene.physics.world.removeCollider(this.colliderObstaculosPlayer);
         }
     }
 
     removePowerUp(){
         this.isRecolected = false;
+        this.fisicas.clearTint();
         if(this.powerUpRecolectedType === 1) {
             this.velocity -= 50;
             console.log("velocity of")
@@ -159,7 +164,7 @@ class PlayerClass {
     }
 
     gestionCollision(obj){
-        this.fisicas.setTint(0xff0000);
+        this.fisicas.setTint(0xC71E1E );
         this.velocity -= 15;
         this.wasCollided = true;
     }

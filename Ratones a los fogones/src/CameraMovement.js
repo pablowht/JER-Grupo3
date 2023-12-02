@@ -1,10 +1,8 @@
 class CameraMovement {
-    cam;
     constructor(escena){
         this.cam = escena.cameras.main;
-        this.cam.setBounds(0,0,1600,380);
+        //this.cam.setBounds(0,0,1920,1080);
     }
-
     moveCameraFunction(){
         this.cam.scrollX += 0.5;
     }
@@ -12,5 +10,6 @@ class CameraMovement {
     getScrollCam(){
         return this.cam.scrollX;
     }
+
 }
 
