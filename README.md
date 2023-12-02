@@ -134,7 +134,8 @@ La interfaz del menú principal se inspira en la cubertería de un restaurante c
 **3. Selección de perfil**  
 Después de elegir el modo de juego que se prefiere, se pasará a la selección del perfil de los jugadores 1 y 2. Los dos personajes que representarán a cada jugador serán ratones con distintos colores. Cuando el jugador esté listo, pulsará el botón LISTO, y proseguirá a la pantalla de niveles.   
 <p align="center">
-  <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/69e8f411-1527-4337-8485-0433cf7ef79f">
+  <img src="https://github.com/pablowht/JER-Grupo3/assets/100694175/f2384cd9-196f-4dbc-83c4-f2a88728a142">
+
   <br><br>
   <b>Ilustración 4. Menú de Selección de Perfil</b>
  <br><br>
