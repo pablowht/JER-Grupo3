@@ -50,7 +50,7 @@ Ratones a los fogones está dirigido a jugadores de un amplio rango de edades si
 **5. Jugabilidad**  
 Ratones a los fogones está formado por tres niveles con diferente complejidad. La principal motivación es salir el primero de la cocina, esquivando obstáculos y, perjudicando al otro jugador mediante power-ups. Para que sea posible se encuentran diferentes elementos:  
 1.	Movilidad: cada personaje será controlado por un jugador. Los movimientos que se pueden realizar son: desplazamiento lateral, salto y agacharse. De esta manera se esquivarán los obstáculos y/o se cogerán los power-ups.  
-2.	Obstáculos: objetos que el jugador debe esquivar. Si no se hace, el personaje se ralentizará obteniendo una desventaja frente a su contrincante. Además, habrá dos tipos de obstáculos: estáticos y dinámicos.  
+2.	Obstáculos: objetos que el jugador debe esquivar. Si no se hace, el personaje se ralentizará obteniendo una desventaja frente a su contrincante. Además, habrá dos tipos de obstáculos: estáticos y dinámicos. 
 3.	Power-ups: tendrán una posición fija en cada nivel. La finalidad de estos es beneficiarse o perjudicar al adversario.
  
 **6. Estilo Visual y Referencias**  
@@ -74,7 +74,7 @@ En este apartado se profundizará acerca de las mecánicas de *Ratones a los fog
 La mecánica principal se basa en evitar los diferentes objetos que van a aparecer en la escena, saltando o agachándose. Otra de las mecánicas es coger objetos (power-ups) para conseguir una ventaja.  
 **2.	Flujo de juego y curva de dificultad**
 El desarrollo de una partida de *Ratones a los fogones* empieza en la pantalla de inicio. Aquí se podrán ver los créditos, ajustes y controles, y dos opciones para jugar online o en local.  Una vez dado a jugar, se dejará customizar el personaje y una vez terminado, se dará paso a la elección de nivel. Según se pase de nivel la velocidad de cada jugador irá en aumento para aumentar al mismo tiempo la dificultad.    
-* Nivel 1: únicamente aparecerán obstáculos estáticos que se deberán saltar o pasar por debajo.   
+* Nivel 1: únicamente aparecerán obstáculos estáticos que se deberán saltar o pasar por debajo y los diferentes power-ups.   
 * Nivel 2: se mantienen los obstáculos estáticos y aparecen los primeros power-ups que cruzan la pantalla de derecha a izquierda, permitiendo al jugador recogerlos.  
 * Nivel 3: se añade a todo lo anterior obstáculos dinámicos que se moverán de manera vertical y se deberá saltar o pasar por debajo según sea más conveniente.
 Finalmente, cuando uno de los dos llegue a la meta se da paso a la pantalla de fin de nivel, donde se mostrará el ganador y se dará a elegir si pasar al siguiente nivel o regresar a la pantalla de inicio.  
@@ -86,7 +86,7 @@ De esta manera la curva de dificultad quedaría de la siguiente manera:
 
 **3. Movimiento y físicas**  
   **i.	Interacción con objetos**  
-Dentro del escenario se encuentran los obstáculos y los power-ups, pero la interacción con ambos es diferente. Si el jugador se topa con un obstáculo, el movimiento del personaje se ralentiza temporalmente. Mientras que, si se topa contra un power-up, desaparecerá de la escena y dará pie a la acción correspondiente del mismo.  
+Dentro del escenario se encuentran los obstáculos y los power-ups, pero la interacción con ambos es diferente. Si el jugador se topa con un obstáculo, el movimiento del personaje se ralentiza temporalmente. Mientras que, si se topa contra un power-up dará pie a la acción correspondiente del mismo.  
   **ii.	Controles**  
 1.	Jugador 1:  
   *	Movimiento lateral: teclas A, D.  
@@ -123,7 +123,7 @@ Las interfaces que se han incluido quedan definidas a continuación.
 </p>
   
 **2. Menú Principal**  
-La interfaz del menú principal se inspira en la cubertería de un restaurante con un estilo minimalista, mostrando los botones básicos de jugar y ajustes (que en un futuro se añadirá la opción de local u online), y de los créditos.  
+La interfaz del menú principal muestra los botones básicos de jugar y ajustes (que en un futuro se añadirá la opción de local u online), y de los créditos.  
 <p align="center">
   <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/9069a50d-2635-4c60-921f-352255d56887">
    <br><br>
@@ -134,15 +134,14 @@ La interfaz del menú principal se inspira en la cubertería de un restaurante c
 **3. Selección de perfil**  
 Después de elegir el modo de juego que se prefiere, se pasará a la selección del perfil de los jugadores 1 y 2. Los dos personajes que representarán a cada jugador serán ratones con distintos colores. Cuando el jugador esté listo, pulsará el botón LISTO, y proseguirá a la pantalla de niveles.   
 <p align="center">
-  <img src="https://github.com/pablowht/JER-Grupo3/assets/100694175/f2384cd9-196f-4dbc-83c4-f2a88728a142">
-
+  <img src="https://github.com/pablowht/JER-Grupo3/assets/139124884/c335edcb-beed-4cd8-af64-a5b80f5973f4">
   <br><br>
   <b>Ilustración 4. Menú de Selección de Perfil</b>
  <br><br>
 </p>
 
 **4. Selección de nivel**  
-La pantalla de selección de nivel tiene un estilo minimalista, en el que primeramente solo se dejará jugar el nivel 1 y terminado este se irán desbloqueando los siguientes.  
+La pantalla de selección de nivel tiene un estilo minimalista, dando lugar a elegir entre 3 niveles diferentes. Para esta fase no se ha implementado.  
 <p align="center">
   <img src="https://github.com/pablowht/JER-Grupo3/assets/139124884/df003123-fbad-4c43-b8a6-487ffc3433b7">
   <br><br>
@@ -152,7 +151,7 @@ La pantalla de selección de nivel tiene un estilo minimalista, en el que primer
 
 **5. Menú de pausa, ajustes y controles**  
 <p align="center">
-  <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/fcebf1cd-4801-4280-878a-8df673063303">
+  <img src="https://github.com/pablowht/JER-Grupo3/assets/139124884/dd7f0118-4bed-4e0c-a127-91f97354d793">
   <br><br>
   <b>Ilustración 6. Interfaz de Pausa, Ajustes y Controles</b>
  <br><br>
@@ -214,35 +213,51 @@ ___
 <p align="center">
     <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/2ad65561-de7e-401d-917e-baba0af699ad">
     <br><br>
-    <b>Ilustración 11. Ratones</b>
+    <b>Ilustración 12. Ratones</b>
    <br><br>
 </p>
 
 *	Diseños inorgánicos  
     -	Trampas para ratones  
     -	Objetos de cocina (cuchillos, cacerolas, etc.)  
-    -	Mesas  
+    -	Muebles  
     -	Fuego, charcos de agua, cáscaras de plátano
 
 **2.	Audio**
-La música se convertirá a .ogg mientras que los efectos de sonido estarán en .wav.  
+La música y los efectos de sonido serán en .ogg.  
 * Música:
-    -	Menú principal: Música alegre que invite a empezar una partida.  
-    -	Menú de ajustes: Se mantiene la música que esté sonando, pero en un volumen inferior.  
-    -	In-Game: Música competitiva y tensa. Los ratones deben escapar de la cocina, por lo que la música tiene que dar un sentimiento de urgencia.  
-    -	Fin de partida: Fragmento de música corto que sirve como recompensa para el jugador ganador y como castigo para el perdedor. Debe de ser una música triunfal.  
+    -	Menú principal, ajustes y créditos: Música alegre que invite a empezar una partida.  
+    -	Pantalla final: Se mantienen la música del juego y se añade un pequeño efecto de sonido para que se note que el jugador ha tocado la meta. En un futuro se quiere cambiar por una música triunfal.  
+    -	In-Game: Música competitiva. Los ratones deben escapar de la cocina, por lo que la música tiene que dar un sentimiento de urgencia.  
 * Efectos de sonido:  
-    -	Navegación por menú: al pasar el ratón por encima de alguna opción.
-    -	Selección de una opción: al hacer clic sobre uno de los botones de inicio.
-    -	Movimiento del personaje (saltar, agacharse, pisadas): volumen bajo para no molestar.
-    -	Golpe: al chocar con un obstáculo.
+    -	Navegación por menú:al pasar el ratón por encima de alguna opción. Todavía no implementado.
+    -	Selección de una opción:al hacer clic sobre uno de los botones de inicio. Todavía no implementado.
+    -	Movimiento del personaje (saltar, agacharse, pisadas): volumen bajo para no molestar. Todavía no implementado.
+    -	Golpe: al chocar con un obstáculo suena un pequeño efecto de sonido. Para mostrar al jugador que se ha chocado.
+    -	Power-ups: al coger un power-up se escucha un efecto de sonido, y al perder el efecto del power up también se escucha un sonido diferente.
+    -	Botones:  los botones en las interfaces de menu, selección, ajustes y fin de juego, presentan un efecto de sonido al pulsarlos.
  ___
 ### Referencias ###
 * Figma Boceto Interfaces:  
  https://www.figma.com/file/EHHxC5EN9gM78CxVDQKwqt/interfaces-Ratones-aLosFogonestype=design&nodeid=0%3A1&mode=design&t=vvNZQHbM3PMg4PnY-1
 
 * Estructura GDD:  dsaltares (2016). Sion Tower - GDD.
-https://github.com/dsaltares/sion-tower/blob/master/doc/gdd/gdd.pdf 
+https://github.com/dsaltares/sion-tower/blob/master/doc/gdd/gdd.pdf
+
+* Música Menú:
+https://freesound.org/people/Electrobuz/sounds/137227/
+
+* Efecto se desactiva el poder del power-up:
+https://freesound.org/people/MATRIXXX_/sounds/523204/
+
+* Efecto de recibe daño:
+https://freesound.org/people/Prof.Mudkip/sounds/386862/
+
+* Efecto de interacción con botones:
+https://freesound.org/people/MATRIXXX_/sounds/657948/
+
+* Música inGame:
+https://www.youtube.com/watch?v=X2DOCUA6WTM
 ___
 
 
