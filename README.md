@@ -242,7 +242,22 @@ La música y los efectos de sonido serán en .ogg.
  https://www.figma.com/file/EHHxC5EN9gM78CxVDQKwqt/interfaces-Ratones-aLosFogonestype=design&nodeid=0%3A1&mode=design&t=vvNZQHbM3PMg4PnY-1
 
 * Estructura GDD:  dsaltares (2016). Sion Tower - GDD.
-https://github.com/dsaltares/sion-tower/blob/master/doc/gdd/gdd.pdf 
+https://github.com/dsaltares/sion-tower/blob/master/doc/gdd/gdd.pdf
+
+* Música Menú:
+https://freesound.org/people/Electrobuz/sounds/137227/
+
+* Efecto se desactiva el poder del power-up:
+https://freesound.org/people/MATRIXXX_/sounds/523204/
+
+* Efecto de recibe daño:
+https://freesound.org/people/Prof.Mudkip/sounds/386862/
+
+* Efecto de interacción con botones:
+https://freesound.org/people/MATRIXXX_/sounds/657948/
+
+* Música inGame:
+https://www.youtube.com/watch?v=X2DOCUA6WTM
 ___
 
 
