@@ -24,7 +24,6 @@ class GameOverScene extends Phaser.Scene {
         this.add.image(0,0,'FondoGameOver').setOrigin(0, 0);
         if(this.ganador1){ //En caso de que gane el jugador 1
             //GANADOR
-            console.log("GANA 1");
             if(this.raton1 === 'raton_blanco'){
                 this.add.image(470,600,'RatónGanadorB');
             }
@@ -49,7 +48,6 @@ class GameOverScene extends Phaser.Scene {
         }
         else{   //En caso de que gane el jugador 2
             //GANADOR
-            console.log("GANA 2");
             if(this.raton2 === 'raton_blanco'){
                 this.add.image(470,600,'RatónGanadorB');
             }

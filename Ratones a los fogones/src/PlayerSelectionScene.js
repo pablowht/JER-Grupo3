@@ -64,9 +64,6 @@ class PlayerSelectionScene extends Phaser.Scene {
             if(this.raton2 !== undefined && this.boton2Pulsado){
                 this.BotonP2Listo = this.add.image(31630,870,'Boton2ListoPressed');
                 this.p2Ready = true;
-
-                console.log("raton 1: " + this.raton1);
-                console.log("raton 2: " + this.raton2);
                 this.add.image(0,0, 'PlayersReady').setOrigin(0,0);
                 this.time.delayedCall(2000, this.StartPlaying, [], this);
             }

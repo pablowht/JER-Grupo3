@@ -36,12 +36,13 @@ class PauseScene extends Phaser.Scene {
 
         BotonSalir.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
             this.sound.play('InteractSound');
+            this.sound.stopAll();
+            this.sound.play('MenuMusic');
             if(!this.isPaused) {
                 this.scene.start("Menu");
             }else{
                 this.scene.start('Menu');
                 this.scene.stop('Game');
-                this.scene.sleep();
             }
         });
 

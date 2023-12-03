@@ -32,11 +32,6 @@ class PlayerClass {
         }
     }
 
-    loadSpriteSheets(){
-        this.scene.load.spritesheet('raton_gris','ASSETS/RATONES/SpriteSheets/Raton_Gris.png',{ frameWidth: 32, frameHeight: 32 } );
-        this.scene.load.spritesheet('raton_blanco','ASSETS/RATONES/SpriteSheets/Raton_Blanco.png',{ frameWidth: 32, frameHeight: 32 } );
-        this.scene.load.spritesheet('raton_marron','ASSETS/RATONES/SpriteSheets/Raton_Marron.png',{ frameWidth: 32, frameHeight: 32 } );
-    }
 
     createAnimsPlayer(){
         //Animaciones
@@ -123,7 +118,7 @@ class PlayerClass {
 
         if(this.wasCollided === true){
             this.timedEvent += delta;
-            if(this.timedEvent >= 2000){
+            if(this.timedEvent >= 3000){
                 this.removePenaltization();
                 this.timedEvent = 0;
             }
@@ -153,21 +148,18 @@ class PlayerClass {
         this.fisicas.clearTint();
         if(this.powerUpRecolectedType === 1) {
             this.velocity -= 50;
-            console.log("velocity of")
         }
         else if(this.powerUpRecolectedType === 2) {
             this.jumpAmount += 100;
-            console.log("jump of")
         }
         else {
             this.establishColliderObstacles(this.obstaculos);
-            console.log("obstacles of")
         }
     }
 
     gestionCollision(obj){
         this.fisicas.setTint(0xC71E1E );
-        this.velocity -= 15;
+        this.velocity -= 30;
         this.wasCollided = true;
     }
 

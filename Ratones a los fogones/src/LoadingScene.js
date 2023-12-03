@@ -33,6 +33,8 @@ class LoadingScene extends Phaser.Scene {
         this.load.image('BarraPlayer2', 'ASSETS/INTERFACES/InGame/BarraProgresoP2_Fondo.png');
         this.load.image('BarraRellenoPlayer1', 'ASSETS/INTERFACES/InGame/BarraProgresoP1_Barra.png');
         this.load.image('BarraRellenoPlayer2', 'ASSETS/INTERFACES/InGame/BarraProgresoP2_Barra.png');
+        this.load.image('Raton1Ingame', 'ASSETS/INTERFACES/InGame/Raton1_Ingame.png');
+        this.load.image('Raton2Ingame', 'ASSETS/INTERFACES/InGame/Raton2_Ingame.png');
 
         //GameOver
         this.load.image('FondoGameOver','ASSETS/INTERFACES/LevelEnd/Fondo_FinDeNivel.png');
@@ -59,6 +61,15 @@ class LoadingScene extends Phaser.Scene {
         this.load.image('RatonM','ASSETS/INTERFACES/Credits/Cabeza_RatonMarron.png');
         this.load.image('RatonG','ASSETS/INTERFACES/Credits/Cabeza_RatonGris.png');
 
+        //RATONES
+        this.load.spritesheet('raton_gris','ASSETS/RATONES/SpriteSheets/Raton_Gris.png',{ frameWidth: 32, frameHeight: 32 } );
+        this.load.spritesheet('raton_blanco','ASSETS/RATONES/SpriteSheets/Raton_Blanco.png',{ frameWidth: 32, frameHeight: 32 } );
+        this.load.spritesheet('raton_marron','ASSETS/RATONES/SpriteSheets/Raton_Marron.png',{ frameWidth: 32, frameHeight: 32 } );
+
+        //POWERUPS
+        this.load.image('powerupAmarillo','assets/POWERUPS/QUESO/QuesoAmarillo_12x14.png');
+        this.load.image('powerupAzul','assets/POWERUPS/QUESO/QuesoAzul_14x14.png');
+        this.load.image('powerupRojo','assets/POWERUPS/QUESO/QuesoRojo_17x16t.png');
 
         //Personalizacion de personajes
         this.load.image('FondoCustom', 'ASSETS/INTERFACES/PlayerSelection/Fondo_SeleccionPersonaje.png');

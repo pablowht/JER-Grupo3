@@ -6,11 +6,7 @@ class PowerupClass {
         this.y = _y;
         this.scene = _scene
     }
-    loadImages(){
-        this.scene.load.image('powerupAmarillo','assets/POWERUPS/QUESO/QuesoAmarillo_12x14.png');
-        this.scene.load.image('powerupAzul','assets/POWERUPS/QUESO/QuesoAzul_14x14.png');
-        this.scene.load.image('powerupRojo','assets/POWERUPS/QUESO/QuesoRojo_17x16t.png');
-    }
+
     createPhysics(){
         if(this.tipo === 1){
             this.fisicas = this.scene.physics.add.sprite(this.x,this.y,'powerupRojo');//aumenta la velocidad
