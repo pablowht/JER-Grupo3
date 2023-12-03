@@ -4,7 +4,7 @@ class CameraMovement {
         this.cam.setBounds(-2000,-185,5270,1080);//3350
     }
     moveCameraFunction(){
-        this.cam.scrollX += 1;
+        this.cam.scrollX += 0.5;
     }
 
     getScrollCam(){

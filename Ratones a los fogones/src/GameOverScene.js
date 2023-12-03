@@ -1,8 +1,6 @@
 class GameOverScene extends Phaser.Scene {
     constructor() {
         super("GameOver");
-
-
     }
     colorRaton1;
     colorRaton2;
@@ -15,18 +13,19 @@ class GameOverScene extends Phaser.Scene {
         this.ganador1 = data.ganador1;
         this.ganador2 = data.ganador2;
     }
-    preload()
-    {
+    preload() { }
 
-
-    }
     create(){
+
+        this.sound.stopAll();
+        this.sound.play('GameEndSound');
+
+
         this.add.image(0,0,'FondoGameOver').setOrigin(0, 0);
         if(this.ganador1){ //En caso de que gane el jugador 1
             //GANADOR
             console.log("GANA 1");
             if(this.raton1 === 'raton_blanco'){
-                console.log(this.raton1);
                 this.add.image(470,600,'RatónGanadorB');
             }
             else if(this.raton1 === 'raton_marron'){
@@ -51,7 +50,6 @@ class GameOverScene extends Phaser.Scene {
         else{   //En caso de que gane el jugador 2
             //GANADOR
             console.log("GANA 2");
-            console.log(this.colorRaton2);
             if(this.raton2 === 'raton_blanco'){
                 this.add.image(470,600,'RatónGanadorB');
             }
@@ -78,14 +76,13 @@ class GameOverScene extends Phaser.Scene {
         BotonSalir.setInteractive();
 
         BotonSalir.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
-            //console.log("boton volver creditos");
+            this.sound.play('InteractSound');
             this.scene.start("Menu")
         });
 
+        this.sound.play('MenuMusic',{loop:true});
+
         //Al tocar la meta se pausa el juego durante segundo y medio y luego salta está escena
         //con el nombre de playerx gana y el nombre de playerx pierde
-    }
-    update(){
-
     }
 }

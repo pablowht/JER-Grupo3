@@ -5,6 +5,7 @@ class StartingScene extends Phaser.Scene {
     }
     preload() {
         this.load.image('CompanyBackground', 'ASSETS/INTERFACES/CompanyBackground.png');
+
         //Pantalla de carga
         this.load.image('Fondo_Loading', 'ASSETS/INTERFACES/Loading/Fondo_ConBarraCargando.png');
         this.load.image('Barra_Loading', 'ASSETS/INTERFACES/Loading/BarraLoading_Barra.png');
@@ -16,6 +17,9 @@ class StartingScene extends Phaser.Scene {
 
     update(){
         this.input.keyboard.on('keydown', event => {
+            this.scene.start("Loading");
+        });
+        this.input.on('pointerdown', event => {
             this.scene.start("Loading");
         });
     }

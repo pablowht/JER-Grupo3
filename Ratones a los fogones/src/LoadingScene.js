@@ -4,13 +4,15 @@ class LoadingScene extends Phaser.Scene {
         super("Loading");
     }
     preload() {
-        let background = this.add.image(0,0,'Fondo_Loading').setOrigin(0,0);
+        //FONDO Y BARRA QUE MUESTRAN LA CARGA DE LOS ASSETS
+        this.add.image(0,0,'Fondo_Loading').setOrigin(0,0);
         let progressBar = this.add.image(960,497,'Barra_Loading');
 
         this.load.on('progress', function (value) {
-            console.log("Cargando");
             progressBar.setCrop(0 ,0, progressBar.width * value, progressBar.height);
         });
+
+        //ASSETS DEL JUEGO
 
         //Menu de Inicio
         this.load.image('Fondo_Menu','ASSETS/INTERFACES/Menu/Fondo_Menu.png');
@@ -120,9 +122,11 @@ class LoadingScene extends Phaser.Scene {
         this.load.audio('HurtSound', '/ASSETS/AUDIO/Hurt_Sound.ogg');
         this.load.audio('PowerUpGoneSound', '/ASSETS/AUDIO/PowerUp_Gone.ogg');
         this.load.audio('PowerUpGrabSound', '/ASSETS/AUDIO/PowerUp_Grab.ogg');
+        this.load.audio('GameEndSound', '/ASSETS/AUDIO/GameEnd_Sound.ogg');
     }
 
     create(){
+        this.sound.play('MenuMusic', {loop:true});
         this.scene.start("Menu");
     }
 

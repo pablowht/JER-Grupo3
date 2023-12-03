@@ -7,10 +7,6 @@ class PlayerSelectionScene extends Phaser.Scene {
     }
     preload() {}
 
-    init(data){
-        this.musicaMenu = data.musicaMenu;
-    }
-
     p1Ready;
     p2Ready;
     raton1;
@@ -25,14 +21,15 @@ class PlayerSelectionScene extends Phaser.Scene {
     ratonBElegido;
     ratonMElegido;
 
-    musicaMenu;
 
     create(){
-
+        //Se reinician las variables para que si se vuelve a entrar después de una partida los valores estén correctos
         this.ReiniciarVariables();
 
+        //FONDO
         this.add.image(0,0,'FondoCustom').setOrigin(0, 0);
 
+        //BOTONES
         let BotonP1Listo = this.add.image(300,870,'BotonP1Listo');
         BotonP1Listo.setInteractive();
 
@@ -50,10 +47,12 @@ class PlayerSelectionScene extends Phaser.Scene {
         BotonRatonMarron.setInteractive();
 
         BotonVolver.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
-            this.scene.start("Menu")
+            this.sound.play('InteractSound');
+            this.scene.start("Menu");
         });
 
         BotonP1Listo.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
+            this.sound.play('InteractSound');
             if(this.raton1 !== undefined && this.boton1Pulsado){
                 this.BotonP1Listo = this.add.image(300,870,'Boton1ListoPressed');
                 this.p1Ready = true;
@@ -61,6 +60,7 @@ class PlayerSelectionScene extends Phaser.Scene {
         });
 
         BotonP2Listo.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
+            this.sound.play('InteractSound');
             if(this.raton2 !== undefined && this.boton2Pulsado){
                 this.BotonP2Listo = this.add.image(31630,870,'Boton2ListoPressed');
                 this.p2Ready = true;
@@ -73,6 +73,7 @@ class PlayerSelectionScene extends Phaser.Scene {
         });
         
         BotonRatonBlanco.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
+            this.sound.play('InteractSound');
             if(this.boton1Pulsado && !this.p1Ready){
                 this.Boton1RatonSelected.destroy();
                 this.RatonGrande1.destroy();
@@ -105,6 +106,7 @@ class PlayerSelectionScene extends Phaser.Scene {
         });
 
         BotonRatonMarron.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
+            this.sound.play('InteractSound');
             if(this.boton1Pulsado && !this.p1Ready){
                 this.Boton1RatonSelected.destroy();
                 this.RatonGrande1.destroy();
@@ -137,6 +139,7 @@ class PlayerSelectionScene extends Phaser.Scene {
         });
 
         BotonRatonGris.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
+            this.sound.play('InteractSound');
             if(this.boton1Pulsado && !this.p1Ready){
                 this.Boton1RatonSelected.destroy();
                 this.RatonGrande1.destroy();
@@ -171,7 +174,6 @@ class PlayerSelectionScene extends Phaser.Scene {
     }
 
     StartPlaying(){
-        this.musicaMenu.stop();
         this.scene.start("Game", {colorRaton1: this.raton1, colorRaton2:this.raton2});
     }
 

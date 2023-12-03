@@ -5,26 +5,19 @@ var config = {
     scale: {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH,
-
-        width: 1920,//1920
-        height: 1080,//1080
-
-        zoom: 1,
+        width: 1920,
+        height: 1080
     },
-    //autoRound: false,
     autoResize: true,
-    //COSAS DE LA ESCENA
-    scene:[StartingScene, MenuScene,LoadingScene,PlayerSelectionScene,GameScene,CreditsScene,PauseScene,GameOverScene], //escena inicial
+    //ESCENAS
+    scene:[StartingScene, MenuScene, LoadingScene, PlayerSelectionScene, GameScene, CreditsScene, PauseScene, GameOverScene],
     //FISICAS
     physics:{ 
         default: 'arcade',
         arcade: {
-            debug:false,
-            //gravity: {y: 500 }
-            //He quitado la gravedad a la fisica porque si no el suelo se cae
+            debug:false
         }
-    },
-
-
+    }
 };
+
 var game = new Phaser.Game(config);

@@ -4,9 +4,13 @@ class MenuScene extends Phaser.Scene{
     }
 
     preload(){
-
+        this.backgroundMusic = this.sound.add('MenuMusic', {loop: true});
     }
+
+    backgroundMusic;
+
     create(){
+        //this.musicControl();
 
         this.add.image(0,0,'Fondo_Menu').setOrigin(0, 0);
         let BotonJugar = this.add.image(990,540,'BOTON_JUGAR');
@@ -20,27 +24,32 @@ class MenuScene extends Phaser.Scene{
 
         //CAMBIO DE ESCENA DEL MENU A LA ESCENA IN-GAME
         BotonJugar.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
-            console.log("boton pulsado")
-            this.scene.start("PlayerSelection", {musicaMenu: this.backgroundMusic}) //Niveles
+            this.sound.play('InteractSound');
+            this.scene.start("PlayerSelection") //Niveles
             //Cuando este selector de nivel, poner que al jugar vaya antes a "Niveles"
         });
 
         //CAMBIO DE ESCENA DEL MENU A CREDITOS
         BotonCreditos.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
-            console.log("boton pulsado")
+            this.sound.play('InteractSound');
             this.scene.start("Creditos")
         });
 
         //CAMBIO DE ESCENA DEL MENU A AJUSTES
         BotonAjustes.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
-            console.log("boton pulsado")
+            this.sound.play('InteractSound');
             this.scene.start("Pause", {isPaused:false});
         });
 
-        //MUSICA
-        this.backgroundMusic = this.sound.add('MenuMusic', {loop:true});
-        this.backgroundMusic.play();
+    }
 
+    musicControl(){
+        //La siguiente condicional no funciona correctamente porque isPlaying lo toma como
+        //parámetro de anims aunque en la documentación ponga que sirve también para music
+        if(!this.backgroundMusic.isPlaying){
+            this.sound.stopAll();
+            this.backgroundMusic.play();
+        }
     }
 
 }

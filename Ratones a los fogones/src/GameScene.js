@@ -21,7 +21,9 @@ class GameScene extends Phaser.Scene {
     powerupRoj2 = new PowerupClass(1, 2760, 590, this);
     obstaculos;
     meta;
+
     backgroundMusic;
+
     barraDivisoria;
 
     preload() {
@@ -113,8 +115,8 @@ class GameScene extends Phaser.Scene {
             key: 'fogon_encendido',
             frames: this.anims.generateFrameNumbers('Fogon', {start: 2, end: 11}),
             frameRate: 5,
-
         });
+
         this.obstFogon2 = this.add.sprite(543, 220, 'Fogon', 0);
         this.obstFogon3 = this.add.sprite(565, 220, 'Fogon', 0);
         this.obstFogon4 = this.add.sprite(1130, 275, 'Fogon', 0);
@@ -214,13 +216,11 @@ class GameScene extends Phaser.Scene {
 
         //PLAYER 1
         this.player1.createPhysics();
-        this.player1.createSounds();
         this.player1.establishColliderObj(this.walkable);
         this.player1.establishColliderObj(this.platforms);
 
         //PLAYER 2
         this.player2.createPhysics();
-        this.player2.createSounds();
         this.player2.establishColliderObj(this.walkable);
         this.player2.establishColliderObj(this.platforms);
 
@@ -251,8 +251,9 @@ class GameScene extends Phaser.Scene {
 
         //MUSICA
         this.backgroundMusic = this.sound.add('RaceMusic', {loop: true});
+        this.game.sound.stopAll();
         this.backgroundMusic.play();
-        this.backgroundMusic.volume = 0.2;
+        this.backgroundMusic.setVolume(0.2);
 
     }
 
@@ -292,6 +293,7 @@ class GameScene extends Phaser.Scene {
         //Para pausa
         this.esc = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
         if (this.esc.isDown) {
+            this.sound.play('InteractSound');
             this.scene.pause();
             this.scene.launch('Pause',{isPaused:true});
         }
@@ -310,6 +312,7 @@ class GameScene extends Phaser.Scene {
         }
     }
     collectPowerUp(player, powerup) {
+        this.sound.play('PowerUpGrabSound');
         powerup.disableBody(true, true);
         if (player.texture.key === 1) {
             this.player1.gestionPowerUp(powerup);
@@ -324,6 +327,7 @@ class GameScene extends Phaser.Scene {
     }
 
     hitAnyObstacle(player, obstacle){
+        this.sound.play('HurtSound');
         obstacle.disableBody(true,true);
         if (player.texture.key === 1) {
             this.player1.gestionCollision(obstacle);
