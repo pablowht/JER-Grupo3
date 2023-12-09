@@ -4,11 +4,11 @@ class StartingScene extends Phaser.Scene {
         super("StartScene");
     }
     preload() {
-        this.load.image('CompanyBackground', 'ASSETS/INTERFACES/CompanyBackground.png');
+        this.load.image('CompanyBackground', '/ASSETS/INTERFACES/CompanyBackground.png');
 
         //Pantalla de carga
-        this.load.image('Fondo_Loading', 'ASSETS/INTERFACES/Loading/Fondo_ConBarraCargando.png');
-        this.load.image('Barra_Loading', 'ASSETS/INTERFACES/Loading/BarraLoading_Barra.png');
+        this.load.image('Fondo_Loading', '/ASSETS/INTERFACES/Loading/Fondo_ConBarraCargando.png');
+        this.load.image('Barra_Loading', '/ASSETS/INTERFACES/Loading/BarraLoading_Barra.png');
     }
 
     create() {
