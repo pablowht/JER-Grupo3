@@ -5,7 +5,7 @@ class CameraMovement {
         this.cam.setBackgroundColor(0x442474)
     }
     moveCameraFunction(){
-        this.cam.scrollX += 0.70;
+        this.cam.scrollX += 0.9;
     }
 
     getScrollCam(){

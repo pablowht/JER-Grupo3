@@ -65,7 +65,7 @@ class PlayerSelectionScene extends Phaser.Scene {
                 this.BotonP2Listo = this.add.image(31630,870,'Boton2ListoPressed');
                 this.p2Ready = true;
                 this.add.image(0,0, 'PlayersReady').setOrigin(0,0);
-                this.time.delayedCall(2000, this.StartPlaying, [], this);
+                this.time.delayedCall(7000, this.StartPlaying, [], this);
             }
         });
         
