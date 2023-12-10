@@ -160,7 +160,7 @@ La pantalla de selección de nivel tiene un estilo minimalista, dando lugar a el
 **6. Nivel**  
 La interfaz in-game se basa en una pantalla dividida a la mitad horizontalmente donde el jugador 1 (el cual usará las teclas W, A, S, D) utilizará la pantalla de arriba, y el jugador 2 (mediante las teclas de las flechas) utilizará la de abajo. Cada jugador dispondrá de una barra arriba de su pantalla que mostrará el porcentaje de recorrido que han avanzado dentro del nivel y a ser posible un dibujo significativo del power up del que se esté haciendo uso.  
 <p align="center">
-  <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/325b8ac8-e2e9-464d-94ab-775b8e1e89e6">
+  <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/a9e59464-c0db-40be-b0d7-2619d49f865c">
   <br><br>
   <b>Ilustración 7. Interfaz de Nivel</b>
  <br><br>
@@ -170,7 +170,6 @@ La interfaz in-game se basa en una pantalla dividida a la mitad horizontalmente 
 La pantalla de fin de nivel mostrará el ganador en el podio y las opciones de volver al menú principal o pasar al siguiente nivel.  
 <p align="center">
   <img src="https://github.com/pablowht/JER-Grupo3/assets/100694175/1cd669c4-816d-4f3f-96d8-60f3bfbb41a4">
-  
   <br><br>
   <b>Ilustración 8. Interfaz de Fin de Nivel</b>
  <br><br>
@@ -196,7 +195,7 @@ La pantalla de carga simplemente tendrá una barra de color amarillo y un peque�
 **10. ¡A correr!**  
 Al iniciar el juego y probar varias veces, se descubrió que al terminar de elegir a los personajes el juego se iniciaba inmediatemente, debido a esto, se ha decidido añadir una nueva interfaz entre la selección de personaje y el juego en sí.
 <p align="center">
-  <img src="https://github.com/pablowht/JER-Grupo3/assets/100694175/bc806c19-2a1b-47f5-8ca1-64cdc52b0326">
+  <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/aa3dfcf3-338f-4227-8891-9919f8b0b941">
   <br><br>
   <b>Ilustración 11. ¡A correr!</b>
  <br><br>
