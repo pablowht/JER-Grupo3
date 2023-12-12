@@ -1,4 +1,4 @@
-class PlayerClass {
+class Player {
 
     constructor(_playerNumber, _x, _y, _velocity, _jumpAmount, _scene) {
         this.playerNumber = _playerNumber;

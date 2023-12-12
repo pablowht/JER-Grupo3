@@ -1,4 +1,4 @@
-class PowerupClass {
+class Powerup {
 
     constructor(_tipo, _x, _y, _scene) {
         this.tipo = _tipo;
