@@ -10,7 +10,7 @@ var config = {
     },
     autoResize: true,
     //ESCENAS
-    scene:[StartingScene, MenuScene, LoadingScene, PlayerSelectionScene, GameScene, CreditsScene, PauseScene, GameOverScene],
+    scene:[StartingScene, MenuScene, LoginScene, LoadingScene, PlayerSelectionScene, GameScene, CreditsScene, PauseScene, GameOverScene],
     //FISICAS
     physics:{ 
         default: 'arcade',
