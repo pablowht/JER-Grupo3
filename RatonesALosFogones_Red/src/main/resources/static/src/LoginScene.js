@@ -11,6 +11,8 @@ class LoginScene extends Phaser.Scene{
 
 
     create(){
+		
+	    var url= window.location.href; 
         this.add.image(0,0,'Fondo_Login').setOrigin(0, 0);
 
         var formulario = this.add.dom(720, 615).createFromCache('login_form');
@@ -30,6 +32,7 @@ class LoginScene extends Phaser.Scene{
         BotonAcceder.on('pointerdown', () => {
             this.sound.play('InteractSound');
             if (username.value !== "" && password.value !== "") {
+				console.log(url);
                 $.ajax({
                     type: "POST",
                     async: false,
@@ -37,7 +40,7 @@ class LoginScene extends Phaser.Scene{
                         'Accept': 'application/json',
                         'Content-type': 'application/json'
                     },
-                    url: "/src/main/java/com/example/demo",
+                    url:url+"usersData" ,
                     data: JSON.stringify({username: "" + username.value, password: "" + password.value}),
                     dataType: "json",
                     success: function (valor) { // returned variable to check if we can change the scene
@@ -59,7 +62,7 @@ class LoginScene extends Phaser.Scene{
                         font: (40).toString() + "px Lexend",
                         color: '#e82138'
                     })
-                    console.log('AQUI ESTOY: ' + formulario.x + " , " + formulario.y);
+                 
                 }
             }
             this.scene.start('Menu');
