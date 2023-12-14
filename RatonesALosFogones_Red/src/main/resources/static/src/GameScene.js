@@ -7,17 +7,17 @@ class GameScene extends Phaser.Scene {
     walkable;
     platforms;
     isPaused;
-    player1 = new PlayerClass(1, 200, 100, 100, -300, this);
-    player2 = new PlayerClass(2, 200, 450, 100, -300, this);
+    player1 = new Player(1, 200, 100, 100, -300, this);
+    player2 = new Player(2, 200, 450, 100, -300, this);
     colorRaton1;
     colorRaton2;
     camera;
-    powerupAma = new PowerupClass(3, 1090, 230, this);
-    powerupAz = new PowerupClass(2, 1543, 250, this);
-    powerupRoj = new PowerupClass(1, 2760, 190, this);
-    powerupAma2 = new PowerupClass(3, 1090, 630, this);
-    powerupAz2 = new PowerupClass(2, 1543, 650, this);
-    powerupRoj2 = new PowerupClass(1, 2760, 590, this);
+    powerupAma = new Powerup(3, 1090, 230, this);
+    powerupAz = new Powerup(2, 1543, 250, this);
+    powerupRoj = new Powerup(1, 2760, 190, this);
+    powerupAma2 = new Powerup(3, 1090, 630, this);
+    powerupAz2 = new Powerup(2, 1543, 650, this);
+    powerupRoj2 = new Powerup(1, 2760, 590, this);
     obstaculos;
     meta;
     backgroundMusic;
@@ -254,12 +254,13 @@ class GameScene extends Phaser.Scene {
         this.game.sound.stopAll();
         this.backgroundMusic.play();
         this.backgroundMusic.setVolume(0.2);
+
     }
 
     update(timeNum, timeDelta) {
 
         this.camera.moveCameraFunction();
-        this.physics.world.setBounds(this.camera.getScrollCam()+320,0,3200,1080);
+        this.physics.world.setBounds(this.camera.getScrollCam()+324,0,3200,1080);
 
         this.player1.update(timeNum, timeDelta);
         this.player2.update(timeNum, timeDelta);
@@ -331,7 +332,7 @@ class GameScene extends Phaser.Scene {
     }
 
     EndGame(){
-        this.scene.start("GameOver", {raton1: this.colorRaton1, raton2:this.colorRaton2, ganador1:this.player1Won,ganador2:this.player1Won});
+        this.scene.start("GameOver", {raton1: this.colorRaton1, raton2:this.colorRaton2, ganador1:this.player1Won,ganador2:this.player2Won});
     }
 
 }

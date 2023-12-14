@@ -152,6 +152,4 @@ class LoadingScene extends Phaser.Scene {
         this.sound.play('MenuMusic', {loop:true});
         this.scene.start("LoginScene");
     }
-
-
 }

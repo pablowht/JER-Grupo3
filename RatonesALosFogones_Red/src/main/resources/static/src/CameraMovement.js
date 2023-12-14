@@ -12,5 +12,6 @@ class CameraMovement {
         return this.cam.scrollX;
     }
 
+
 }
 

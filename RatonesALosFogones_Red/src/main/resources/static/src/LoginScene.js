@@ -1,6 +1,6 @@
-/*$(document).ready(function(){
+$(document).ready(function(){
     console.log('DOM cargado (LOGIN)')
-});*/
+});
 
 class LoginScene extends Phaser.Scene{
     constructor(){
@@ -14,24 +14,25 @@ class LoginScene extends Phaser.Scene{
 
         this.add.image(0,0,'Fondo_Login').setOrigin(0, 0);
 
-        var formulario = this.add.dom(750, 800).createFromCache('login_form');
+        var formulario = this.add.dom(720, 615).createFromCache('login_form');
 
         //var user = this.add.dom(750,800).createFromHTML('login-user');
         //var password = this.add.dom(750,900).createFromHTML('login-password');
-        var usuario = formulario.getChildByID('login-user');
-        var password = formulario.getChildByID('login-password');
+        var username = formulario.getChildByName('username');
+        var password = formulario.getChildByName('password');
 
-        var textWrongPassword = this.add.text(960, 1000, '');
+        //var textWrongPassword = this.add.text(900, 850, '');
         var loginCompleto = false;
 
         let BotonAcceder = this.add.image(960,960,'Boton_Acceder');
-        //BotonAcceder.setInteractive();
+        BotonAcceder.setInteractive();
 
         //CAMBIO DE ESCENA DEL LOGIN AL MENÚ
-        BotonAcceder.setInteractive().on('pointerdown', () => {
+        BotonAcceder.on('pointerdown', () => {
             this.sound.play('InteractSound');
-            if (usuario.value !== "" && password.value !== "") {
-                /*$.ajax({
+            /*if (username.value !== "" && password.value !== "") {
+                //console.log(usuario.value);
+                $.ajax({
                     type: "POST",
                     async: false,
                     headers: {
@@ -46,25 +47,25 @@ class LoginScene extends Phaser.Scene{
                     }
                 }).done(function (item) {
                     console.log("Usuario creado: " + JSON.stringify({username: "" + user.value, password: "" + password.value}));
-                })*/
+                })
 
                 // Starts the next scene
                 if (loginCompleto) { // if we access with an existing user and correct password or create a new one we can change the scene
                     this.scene.start('Menu');
                 } else { // if the given password doesn't match the one of the existing user, we can't change the scene
-                    textWrongPassword.setColor('e82138');
-                    textWrongPassword.setText('CONTRASEÑA INCORRECTA'); //
+                    //textWrongPassword.setColor('#e82138');
+                    //textWrongPassword.setFontFamily('Lexend')
+                    //textWrongPassword.setText('CONTRASEÑA INCORRECTA'); //
+                    this.textWrongPassword = this.add.text(850, 850, 'CONTRASEÑA INCORRECTA', {
+                        fontFamily: 'Lexend',
+                        font: (40).toString() + "px Lexend",
+                        color: '#e82138'
+                    })
+                    console.log('AQUI ESTOY: ' + formulario.x + " , " + formulario.y);
                 }
-            }
+            }*/
+            this.scene.start('Menu');
         });
-
-        this.BotonAcceder.on('pointerover', function (){
-            this.setScale(1.2, 1.2);
-        });
-
-        this.BotonAcceder.on('pointerout', function (){
-            this.setScale(1, 1);
-        })
 
     }
 
