@@ -10,7 +10,7 @@
     margin-top: 20px;
 }
 input:focus {
-    /*outline: none;*/
+    outline: none;
 }
 
 #chat-div {

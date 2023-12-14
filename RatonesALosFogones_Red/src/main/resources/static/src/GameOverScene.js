@@ -93,7 +93,33 @@ class GameOverScene extends Phaser.Scene {
         var botonEnviar = chat.getChildByName('botonEnviarMsj');
         var recuadroEscribir = chat.getChildByName('cuadro-escribir');
 
+		function sendMessage(user, message)
+		{
+			$.ajax({
+				type: "POST",
+				async:false,
+				headers: {
+					'Accept': 'application/json',
+					'Content-type' : 'application/json'	
+				},
+				url: url + "chat",
+				data: JSON.stringify( { user: "-"+user, message: ""+message } ),
+				dataType: "json" 
+			})
+			getMessage();
+		}
 
+		function getMessage() {
+			for (let i = 0; i < 8; i++) {
+				$.ajax({
+					method: "GET",
+					url: url + "chat/" + i.toString()
+				}).done(function(data){
+					if(data != "")
+						document.getElementById("message"+i.toString()).innerHTML = data;
+				})
+			}
+}
 
 
         //Al tocar la meta se pausa el juego durante segundo y medio y luego salta está escena

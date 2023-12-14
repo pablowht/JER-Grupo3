@@ -11,7 +11,6 @@ class LoginScene extends Phaser.Scene{
 
 
     create(){
-
         this.add.image(0,0,'Fondo_Login').setOrigin(0, 0);
 
         var formulario = this.add.dom(720, 615).createFromCache('login_form');
@@ -30,8 +29,7 @@ class LoginScene extends Phaser.Scene{
         //CAMBIO DE ESCENA DEL LOGIN AL MENÚ
         BotonAcceder.on('pointerdown', () => {
             this.sound.play('InteractSound');
-            /*if (username.value !== "" && password.value !== "") {
-                //console.log(usuario.value);
+            if (username.value !== "" && password.value !== "") {
                 $.ajax({
                     type: "POST",
                     async: false,
@@ -39,14 +37,14 @@ class LoginScene extends Phaser.Scene{
                         'Accept': 'application/json',
                         'Content-type': 'application/json'
                     },
-                    url: url + "users",
-                    data: JSON.stringify({username: "" + user.value, password: "" + password.value}),
+                    url: "/src/main/java/com/example/demo",
+                    data: JSON.stringify({username: "" + username.value, password: "" + password.value}),
                     dataType: "json",
                     success: function (valor) { // returned variable to check if we can change the scene
                         loginCompleto = valor;
                     }
                 }).done(function (item) {
-                    console.log("Usuario creado: " + JSON.stringify({username: "" + user.value, password: "" + password.value}));
+                    console.log("Usuario creado: " + JSON.stringify({username: "" + username.value, password: "" + password.value}));
                 })
 
                 // Starts the next scene
@@ -63,7 +61,7 @@ class LoginScene extends Phaser.Scene{
                     })
                     console.log('AQUI ESTOY: ' + formulario.x + " , " + formulario.y);
                 }
-            }*/
+            }
             this.scene.start('Menu');
         });
 

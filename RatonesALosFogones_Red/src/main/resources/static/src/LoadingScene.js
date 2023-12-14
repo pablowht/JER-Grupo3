@@ -23,7 +23,7 @@ class LoadingScene extends Phaser.Scene {
         this.load.image('Cuadro_Chat','/ASSETS/INTERFACES/Chat/Cuadro_Chat.png');
         this.load.image('CuadroEscribirMensaje','/ASSETS/INTERFACES/Chat/Cuadro_Texto_Chat.png');
         this.load.image('Fondo_Chat','/ASSETS/INTERFACES/Chat/Fondo_Chat_Msj.png');
-        this.load.html('chat_html', "./chat.html");
+        this.load.html('chat_html', "./chatJuego.html");
 
         //Menu de Inicio
         this.load.image('Fondo_Menu','/ASSETS/INTERFACES/Menu/Fondo_Menu.png');
