@@ -8,6 +8,10 @@ var config = {
         width: 1900,
         height: 1060
     },
+    parent: juego,
+    dom: {
+        createContainer: true,
+    },
     autoResize: true,
     //ESCENAS
     scene:[StartingScene, MenuScene, LoginScene, LoadingScene, PlayerSelectionScene, GameScene, CreditsScene, PauseScene, GameOverScene],

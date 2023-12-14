@@ -1,6 +1,6 @@
-$(document).ready(function(){
+/*$(document).ready(function(){
     console.log('DOM cargado (LOGIN)')
-});
+});*/
 
 class LoginScene extends Phaser.Scene{
     constructor(){
@@ -16,21 +16,21 @@ class LoginScene extends Phaser.Scene{
 
         var formulario = this.add.dom(750, 800).createFromCache('login_form');
 
-        var user = this.add.dom(750,800).createFromHTML('login-user');
-        var password = this.add.dom(750,900).createFromHTML('login-password');
-        //var user = formulario.getChildByID('login-user');
-        //var password = formulario.getChildByID('login-password');
+        //var user = this.add.dom(750,800).createFromHTML('login-user');
+        //var password = this.add.dom(750,900).createFromHTML('login-password');
+        var usuario = formulario.getChildByID('login-user');
+        var password = formulario.getChildByID('login-password');
 
-        var textWrongPassword = this.add.text(750, 100, '');
+        var textWrongPassword = this.add.text(960, 1000, '');
         var loginCompleto = false;
 
         let BotonAcceder = this.add.image(960,960,'Boton_Acceder');
-        BotonAcceder.setInteractive();
+        //BotonAcceder.setInteractive();
 
         //CAMBIO DE ESCENA DEL LOGIN AL MENÚ
-        BotonAcceder.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
+        BotonAcceder.setInteractive().on('pointerdown', () => {
             this.sound.play('InteractSound');
-            if (user.value !== "" && password.value !== "") {
+            if (usuario.value !== "" && password.value !== "") {
                 /*$.ajax({
                     type: "POST",
                     async: false,

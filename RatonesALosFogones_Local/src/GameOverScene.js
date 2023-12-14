@@ -1,3 +1,7 @@
+$(document).ready(function(){
+    console.log('DOM cargado (CHAT)')
+});
+
 class GameOverScene extends Phaser.Scene {
     constructor() {
         super("GameOver");
@@ -22,6 +26,7 @@ class GameOverScene extends Phaser.Scene {
 
 
         this.add.image(0,0,'FondoGameOver').setOrigin(0, 0);
+        this.add.image(1315,220,'RecuadroTextos')
         if(this.ganador1){ //En caso de que gane el jugador 1
             //GANADOR
             if(this.raton1 === 'raton_blanco'){
@@ -34,7 +39,7 @@ class GameOverScene extends Phaser.Scene {
                 this.add.image(470,600,'RatónGanadorG');
             }
             //PERDEDOR
-            this.add.image(1350,260,'TextoGana1');
+            this.add.image(1315,150,'TextoGana1');
             if(this.raton2 === 'raton_blanco'){
                 this.add.image(1050,800,'RatónPerdedorB');
             }
@@ -44,7 +49,7 @@ class GameOverScene extends Phaser.Scene {
             else if (this.raton2 === 'raton_gris'){
                 this.add.image(1050,800,'RatónPerdedorG');
             }
-            this.add.image(1350,360,'TextoPierde2');
+            this.add.image(1315,250,'TextoPierde2');
         }
         else{   //En caso de que gane el jugador 2
             //GANADOR
@@ -57,7 +62,7 @@ class GameOverScene extends Phaser.Scene {
             else if(this.raton2 === 'raton_gris'){
                 this.add.image(470,600,'RatónGanadorG');
             }
-            this.add.image(1350,260,'TextoGana2');
+            this.add.image(1315,150,'TextoGana2');
             //PERDEDOR
             if(this.raton1 === 'raton_blanco'){
                 this.add.image(1050,800,'RatónPerdedorB');
@@ -68,17 +73,28 @@ class GameOverScene extends Phaser.Scene {
             else if(this.raton1 === 'raton_gris'){
                 this.add.image(1050,800,'RatónPerdedorG');
             }
-            this.add.image(1350,360,'TextoPierde1');
+            this.add.image(1315,250,'TextoPierde1');
         }
-        let BotonSalir = this.add.image(1600,900,'Boton_Salir');
-        BotonSalir.setInteractive();
+        let BotonMenu = this.add.image(1020,465,'Boton_Menu');
+        BotonMenu.setInteractive();
 
-        BotonSalir.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
+        BotonMenu.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
             this.sound.play('InteractSound');
             this.scene.start("Menu")
         });
 
         this.sound.play('MenuMusic',{loop:true});
+
+        //CHAT
+        var chat = this.add.dom(1420, 820).createFromCache('chat_html');
+
+        this.add.image(1580, 750, 'Cuadro_Chat');
+
+        var botonEnviar = chat.getChildByName('botonEnviarMsj');
+        var recuadroEscribir = chat.getChildByName('cuadro-escribir');
+
+
+
 
         //Al tocar la meta se pausa el juego durante segundo y medio y luego salta está escena
         //con el nombre de playerx gana y el nombre de playerx pierde

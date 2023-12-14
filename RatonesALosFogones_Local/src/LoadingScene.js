@@ -17,6 +17,13 @@ class LoadingScene extends Phaser.Scene {
         //Menu de Login
         this.load.image('Fondo_Login','/ASSETS/INTERFACES/Login/Login_Fondo.png');
         this.load.image('Boton_Acceder','/ASSETS/INTERFACES/Login/Login_Acceder.png');
+        this.load.html('login_form', "./login_form.html");
+
+        //Chat
+        this.load.image('Cuadro_Chat','/ASSETS/INTERFACES/Chat/Cuadro_Chat.png');
+        this.load.image('CuadroEscribirMensaje','/ASSETS/INTERFACES/Chat/Cuadro_Texto_Chat.png');
+        this.load.image('Fondo_Chat','/ASSETS/INTERFACES/Chat/Fondo_Chat_Msj.png');
+        this.load.html('chat_html', "./chat.html");
 
         //Menu de Inicio
         this.load.image('Fondo_Menu','/ASSETS/INTERFACES/Menu/Fondo_Menu.png');
@@ -42,13 +49,14 @@ class LoadingScene extends Phaser.Scene {
 
         //GameOver
         this.load.image('FondoGameOver','/ASSETS/INTERFACES/LevelEnd/Fondo_FinDeNivel.png');
-        this.load.image('Boton_Salir','/ASSETS/INTERFACES/LevelEnd/Boton_Salir.png');
+        this.load.image('Boton_Menu','/ASSETS/INTERFACES/LevelEnd/Boton_Menu.png');
         this.load.image('RatónGanadorB','/ASSETS/INTERFACES/LevelEnd/RatonBlanco_Winner.png');
         this.load.image('RatónPerdedorB','/ASSETS/INTERFACES/LevelEnd/RatonBlanco_Loser.png');
         this.load.image('RatónGanadorM','/ASSETS/INTERFACES/LevelEnd/RatonMarron_Winner.png');
         this.load.image('RatónPerdedorM','/ASSETS/INTERFACES/LevelEnd/RatonMarron_Loser.png');
         this.load.image('RatónGanadorG','/ASSETS/INTERFACES/LevelEnd/RatonGris_Winner.png');
         this.load.image('RatónPerdedorG','/ASSETS/INTERFACES/LevelEnd/RatonGris_Loser.png');
+        this.load.image('RecuadroTextos','/ASSETS/INTERFACES/LevelEnd/Recuadro_JugadoresGanadores.png');
 
         this.load.image('TextoGana1', '/ASSETS/INTERFACES/LevelEnd/TextoGanar_Player1.png');
         this.load.image('TextoGana2', '/ASSETS/INTERFACES/LevelEnd/TextoGanar_Player2.png');
