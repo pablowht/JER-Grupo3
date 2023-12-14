@@ -14,6 +14,11 @@ class LoadingScene extends Phaser.Scene {
 
         //ASSETS DEL JUEGO
 
+        //Menu de Login
+        this.load.image('Fondo_Login','/ASSETS/INTERFACES/Login/Login_Fondo.png');
+        this.load.image('Boton_Acceder','/ASSETS/INTERFACES/Login/Login_Acceder.png');
+
+
         //Menu de Inicio
         this.load.image('Fondo_Menu','/ASSETS/INTERFACES/Menu/Fondo_Menu.png');
         this.load.image('BOTON_AJUSTES','/ASSETS/INTERFACES/Menu/BOTON_AJUSTES.png');
