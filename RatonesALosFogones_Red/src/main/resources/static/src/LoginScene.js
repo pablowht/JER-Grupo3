@@ -32,7 +32,6 @@ class LoginScene extends Phaser.Scene{
         BotonAcceder.on('pointerdown', () => {
             this.sound.play('InteractSound');
             if (username.value !== "" && password.value !== "") {
-				console.log(url);
                 $.ajax({
                     type: "POST",
                     async: false,
@@ -40,7 +39,7 @@ class LoginScene extends Phaser.Scene{
                         'Accept': 'application/json',
                         'Content-type': 'application/json'
                     },
-                    url:url+"usersData" ,
+                    url:url + 'users',
                     data: JSON.stringify({username: "" + username.value, password: "" + password.value}),
                     dataType: "json",
                     success: function (valor) { // returned variable to check if we can change the scene
@@ -50,13 +49,10 @@ class LoginScene extends Phaser.Scene{
                     console.log("Usuario creado: " + JSON.stringify({username: "" + username.value, password: "" + password.value}));
                 })
 
-                // Starts the next scene
+
                 if (loginCompleto) { // if we access with an existing user and correct password or create a new one we can change the scene
                     this.scene.start('Menu');
-                } else { // if the given password doesn't match the one of the existing user, we can't change the scene
-                    //textWrongPassword.setColor('#e82138');
-                    //textWrongPassword.setFontFamily('Lexend')
-                    //textWrongPassword.setText('CONTRASEÑA INCORRECTA'); //
+                } else { 
                     this.textWrongPassword = this.add.text(850, 850, 'CONTRASEÑA INCORRECTA', {
                         fontFamily: 'Lexend',
                         font: (40).toString() + "px Lexend",

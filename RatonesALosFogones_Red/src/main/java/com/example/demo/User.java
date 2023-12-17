@@ -5,12 +5,12 @@ public class User {
 	private String password;
 	private int recordObstacles; 
 	
-	public User() {}
-	
 	public User(String _user, String _password) {
 		this.user = _user;
 		this.password = _password;
 		this.recordObstacles = 50;
+		
+		System.out.printf("user" + this.user + "password" + this.password + "record" + this.recordObstacles);
 	}
 	
 	

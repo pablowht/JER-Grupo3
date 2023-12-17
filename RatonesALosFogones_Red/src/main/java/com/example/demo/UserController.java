@@ -30,10 +30,12 @@ public class UserController {
 			while (reader.hasNextLine()) {
 				String data[] = reader.nextLine().split(";");
 				User auxUser = new User(data[0], data[1]);
+				
 				auxUser.setRecordObstacles(Integer.parseInt(data[2]));
 				usersMap.put(auxUser.getUser(), auxUser);
-				
+	
 			}
+			
 			reader.close();
 			
 		}catch(FileNotFoundException e) 
@@ -74,7 +76,6 @@ public class UserController {
 	}
 	
 	//MÉTODOS POST:
-	
 	@PostMapping("/activeUsers")
 	public boolean addCurrentUser(@RequestBody User newUser) 
 	{
@@ -88,13 +89,13 @@ public class UserController {
 	@PostMapping("/users")
     public boolean addUser(@RequestBody User newUser) 
     {
-    	String nickname = newUser.getUser();
+    	String username = newUser.getUser();
     	String password = newUser.getPassword();
-    	System.out.println(nickname);
-    	if(!usersMap.containsKey(nickname)) 
+    	System.out.println(username);
+    	if(!usersMap.containsKey(username)) 
     	{
-    		usersMap.put(nickname, newUser); 
-    		activeUsers.put(nickname, newUser);
+    		usersMap.put(username, newUser); 
+    		activeUsers.put(username, newUser);
     		
             try (Writer writer = new BufferedWriter(new FileWriter(usersFileURL, true)))
             {
@@ -111,8 +112,8 @@ public class UserController {
             }
     		return true; 
     	} else { 
-    		if(usersMap.get(nickname).getPassword().equals(password)) { 
-    	    	activeUsers.put(nickname, newUser);
+    		if(usersMap.get(username).getPassword().equals(password)) { 
+    	    	activeUsers.put(username, newUser);
 
     			return true; 
     		} else 
