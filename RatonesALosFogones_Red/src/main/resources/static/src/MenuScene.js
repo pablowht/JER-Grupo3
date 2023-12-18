@@ -37,7 +37,7 @@ class MenuScene extends Phaser.Scene{
         let BotonAjustes = this.add.image(990,820,'BOTON_AJUSTES');
         BotonAjustes.setInteractive();
 
-        let BotonUsuario = this.add.image(1800,20,'BOTON_USUARIO');
+        let BotonUsuario = this.add.image(1750,100,'BOTON_USUARIO');
         BotonUsuario.setInteractive();
 
         //CAMBIO DE ESCENA DEL MENU A LA ESCENA IN-GAME

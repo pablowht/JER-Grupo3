@@ -11,8 +11,8 @@ class ChangePasswordScene extends Phaser.Scene{
 
 
     create(){
-        activeUsersNumber = 0;
-        activePrevUsersNumber = 0;
+        //activeUsersNumber = 0;
+        //activePrevUsersNumber = 0;
 
         url= window.location.href;
         this.add.image(0,0,'Fondo_ChangePassword').setOrigin(0, 0);
@@ -22,7 +22,6 @@ class ChangePasswordScene extends Phaser.Scene{
         var user = changePassword_html.getChildByName('username');
         var new_password = changePassword_html.getChildByName('new-password');
 
-        var passwordChanged = false;
 
         let BotonConfirmar = this.add.image(960,960,'Boton_Confirmar');
         BotonConfirmar.setInteractive();
