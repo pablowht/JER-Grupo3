@@ -48,6 +48,8 @@ public class UserController {
 	//MÉTODOS GET:
 	@GetMapping("/users")
 	public Map<String, User> getUsers(){
+		// pintar qué tiene 
+		System.out.println("userMap" + usersMap);
 		return usersMap;
 	}
 	
@@ -91,7 +93,7 @@ public class UserController {
     {
     	String username = newUser.getUser();
     	String password = newUser.getPassword();
-    	System.out.println(username);
+
     	if(!usersMap.containsKey(username)) 
     	{
     		usersMap.put(username, newUser); 
@@ -114,7 +116,6 @@ public class UserController {
     	} else { 
     		if(usersMap.get(username).getPassword().equals(password)) { 
     	    	activeUsers.put(username, newUser);
-
     			return true; 
     		} else 
     			return false; 

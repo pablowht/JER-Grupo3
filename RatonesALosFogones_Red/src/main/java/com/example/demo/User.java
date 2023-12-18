@@ -9,27 +9,25 @@ public class User {
 		this.user = _user;
 		this.password = _password;
 		this.recordObstacles = 50;
-		
-		System.out.printf("user" + this.user + "password" + this.password + "record" + this.recordObstacles);
 	}
 	
 	
 	public String getUser() {
-		return user;
+		return this.user;
 	}
 	public void setUser(String _user) {
 		this.user = _user;
 	}
 	
 	public String getPassword() {
-		return password;
+		return this.password;
 	}
 	public void setPassword(String _password) {
 		this.password = _password;
 	}
 	
 	public int getRecordObstacles() {
-		return recordObstacles;
+		return this.recordObstacles;
 	}
 	public void setRecordObstacles(int _recordObstacles) {
 		if(_recordObstacles < this.recordObstacles) {

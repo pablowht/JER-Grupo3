@@ -5,13 +5,10 @@ $(document).ready(function(){
 class LoginScene extends Phaser.Scene{
     constructor(){
         super("LoginScene");
-
-        this.usuario = 'Ratoncito';
     }
 
 
     create(){
-		
 	    var url= window.location.href; 
         this.add.image(0,0,'Fondo_Login').setOrigin(0, 0);
 
@@ -19,7 +16,7 @@ class LoginScene extends Phaser.Scene{
 
         //var user = this.add.dom(750,800).createFromHTML('login-user');
         //var password = this.add.dom(750,900).createFromHTML('login-password');
-        var username = formulario.getChildByName('username');
+        var user = formulario.getChildByName('username');
         var password = formulario.getChildByName('password');
 
         //var textWrongPassword = this.add.text(900, 850, '');
@@ -29,9 +26,9 @@ class LoginScene extends Phaser.Scene{
         BotonAcceder.setInteractive();
 
         //CAMBIO DE ESCENA DEL LOGIN AL MENÚ
-        BotonAcceder.on('pointerdown', () => {
+        BotonAcceder.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
             this.sound.play('InteractSound');
-            if (username.value !== "" && password.value !== "") {
+            if (user.value !== "" && password.value !== "") {
                 $.ajax({
                     type: "POST",
                     async: false,
@@ -39,31 +36,31 @@ class LoginScene extends Phaser.Scene{
                         'Accept': 'application/json',
                         'Content-type': 'application/json'
                     },
-                    url:url + 'users',
-                    data: JSON.stringify({username: "" + username.value, password: "" + password.value}),
+                    url: url + 'users',
+                    data: JSON.stringify({user: "" + user.value, password: "" + password.value}),
                     dataType: "json",
-                    success: function (valor) { // returned variable to check if we can change the scene
+                    success: function (valor) {
                         loginCompleto = valor;
                     }
                 }).done(function (item) {
-                    console.log("Usuario creado: " + JSON.stringify({username: "" + username.value, password: "" + password.value}));
+                    console.log("Usuario creado: " + JSON.stringify({user: "" + user.value, password: "" + password.value}));
                 })
 
+				if(!loginCompleto){
+					console.log("entraste a contraseña incorrecta");
 
-                if (loginCompleto) { // if we access with an existing user and correct password or create a new one we can change the scene
-                    this.scene.start('Menu');
-                } else { 
                     this.textWrongPassword = this.add.text(850, 850, 'CONTRASEÑA INCORRECTA', {
                         fontFamily: 'Lexend',
                         font: (40).toString() + "px Lexend",
                         color: '#e82138'
                     })
+				}
+                else{ 
+                    this.scene.start('Menu');
+                } 
                  
-                }
             }
-            this.scene.start('Menu');
         });
-
     }
 
 }
