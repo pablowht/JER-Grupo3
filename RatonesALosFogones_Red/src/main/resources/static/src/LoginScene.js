@@ -2,6 +2,13 @@ $(document).ready(function(){
     console.log('DOM cargado (LOGIN)')
 });
 
+var url;
+let activeUsersNumber;
+let activePrevUsersNumber;
+
+let textActiveUsers;
+
+
 class LoginScene extends Phaser.Scene{
     constructor(){
         super("LoginScene");
@@ -9,7 +16,12 @@ class LoginScene extends Phaser.Scene{
 
 
     create(){
-	    var url= window.location.href; 
+        activeUsersNumber = 0;
+        activePrevUsersNumber = 0;
+        
+        
+        
+	    url= window.location.href; 
         this.add.image(0,0,'Fondo_Login').setOrigin(0, 0);
 
         var formulario = this.add.dom(720, 615).createFromCache('login_form');
@@ -56,11 +68,71 @@ class LoginScene extends Phaser.Scene{
                     })
 				}
                 else{ 
+					this.scene.stop();
                     this.scene.start('Menu');
                 } 
                  
             }
         });
+            
+        textActiveUsers = this.add.text(50, 850, 'Usuarios activos login: ' + activeUsersNumber , {
+			fontFamily: 'Lexend',
+            font: (40).toString() + "px Lexend",
+            color: '#e82138'
+		});
+		
+		window.addEventListener('beforeunload', () =>
+        {
+            deleteActiveUser(username);
+        });
+    }
+    
+    update()
+    {
+		getActiveUsers();
+        updateActiveUsers();
+        textActiveUsers.setText('Usuarios activos: ' + activeUsersNumber);
+	}
+}
+
+
+
+//métodos para peticiones AJAX:
+function updateActiveUsers(){
+    
+    if(activePrevUsersNumber != activeUsersNumber)
+    {
+        if(activePrevUsersNumber < activeUsersNumber){
+            console.log("Se ha conectado alguien. El número actual de usuarios es: " + activeUsersNumber);
+        }else if(activePrevUsersNumber > activeUsersNumber){
+            console.log("Alguien se ha desconectado. El número actual de usuarios es: " + activeUsersNumber);
+        }
+        activePrevUsersNumber = activeUsersNumber;
     }
 
+}
+
+function deleteActiveUser(user)
+{
+    $.ajax({
+        method: "DELETE",
+        url: url + "activeUsers/" + user,
+        success : function () {
+            console.log("User removed");
+        },
+        error : function () {
+            console.log("Failed to delete");
+            console.log("The URL was:\n" + url + "users/"+username)
+        }
+    });
+}
+
+function getActiveUsers(){
+    $.ajax({
+        url:  url + "activeUsersNum",
+        method: 'GET',
+        dataType: 'json'
+    }).done(function(data) {
+        activeUsersNumber = data;
+    });
 }

@@ -1,9 +1,6 @@
-let url;
-
-let activeUsersNumber;
-let activePrevUsersNumber;
-let textActiveUsers;
-
+$(document).ready(function(){
+    console.log('DOM cargado (MENÚ)')
+});
 
 class MenuScene extends Phaser.Scene{
 
@@ -17,18 +14,10 @@ class MenuScene extends Phaser.Scene{
 
     backgroundMusic;
 
-    create(){
+    create(){   
+				console.log("menu");
 
-		console.log("data obj: " + this.dataObj);
-		this.user = this.dataObj.user;
-		console.log("username data obj: " + this.dataObj.user);
-
-        url = this.dataObj.url;
-        activeUsersNumber = 0;
-        activePrevUsersNumber = 0;
-        
-		
-        this.add.image(0,0,'Fondo_Menu').setOrigin(0, 0);
+		this.add.image(0,0,'Fondo_Menu').setOrigin(0, 0);
         let BotonJugar = this.add.image(990,540,'BOTON_JUGAR');
         BotonJugar.setInteractive();
 
@@ -56,15 +45,6 @@ class MenuScene extends Phaser.Scene{
             this.sound.play('InteractSound');
             this.scene.start("Pause", {isPaused:false});
         });
-        
-        textActiveUsers = this.add.text(50, 850, 'Usuarios activos: ' + activeUsersNumber, {
-			fontFamily: 'Lexend',
-            font: (40).toString() + "px Lexend",
-            color: '#e82138'
-		})
-				
-		console.log('holaa final');
-
     }
 
     musicControl(){
