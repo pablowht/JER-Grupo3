@@ -15,9 +15,14 @@ class LoadingScene extends Phaser.Scene {
         //ASSETS DEL JUEGO
 
         //Menu de Login
-        this.load.image('Fondo_Login','/ASSETS/INTERFACES/Login/Login_Fondo.png');
-        this.load.image('Boton_Acceder','/ASSETS/INTERFACES/Login/Login_Acceder.png');
+        this.load.image('Fondo_Login','../ASSETS/INTERFACES/Login/Login_Fondo.png');
+        this.load.image('Boton_Acceder','../ASSETS/INTERFACES/Login/Login_Acceder.png');
         this.load.html('login_form', "./login_form.html");
+
+        //Menú cambiar contraseña
+        this.load.image('Fondo_ChangePassword','../ASSETS/INTERFACES/NewPassword/Fondo_Contrasena.png');
+        this.load.image('Boton_Confirmar','../ASSETS/INTERFACES/NewPassword/BOTON_CONFIRMAR.png');
+        this.load.html('changePassword_html', "./changePassword.html");
 
         //Chat
         this.load.image('Cuadro_Chat','/ASSETS/INTERFACES/Chat/Cuadro_Chat.png');
@@ -30,6 +35,7 @@ class LoadingScene extends Phaser.Scene {
         this.load.image('BOTON_AJUSTES','/ASSETS/INTERFACES/Menu/BOTON_AJUSTES.png');
         this.load.image('BOTON_CREDITOS','/ASSETS/INTERFACES/Menu/BOTON_CREDITOS .png');
         this.load.image('BOTON_JUGAR','/ASSETS/INTERFACES/Menu/BOTON_JUGAR.png');
+        this.load.image('BOTON_USUARIO','/ASSETS/INTERFACES/Menu/BOTON_USUARIO.png');
 
         //Menu de Pausa
         this.load.image('FondoPausa', '/ASSETS/INTERFACES/Pause/FONDOPAUSA.png');

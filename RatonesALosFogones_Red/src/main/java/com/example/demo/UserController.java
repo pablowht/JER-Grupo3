@@ -64,10 +64,10 @@ public class UserController {
     }
 	
 	@GetMapping("/users/{user}")
-	public User getUser(@PathVariable("user") String nickname) {
-		if (usersMap.containsKey(nickname)) 
+	public User getUser(@PathVariable("user") String username) {
+		if (usersMap.containsKey(username))
 		{
-			User user = usersMap.get(nickname);
+			User user = usersMap.get(username);
 			
 			return user;
 		}
@@ -81,9 +81,9 @@ public class UserController {
 	@PostMapping("/activeUsers")
 	public boolean addCurrentUser(@RequestBody User newUser) 
 	{
-		String nickname = newUser.getUser(); 
+		String username = newUser.getUser();
 		
-		activeUsers.put(nickname, newUser);
+		activeUsers.put(username, newUser);
 		
 		return true;
 	}
@@ -124,27 +124,27 @@ public class UserController {
 	
 	//MÉTODOS DELETE:
 	@DeleteMapping("/activeUsers")
-    public void closeSession(@PathVariable("_user") String nick)throws IOException{
- 	   if(activeUsers.containsKey(nick)) {
- 		   activeUsers.remove(nick);
+    public void closeSession(@PathVariable("_user") String username)throws IOException{
+ 	   if(activeUsers.containsKey(username)) {
+ 		   activeUsers.remove(username);
  		   System.out.println("Un usuario se ha desconectado.");
  	   }
     }
 	
-	@DeleteMapping("/activeUsers/{nick}")
-   	public void deleteCurrentUser(@PathVariable("_user") String nick)throws IOException{
-	   if(activeUsers.containsKey(nick)) {
-		   activeUsers.remove(nick);
+	@DeleteMapping("/activeUsers/{username}")
+   	public void deleteCurrentUser(@PathVariable("_user") String username)throws IOException{
+	   if(activeUsers.containsKey(username)) {
+		   activeUsers.remove(username);
 		   System.out.println("Un usuario se ha desconectado.");
 	   }
    }
 	    
-	@DeleteMapping("/users/{nick}")
-	public void deleteUser(@PathVariable("_user") String nick) throws IOException {
+	@DeleteMapping("/users/{username}")
+	public void deleteUser(@PathVariable("_user") String username) throws IOException {
   
-	   if(usersMap.containsKey(nick))
+	   if(usersMap.containsKey(username))
 	   {
-		   User deleteUser = usersMap.get(nick); 
+		   User deleteUser = usersMap.get(username);
 		   
 		   File inputFile = new File(usersFileURL);
 		   File tempFile = new File(tempUsersFileURL);
@@ -169,9 +169,9 @@ public class UserController {
 		   inputFile.delete();
 		   boolean successful = tempFile.renameTo(inputFile);
 		   
-		   activeUsers.remove(nick);
+		   activeUsers.remove(username);
 		   
-		   usersMap.remove(nick);
+		   usersMap.remove(username);
 	   }
 	}	
 	
