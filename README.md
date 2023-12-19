@@ -21,25 +21,34 @@ ___
 ___
 ### Cambios ###  
 Cambios con respecto a versiones anteriores:
+Versión Fase 2:
 1. Referencias de juegos similares
 2. Cambio de imágenes de las interfaces por las definitivas
 3. Imágenes de los objetos incluidas
 4. Actualizaciones de cambios en las mecánicas de los niveles
+Versión Fase 3:
+5. Actualizaciones de las interfaces para incluir las nuevas funcionalidades
+6. Login, cambiar contraseña, eliminar cuenta y usuarios activos
+7. Creación de un servidor con Spring
+8. Funcionalidades con API Rest
 ___
 ### Introducción ###  
 <p align="center">
   <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/6fd14212-b270-4b98-8996-3d5124b252ef">
  <br><br>
 </p>
-*Ratones a los fogones* es un videojuego para PC de modalidad multijugador, en concreto de dos jugadores, e implementará en el lado del servidor Java con SpringBoot y en el lado del cliente JavaScript con el framework Phaser 3. Este escrito tiene como objetivo principal plasmar los elementos que debe incluir *Ratones a los fogones* y servir de carta de presentación en caso de buscar colaboradores en un futuro.   
+
+**Ratones a los fogones** es un videojuego para PC de modalidad multijugador, en concreto de dos jugadores, e implementará en el lado del servidor Java con SpringBoot y en el lado del cliente JavaScript con el framework Phaser 3. Este escrito tiene como objetivo principal plasmar los elementos que debe incluir **Ratones a los fogones** y servir de carta de presentación en caso de buscar colaboradores en un futuro.
+
 **1. Concepto del juego**  
-*Ratones a los fogones* es un videojuego de dos jugadores en el que cada uno controla un pequeño ratón antropomórfico que debe salir de la cocina antes de ser atrapado. Ambos competirán para ser el primero en llegar a la puerta, esquivando por el camino todo tipo de obstáculos e intentando huir antes de que se acabe el tiempo.  
+**Ratones a los fogones** es un videojuego de dos jugadores en el que cada uno controla un pequeño ratón antropomórfico que debe salir de la cocina antes de ser atrapado. Ambos competirán para ser el primero en llegar a la puerta, esquivando por el camino todo tipo de obstáculos e intentando huir antes de que se acabe el tiempo.
+
 **2. Características principales**  
 Las características principales del juego son:  
-*	Competición: *Ratones a los fogones* principalmente se centra en la competitividad que se crea al jugar a un juego multijugador contra un amigo.  
-*	Simpleza: El estilo de *Ratones a los fogones* es llamativo y la historia simple, para que el jugador se centre en el objetivo del juego sin tener distracciones.   
+*	Competición: **Ratones a los fogones** principalmente se centra en la competitividad que se crea al jugar a un juego multijugador contra un amigo.  
+*	Simpleza: El estilo de **Ratones a los fogones** es llamativo y la historia simple, para que el jugador se centre en el objetivo del juego sin tener distracciones.   
 *	Fluidez: El movimiento del personaje debe ser agradable para el jugador, ya que un manejo complicado puede ser molesto a la hora de jugar un juego competitivo.  
-*	Dificultad: *Ratones a los fogones* consta de 3 niveles, a cada cual con un mayor nivel de dificultad.  
+*	Dificultad: **Ratones a los fogones** consta de 3 niveles, a cada cual con un mayor nivel de dificultad.  
   
 **3. Género**  
 El género principal de Ratones a los fogones es de plataformas. En este género los jugadores avanzan por el escenario evitando obstáculos de cualquier forma (saltando, agachándose, etc.).  
@@ -109,6 +118,7 @@ Para los objetos que generen un condicionamiento de recompensa, los power-ups va
   <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/c0ff999f-6a0e-4824-8657-d5594f3dfddd">
   <br><br>
 </p>
+
 ___
 
 ### Interfaces ###
@@ -121,83 +131,119 @@ Las interfaces que se han incluido quedan definidas a continuación.
   <b>Ilustración 2. Diagrama de flujo</b>
  <br><br>
 </p>
-  
-**2. Menú Principal**  
-La interfaz del menú principal muestra los botones básicos de jugar y ajustes (que en un futuro se añadirá la opción de local u online), y de los créditos.  
+
+**2. Pantalla de Inicio**  
+La interfaz del inicio es sencilla con el logo de la empresa y un pequeño texto que incita al jugador a hacer click para iniciar el juego. 
 <p align="center">
-  <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/9069a50d-2635-4c60-921f-352255d56887">
+  <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/3d13c1e1-0595-4647-9cd3-e31968bb43ce">
    <br><br>
-  <b>Ilustración 3. Menú Principal</b>
+  <b>Ilustración 3. Pantalla de inicio</b>
   <br><br>
 </p>
 
-**3. Selección de perfil**  
-Después de elegir el modo de juego que se prefiere, se pasará a la selección del perfil de los jugadores 1 y 2. Los dos personajes que representarán a cada jugador serán ratones con distintos colores. Cuando el jugador esté listo, pulsará el botón LISTO, y proseguirá a la pantalla de niveles.   
-<p align="center">
-  <img src="https://github.com/pablowht/JER-Grupo3/assets/139124884/c335edcb-beed-4cd8-af64-a5b80f5973f4">
-  <br><br>
-  <b>Ilustración 4. Menú de Selección de Perfil</b>
- <br><br>
-</p>
-
-**4. Selección de nivel**  
-La pantalla de selección de nivel tiene un estilo minimalista, dando lugar a elegir entre 3 niveles diferentes. Para esta fase no se ha implementado.  
-<p align="center">
-  <img src="https://github.com/pablowht/JER-Grupo3/assets/139124884/df003123-fbad-4c43-b8a6-487ffc3433b7">
-  <br><br>
-  <b>Ilustración 5. Menú de Selección de Nivel</b>
- <br><br>
-</p>
-
-**5. Menú de pausa, ajustes y controles**  
-<p align="center">
-  <img src="https://github.com/pablowht/JER-Grupo3/assets/139124884/dd7f0118-4bed-4e0c-a127-91f97354d793">
-  <br><br>
-  <b>Ilustración 6. Interfaz de Pausa, Ajustes y Controles</b>
- <br><br>
-</p>
-
-**6. Nivel**  
-La interfaz in-game se basa en una pantalla dividida a la mitad horizontalmente donde el jugador 1 (el cual usará las teclas W, A, S, D) utilizará la pantalla de arriba, y el jugador 2 (mediante las teclas de las flechas) utilizará la de abajo. Cada jugador dispondrá de una barra arriba de su pantalla que mostrará el porcentaje de recorrido que han avanzado dentro del nivel y a ser posible un dibujo significativo del power up del que se esté haciendo uso.  
-<p align="center">
-  <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/a9e59464-c0db-40be-b0d7-2619d49f865c">
-  <br><br>
-  <b>Ilustración 7. Interfaz de Nivel</b>
- <br><br>
-</p>
-
-**7. Fin de Nivel**  
-La pantalla de fin de nivel mostrará el ganador en el podio y las opciones de volver al menú principal o pasar al siguiente nivel.  
-<p align="center">
-  <img src="https://github.com/pablowht/JER-Grupo3/assets/100694175/1cd669c4-816d-4f3f-96d8-60f3bfbb41a4">
-  <br><br>
-  <b>Ilustración 8. Interfaz de Fin de Nivel</b>
- <br><br>
-</p>
-
-**8. Pantalla de Carga**  
+**3. Pantalla de Carga**  
 La pantalla de carga simplemente tendrá una barra de color amarillo y un pequeño texto que mostrará el progreso entre pantallas.  
 <p align="center">
   <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/df1286bf-5032-4103-913b-35720ace6c6b">
   <br><br>
-  <b>Ilustración 9. Interfaz de Carga</b>
+  <b>Ilustración 4. Interfaz de Carga</b>
  <br><br>
 </p>
 
-**9. Créditos**    
+**4. Pantalla de Inicio de Sesión**  
+La pantalla de login tiene dos campos de texto para introducir el usuario y la contraseña, y un simple botón de acceder.  
+<p align="center">
+  <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/f7ec3f37-4cb5-4b13-85d6-4a60ec30ef04">
+  <br><br>
+  <b>Ilustración 5. Interfaz de Login</b>
+ <br><br>
+</p>
+  
+**5. Menú Principal**  
+La interfaz del menú principal muestra los botones básicos de jugar y ajustes (que en un futuro se añadirá la opción de local u online), y de los créditos.  
+<p align="center">
+  <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/3b6b35b5-630b-43e4-9156-533b71e054e6">
+   <br><br>
+  <b>Ilustración 6. Menú Principal</b>
+  <br><br>
+</p>
+
+**6. Pantalla de Usuario**  
+La pantalla de la cuenta del usuario permite cambiar la contraseña y eliminar la cuenta.  
+<p align="center">
+  <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/e2c24615-f14d-4b84-9f27-5d25a28ce3d0">
+  <br><br>
+  <b>Ilustración 7. Interfaz de Usuario</b>
+ <br><br>
+</p>
+
+**7. Pantalla de Confirmar Eliminar Cuenta**  
+Esta interfaz incluye un simple texto para ofrecerle al jugador la opción de no eliminar la cuenta con un botón de confirmar y otro de volver.  
+<p align="center">
+  <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/9983411f-3c9e-4576-b37d-f7972666f5a8">
+  <br><br>
+  <b>Ilustración 8. Interfaz de Eliminar Cuenta</b>
+ <br><br>
+</p>
+
+**8. Selección de Ratón**  
+Después de elegir el modo de juego que se prefiere, se pasará a la selección del perfil de los jugadores 1 y 2. Los dos personajes que representarán a cada jugador serán ratones con distintos colores. Cuando el jugador esté listo, pulsará el botón LISTO, y proseguirá a la pantalla de niveles.   
+<p align="center">
+  <img src="https://github.com/pablowht/JER-Grupo3/assets/139124884/c335edcb-beed-4cd8-af64-a5b80f5973f4">
+  <br><br>
+  <b>Ilustración 9. Menú de Selección de Ratón</b>
+ <br><br>
+</p>
+
+**9. Selección de Nivel**  
+La pantalla de selección de nivel tiene un estilo minimalista, dando lugar a elegir entre 3 niveles diferentes. Para esta fase no se ha implementado.  
+<p align="center">
+  <img src="https://github.com/pablowht/JER-Grupo3/assets/139124884/df003123-fbad-4c43-b8a6-487ffc3433b7">
+  <br><br>
+  <b>Ilustración 10. Menú de Selección de Nivel</b>
+ <br><br>
+</p>
+
+**10. Menú de pausa, ajustes y controles**  
+<p align="center">
+  <img src="https://github.com/pablowht/JER-Grupo3/assets/139124884/dd7f0118-4bed-4e0c-a127-91f97354d793">
+  <br><br>
+  <b>Ilustración 11. Interfaz de Pausa, Ajustes y Controles</b>
+ <br><br>
+</p>
+
+**11. Nivel**  
+La interfaz in-game se basa en una pantalla dividida a la mitad horizontalmente donde el jugador 1 (el cual usará las teclas W, A, S, D) utilizará la pantalla de arriba, y el jugador 2 (mediante las teclas de las flechas) utilizará la de abajo. Cada jugador dispondrá de una barra arriba de su pantalla que mostrará el porcentaje de recorrido que han avanzado dentro del nivel y a ser posible un dibujo significativo del power up del que se esté haciendo uso.  
+<p align="center">
+  <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/a9e59464-c0db-40be-b0d7-2619d49f865c">
+  <br><br>
+  <b>Ilustración 12. Interfaz de Nivel</b>
+ <br><br>
+</p>
+
+**12. Fin de Nivel**  
+La pantalla de fin de nivel mostrará el ganador en el podio y las opciones de volver al menú principal o pasar al siguiente nivel.  
+<p align="center">
+  <img src="https://github.com/pablowht/JER-Grupo3/assets/100694175/1cd669c4-816d-4f3f-96d8-60f3bfbb41a4">
+  <br><br>
+  <b>Ilustración 13. Interfaz de Fin de Nivel</b>
+ <br><br>
+</p>
+
+**13. Créditos**    
 <p align="center">
   <img src="https://github.com/pablowht/JER-Grupo3/assets/139124884/2ee834df-e380-4d48-b39f-4bb26bc83340">
   <br><br>
-  <b>Ilustración 10. Interfaz de Créditos</b>
+  <b>Ilustración 14. Interfaz de Créditos</b>
  <br><br>
 </p>
 
-**10. ¡A correr!**  
-Al iniciar el juego y probar varias veces, se descubrió que al terminar de elegir a los personajes el juego se iniciaba inmediatemente, debido a esto, se ha decidido añadir una nueva interfaz entre la selección de personaje y el juego en sí.
+**14. ¡A correr!**  
+Al iniciar el juego y probar varias veces, se descubrió que al terminar de elegir a los personajes el juego se iniciaba inmediatemente, debido a esto, se ha decidido añadir una nueva interfaz entre la selección de personaje y el juego en sí. Además se le ha incluído un pequeño tutorial visual para explicar el funcionamiento del juego.
 <p align="center">
   <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/aa3dfcf3-338f-4227-8891-9919f8b0b941">
   <br><br>
-  <b>Ilustración 11. ¡A correr!</b>
+  <b>Ilustración 15. ¡A correr!</b>
  <br><br>
 </p>
 
@@ -212,7 +258,7 @@ ___
 <p align="center">
     <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/2ad65561-de7e-401d-917e-baba0af699ad">
     <br><br>
-    <b>Ilustración 12. Ratones</b>
+    <b>Ilustración 16. Ratones</b>
    <br><br>
 </p>
 
@@ -257,7 +303,7 @@ https://freesound.org/people/MATRIXXX_/sounds/657948/
 
 * Música inGame:
 https://www.youtube.com/watch?v=X2DOCUA6WTM
-___
+ ___
 
 
 
