@@ -15,7 +15,21 @@ Correo Institucional: pa.peralbo.2021@alumnos.urjc.es
 Cuenta de GitHub: https://github.com/uapli    
 - Isabel Villoria López  
 Correo Institucional: i.villoria.2021@alumnos.urjc.es  
-Cuenta de GitHub: https://github.com/isita12345     
+Cuenta de GitHub: https://github.com/isita12345
+___
+### Instrucciones para la ejecución del juego ###    
+Para levantar el servidor: 
+1. Extraer el código fuente del .zip
+2. Copiar la ruta del archivo .jar
+3. Abrir la consola (Windows + R y dentro cmd)
+4. Escribir 'cd' + la ruta anteriormente copiada
+5. Escribir 'java -jar RatonesALosFogones_Spring-0.0.1-SNAPSHOT.jar'
+
+Para ejecutarlo: 
+1. Abrir nuevamente la consola y escribir 'ipconfig'
+2. Obtener la Dirección IPv4 y copiarla
+3. Ir al navegador que se prefiera, copiar la IP del servidor, y seguidamente escribir ':8080'
+
 ___
 ### Documento del Diseño del Videojuego ###
 ___
@@ -255,6 +269,18 @@ Al iniciar el juego y probar varias veces, se descubrió que al terminar de eleg
  <br><br>
 </p>
 
+___
+
+### Funcionalidades API REST ###
+Mediante las siguientes implementaciones se consigue persistencia (pues los datos de los usuarios se guardan en un .txt), pudiendo guardar sus récords, cambiar la contraseña y borrar la cuenta si así se desea; conexión pues el servidor puede saber en todo momento los usuarios conectados mediante los usuarios activos y su información guardada en ficheros; e intercambio de información pues, aunque no se ha llegado a implementar un chat de momento, todos los usuarios pueden ver los usuarios que están conectados al servidor de forma simultánea. 
+1. Inicio de sesión: se crea una cuenta para el usuario si no la tenía y se le loguea al usuario.
+  * Métodos utilizados: POST 
+4. Usuarios activos: muestra todos los usuarios conectados a la misma sesión del servidor. 
+  * Métodos utilizados: GET, DELETE 
+3. Eliminar cuenta: permite eliminar la cuenta del usuario que se acaba de loguear. 
+  * Métodos utilizados: DELETE 
+4. Cambio de contraseña: en una cuenta creada se permite cambiar la contraseña para iniciar sesión en otro momento.
+  * Métodos utilizados: PUT 
 ___
 
 ### Arte ###
