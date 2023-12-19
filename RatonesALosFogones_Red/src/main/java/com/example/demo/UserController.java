@@ -16,8 +16,8 @@ public class UserController {
 	
 	private Map<String, User> activeUsers = new HashMap<String, User>();
 	
-	String usersFileURL = "src/main/resources/static/dataSaving/usersData.txt";
-	String tempUsersFileURL = "src/main/resources/static/dataSaving/tempUsersData.txt"; 
+	String usersFileURL =  System.getProperty("user.dir") + "/src/main/resources/static/dataSaving/usersData.txt";
+	String tempUsersFileURL =  "src/main/resources/static/dataSaving/tempUsersData.txt"; 
 	
 	public UserController() 
 	{
