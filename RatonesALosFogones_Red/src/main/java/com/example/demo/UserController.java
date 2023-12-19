@@ -122,6 +122,33 @@ public class UserController {
     	}	
     }
 	
+	//MÉTODO PUT:
+		@PutMapping("/users/{user}")
+		public boolean changePassword(@PathVariable("user") String newPassword, @RequestBody String newUser) {
+			User userAux = usersMap.get(newUser);
+			System.out.println("comprobación atributos del método put:\n contraseña argumento: "+newPassword + "\nUsuario recibido: "+ userAux.getUser() + "\t" + userAux.getPassword());
+			if (usersMap.containsKey(userAux.getUser()) && !userAux.getPassword().equals(newPassword))
+			{
+				System.out.println("entraste a cambiar la contraseña");
+				usersMap.get(userAux.getUser()).setPassword(newPassword);
+				
+				System.out.println("usuario a cambiar: " + userAux.getUser() + "contraseña nueva: " + newPassword);
+				System.out.println("comprobación de cambio de contraseña:: " + usersMap.get(userAux.getUser()) + "comprobación contraseña nueva: " + usersMap.get(userAux.getPassword()));
+
+				
+				throw new ResponseStatusException(HttpStatus.OK, "user password is changed succesfully");
+			}
+			else if(usersMap.containsKey(userAux.getUser()) && userAux.getPassword().equals(newPassword))
+			{
+				System.out.println("no se ha poducido cambiar la contraseña, contraseñas iguales");
+				throw new ResponseStatusException(HttpStatus.NOT_FOUND, "the new password is the same with the last");
+			}
+			else {
+				System.out.println("no se ha encontrado ningun usario con ese nombre");
+				throw new ResponseStatusException(HttpStatus.NOT_FOUND, "user not found");
+			}
+		}
+	
 	//MÉTODOS DELETE:
 	@DeleteMapping("/activeUsers")
     public void closeSession(@PathVariable("_user") String username)throws IOException{

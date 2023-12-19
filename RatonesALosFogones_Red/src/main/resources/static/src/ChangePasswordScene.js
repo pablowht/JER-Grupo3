@@ -11,9 +11,6 @@ class ChangePasswordScene extends Phaser.Scene{
 
 
     create(){
-        //activeUsersNumber = 0;
-        //activePrevUsersNumber = 0;
-
         url= window.location.href;
         this.add.image(0,0,'Fondo_ChangePassword').setOrigin(0, 0);
 
@@ -31,6 +28,10 @@ class ChangePasswordScene extends Phaser.Scene{
 
         BotonConfirmar.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
             this.sound.play('InteractSound');
+            console.log("valor url de la petición ajaz put: " + url + 'users' + user.value);
+            console.log("nombre usuario:" + user.value);
+            console.log("nueva contraseña:" + new_password.value);
+
             if (user.value !== "" && new_password.value !== "") {
                 $.ajax({
                     type: "PUT",
@@ -40,8 +41,8 @@ class ChangePasswordScene extends Phaser.Scene{
                         'Accept': 'application/json',
                         'Content-type': 'application/json'
                     },
-                    url: url + 'users',
-                    data: JSON.stringify({user: "" + user.value, password: "" + new_password.value}),
+                    url: url + 'users' + user.value,
+                    data: JSON.stringify({password: "" + new_password.value, user: "" + user.value}),
                 }).done(function (item) {
                     this.scene.start("Menu");
                     console.log("Contraseña cambiada: " + JSON.stringify({user: "" + user.value, password: "" + password.value}));
