@@ -254,7 +254,9 @@ class GameScene extends Phaser.Scene {
         this.game.sound.stopAll();
         this.backgroundMusic.play();
         this.backgroundMusic.setVolume(0.2);
-
+        
+        this.player1.setScale(1.25);
+        this.player2.setScale(1.25);
     }
 
     update(timeNum, timeDelta) {

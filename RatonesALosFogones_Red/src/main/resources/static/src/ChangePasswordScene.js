@@ -65,6 +65,13 @@ class ChangePasswordScene extends Phaser.Scene {
                 this.scene.start('Menu');
                 this.sound.play('InteractSound');
             }
+            if(!canChange){
+				this.add.text(200, 800, 'CAMPO NO VÁLIDO', {
+                     fontFamily: 'Lexend',
+                     font: (40).toString() + "px Lexend",
+                     color: '#e82138'
+                })
+			}
         });
 
         BotonReturnMenu.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {

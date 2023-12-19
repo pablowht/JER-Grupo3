@@ -74,7 +74,7 @@ class MenuScene extends Phaser.Scene{
             this.scene.start("UserScene", {user: user, password: password});
         });
 
-        textActiveUsers = this.add.text(117, 920, 'Usuarios activos login: ' + activeUsersNumber , {
+        textActiveUsers = this.add.text(117, 935, 'Usuarios activos login: ' + activeUsersNumber , {
             fontFamily: 'Lexend',
             font: (40).toString() + "px Lexend",
             color: 'black'

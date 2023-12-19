@@ -89,6 +89,7 @@ class GameOverScene extends Phaser.Scene {
         var chat = this.add.dom(1420, 820).createFromCache('chat_html');
 
         this.add.image(1580, 750, 'Cuadro_Chat');
+        this.add.image(1580, 750, 'Tapa_Chat');
 
         var botonEnviar = chat.getChildByName('botonEnviarMsj');
         var recuadroEscribir = chat.getChildByName('cuadro-escribir');

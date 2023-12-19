@@ -48,7 +48,7 @@ class LoginScene extends Phaser.Scene{
                 })
 
 				if(!loginCompleto){
-                    this.textWrongPassword = this.add.text(850, 850, 'CONTRASEÑA INCORRECTA', {
+                    this.textWrongPassword = this.add.text(50, 800, 'CONTRASEÑA INCORRECTA', {
                         fontFamily: 'Lexend',
                         font: (40).toString() + "px Lexend",
                         color: '#e82138'

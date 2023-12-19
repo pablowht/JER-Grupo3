@@ -60,11 +60,13 @@ class DeleteUserScene extends Phaser.Scene{
         		    console.log("The URL was:\n" + url + "users/" + user)
         		}
     		});
-    		if (canChange == true) {
-            	this.scene.stop();
+    		this.sound.play('InteractSound');
             	this.scene.start('LoginScene');
-            	this.sound.play('InteractSound');
-         	}
+    		//if (canChange == true) {
+            	//this.scene.stop();
+            	
+            	
+         	//}
        });
     }
 
