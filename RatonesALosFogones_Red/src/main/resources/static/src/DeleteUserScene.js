@@ -1,12 +1,23 @@
 $(document).ready(function(){
     console.log('DOM cargado (DELETE USER)')
 });
+
+var user;
+
 class DeleteUserScene extends Phaser.Scene{
+	
     constructor(){
         super("DeleteUser");
     }
+    
+    init(data){
+		this.dataObj = data;
+	}
+	
     create(){
+		console.log("data recibida en delete user scene: " + this.dataObj.user)
         var canChange = false;
+        user = this.dataObj.user;
 
        // url= window.location.href;
         this.add.image(0,0,'Fondo_Eliminar').setOrigin(0,0);
@@ -20,45 +31,41 @@ class DeleteUserScene extends Phaser.Scene{
             this.scene.start('UserScene');
         });
 
-       /* BotonDelete.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
+       BotonDelete.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
             this.sound.play('InteractSound');
-            console.log("valor url de la petición ajaz put: " + url + 'users/' + user.value);
-            console.log("nombre usuario:" + user.value);
-            console.log("nueva contraseña:" + new_password.value);
-            console.log("data enviada:" + JSON.stringify({"user" : user.value, "password": new_password.value}))
+			console.log("tu cuenta se va a eliminar");
 
-            if (user.value !== "" && new_password.value !== "") {
-                $.ajax({
-                    type: "PUT",
-                    dataType: "json",
-                    async: false,
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-type': 'application/json'
-                    },
-                    url: url + 'users/' + user.value,
-                    data: JSON.stringify({user : user.value, password: new_password.value})
-                }).done(function (item) {
-                    console.log("Contraseña cambiada: " + JSON.stringify({user: "" + user.value, password: "" + new_password.value}));
-                    canChange = true;
-                })
-            }
-            if(canChange == true){
-                this.scene.stop();
-                this.scene.start('Menu');
-            }
-        });
-        BotonConfirmar.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>
-        {
-            this.sound.play('InteractSound');
-            this.scene.start()
-        });
-
-        BotonReturnMenu.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
-            this.sound.play('InteractSound');
-            this.scene.start("Menu");
-        });*/
-
+            $.ajax({
+        		method: "DELETE",
+        		url: url + "users/" + user,
+        		data: user,
+        		success : function () {
+        		    console.log("User removed");
+        		},
+        		error : function () {
+        		    console.log("Failed to delete");
+        		    console.log("The URL was:\n" + url + "users/" + user)
+        		}
+    		});
+    		$.ajax({
+        		method: "DELETE",
+        		url: url + "activeUsers/" + user,
+        		data: user,
+        		success : function () {
+					canChange = true;
+        		    console.log("User removed");
+        		},
+        		error : function () {
+        		    console.log("Failed to delete");
+        		    console.log("The URL was:\n" + url + "users/" + user)
+        		}
+    		});
+    		if (canChange == true) {
+            	this.scene.stop();
+            	this.scene.start('LoginScene');
+            	this.sound.play('InteractSound');
+         	}
+       });
     }
 
 }

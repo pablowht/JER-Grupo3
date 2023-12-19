@@ -162,16 +162,15 @@ public class UserController {
     }
 	
 	@DeleteMapping("/activeUsers/{username}")
-   	public void deleteCurrentUser(@PathVariable("_user") String username)throws IOException{
-	   if(activeUsers.containsKey(username)) {
+   	public void deleteCurrentUser(@PathVariable String username)throws IOException{
+		if(activeUsers.containsKey(username)) {
 		   activeUsers.remove(username);
 		   System.out.println("Un usuario se ha desconectado.");
-	   }
+		}
    }
 	    
 	@DeleteMapping("/users/{username}")
-	public void deleteUser(@PathVariable("_user") String username) throws IOException {
-  
+	public void deleteUser(@PathVariable String username) throws IOException {
 	   if(usersMap.containsKey(username))
 	   {
 		   User deleteUser = usersMap.get(username);

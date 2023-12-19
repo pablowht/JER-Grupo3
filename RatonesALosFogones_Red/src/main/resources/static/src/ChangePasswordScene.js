@@ -3,24 +3,34 @@ $(document).ready(function(){
 });
 
 var url;
+var infoDataUser;
+var infoDataPassword;
 
 class ChangePasswordScene extends Phaser.Scene {
     constructor() {
         super("UserScene");
     }
 
+	init(data){
+		this.dataObj = data;
+	}
 
     create() {
         var canChange = false;
         url = window.location.href;
 
+		infoDataUser = this.dataObj.user;
+		infoDataPassword = this.dataObj.password;
+		console.log("info data user: " +  infoDataUser);
+				console.log("info data pass: " +  infoDataPassword);
+		
         this.add.image(0, 0, 'Fondo_ChangePassword').setOrigin(0, 0);
 
         var changePassword_html = this.add.dom(720, 615).createFromCache('changePassword_html');
 
         var user = changePassword_html.getChildByName('username');
         var new_password = changePassword_html.getChildByName('new-password');
-
+		
         let BotonConfirmar = this.add.image(960, 960, 'Boton_Confirmar');
         BotonConfirmar.setInteractive();
 
@@ -30,13 +40,7 @@ class ChangePasswordScene extends Phaser.Scene {
         let BotonEliminar = this.add.image(1600, 145, 'Boton_Eliminar');
         BotonEliminar.setInteractive();
 
-        BotonConfirmar.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
-            this.sound.play('InteractSound');
-            console.log("valor url de la petición ajaz put: " + url + 'users/' + user.value);
-            console.log("nombre usuario:" + user.value);
-            console.log("nueva contraseña:" + new_password.value);
-            console.log("data enviada:" + JSON.stringify({"user": user.value, "password": new_password.value}))
-
+        BotonConfirmar.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {         
             if (user.value !== "" && new_password.value !== "") {
                 $.ajax({
                     type: "PUT",
@@ -56,23 +60,22 @@ class ChangePasswordScene extends Phaser.Scene {
                     canChange = true;
                 })
             }
-            if (canChange == true) {
+           if (canChange == true) {
                 this.scene.stop();
                 this.scene.start('Menu');
+                this.sound.play('InteractSound');
             }
-        });
-        BotonConfirmar.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
-            this.sound.play('InteractSound');
-            this.scene.start()
         });
 
         BotonReturnMenu.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
             this.sound.play('InteractSound');
             this.scene.start("Menu");
         });
+        
         BotonEliminar.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
             this.sound.play('InteractSound');
-            this.scene.start("DeleteUser");
+            console.log("valor infoData dentro de changepassword: " + infoDataUser);
+            this.scene.start("DeleteUser", {user: infoDataUser, password: infoDataPassword});
         });
     }
 }

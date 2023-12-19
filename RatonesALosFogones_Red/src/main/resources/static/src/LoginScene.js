@@ -4,10 +4,10 @@ $(document).ready(function(){
 
 
 class LoginScene extends Phaser.Scene{
+	
     constructor(){
         super("LoginScene");
     }
-
 
     create(){
 	    var url= window.location.href;
@@ -48,8 +48,6 @@ class LoginScene extends Phaser.Scene{
                 })
 
 				if(!loginCompleto){
-					console.log("entraste a contraseña incorrecta");
-
                     this.textWrongPassword = this.add.text(850, 850, 'CONTRASEÑA INCORRECTA', {
                         fontFamily: 'Lexend',
                         font: (40).toString() + "px Lexend",
@@ -58,7 +56,7 @@ class LoginScene extends Phaser.Scene{
 				}
                 else{ 
 					this.scene.stop();
-                    this.scene.start('Menu');
+                    this.scene.start('Menu', {user: user.value, password: password.value});
                 } 
                  
             }

@@ -7,6 +7,8 @@ let activeUsersNumber;
 let activePrevUsersNumber;
 let textActiveUsers;
 
+var user;
+var password;
 
 class MenuScene extends Phaser.Scene{
 
@@ -18,6 +20,11 @@ class MenuScene extends Phaser.Scene{
         this.backgroundMusic = this.sound.add('MenuMusic', {loop: true});
     }
 
+	init(data)
+    {
+        this.dataObj = data;
+    }
+
     backgroundMusic;
 
     create(){
@@ -25,7 +32,9 @@ class MenuScene extends Phaser.Scene{
         activeUsersNumber = 0;
         activePrevUsersNumber = 0;
         url= window.location.href;
-
+		user = this.dataObj.user;
+		password = this.dataObj.password;
+		console.log("estas en la clase menu: user: "+user + "\tpassword:" + password)
         //variables y funciones menú
         this.add.image(0,0,'Fondo_Menu').setOrigin(0, 0);
         let BotonJugar = this.add.image(990,540,'BOTON_JUGAR');
@@ -62,7 +71,7 @@ class MenuScene extends Phaser.Scene{
         //CAMBIO DE ESCENA DEL MENU A USUARIO
         BotonUsuario.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
             this.sound.play('InteractSound');
-            this.scene.start("UserScene");
+            this.scene.start("UserScene", {user: user, password: password});
         });
 
         textActiveUsers = this.add.text(117, 920, 'Usuarios activos login: ' + activeUsersNumber , {
@@ -72,10 +81,11 @@ class MenuScene extends Phaser.Scene{
         });
 
         //COMPLETARLO
-        // window.addEventListener('beforeunload', () =>
-        // {
-        //     deleteActiveUser(this.data.user);
-        // });
+        window.addEventListener('beforeunload', () => 
+        {
+			console.log("se cerró la ventana")
+            deleteActiveUser(user);
+        });
 
     }
 
@@ -112,9 +122,11 @@ function updateActiveUsers(){
 }
 
 function deleteActiveUser(user) {
+	console.log("user funcion deleteActive: " + user);
     $.ajax({
         method: "DELETE",
         url: url + "activeUsers/" + user,
+        data: user,
         success : function () {
             console.log("User removed");
         },
