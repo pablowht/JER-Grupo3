@@ -15,7 +15,21 @@ Correo Institucional: pa.peralbo.2021@alumnos.urjc.es
 Cuenta de GitHub: https://github.com/uapli    
 - Isabel Villoria López  
 Correo Institucional: i.villoria.2021@alumnos.urjc.es  
-Cuenta de GitHub: https://github.com/isita12345     
+Cuenta de GitHub: https://github.com/isita12345
+___
+### Instrucciones para la ejecución del juego ###    
+Para levantar el servidor: 
+1. Extraer el código fuente del .zip
+2. Copiar la ruta del archivo .jar
+3. Abrir la consola (Windows + R y dentro cmd)
+4. Escribir 'cd' + la ruta anteriormente copiada
+5. Escribir 'java -jar RatonesALosFogones_Spring-0.0.1-SNAPSHOT.jar'
+
+Para ejecutarlo: 
+1. Abrir nuevamente la consola y escribir 'ipconfig'
+2. Obtener la Dirección IPv4 y copiarla
+3. Ir al navegador que se prefiera, copiar la IP del servidor, y seguidamente escribir ':8080'
+
 ___
 ### Documento del Diseño del Videojuego ###
 ___
