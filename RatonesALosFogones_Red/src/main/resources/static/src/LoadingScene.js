@@ -22,7 +22,13 @@ class LoadingScene extends Phaser.Scene {
         //Menú cambiar contraseña
         this.load.image('Fondo_ChangePassword','../ASSETS/INTERFACES/NewPassword/Fondo_Contrasena.png');
         this.load.image('Boton_Confirmar','../ASSETS/INTERFACES/NewPassword/BOTON_CONFIRMAR.png');
+        this.load.image('Boton_Eliminar','../ASSETS/INTERFACES/NewPassword/BOTON_ELIMINARCUENTA.png');
         this.load.html('changePassword_html', "./changePassword.html");
+
+        //Eliminar cuenta
+        this.load.image('Boton_Delete','../ASSETS/INTERFACES/DeleteUser/Boton_Eliminar.png');
+        this.load.image('Boton_Volver','../ASSETS/INTERFACES/DeleteUser/Boton_Volver.png');
+        this.load.image('Fondo_Eliminar','../ASSETS/INTERFACES/DeleteUser/Fondo_Delete.png');
 
         //Chat
         this.load.image('Cuadro_Chat','/ASSETS/INTERFACES/Chat/Cuadro_Chat.png');

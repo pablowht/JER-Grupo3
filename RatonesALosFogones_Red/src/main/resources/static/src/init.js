@@ -14,7 +14,7 @@ var config = {
     },
     autoResize: true,
     //ESCENAS
-    scene:[StartingScene, MenuScene, LoginScene, ChangePasswordScene, LoadingScene, PlayerSelectionScene, GameScene, CreditsScene, PauseScene, GameOverScene],
+    scene:[StartingScene, MenuScene, LoginScene, ChangePasswordScene, LoadingScene, PlayerSelectionScene, GameScene, CreditsScene, PauseScene, GameOverScene,DeleteUser],
     //FISICAS
     physics:{ 
         default: 'arcade',
