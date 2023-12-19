@@ -271,6 +271,18 @@ Al iniciar el juego y probar varias veces, se descubrió que al terminar de eleg
 
 ___
 
+### Funcionalidades API REST ###
+Mediante las siguientes implementaciones se consigue persistencia (pues los datos de los usuarios se guardan en un .txt), pudiendo guardar sus récords, cambiar la contraseña y borrar la cuenta si así se desea; conexión pues el servidor puede saber en todo momento los usuarios conectados mediante los usuarios activos y su información guardada en ficheros; e intercambio de información pues, aunque no se ha llegado a implementar un chat de momento, todos los usuarios pueden ver los usuarios que están conectados al servidor de forma simultánea. 
+1. Inicio de sesión: se crea una cuenta para el usuario si no la tenía y se le loguea al usuario.
+  * Métodos utilizados: POST 
+4. Usuarios activos: muestra todos los usuarios conectados a la misma sesión del servidor. 
+  * Métodos utilizados: GET, DELETE 
+3. Eliminar cuenta: permite eliminar la cuenta del usuario que se acaba de loguear. 
+  * Métodos utilizados: DELETE 
+4. Cambio de contraseña: en una cuenta creada se permite cambiar la contraseña para iniciar sesión en otro momento. No tiene porque que ser la cuenta del mismo usuario logueado, mientras el usuario coincida con uno de los ya creados se cambiará la contraseña. 
+  * Métodos utilizados: PUT 
+___
+
 ### Arte ###
 *Ratones a los fogones* debe tener un estilo amigable y caricaturesco. Los personajes son unos pequeños ratones que tratan de escapar de una cocina evitando trampas. Los colores en todo momento deben ser llamativos y acorde al escenario.  
 **1.	Concept Art**  
