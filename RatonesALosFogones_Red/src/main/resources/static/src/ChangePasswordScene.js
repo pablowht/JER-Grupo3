@@ -27,7 +27,7 @@ class ChangePasswordScene extends Phaser.Scene {
         let BotonReturnMenu = this.add.image(150, 150, 'Flecha');
         BotonReturnMenu.setInteractive();
 
-        let BotonEliminar = this.add.image(1100, 150, 'Boton_Eliminar');
+        let BotonEliminar = this.add.image(1600, 145, 'Boton_Eliminar');
         BotonEliminar.setInteractive();
 
         BotonConfirmar.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {

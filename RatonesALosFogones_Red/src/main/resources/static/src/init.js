@@ -6,7 +6,7 @@ var config = {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH,
         width: 1900,
-        height: 1060
+        height: 1080
     },
     parent: juego,
     dom: {
@@ -14,7 +14,7 @@ var config = {
     },
     autoResize: true,
     //ESCENAS
-    scene:[StartingScene, MenuScene, LoginScene, ChangePasswordScene, LoadingScene, PlayerSelectionScene, GameScene, CreditsScene, PauseScene, GameOverScene,DeleteUser],
+    scene:[StartingScene, MenuScene, LoginScene, ChangePasswordScene, DeleteUserScene, LoadingScene, PlayerSelectionScene, GameScene, CreditsScene, PauseScene, GameOverScene],
     //FISICAS
     physics:{ 
         default: 'arcade',

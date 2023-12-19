@@ -1,7 +1,7 @@
 $(document).ready(function(){
     console.log('DOM cargado (DELETE USER)')
 });
-class DeleteUser extends Phaser.Scene{
+class DeleteUserScene extends Phaser.Scene{
     constructor(){
         super("DeleteUser");
     }
@@ -9,10 +9,10 @@ class DeleteUser extends Phaser.Scene{
         var canChange = false;
 
        // url= window.location.href;
-        this.add.image(0,0,'Fondo_Eliminar');
-        let BotonVolver =  this.add.image(800,500,'Boton_Volver');
+        this.add.image(0,0,'Fondo_Eliminar').setOrigin(0,0);
+        let BotonVolver =  this.add.image(700,860,'Boton_Volver');
         BotonVolver.setInteractive();
-        let BotonDelete =  this.add.image(200,500,'Boton_Eliminar');
+        let BotonDelete =  this.add.image(1250,860,'Boton_Delete');
         BotonDelete.setInteractive();
 
         BotonVolver.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=> {
