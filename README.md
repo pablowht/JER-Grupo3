@@ -126,7 +126,7 @@ Las interfaces que se han incluido quedan definidas a continuación.
 
 **1. Diagrama de flujo**  
 <p align="center">
-  <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/67f5a05e-8831-4807-9a79-90cce3a32626">
+  <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/2e9285eb-7c9d-4498-87ce-12f6a362679e">
   <br><br>
   <b>Ilustración 2. Diagrama de flujo</b>
  <br><br>
