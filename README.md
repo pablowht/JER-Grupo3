@@ -279,7 +279,7 @@ Mediante las siguientes implementaciones se consigue persistencia (pues los dato
   * Métodos utilizados: GET, DELETE 
 3. Eliminar cuenta: permite eliminar la cuenta del usuario que se acaba de loguear. 
   * Métodos utilizados: DELETE 
-4. Cambio de contraseña: en una cuenta creada se permite cambiar la contraseña para iniciar sesión en otro momento. No tiene porque que ser la cuenta del mismo usuario logueado, mientras el usuario coincida con uno de los ya creados se cambiará la contraseña. 
+4. Cambio de contraseña: en una cuenta creada se permite cambiar la contraseña para iniciar sesión en otro momento.
   * Métodos utilizados: PUT 
 ___
 
