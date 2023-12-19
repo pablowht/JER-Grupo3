@@ -1,6 +1,5 @@
 package com.example.demo;
 
-import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 import java.io.*;
@@ -48,7 +47,6 @@ public class UserController {
 	//MÉTODOS GET:
 	@GetMapping("/users")
 	public Map<String, User> getUsers(){
-		// pintar qué tiene 
 		System.out.println("userMap" + usersMap);
 		return usersMap;
 	}
@@ -123,31 +121,36 @@ public class UserController {
     }
 	
 	//MÉTODO PUT:
-		@PutMapping("/users/{user}")
-		public boolean changePassword(@PathVariable("user") String newPassword, @RequestBody String newUser) {
-			User userAux = usersMap.get(newUser);
-			System.out.println("comprobación atributos del método put:\n contraseña argumento: "+newPassword + "\nUsuario recibido: "+ userAux.getUser() + "\t" + userAux.getPassword());
-			if (usersMap.containsKey(userAux.getUser()) && !userAux.getPassword().equals(newPassword))
-			{
-				System.out.println("entraste a cambiar la contraseña");
-				usersMap.get(userAux.getUser()).setPassword(newPassword);
+	@PutMapping("/users/{user}")
+	public boolean changePassword(@RequestBody User newUser) {
+		//User userAux = new User( usersMap.get(newUser).getUser(), usersMap.get(newUser).getPassword());
+		System.out.println("comprobación atributos del método put:\n contraseña argumento: "+ newUser.getPassword() + "\tUsuario recibido: "+ newUser.getUser());
+		if (usersMap.containsKey(newUser.getUser()) && !usersMap.get(newUser.getUser()).getPassword().equals(newUser.getPassword()))
+		{
+			System.out.println("entraste a cambiar la contraseña");
+			//usersMap.get(newUser.getUser()).setPassword(newUser.getPassword());
+			
+			System.out.println("usuario a cambiar: " + newUser.getUser() + "\t\tcontraseña nueva: " + newUser.getPassword());
+			System.out.println("comprobación de cambio de contraseña: " + usersMap.get(newUser.getUser()).getUser() + "\t\tcomprobación contraseña nueva: " + usersMap.get(newUser.getUser()).getPassword());			try {
+				System.out.println("entraste a borrar usuario y añadirlo");
+				deleteUser(newUser.getUser());
+				addUser(newUser);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 				
-				System.out.println("usuario a cambiar: " + userAux.getUser() + "contraseña nueva: " + newPassword);
-				System.out.println("comprobación de cambio de contraseña:: " + usersMap.get(userAux.getUser()) + "comprobación contraseña nueva: " + usersMap.get(userAux.getPassword()));
-
-				
-				throw new ResponseStatusException(HttpStatus.OK, "user password is changed succesfully");
-			}
-			else if(usersMap.containsKey(userAux.getUser()) && userAux.getPassword().equals(newPassword))
-			{
-				System.out.println("no se ha poducido cambiar la contraseña, contraseñas iguales");
-				throw new ResponseStatusException(HttpStatus.NOT_FOUND, "the new password is the same with the last");
-			}
-			else {
-				System.out.println("no se ha encontrado ningun usario con ese nombre");
-				throw new ResponseStatusException(HttpStatus.NOT_FOUND, "user not found");
-			}
+			throw new ResponseStatusException(HttpStatus.OK, "user password is changed succesfully");
 		}
+		else if(usersMap.containsKey(newUser.getUser()) && usersMap.get(newUser.getUser()).getPassword().equals(newUser.getPassword()))
+		{
+			System.out.println("no se ha poducido cambiar la contraseña, contraseñas iguales");
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "the new password is the same with the last");
+		}
+		else {
+			System.out.println("no se ha encontrado ningun usuario con ese nombre");
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "user not found");
+		}
+	}
 	
 	//MÉTODOS DELETE:
 	@DeleteMapping("/activeUsers")
@@ -197,9 +200,7 @@ public class UserController {
 		   boolean successful = tempFile.renameTo(inputFile);
 		   
 		   activeUsers.remove(username);
-		   
 		   usersMap.remove(username);
 	   }
 	}	
-	
 }
