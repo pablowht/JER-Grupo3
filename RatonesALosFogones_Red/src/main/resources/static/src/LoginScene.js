@@ -42,11 +42,15 @@ class LoginScene extends Phaser.Scene{
             this.scene.start('LoginCreate');
         });
 
+
+
         //CAMBIO DE ESCENA DEL LOGIN AL MENÚ
         BotonAcceder.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
             this.sound.play('InteractSound');
             if (user.value !== "" && password.value !== "") {
 				this.emptyText.setVisible(false);
+                var userURL = user.value;
+                console.log("URL: " + url + 'users/' + userURL);
                 $.ajax({
                     method: "GET",
                     async: false,
@@ -54,7 +58,7 @@ class LoginScene extends Phaser.Scene{
                         'Accept': 'application/json',
                         'Content-type': 'application/json'
                     },
-                    url: url + 'users/' + user.value,
+                    url: url + 'users/' + userURL,
                     data: JSON.stringify({user: "" + user.value, password: "" + password.value}),
                     dataType: "json",
                     success: function (valor) {
@@ -63,7 +67,6 @@ class LoginScene extends Phaser.Scene{
                     }
                 }).done( function(value) {
                     console.log("Usuario encontrado: " + JSON.stringify({user: "" + user.value, password: "" + password.value}));
-                    
                 }).fail( function( jqXHR, textStatus, errorThrown ) {
                     if (jqXHR.status === 0) {
                         alert('Not connect: Verify Network.');
@@ -78,7 +81,7 @@ class LoginScene extends Phaser.Scene{
                     } else if (textStatus === 'abort') {
                         alert('Ajax request aborted.');
                     } else {
-                        //errorPassword = true;
+                        errorPassword = true;
                     }
                 });
 

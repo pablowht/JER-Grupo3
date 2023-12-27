@@ -61,7 +61,7 @@ class DeleteUserScene extends Phaser.Scene{
         		}
     		});
     		this.sound.play('InteractSound');
-            	this.scene.start('LoginScene');
+            	this.scene.start('LoginCreate');
     		//if (canChange == true) {
             	//this.scene.stop();
             	

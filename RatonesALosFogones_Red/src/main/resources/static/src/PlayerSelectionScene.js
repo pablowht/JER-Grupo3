@@ -171,7 +171,7 @@ class PlayerSelectionScene extends Phaser.Scene {
     }
 
     StartPlaying(){
-        this.scene.start("Game", {colorRaton1: this.raton1, colorRaton2:this.raton2});
+        this.scene.start('LevelSelection', {colorRaton1: this.raton1, colorRaton2:this.raton2});
     }
 
     ReiniciarVariables(){
