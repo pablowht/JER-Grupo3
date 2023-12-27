@@ -47,7 +47,6 @@ public class UserController {
 	//MÉTODOS GET:
 	@GetMapping("/users")
 	public Map<String, User> getUsers(){
-		System.out.println("userMap" + usersMap);
 		return usersMap;
 	}
 	
@@ -67,6 +66,8 @@ public class UserController {
 		{
 			User user = usersMap.get(username);
 			
+			System.out.println("el user: " + user.getUser() + " existe y es xulisime"+"\nSu contraseña es: "+user.getPassword());
+
 			return user;
 		}
 		else 
@@ -87,12 +88,46 @@ public class UserController {
 	}
 	
 	@PostMapping("/users")
-    public boolean addUser(@RequestBody User newUser) 
+    public boolean createUser(@RequestBody User newUser) 
     {
     	String username = newUser.getUser();
     	String password = newUser.getPassword();
 
     	if(!usersMap.containsKey(username)) 
+    	{
+    		usersMap.put(username, newUser); 
+    		activeUsers.put(username, newUser);
+    		
+            try (Writer writer = new BufferedWriter(new FileWriter(usersFileURL, true)))
+            {
+                String contents = "";
+                contents = newUser.getUser() + ";" + newUser.getPassword() + ";" + newUser.getRecordObstacles() + System.getProperty("line.separator");
+                
+                writer.write(contents);
+                writer.close();
+                System.out.println("User written succesfully");
+                
+            } catch (IOException e) {
+                e.printStackTrace();
+                System.out.println("Error writing user");
+            }
+    		return true; 
+    	} else { 
+    		if(usersMap.get(username).getPassword().equals(password)) { 
+    	    	activeUsers.put(username, newUser);
+    			return true; 
+    		} else 
+    			return false; 
+    	}	
+    }
+	
+	@PostMapping("/usersLogin")
+    public boolean loginUser(@RequestBody User newUser) 
+    {
+    	String username = newUser.getUser();
+    	String password = newUser.getPassword();
+
+    	if(usersMap.containsKey(username)) 
     	{
     		usersMap.put(username, newUser); 
     		activeUsers.put(username, newUser);
@@ -134,7 +169,7 @@ public class UserController {
 			System.out.println("comprobación de cambio de contraseña: " + usersMap.get(newUser.getUser()).getUser() + "\t\tcomprobación contraseña nueva: " + usersMap.get(newUser.getUser()).getPassword());			try {
 				System.out.println("entraste a borrar usuario y añadirlo");
 				deleteUser(newUser.getUser());
-				addUser(newUser);
+				createUser(newUser);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

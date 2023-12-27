@@ -26,8 +26,8 @@ class LevelOne extends Phaser.Scene {
     preload() { }
 
     init(data){
-        this.raton1 = data.colorRaton1;
-        this.raton2 = data.colorRaton2;
+        this.colorRaton1 = data.colorRaton1;
+        this.colorRaton2 = data.colorRaton2;
         this.user = data.user;
         this.password = data.password;
     }
@@ -50,7 +50,7 @@ class LevelOne extends Phaser.Scene {
         this.walkable.create(1237, 64, 'techoMapa2');
 
         //MAPA
-        this.walkable.create(353, 240, 'paredesMapa1');
+        this.walkable.create(1353, 240, 'paredesMapa1');
         this.walkable.create(2175,288,'paredMapa2');
         this.walkable.create(800, 305, 'sueloMapa1');
         this.walkable.create(2200,305,'sueloMapa2');
@@ -259,6 +259,8 @@ class LevelOne extends Phaser.Scene {
         
         this.player1.fisicas.setScale(1.25);
         this.player2.fisicas.setScale(1.25);
+
+        this.esc = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
     }
 
     update(timeNum, timeDelta) {
@@ -291,7 +293,6 @@ class LevelOne extends Phaser.Scene {
         this.activateFogon(this.obstFogon21);
 
         //Para pausa
-        this.esc = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
         if (this.esc.isDown) {
             this.sound.play('InteractSound');
             this.scene.pause();

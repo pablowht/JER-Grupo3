@@ -9,7 +9,7 @@ public class ChatController {
 	Stack<String> messages = new Stack<String>();
 	String charFileURL = "src/main/resources/static/dataSaving/chatData.txt";
 	
-	@GetMapping
+	@GetMapping("/allMessages")
 	public Stack<String> getAllMessages(){
 		return messages;
 	}
@@ -38,9 +38,6 @@ public class ChatController {
 		}
 		if(i.equals("6") && size>=7) {
 			message = messages.get(size-7);
-		}
-		if(i.equals("7") && size>=8) {
-			message = messages.get(size-8);
 		}
 			
 		return message; 

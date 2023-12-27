@@ -44,7 +44,6 @@ class LoginScene extends Phaser.Scene{
 
 
 
-        //CAMBIO DE ESCENA DEL LOGIN AL MENÚ
         BotonAcceder.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
             this.sound.play('InteractSound');
             if (user.value !== "" && password.value !== "") {
@@ -52,18 +51,18 @@ class LoginScene extends Phaser.Scene{
                 var userURL = user.value;
                 console.log("URL: " + url + 'users/' + userURL);
                 $.ajax({
-                    method: "GET",
+                    method: "POST",
                     async: false,
                     headers: {
                         'Accept': 'application/json',
                         'Content-type': 'application/json'
                     },
-                    url: url + 'users/' + userURL,
-                    data: JSON.stringify({user: "" + user.value, password: "" + password.value}),
+                    url: url + 'usersLogin',
+                    data: JSON.stringify({user: "" + userURL}),
                     dataType: "json",
                     success: function (valor) {
                         loginCompleto = valor;
-                        errorPassword = !value;
+                        errorPassword = !valor;
                     }
                 }).done( function(value) {
                     console.log("Usuario encontrado: " + JSON.stringify({user: "" + user.value, password: "" + password.value}));

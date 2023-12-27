@@ -1,0 +1,13 @@
+sdas;asda;50
+pau;123;50
+qweq;123;50
+qweqwe;qewq;50
+123;123;50
+asda;adsa;50
+qqq;qqq;50
+12233;33;50
+asda11;asda;50
+pau;null;50
+pau;null;50
+pau;null;50
+pau;null;50

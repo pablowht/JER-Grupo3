@@ -28,6 +28,12 @@ class LoadingScene extends Phaser.Scene {
         this.load.image('Fondo_Create','../assets/INTERFACES/Login/Login_Fondo_NuevaCuenta.png');
         this.load.image('Boton_Crear','../assets/INTERFACES/Login/Login_Crear.png');
 
+        //Menu Seleccion de Nivel
+        this.load.image('FondoSeleccionNiveles', '../assets/INTERFACES/LevelSelection/Fondo_Niveles.png');
+        this.load.image('BotonN1', '../assets/INTERFACES/LevelSelection/Boton_Nivel_1.png');
+        this.load.image('BotonN2', '../assets/INTERFACES/LevelSelection/Boton_Nivel_2.png');
+        //this.load.image('Candado', '/ASSETS/INTERFACES/LevelSelection/Candado.png');
+
         //User UI
         this.load.image('Boton_ChangePassword','../assets/INTERFACES/UserUI/Boton_ChangePassword.png');
         this.load.image('Boton_Eliminar','../assets/INTERFACES/NewPassword/Boton_EliminarCuenta.png');
@@ -44,7 +50,7 @@ class LoadingScene extends Phaser.Scene {
         this.load.image('Fondo_Eliminar','../assets/INTERFACES/DeleteUser/Fondo_Delete.png');
 
         //Chat
-        this.load.image('Tapa_Chat','../assets/INTERFACES/Chat/Cuadro_ChatByN.png');
+        //this.load.image('Tapa_Chat','../assets/INTERFACES/Chat/Cuadro_ChatByN.png');
         
         this.load.image('Cuadro_Chat','../assets/INTERFACES/Chat/Cuadro_Chat.png');
         this.load.image('CuadroEscribirMensaje','../assets/INTERFACES/Chat/Cuadro_Texto_Chat.png');
@@ -73,6 +79,8 @@ class LoadingScene extends Phaser.Scene {
         this.load.image('BarraRellenoPlayer2', '../assets/INTERFACES/InGame/BarraProgresoP2_Barra.png');
         this.load.image('Raton1Ingame', '../assets/INTERFACES/InGame/Raton1_Ingame.png');
         this.load.image('Raton2Ingame', '../assets/INTERFACES/InGame/Raton2_Ingame.png');
+        //Level Two
+        this.load.image('Cacerola','../assets/obstaculos/Cacerola.png');
 
         //GameOver
         this.load.image('FondoGameOver','../assets/INTERFACES/LevelEnd/Fondo_FinDeNivel.png');
@@ -126,28 +134,35 @@ class LoadingScene extends Phaser.Scene {
         this.load.image('Boton2ListoPressed', '../assets/INTERFACES/PlayerSelection/BotonP_P2_Listo.png');
         this.load.image('PlayersReady', '../assets/INTERFACES/PlayersReadyBackground.png');
 
-        //Mapa
-        this.load.image('techoMapa', '../assets/TILES/MAPAS/Tope_techo_3200x27.png');
-        this.load.image('techoMapa2', '../assets/TILES/MAPAS/Tope_techo_444x129.png');
-        this.load.image('sueloMapa1', '../assets/TILES/MAPAS/Tope_Suelo_M1_1600x6.png');
-        this.load.image('paredesMapa1', '../assets/TILES/MAPAS/Tope_paredes_324x122.png');
-        this.load.image('sueloMapa2', '../assets/TILES/MAPAS/Tope_Suelo_M2_1202x6.png');
-        this.load.image('paredMapa2', '../assets/TILES/MAPAS/Tope_Suelo_M2_610x44.png');
-        this.load.image('sueloMapa2N2', '../assets/TILES/MAPAS/Tope_Suelo_M2_3_212x53.png');
-        this.load.image('sueloMapa2N3', '../assets/TILES/MAPAS/Tope_Suelo_M2_3_404x91.png');
+        //Mapa Nivel1
+        this.load.image('techoMapa', '../assets/TILES/MAPAS/Nivel1/Tope_techo_3200x27.png');
+        this.load.image('techoMapa2', '../assets/TILES/MAPAS/Nivel1/Tope_techo_444x129.png');
+        this.load.image('sueloMapa1', '../assets/TILES/MAPAS/Nivel1/Tope_Suelo_M1_1600x6.png');
+        this.load.image('paredesMapa1', '../assets/TILES/MAPAS/Nivel1/Tope_paredes_324x122.png');
+        this.load.image('sueloMapa2', '../assets/TILES/MAPAS/Nivel1/Tope_Suelo_M2_1202x6.png');
+        this.load.image('paredMapa2', '../assets/TILES/MAPAS/Nivel1/Tope_Suelo_M2_610x44.png');
+        this.load.image('sueloMapa2N2', '../assets/TILES/MAPAS/Nivel1/Tope_Suelo_M2_3_212x53.png');
+        this.load.image('sueloMapa2N3', '../assets/TILES/MAPAS/Nivel1/Tope_Suelo_M2_3_404x91.png');
+
+        //Mapa Nivel2
+        this.load.image('mapa2', '../assets/TILES/MAPAS/Nivel2/Mapa_N2.png');
+        this.load.image('techoMapa_N2', '../assets/TILES/MAPAS/Nivel2/Techo_N2_1.png');
+        this.load.image('techoMapa2_N2', '../assets/TILES/MAPAS/Nivel2/Techo_N2_2.png');
+        this.load.image('suelo1_N2', '../assets/TILES/MAPAS/Nivel2/Colision_N2_1.png');
+        this.load.image('suelo2_N2', '../assets/TILES/MAPAS/Nivel2/Colision_N2_1.5.png');
+        this.load.image('suelo3_N2', '../assets/TILES/MAPAS/Nivel2/Colision_N2_2.png');
+        this.load.image('suelo4_N2', '../assets/TILES/MAPAS/Nivel2/Colision_N2_3.png');
+        this.load.image('suelo5_N2', '../assets/TILES/MAPAS/Nivel2/Colision_N2_4.png');
+        this.load.image('pared_N2', '../assets/TILES/MAPAS/Nivel2/Pared_N2.png');
+
         //Meta
         this.load.image('Meta', '../assets/TILES/MAPAS/Meta_N1_39x199.png');
 
 
-        this.load.image('sueloMapa3', '../assets/TILES/MAPAS/Tope_Suelo_M3.1_1091x6.png');
-        this.load.image('sueloMapa3N1', '../assets/TILES/MAPAS/Tope_Suelo_M3.2_193x75.png');
-        this.load.image('sueloMapa3N2', '../assets/TILES/MAPAS/Tope_Suelo_M3.3_322x59.png');
-
-        //this.load.image('tile_pared', '../assets/tiles/Tiles_Pared.png');
-        //this.load.image('mapa3', '../assets/tiles/MAPAS/mapa3_V4_1600x310.png');
-        //this.load.image('mapa2', '../assets/tiles/MAPAS/mapa2_V4_1600x310.png');
-        //this.load.image('mapa1', '../assets/tiles/MAPAS/mapa1_V4_1600x310.png');
-        this.load.image('mapa1', '../assets/TILES/MAPAS/mapa1y2_V2_3200x310.png');
+        this.load.image('sueloMapa3', '../assets/TILES/MAPAS/Nivel1/Tope_Suelo_M3.1_1091x6.png');
+        this.load.image('sueloMapa3N1', '../assets/TILES/MAPAS/Nivel1/Tope_Suelo_M3.2_193x75.png');
+        this.load.image('sueloMapa3N2', '../assets/TILES/MAPAS/Nivel1/Tope_Suelo_M3.3_322x59.png');
+        this.load.image('mapa1', '../assets/TILES/MAPAS/Nivel1/mapa1y2_V2_3200x310.png');
 
         //PLATAFORMAS
         this.load.image('armarioBajo1', '../assets/TILES/ARMARIOS_BAJOS/Tiles_Armario_2Puertas_2.png');

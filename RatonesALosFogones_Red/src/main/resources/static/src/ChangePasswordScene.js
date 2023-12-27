@@ -56,8 +56,6 @@ class ChangePasswordScene extends Phaser.Scene {
                         password: "" + new_password.value
                     }));
                     canChange = true;
-                    this.sound.play('InteractSound');
-                    this.scene.start('UserScene');
                 })
             }
             if(!canChange){
@@ -66,6 +64,10 @@ class ChangePasswordScene extends Phaser.Scene {
                      font: (40).toString() + "px Lexend",
                      color: '#e82138'
                 })
+			}
+			if(canChange){
+				    this.sound.play('InteractSound');
+                    this.scene.start('UserScene');
 			}
         });
 

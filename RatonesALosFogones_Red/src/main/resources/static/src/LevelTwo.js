@@ -22,13 +22,13 @@ class LevelTwo extends Phaser.Scene {
     meta;
     backgroundMusic;
     barraDivisoria;
+    Cacerolas1=[];
+    Cacerolas2=[];
 
-    preload() {
-    }
 
     init(data) {
-        this.raton1 = data.colorRaton1;
-        this.raton2 = data.colorRaton2;
+        this.colorRaton1 = data.colorRaton1;
+        this.colorRaton2 = data.colorRaton2;
         this.user = data.user;
         this.password = data.password;
     }
@@ -38,8 +38,9 @@ class LevelTwo extends Phaser.Scene {
         this.camera.cam.setZoom(1.2, 1.85);
 
         //MAPA
-        this.add.image(1600, 155, 'mapa1');
-        this.add.image(1600, 555, 'mapa1');
+        this.add.image(1600, 155, 'mapa2');
+        this.add.image(1600, 555, 'mapa2');
+
         this.walkable = this.physics.add.staticGroup();
         this.platforms = this.physics.add.staticGroup();
         this.meta = this.physics.add.staticGroup();
@@ -47,16 +48,18 @@ class LevelTwo extends Phaser.Scene {
         //OBSTACULOS
         this.obstaculos = this.physics.add.staticGroup();
         //MAPA PLAYER1
-        this.walkable.create(1600, 10, 'techoMapa');
-        this.walkable.create(1237, 64, 'techoMapa2');
+        this.walkable.create(1600, 10, 'techoMapa_N2');
+        this.walkable.create(1437, 64, 'techoMapa2_N2');
 
         //MAPA
-        this.walkable.create(353, 240, 'paredesMapa1');
-        this.walkable.create(2175, 288, 'paredMapa2');
-        this.walkable.create(800, 305, 'sueloMapa1');
-        this.walkable.create(2200, 305, 'sueloMapa2');
-        this.walkable.create(2997, 266, 'sueloMapa2N3');
-        this.walkable.create(2280, 247, 'sueloMapa2N2');
+        //SEGURO QUE HAY QUE MODIFICAR LOS VALORES
+        this.walkable.create(353, 240, 'pared_N2');
+        this.walkable.create(800, 305, 'suelo1_N2');
+        this.walkable.create(2200, 305, 'suelo2_N2');
+        this.walkable.create(2997, 266, 'suelo3_N2');
+        this.walkable.create(2280, 247, 'suelo4_N2');
+        this.walkable.create(2280, 247, 'suelo5_N2');
+
         //Colocar las plataformas
         this.platforms.create(155, 270, 'armarioBajo1');
         this.platforms.create(553, 270, 'armarioBajo2');
@@ -99,6 +102,12 @@ class LevelTwo extends Phaser.Scene {
         this.obstaculos.create(2898, 210, 'CascaraPlatano');
         this.obstaculos.create(2282, 210, 'TrampaRatones');
         this.obstaculos.create(1660, 290, 'TrampaRatones');
+
+        //OBSTACULOS MOVIBLES NIVEL 2 PLAYER 1
+        this.Cacerolas1.push(this.add.image(400,170,'Cacerola'));
+        this.Cacerolas1.push(this.add.image(400,170,'Cacerola'));
+        this.Cacerolas1.push(this.add.image(400,170,'Cacerola'));
+        this.Cacerolas1.push(this.add.image(400,170,'Cacerola'));
 
         this.anims.create({
             key: 'fogon_encendido',
@@ -203,6 +212,12 @@ class LevelTwo extends Phaser.Scene {
         this.obstaculos.create(2685, 675, 'Fogon');
         this.obstaculos.create(2710, 675, 'Fogon');
 
+        //OBSTACULOS DINAMICOS PLAYER 2
+        this.Cacerolas2.push(this.add.image(400,570,'Cacerola'));
+        this.Cacerolas2.push(this.add.image(400,570,'Cacerola'));
+        this.Cacerolas2.push(this.add.image(400,570,'Cacerola'));
+        this.Cacerolas2.push(this.add.image(400,570,'Cacerola'));
+
         //Carteles Ratones
         this.add.image(340, 70, 'Raton1Ingame').setScale(0.4);
         this.add.image(340, 470, 'Raton2Ingame').setScale(0.4);
@@ -260,6 +275,8 @@ class LevelTwo extends Phaser.Scene {
 
         this.player1.fisicas.setScale(1.25);
         this.player2.fisicas.setScale(1.25);
+
+        this.esc = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
     }
 
     update(timeNum, timeDelta) {
@@ -291,8 +308,11 @@ class LevelTwo extends Phaser.Scene {
         this.activateFogon(this.obstFogon20);
         this.activateFogon(this.obstFogon21);
 
+        //OBSTACULOS DINÁMICOS
+        Phaser.Actions.IncY(this.Cacerolas,-1,-0.025);
+
+
         //Para pausa
-        this.esc = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
         if (this.esc.isDown) {
             this.sound.play('InteractSound');
             this.scene.pause();

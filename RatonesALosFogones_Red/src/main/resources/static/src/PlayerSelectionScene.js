@@ -69,7 +69,7 @@ class PlayerSelectionScene extends Phaser.Scene {
                 this.BotonP2Listo = this.add.image(31630,870,'Boton2ListoPressed');
                 this.p2Ready = true;
                 this.add.image(0,0, 'PlayersReady').setOrigin(0,0);
-                this.time.delayedCall(7000, this.StartPlaying, [], this);
+                this.time.delayedCall(1000, this.StartPlaying, [], this);
             }
         });
         
@@ -175,7 +175,7 @@ class PlayerSelectionScene extends Phaser.Scene {
     }
 
     StartPlaying(){
-        this.scene.start('LevelSelection', {colorRaton1: this.raton1, colorRaton2:this.raton2, user : this.user, password: this.password});
+        this.scene.start('LevelTwo', {colorRaton1: this.raton1, colorRaton2:this.raton2, user : this.user, password: this.password});
     }
 
     ReiniciarVariables(){

@@ -12,8 +12,8 @@ class GameOverScene extends Phaser.Scene {
     ganador2;
 
     init(data){
-        this.raton1 = data.raton1;
-        this.raton2 = data.raton2;
+        this.colorRaton1 = data.raton1;
+        this.colorRaton2 = data.raton2;
         this.ganador1 = data.ganador1;
         this.ganador2 = data.ganador2;
         this.user = data.user;
@@ -82,7 +82,7 @@ class GameOverScene extends Phaser.Scene {
 
         BotonMenu.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
             this.sound.play('InteractSound');
-            this.scene.start("Menu")
+            this.scene.start('Menu');
         });
 
         this.sound.play('MenuMusic',{loop:true});
@@ -95,7 +95,6 @@ class GameOverScene extends Phaser.Scene {
         var chat = this.add.dom(1420, 820).createFromCache('chat_html');
 
         this.add.image(1580, 750, 'Cuadro_Chat');
-        this.add.image(1580, 750, 'Tapa_Chat');
 
         var botonEnviar = chat.getChildByName('botonEnviarMsj');
         var recuadroEscribir = chat.getChildByName('cuadro-escribir');
@@ -103,14 +102,16 @@ class GameOverScene extends Phaser.Scene {
 		 botonEnviar.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
             this.sound.play('InteractSound');
             if (recuadroEscribir.value !== "") {
-				sendMessage(username, input.value);
-					recuadroEscribir.value = "";
+                console.log("mensaje a enviar: " + recuadroEscribir.value + "\tdel user: "+this.user);
+				sendMessage(this.user, recuadroEscribir.value);
+                recuadroEscribir.value = "";
 			}
 		});	
 	}
 }
 		function sendMessage(user, message)
 		{
+            console.log("estas en la función sendMessage\nel user es: "+user + "\tel mensaje es: "+message)
 			$.ajax({
 				type: "POST",
 				async:false,
@@ -119,7 +120,7 @@ class GameOverScene extends Phaser.Scene {
 					'Content-type' : 'application/json'	
 				},
 				url: url + "chat",
-				data: JSON.stringify( { user: "- "+user, message: ""+message } ),
+				data: JSON.stringify( { user: "- " + user, message: "" + message } ),
 				dataType: "json" 
 			})
 			getMessage();
