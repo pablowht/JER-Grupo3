@@ -8,7 +8,7 @@ var infoDataPassword;
 
 class ChangePasswordScene extends Phaser.Scene {
     constructor() {
-        super("UserScene");
+        super("ChangePassword");
     }
 
 	init(data){
@@ -37,8 +37,6 @@ class ChangePasswordScene extends Phaser.Scene {
         let BotonReturnMenu = this.add.image(150, 150, 'Flecha');
         BotonReturnMenu.setInteractive();
 
-        let BotonEliminar = this.add.image(1600, 145, 'Boton_Eliminar');
-        BotonEliminar.setInteractive();
 
         BotonConfirmar.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {         
             if (user.value !== "" && new_password.value !== "") {
@@ -58,12 +56,9 @@ class ChangePasswordScene extends Phaser.Scene {
                         password: "" + new_password.value
                     }));
                     canChange = true;
+                    this.sound.play('InteractSound');
+                    this.scene.start('UserScene');
                 })
-            }
-           if (canChange == true) {
-                this.scene.stop();
-                this.scene.start('Menu');
-                this.sound.play('InteractSound');
             }
             if(!canChange){
 				this.add.text(200, 800, 'CAMPO NO VÁLIDO', {
@@ -76,13 +71,8 @@ class ChangePasswordScene extends Phaser.Scene {
 
         BotonReturnMenu.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
             this.sound.play('InteractSound');
-            this.scene.start("Menu");
+            this.scene.start("UserScene");
         });
-        
-        BotonEliminar.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
-            this.sound.play('InteractSound');
-            console.log("valor infoData dentro de changepassword: " + infoDataUser);
-            this.scene.start("DeleteUser", {user: infoDataUser, password: infoDataPassword});
-        });
+
     }
 }

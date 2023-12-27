@@ -14,15 +14,28 @@ class LoadingScene extends Phaser.Scene {
 
         //ASSETS DEL JUEGO
 
+        //Menu de Login/Create
+        this.load.image('Fondo_LoginCreate','../assets/INTERFACES/LoginCreate/Fondo_LoginCreate.png');
+        this.load.image('Boton_CrearCuenta','../assets/INTERFACES/LoginCreate/Boton_CrearCuenta.png');
+        this.load.image('Boton_Iniciar','../assets/INTERFACES/LoginCreate/Boton_IniciarSesion.png');
+
         //Menu de Login
         this.load.image('Fondo_Login','../assets/INTERFACES/Login/Login_Fondo.png');
         this.load.image('Boton_Acceder','../assets/INTERFACES/Login/Login_Acceder.png');
         this.load.html('login_form', "./login_form.html");
 
+        //Menu de Create
+        this.load.image('Fondo_Create','../assets/INTERFACES/Login/Login_Fondo_NuevaCuenta.png');
+        this.load.image('Boton_Crear','../assets/INTERFACES/Login/Login_Crear.png');
+
+        //User UI
+        this.load.image('Boton_ChangePassword','../assets/INTERFACES/UserUI/Boton_ChangePassword.png');
+        this.load.image('Boton_Eliminar','../assets/INTERFACES/NewPassword/Boton_EliminarCuenta.png');
+        this.load.image('Fondo_Liso','../assets/INTERFACES/Interfaces_FondoRallado.png');
+
         //Menú cambiar contraseña
         this.load.image('Fondo_ChangePassword','../assets/INTERFACES/NewPassword/Fondo_Contrasena.png');
         this.load.image('Boton_Confirmar','../assets/INTERFACES/NewPassword/BOTON_CONFIRMAR.png');
-        this.load.image('Boton_Eliminar','../assets/INTERFACES/NewPassword/BOTON_ELIMINARCUENTA.png');
         this.load.html('changePassword_html', "./changePassword.html");
 
         //Eliminar cuenta
@@ -164,6 +177,6 @@ class LoadingScene extends Phaser.Scene {
 
     create(){
         this.sound.play('MenuMusic', {loop:true});
-        this.scene.start("LoginScene");
+        this.scene.start('LoginCreate');
     }
 }

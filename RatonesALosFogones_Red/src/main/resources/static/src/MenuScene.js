@@ -89,15 +89,6 @@ class MenuScene extends Phaser.Scene{
 
     }
 
-    musicControl(){
-        //La siguiente condicional no funciona correctamente porque isPlaying lo toma como
-        //parámetro de anims aunque en la documentación ponga que sirve también para music
-        if(!this.backgroundMusic.isPlaying){
-            this.sound.stopAll();
-            this.backgroundMusic.play();
-        }
-    }
-
     update(time, delta)
     {
         getActiveUsers();

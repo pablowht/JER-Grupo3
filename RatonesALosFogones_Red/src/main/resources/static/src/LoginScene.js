@@ -6,7 +6,7 @@ $(document).ready(function(){
 class LoginScene extends Phaser.Scene{
 	
     constructor(){
-        super("LoginScene");
+        super('LoginScene');
     }
 
     create(){
@@ -22,44 +22,86 @@ class LoginScene extends Phaser.Scene{
 
         //var textWrongPassword = this.add.text(900, 850, '');
         var loginCompleto = false;
+        var errorPassword = false;
+        
+        this.emptyText = this.add.text(50, 600, 'RELLENE LOS CAMPOS', {
+          	fontFamily: 'Lexend',
+         	font: (40).toString() + "px Lexend",
+   			color: '#e82138'
+    	})
+    	this.emptyText.setVisible(false);
 
         let BotonAcceder = this.add.image(960,960,'Boton_Acceder');
         BotonAcceder.setInteractive();
+
+        let BotonReturn = this.add.image(150, 150, 'Flecha');
+        BotonReturn.setInteractive();
+
+        BotonReturn.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
+            this.sound.play('InteractSound');
+            this.scene.start('LoginCreate');
+        });
 
         //CAMBIO DE ESCENA DEL LOGIN AL MENÚ
         BotonAcceder.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
             this.sound.play('InteractSound');
             if (user.value !== "" && password.value !== "") {
+				this.emptyText.setVisible(false);
                 $.ajax({
-                    type: "POST",
+                    method: "GET",
                     async: false,
                     headers: {
                         'Accept': 'application/json',
                         'Content-type': 'application/json'
                     },
-                    url: url + 'users',
+                    url: url + 'users/' + user.value,
                     data: JSON.stringify({user: "" + user.value, password: "" + password.value}),
                     dataType: "json",
                     success: function (valor) {
                         loginCompleto = valor;
+                        errorPassword = !value;
                     }
-                }).done(function (item) {
-                    console.log("Usuario creado: " + JSON.stringify({user: "" + user.value, password: "" + password.value}));
-                })
+                }).done( function(value) {
+                    console.log("Usuario encontrado: " + JSON.stringify({user: "" + user.value, password: "" + password.value}));
+                    
+                }).fail( function( jqXHR, textStatus, errorThrown ) {
+                    if (jqXHR.status === 0) {
+                        alert('Not connect: Verify Network.');
+                    } else if (jqXHR.status === 404) {
+                        alert('Requested page not found [404]');
+                    } else if (jqXHR.status === 500) {
+                        alert('Internal Server Error [500].');
+                    } else if (textStatus === 'parsererror') {
+                        alert('Requested JSON parse failed.');
+                    } else if (textStatus === 'timeout') {
+                        alert('Time out error.');
+                    } else if (textStatus === 'abort') {
+                        alert('Ajax request aborted.');
+                    } else {
+                        //errorPassword = true;
+                    }
+                });
 
-				if(!loginCompleto){
-                    this.textWrongPassword = this.add.text(50, 800, 'CONTRASEÑA INCORRECTA', {
-                        fontFamily: 'Lexend',
-                        font: (40).toString() + "px Lexend",
-                        color: '#e82138'
-                    })
-				}
-                else{ 
+				
+				if(loginCompleto){
 					this.scene.stop();
                     this.scene.start('Menu', {user: user.value, password: password.value});
-                } 
+				}
+				if(errorPassword){
+					this.wrongPasswordText = this.add.text(50, 800, 'CONTRASEÑA INCORRECTA', {
+                            fontFamily: 'Lexend',
+                            font: (40).toString() + "px Lexend",
+                            color: '#e82138'
+                     });
+				}
                  
-            }
+            }else{
+				this.emptyText.setVisible(true);
+			}
         });
     }
+}
+
+function changeScene(){
+
 }
