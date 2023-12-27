@@ -38,6 +38,12 @@ class LoadingScene extends Phaser.Scene {
         this.load.image('BotonSonido','/ASSETS/INTERFACES/Pause/BOTON_SONIDO.png');
         this.load.image('BotonMute','/ASSETS/INTERFACES/Pause/BOTON_MUTE.png');
 
+        //Menu Seleccion de Nivel
+        this.load.image('FondoSeleccionNiveles', '/ASSETS/INTERFACES/LevelSelection/Fondo_Niveles.png');
+        this.load.image('BotonN1', '/ASSETS/INTERFACES/LevelSelection/Boton_Nivel_1.png');
+        this.load.image('BotonN2', '/ASSETS/INTERFACES/LevelSelection/Boton_Nivel_2.png');
+        //this.load.image('Candado', '/ASSETS/INTERFACES/LevelSelection/Candado.png');
+
         //InGame
         this.load.image('BarraDivisoria', '/ASSETS/INTERFACES/InGame/BarraDivisoriaMorada.png');
         this.load.image('BarraPlayer1', '/ASSETS/INTERFACES/InGame/BarraProgresoP1_Fondo.png');
