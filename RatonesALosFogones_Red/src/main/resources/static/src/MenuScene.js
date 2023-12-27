@@ -34,7 +34,7 @@ class MenuScene extends Phaser.Scene{
         url= window.location.href;
 		user = this.dataObj.user;
 		password = this.dataObj.password;
-		console.log("estas en la clase menu: user: "+user + "\tpassword:" + password)
+		
         //variables y funciones menú
         this.add.image(0,0,'Fondo_Menu').setOrigin(0, 0);
         let BotonJugar = this.add.image(990,540,'BOTON_JUGAR');
@@ -52,7 +52,7 @@ class MenuScene extends Phaser.Scene{
         //CAMBIO DE ESCENA DEL MENU A LA ESCENA IN-GAME
         BotonJugar.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
             this.sound.play('InteractSound');
-            this.scene.start('PlayerSelection'); //Niveles
+            this.scene.start('PlayerSelection', {user: user, password: password}); //Niveles
             //Cuando este selector de nivel, poner que al jugar vaya antes a "Niveles"
         });
 

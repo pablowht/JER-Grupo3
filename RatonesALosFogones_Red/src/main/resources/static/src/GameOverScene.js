@@ -16,6 +16,8 @@ class GameOverScene extends Phaser.Scene {
         this.raton2 = data.raton2;
         this.ganador1 = data.ganador1;
         this.ganador2 = data.ganador2;
+        this.user = data.user;
+        this.password = data.password;
     }
     preload() { }
 
@@ -84,6 +86,10 @@ class GameOverScene extends Phaser.Scene {
         });
 
         this.sound.play('MenuMusic',{loop:true});
+        //Al tocar la meta se pausa el juego durante segundo y medio y luego salta está escena
+        //con el nombre de playerx gana y el nombre de playerx pierde
+        
+        
 
         //CHAT
         var chat = this.add.dom(1420, 820).createFromCache('chat_html');
@@ -94,6 +100,15 @@ class GameOverScene extends Phaser.Scene {
         var botonEnviar = chat.getChildByName('botonEnviarMsj');
         var recuadroEscribir = chat.getChildByName('cuadro-escribir');
 
+		 botonEnviar.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
+            this.sound.play('InteractSound');
+            if (recuadroEscribir.value !== "") {
+				sendMessage(username, input.value);
+					recuadroEscribir.value = "";
+			}
+		});	
+	}
+}
 		function sendMessage(user, message)
 		{
 			$.ajax({
@@ -104,14 +119,14 @@ class GameOverScene extends Phaser.Scene {
 					'Content-type' : 'application/json'	
 				},
 				url: url + "chat",
-				data: JSON.stringify( { user: "-"+user, message: ""+message } ),
+				data: JSON.stringify( { user: "- "+user, message: ""+message } ),
 				dataType: "json" 
 			})
 			getMessage();
 		}
 
 		function getMessage() {
-			for (let i = 0; i < 8; i++) {
+			for (let i = 0; i < 7; i++) {
 				$.ajax({
 					method: "GET",
 					url: url + "chat/" + i.toString()
@@ -120,10 +135,7 @@ class GameOverScene extends Phaser.Scene {
 						document.getElementById("message"+i.toString()).innerHTML = data;
 				})
 			}
-}
+		}
+		
 
-
-        //Al tocar la meta se pausa el juego durante segundo y medio y luego salta está escena
-        //con el nombre de playerx gana y el nombre de playerx pierde
-    }
-}
+    

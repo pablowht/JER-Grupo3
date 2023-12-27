@@ -26,8 +26,10 @@ class LevelOne extends Phaser.Scene {
     preload() { }
 
     init(data){
-        this.colorRaton1 = data.colorRaton1;
-        this.colorRaton2 = data.colorRaton2;
+        this.raton1 = data.colorRaton1;
+        this.raton2 = data.colorRaton2;
+        this.user = data.user;
+        this.password = data.password;
     }
 
     create() {
@@ -334,7 +336,14 @@ class LevelOne extends Phaser.Scene {
     }
 
     EndGame(){
-        this.scene.start("GameOver", {raton1: this.colorRaton1, raton2:this.colorRaton2, ganador1:this.player1Won,ganador2:this.player2Won});
+        this.scene.start("GameOver", {
+			raton1: this.colorRaton1, 
+			raton2:this.colorRaton2, 
+			ganador1:this.player1Won, 
+			ganador2:this.player2Won, 
+			user: this.user, 
+			password:this.password
+		});
     }
 
 }

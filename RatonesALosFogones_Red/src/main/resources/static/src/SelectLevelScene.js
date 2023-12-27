@@ -2,10 +2,19 @@ class SelectLevelScene extends Phaser.Scene {
     constructor() {
         super('LevelSelection');
     }
+	init(data){
+		this.user = data.user;
+		this.password = data.password;
+		this.raton1 = data.colorRaton1;
+		this.raton2 = data.colorRaton2;
+
+	}
+	
     preload(){
-        this.load.image('Titulo','ASSETS/INTERFACES/LevelSelection/Titulo_Seleccion_Niveles.png');
-        this.load.image('Boton1','ASSETS/INTERFACES/LevelSelection/Boton_Nivel_1.png');
+        this.load.image('Titulo','../assets/INTERFACES/LevelSelection/Titulo_Seleccion_Niveles.png');
+        this.load.image('Boton1','../assets/INTERFACES/LevelSelection/Boton_Nivel_1.png');
     }
+    
     create(){
         this.add.image(0,0,'Fondo').setOrigin(0, 0);
         this.add.image(950,150,'Titulo');
@@ -24,7 +33,7 @@ class SelectLevelScene extends Phaser.Scene {
 
         BotonNivel1.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
             this.sound.play('InteractSound');
-            this.scene.start('LevelOne')
+            this.scene.start('LevelOne', {colorRaton1: this.raton1, colorRaton2:this.raton2, user : this.user, password: this.password})
         });
 
         let BotonNivel2 = this.add.image(150,150,'Boton2');
@@ -32,7 +41,7 @@ class SelectLevelScene extends Phaser.Scene {
 
         BotonNivel2.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
             this.sound.play('InteractSound');
-            this.scene.start('LevelTwo')
+            this.scene.start('LevelTwo', {colorRaton1: this.raton1, colorRaton2:this.raton2, user : this.user, password: this.password})
         });
     }
     update(){

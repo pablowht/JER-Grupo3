@@ -21,7 +21,11 @@ class PlayerSelectionScene extends Phaser.Scene {
     ratonBElegido;
     ratonMElegido;
 
-
+	init(data){
+		this.user = data.user;
+		this.password = data.password;
+	}
+	
     create(){
         //Se reinician las variables para que si se vuelve a entrar después de una partida los valores estén correctos
         this.ReiniciarVariables();
@@ -171,7 +175,7 @@ class PlayerSelectionScene extends Phaser.Scene {
     }
 
     StartPlaying(){
-        this.scene.start('LevelSelection', {colorRaton1: this.raton1, colorRaton2:this.raton2});
+        this.scene.start('LevelSelection', {colorRaton1: this.raton1, colorRaton2:this.raton2, user : this.user, password: this.password});
     }
 
     ReiniciarVariables(){

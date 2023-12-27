@@ -35,6 +35,8 @@ class CreateAccountScene extends Phaser.Scene{
         BotonCrearCuenta.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
             this.sound.play('InteractSound');
             if (user.value !== "" && password.value !== "") {
+				console.log("user "+user.value + "\tpassword " + password.value);
+				console.log("url: " +url+'users')
                 $.ajax({
                     type: "POST",
                     async: false,
@@ -42,7 +44,8 @@ class CreateAccountScene extends Phaser.Scene{
                         'Accept': 'application/json',
                         'Content-type': 'application/json'
                     },
-                    url: url + 'users',
+                    url: url + 'users', //FALTA UNA BARRITA PORQUE LA URL COMO VA CON EL INDEX VA MAL ://
+                    
                     data: JSON.stringify({user: "" + user.value, password: "" + password.value}),
                     dataType: "json",
                     success: function (valor) {
