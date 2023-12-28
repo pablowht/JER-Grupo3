@@ -29,10 +29,11 @@ class LoadingScene extends Phaser.Scene {
         this.load.image('Boton_Crear','../assets/INTERFACES/Login/Login_Crear.png');
 
         //Menu Seleccion de Nivel
-        this.load.image('FondoSeleccionNiveles', '../assets/INTERFACES/LevelSelection/Fondo_Niveles.png');
+        this.load.image('FondoSeleccionNiveles', '../assets/INTERFACES/LevelSelection/LevelSelection_Fondo.png');
         this.load.image('BotonN1', '../assets/INTERFACES/LevelSelection/Boton_Nivel_1.png');
         this.load.image('BotonN2', '../assets/INTERFACES/LevelSelection/Boton_Nivel_2.png');
-        //this.load.image('Candado', '/ASSETS/INTERFACES/LevelSelection/Candado.png');
+        this.load.image('MemeN1', '../assets/INTERFACES/LevelSelection/Meme_Guiso_1470_795.png');
+        this.load.image('MemeN2', '../assets/INTERFACES/LevelSelection/Meme_Ratita_452_530.png');
 
         //User UI
         this.load.image('Boton_ChangePassword','../assets/INTERFACES/UserUI/Boton_ChangePassword.png');
@@ -50,8 +51,6 @@ class LoadingScene extends Phaser.Scene {
         this.load.image('Fondo_Eliminar','../assets/INTERFACES/DeleteUser/Fondo_Delete.png');
 
         //Chat
-        //this.load.image('Tapa_Chat','../assets/INTERFACES/Chat/Cuadro_ChatByN.png');
-        
         this.load.image('Cuadro_Chat','../assets/INTERFACES/Chat/Cuadro_Chat.png');
         this.load.image('CuadroEscribirMensaje','../assets/INTERFACES/Chat/Cuadro_Texto_Chat.png');
         this.load.image('Fondo_Chat','../assets/INTERFACES/Chat/Fondo_Chat_Msj.png');
