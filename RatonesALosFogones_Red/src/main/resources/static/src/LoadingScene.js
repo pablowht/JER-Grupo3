@@ -34,6 +34,7 @@ class LoadingScene extends Phaser.Scene {
         this.load.image('BotonN2', '../assets/INTERFACES/LevelSelection/Boton_Nivel_2.png');
         this.load.image('MemeN1', '../assets/INTERFACES/LevelSelection/Meme_Guiso_1470_795.png');
         this.load.image('MemeN2', '../assets/INTERFACES/LevelSelection/Meme_Ratita_452_530.png');
+        this.load.image('BotonCubiertos', '../assets/INTERFACES/LevelSelection/Cubiertos.png');
 
         //User UI
         this.load.image('Boton_ChangePassword','../assets/INTERFACES/UserUI/Boton_ChangePassword.png');

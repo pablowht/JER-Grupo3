@@ -23,8 +23,8 @@ class LevelTwo extends Phaser.Scene {
     backgroundMusic;
     barraDivisoria;
     Cacerolas1=[];
-    Cacerolas2=[];
-
+    //Cacerolas2=[];
+    Cacerolas;
 
     init(data) {
         this.colorRaton1 = data.colorRaton1;
@@ -49,15 +49,15 @@ class LevelTwo extends Phaser.Scene {
         this.obstaculos = this.physics.add.staticGroup();
         //MAPA PLAYER1
         this.walkable.create(1600, 10, 'techoMapa_N2');
-        this.walkable.create(1437, 64, 'techoMapa2_N2');
+        this.walkable.create(2000, 64, 'techoMapa2_N2');
 
         //MAPA
         //SEGURO QUE HAY QUE MODIFICAR LOS VALORES
-        this.walkable.create(353, 240, 'pared_N2');
-        this.walkable.create(800, 305, 'suelo1_N2');
+        this.walkable.create(1600, 240, 'pared_N2');
+        this.walkable.create(353, 305, 'suelo1_N2');
         this.walkable.create(2200, 305, 'suelo2_N2');
-        this.walkable.create(2997, 266, 'suelo3_N2');
-        this.walkable.create(2280, 247, 'suelo4_N2');
+        this.walkable.create(800, 266, 'suelo3_N2');
+        this.walkable.create(1980, 247, 'suelo4_N2');
         this.walkable.create(2280, 247, 'suelo5_N2');
 
         //Colocar las plataformas
@@ -104,10 +104,17 @@ class LevelTwo extends Phaser.Scene {
         this.obstaculos.create(1660, 290, 'TrampaRatones');
 
         //OBSTACULOS MOVIBLES NIVEL 2 PLAYER 1
-        this.Cacerolas1.push(this.add.image(400,170,'Cacerola'));
-        this.Cacerolas1.push(this.add.image(400,170,'Cacerola'));
-        this.Cacerolas1.push(this.add.image(400,170,'Cacerola'));
-        this.Cacerolas1.push(this.add.image(400,170,'Cacerola'));
+        //this.Cacerolas1=this.physics.add.group();
+        //this.Cacerolas1.push(this.add.image(400,170,'Cacerola'));
+        //this.Cacerolas1.push(this.add.image(400,170,'Cacerola'));
+        //this.Cacerolas1.push(this.add.image(400,170,'Cacerola'));
+        //this.Cacerolas1.push(this.add.image(400,170,'Cacerola'));
+        ////this.Cacerolas1=this.physics.add.group();
+        this.Cacerolas = this.physics.add.group();
+        this.Cacerolas.create(400,170,'Cacerola');
+        let velocity = -50;
+        this.Cacerolas.setVelocityY(velocity);
+        this.physics.add.collider(this.Cacerolas,this.walkable);
 
         this.anims.create({
             key: 'fogon_encendido',
@@ -137,15 +144,15 @@ class LevelTwo extends Phaser.Scene {
         this.obstaculos.create(2710, 275, 'Fogon');
 
         //MAPA PLAYER2
-        this.walkable.create(1600, 410, 'techoMapa');
-        this.walkable.create(1237, 464, 'techoMapa2');
-
-        this.walkable.create(353, 640, 'paredesMapa1');
-        this.walkable.create(2175, 688, 'paredMapa2');
-        this.walkable.create(800, 705, 'sueloMapa1');
-        this.walkable.create(2200, 705, 'sueloMapa2');
-        this.walkable.create(2997, 666, 'sueloMapa2N3');
-        this.walkable.create(2280, 647, 'sueloMapa2N2');
+        //SEGURO QUE HAY QUE MODIFICAR LOS VALORES  (colocar primero el 1 y luego añadir 400 en y)
+        this.walkable.create(1600, 410, 'techoMapa_N2');
+        this.walkable.create(1437, 864, 'techoMapa2_N2');
+        this.walkable.create(353, 640, 'pared_N2');
+        this.walkable.create(800, 305, 'suelo1_N2');
+        this.walkable.create(2200, 305, 'suelo2_N2');
+        this.walkable.create(2997, 266, 'suelo3_N2');
+        this.walkable.create(2280, 247, 'suelo4_N2');
+        this.walkable.create(2280, 247, 'suelo5_N2');
 
         //Colocar plataformas
         this.platforms.create(155, 670, 'armarioBajo1');
@@ -213,11 +220,12 @@ class LevelTwo extends Phaser.Scene {
         this.obstaculos.create(2710, 675, 'Fogon');
 
         //OBSTACULOS DINAMICOS PLAYER 2
+        /*this.Cacerolas2.push(this.add.image(400,570,'Cacerola'));
         this.Cacerolas2.push(this.add.image(400,570,'Cacerola'));
         this.Cacerolas2.push(this.add.image(400,570,'Cacerola'));
         this.Cacerolas2.push(this.add.image(400,570,'Cacerola'));
-        this.Cacerolas2.push(this.add.image(400,570,'Cacerola'));
-
+    */
+        //this.Cacerolas.create(400,570,'Cacerola');
         //Carteles Ratones
         this.add.image(340, 70, 'Raton1Ingame').setScale(0.4);
         this.add.image(340, 470, 'Raton2Ingame').setScale(0.4);
@@ -309,7 +317,8 @@ class LevelTwo extends Phaser.Scene {
         this.activateFogon(this.obstFogon21);
 
         //OBSTACULOS DINÁMICOS
-        Phaser.Actions.IncY(this.Cacerolas,-1,-0.025);
+        Phaser.Actions.IncY(this.Cacerolas1,-1,-0.025);
+
 
 
         //Para pausa
@@ -358,6 +367,8 @@ class LevelTwo extends Phaser.Scene {
     }
 
     EndGame() {
+        console.log("level2: user: "+this.user);
+
         this.scene.start("GameOver", {
             raton1: this.colorRaton1, 
             raton2:this.colorRaton2, 

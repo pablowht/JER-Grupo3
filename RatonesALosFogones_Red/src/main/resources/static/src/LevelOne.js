@@ -50,7 +50,7 @@ class LevelOne extends Phaser.Scene {
         this.walkable.create(1237, 64, 'techoMapa2');
 
         //MAPA
-        this.walkable.create(1353, 240, 'paredesMapa1');
+        this.walkable.create(353, 240, 'paredesMapa1');
         this.walkable.create(2175,288,'paredMapa2');
         this.walkable.create(800, 305, 'sueloMapa1');
         this.walkable.create(2200,305,'sueloMapa2');
@@ -337,6 +337,7 @@ class LevelOne extends Phaser.Scene {
     }
 
     EndGame(){
+        console.log("level 1: "+this.user);
         this.scene.start("GameOver", {
 			raton1: this.colorRaton1, 
 			raton2:this.colorRaton2, 

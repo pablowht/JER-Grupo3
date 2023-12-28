@@ -12,17 +12,27 @@ class GameOverScene extends Phaser.Scene {
     ganador2;
 
     init(data){
-        this.colorRaton1 = data.raton1;
-        this.colorRaton2 = data.raton2;
-        this.ganador1 = data.ganador1;
-        this.ganador2 = data.ganador2;
-        this.user = data.user;
-        this.password = data.password;
+        //this.colorRaton1 = data.raton1;
+        //this.colorRaton2 = data.raton2;
+        //this.ganador1 = data.ganador1;
+        //this.ganador2 = data.ganador2;
+        this.dataObj = data;
+        //this.user = data.user;
+        //this.password = data.password;
     }
     preload() { }
 
     create(){
+        this.user = this.dataObj.user;
+        this.colorRaton1 = this.dataObj.raton1;
+        this.colorRaton2 = this.dataObj.raton2;
+        this.ganador1 = this.dataObj.ganador1;
+        this.ganador2 = this.dataObj.ganador2;
 
+
+        console.log("gameover scene\t user: "+this.user);
+        console.log("gameover scene\t color raton 1: "+this.colorRaton1);
+        console.log("gameover scene\t color raton 2: "+this.colorRaton2);
         this.sound.stopAll();
         this.sound.play('GameEndSound');
 
@@ -89,8 +99,6 @@ class GameOverScene extends Phaser.Scene {
         //Al tocar la meta se pausa el juego durante segundo y medio y luego salta está escena
         //con el nombre de playerx gana y el nombre de playerx pierde
         
-        
-
         //CHAT
         var chat = this.add.dom(1420, 820).createFromCache('chat_html');
 
@@ -99,28 +107,37 @@ class GameOverScene extends Phaser.Scene {
         var botonEnviar = chat.getChildByName('botonEnviarMsj');
         var recuadroEscribir = chat.getChildByName('cuadro-escribir');
 
-		 botonEnviar.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
-            this.sound.play('InteractSound');
-            if (recuadroEscribir.value !== "") {
-                console.log("mensaje a enviar: " + recuadroEscribir.value + "\tdel user: "+this.user);
-				sendMessage(this.user, recuadroEscribir.value);
-                recuadroEscribir.value = "";
-			}
-		});	
+        console.log("user antes de darle al click user: "+ this.user);
+        chat.addListener('click');
+        chat.on('click', function(){
+            console.log("user dentro de darle al click: "+ user);
+
+            if(event.target.name  === 'botonEnviarMsj')
+            {
+                console.log("recuadro y le das a enviar");
+                if (recuadroEscribir.value !== "") {
+                    console.log("recuadro no vacio y envias");
+                    console.log("mensaje a enviar: " + recuadroEscribir.value + "\tdel user: " + user);
+                    sendMessage(user, recuadroEscribir.value);
+                    recuadroEscribir.value = "";
+                }
+            }
+        });
 	}
 }
 		function sendMessage(user, message)
 		{
             console.log("estas en la función sendMessage\nel user es: "+user + "\tel mensaje es: "+message)
+            console.log("url: " + url + "chat")
 			$.ajax({
-				type: "POST",
-				async:false,
+				method: "POST",
+				async: false,
 				headers: {
 					'Accept': 'application/json',
 					'Content-type' : 'application/json'	
 				},
 				url: url + "chat",
-				data: JSON.stringify( { user: "- " + user, message: "" + message } ),
+				data: JSON.stringify( { user: "" + user, message: "" + message } ),
 				dataType: "json" 
 			})
 			getMessage();
@@ -132,7 +149,9 @@ class GameOverScene extends Phaser.Scene {
 					method: "GET",
 					url: url + "chat/" + i.toString()
 				}).done(function(data){
-					if(data != "")
+                    console.log("valor de la data: "+data)
+
+                    if(data != "")
 						document.getElementById("message"+i.toString()).innerHTML = data;
 				})
 			}

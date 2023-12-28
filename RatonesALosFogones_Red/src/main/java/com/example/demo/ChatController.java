@@ -15,7 +15,7 @@ public class ChatController {
 	}
 	
 	@GetMapping("/chat/{i}")
-	public String getMessage(@PathVariable("i") String i) {
+	public String getMessageAPI(@PathVariable("i") String i) {
 		int size = messages.size();
 		String message = "";
 		if(i.equals("0") && size>=1) {
@@ -45,15 +45,17 @@ public class ChatController {
 	
 	@PostMapping("/chat")
 	public void postMessage(@RequestBody ChatMessage message) throws FileNotFoundException{
+		System.out.println("entraste a post mensaje");
 		String contents = "";
 		contents = message.getUser() + ": " + message.getMessage()+System.getProperty("line.separator");
 		try(Writer writer = new BufferedWriter(new FileWriter (charFileURL, true))){
 			writer.write(contents);
 			writer.close();
-			System.out.println("User written succesfully");
+			System.out.println("Message: user: " + message.getUser() + "\tmessage: "+message.getMessage());
+			System.out.println("Message written succesfully");
 		} catch (IOException e) {
 			e.printStackTrace();
-			System.out.println("Error writing user");
+			System.out.println("Error writing message");
 		}
 		messages.add(contents);
 	}
