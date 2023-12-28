@@ -113,6 +113,9 @@ class LoadingScene extends Phaser.Scene {
         this.load.spritesheet('raton_blanco','../assets/RATONES/SpriteSheets/Raton_Blanco.png',{ frameWidth: 32, frameHeight: 32 } );
         this.load.spritesheet('raton_marron','../assets/RATONES/SpriteSheets/Raton_Marron.png',{ frameWidth: 32, frameHeight: 32 } );
 
+        //PAJARO
+        this.load.spritesheet('pajaro','../assets/PAJARO/Bird.png',{ frameWidth: 32, frameHeight: 32 } );
+
         //POWERUPS
         this.load.image('powerupAmarillo','../assets/POWERUPS/QUESO/QuesoAmarillo_12x14.png');
         this.load.image('powerupAzul','../assets/POWERUPS/QUESO/QuesoAzul_14x14.png');
