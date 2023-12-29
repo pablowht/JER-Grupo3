@@ -22,8 +22,7 @@ class LevelTwo extends Phaser.Scene {
     meta;
     backgroundMusic;
     barraDivisoria;
-    Cacerolas1=[];
-    //Cacerolas2=[];
+    velocity=-50;
     Cacerolas;
 
     init(data) {
@@ -113,8 +112,9 @@ class LevelTwo extends Phaser.Scene {
         this.Cacerolas = this.physics.add.group();
         this.Cacerolas.create(400,170,'Cacerola');
         let velocity = -50;
+       console.log("primervelocity");
         this.Cacerolas.setVelocityY(velocity);
-        this.physics.add.collider(this.Cacerolas,this.walkable);
+        this.physics.add.overlap(this.Cacerolas,this.walkable,this.changeVelocity(),null,this);
 
         this.anims.create({
             key: 'fogon_encendido',
@@ -285,6 +285,7 @@ class LevelTwo extends Phaser.Scene {
         this.player2.fisicas.setScale(1.25);
 
         this.esc = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
+
     }
 
     update(timeNum, timeDelta) {
@@ -317,7 +318,7 @@ class LevelTwo extends Phaser.Scene {
         this.activateFogon(this.obstFogon21);
 
         //OBSTACULOS DINÁMICOS
-        Phaser.Actions.IncY(this.Cacerolas1,-1,-0.025);
+        //Phaser.Actions.IncY(this.Cacerolas1,-1,-0.025);
 
 
 
@@ -328,7 +329,13 @@ class LevelTwo extends Phaser.Scene {
             this.scene.launch('Pause', {isPaused: true});
         }
     }
+    changeVelocity(Cacerolas,walkable){
+        let velocity=-50
+        console.log("dentro de changeVelocity");
 
+    velocity=velocity*(-1);
+    this.Cacerolas.setVelocityY(velocity);
+    }
     hitMeta(player, meta) {
         if (player.texture.key === 1) {
             this.player1.gestionCollision(meta);
