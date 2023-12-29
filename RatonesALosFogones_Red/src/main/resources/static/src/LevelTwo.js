@@ -103,18 +103,17 @@ class LevelTwo extends Phaser.Scene {
         this.obstaculos.create(1660, 290, 'TrampaRatones');
 
         //OBSTACULOS MOVIBLES NIVEL 2 PLAYER 1
-        //this.Cacerolas1=this.physics.add.group();
-        //this.Cacerolas1.push(this.add.image(400,170,'Cacerola'));
-        //this.Cacerolas1.push(this.add.image(400,170,'Cacerola'));
-        //this.Cacerolas1.push(this.add.image(400,170,'Cacerola'));
-        //this.Cacerolas1.push(this.add.image(400,170,'Cacerola'));
-        ////this.Cacerolas1=this.physics.add.group();
-        this.Cacerolas = this.physics.add.group();
-        this.Cacerolas.create(400,170,'Cacerola');
-        let velocity = -50;
-       console.log("primervelocity");
-        this.Cacerolas.setVelocityY(velocity);
-        this.physics.add.overlap(this.Cacerolas,this.walkable,this.changeVelocity(),null,this);
+        this.Cacerolas = this.physics.add.group({
+            allowGravity:false,
+            bounceX:1,
+            bounceY:1,
+            collideWorldBounds: false,
+            velocityY:-100
+        });
+        this.Cacerolas.create(900,170,'Cacerola');
+        this.physics.add.collider(this.Cacerolas,this.walkable);
+
+        ////////////////////////////////////////////////
 
         this.anims.create({
             key: 'fogon_encendido',
@@ -267,7 +266,7 @@ class LevelTwo extends Phaser.Scene {
         this.physics.add.overlap(this.player2.fisicas, this.powerupRoj2.fisicas, this.collectPowerUp, null, this);
         this.physics.add.overlap(this.player1.fisicas, this.obstaculos, this.hitAnyObstacle, null, this);
         this.physics.add.overlap(this.player2.fisicas, this.obstaculos, this.hitAnyObstacle, null, this);
-
+        this.physics.add.overlap(this.player1.fisicas, this.Cacerolas, this.hitAnyObstacle, null, this);
         //META
         this.physics.add.overlap(this.player1.fisicas, this.meta, this.hitMeta, null, this);
         this.physics.add.overlap(this.player2.fisicas, this.meta, this.hitMeta, null, this);
@@ -329,13 +328,13 @@ class LevelTwo extends Phaser.Scene {
             this.scene.launch('Pause', {isPaused: true});
         }
     }
-    changeVelocity(Cacerolas,walkable){
+   /* changeVelocity(Cacerolas,walkable){
         let velocity=-50
         console.log("dentro de changeVelocity");
 
     velocity=velocity*(-1);
     this.Cacerolas.setVelocityY(velocity);
-    }
+    }*/s
     hitMeta(player, meta) {
         if (player.texture.key === 1) {
             this.player1.gestionCollision(meta);
