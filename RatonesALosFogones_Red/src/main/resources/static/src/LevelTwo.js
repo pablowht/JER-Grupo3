@@ -48,18 +48,17 @@ class LevelTwo extends Phaser.Scene {
         this.obstaculos = this.physics.add.staticGroup();
         //MAPA PLAYER1
         this.walkable.create(1600, 10, 'techoMapa_N2');
-        this.walkable.create(2000, 64, 'techoMapa2_N2');
+        this.walkable.create(2150, 64, 'techoMapa2_N2');
 
         //MAPA
-        //SEGURO QUE HAY QUE MODIFICAR LOS VALORES
-        this.walkable.create(1600, 240, 'pared_N2');
-        this.walkable.create(353, 305, 'suelo1_N2');
-        this.walkable.create(2200, 305, 'suelo2_N2');
-        this.walkable.create(800, 266, 'suelo3_N2');
-        this.walkable.create(1980, 247, 'suelo4_N2');
-        this.walkable.create(2280, 247, 'suelo5_N2');
+        this.walkable.create(100, 250, 'suelo1_N2');
+        this.walkable.create(150, 305, 'suelo2_N2');
+        this.walkable.create(353, 240, 'suelo3_N2');
+        this.walkable.create(890, 250, 'suelo4_N2');
+        this.walkable.create(2997, 266, 'suelo5_N2');
 
         //Colocar las plataformas
+        /*
         this.platforms.create(155, 270, 'armarioBajo1');
         this.platforms.create(553, 270, 'armarioBajo2');
         this.platforms.create(1010, 270, 'armarioBajo1');
@@ -83,7 +82,7 @@ class LevelTwo extends Phaser.Scene {
         this.platforms.create(2510, 270, 'armarioBajo3');
         this.platforms.create(2635, 270, 'armarioBajo3');
         this.platforms.create(2760, 270, 'armarioBajo3');
-
+*/
         //Meta
         this.meta.create(3100, 120, 'Meta');
         this.meta.create(3100, 520, 'Meta');
@@ -144,7 +143,8 @@ class LevelTwo extends Phaser.Scene {
 
         //MAPA PLAYER2
         //SEGURO QUE HAY QUE MODIFICAR LOS VALORES  (colocar primero el 1 y luego añadir 400 en y)
-        this.walkable.create(1600, 410, 'techoMapa_N2');
+        
+        /*this.walkable.create(1600, 410, 'techoMapa_N2');
         this.walkable.create(1437, 864, 'techoMapa2_N2');
         this.walkable.create(353, 640, 'pared_N2');
         this.walkable.create(800, 305, 'suelo1_N2');
@@ -177,7 +177,7 @@ class LevelTwo extends Phaser.Scene {
         this.platforms.create(2510, 670, 'armarioBajo3');
         this.platforms.create(2635, 670, 'armarioBajo3');
         this.platforms.create(2760, 670, 'armarioBajo3');
-
+*/
 
         //OBSTACULOS ESTATICOS NIVEL 1 PLAYER 2
 

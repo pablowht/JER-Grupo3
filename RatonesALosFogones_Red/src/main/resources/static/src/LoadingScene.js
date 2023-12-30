@@ -156,7 +156,6 @@ class LoadingScene extends Phaser.Scene {
         this.load.image('suelo3_N2', '../assets/TILES/MAPAS/Nivel2/Colision_N2_2.png');
         this.load.image('suelo4_N2', '../assets/TILES/MAPAS/Nivel2/Colision_N2_3.png');
         this.load.image('suelo5_N2', '../assets/TILES/MAPAS/Nivel2/Colision_N2_4.png');
-        this.load.image('pared_N2', '../assets/TILES/MAPAS/Nivel2/Pared_N2.png');
 
         //Meta
         this.load.image('Meta', '../assets/TILES/MAPAS/Meta_N1_39x199.png');
