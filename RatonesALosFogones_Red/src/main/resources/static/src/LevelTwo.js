@@ -59,31 +59,24 @@ class LevelTwo extends Phaser.Scene {
         this.walkable.create(2997, 266, 'suelo5_N2');
 
         //Colocar las plataformas
-        /*
-        this.platforms.create(155, 270, 'armarioBajo1');
-        this.platforms.create(553, 270, 'armarioBajo2');
-        this.platforms.create(1010, 270, 'armarioBajo1');
-        this.platforms.create(1078, 270, 'armarioBajo2');
-        this.platforms.create(1210, 270, 'armarioBajo3');
-        this.platforms.create(1278, 270, 'armarioBajo3');
-        this.platforms.create(1410, 270, 'armarioBajo1');
-        this.platforms.create(1478, 270, 'armarioBajo2');
-        this.platforms.create(1600, 270, 'armarioBajo3');
-        this.platforms.create(620, 140, 'armarioAlto1');
-        this.platforms.create(770, 190, 'armarioAlto1');
-        this.platforms.create(890, 120, 'armarioAlto1');
-        this.platforms.create(1700, 140, 'armarioAlto1');
-        this.platforms.create(1780, 120, 'armarioAlto1');
-        this.platforms.create(1850, 120, 'armarioAlto1');
-        this.platforms.create(1970, 140, 'armarioAlto1');
-        this.platforms.create(2040, 140, 'armarioAlto1');
-        this.platforms.create(2110, 140, 'armarioAlto1');
-        this.platforms.create(2472, 160, 'armarioAlto1');
-        this.platforms.create(2580, 140, 'armarioAlto1');
-        this.platforms.create(2510, 270, 'armarioBajo3');
-        this.platforms.create(2635, 270, 'armarioBajo3');
-        this.platforms.create(2760, 270, 'armarioBajo3');
-*/
+
+        this.platforms.create(555, 155, 'armarioAlto1');
+        this.platforms.create(655, 130, 'armarioAlto2');
+        this.platforms.create(720, 130, 'armarioAlto2');
+        this.platforms.create(820, 170, 'armarioAlto1');
+ 		this.platforms.create(1030, 145, 'armarioBajo1');
+ 		this.platforms.create(1100, 145, 'armarioBajo2');
+        this.platforms.create(1185, 100, 'armarioAlto1');
+        this.platforms.create(1250, 100, 'armarioAlto1');
+        this.platforms.create(1380, 100, 'armarioAlto1');
+        this.platforms.create(1510, 100, 'armarioAlto1');
+        this.platforms.create(1640, 100, 'armarioAlto1');
+        this.platforms.create(1770, 130, 'armarioAlto1');
+        this.platforms.create(1840, 210, 'armarioAlto1');
+        this.platforms.create(1770, 225, 'armarioAlto1');
+        this.platforms.create(1910, 225, 'armarioAlto1');
+
+
         //Meta
         this.meta.create(3100, 120, 'Meta');
         this.meta.create(3100, 520, 'Meta');
@@ -110,7 +103,11 @@ class LevelTwo extends Phaser.Scene {
             collideWorldBounds: false,
             velocityY:-100
         });
-        this.Cacerolas.create(900,170,'Cacerola');
+        this.Cacerolas.create(1960,220,'Cacerola');
+        this.Cacerolas.create(2060,200,'Cacerola');
+        this.Cacerolas.create(2160,220,'Cacerola');
+        this.Cacerolas.create(2260,200,'Cacerola');
+        this.Cacerolas.create(2360,220,'Cacerola');
         this.physics.add.collider(this.Cacerolas,this.walkable);
 
         ////////////////////////////////////////////////
@@ -120,6 +117,11 @@ class LevelTwo extends Phaser.Scene {
             frames: this.anims.generateFrameNumbers('Fogon', {start: 2, end: 11}),
             frameRate: 5,
         });
+      /*  this.anims.create({
+            key: 'trampa_cerrada',
+            frames: this.anims.generateFrameNumbers('TrampaOso', {start: 1, end: 1}),
+            frameRate: 5,
+        });*/
 
         this.obstFogon2 = this.add.sprite(543, 220, 'Fogon', 0);
         this.obstFogon3 = this.add.sprite(565, 220, 'Fogon', 0);
@@ -142,6 +144,8 @@ class LevelTwo extends Phaser.Scene {
         this.obstaculos.create(2685, 275, 'Fogon');
         this.obstaculos.create(2710, 275, 'Fogon');
 
+        //this.obstOso1 = this.add.sprite(400,170,'Trampa0s0',0);
+        //this.obstaculos.create(400,170,'TrampaOso');
         //MAPA PLAYER2
         //SEGURO QUE HAY QUE MODIFICAR LOS VALORES  (colocar primero el 1 y luego añadir 400 en y)
 
@@ -152,31 +156,9 @@ class LevelTwo extends Phaser.Scene {
         this.walkable.create(2997, 666, 'suelo5_N2');
 
         //Colocar plataformas
-        /*
-        this.platforms.create(155, 670, 'armarioBajo1');
-        this.platforms.create(553, 670, 'armarioBajo2');
-        this.platforms.create(1010, 670, 'armarioBajo1');
-        this.platforms.create(1078, 670, 'armarioBajo2');
-        this.platforms.create(1210, 670, 'armarioBajo3');
-        this.platforms.create(1278, 670, 'armarioBajo3');
-        this.platforms.create(1410, 670, 'armarioBajo1');
-        this.platforms.create(1478, 670, 'armarioBajo2');
-        this.platforms.create(1600, 670, 'armarioBajo3');
-        this.platforms.create(620, 540, 'armarioAlto1');
-        this.platforms.create(770, 590, 'armarioAlto1');
-        this.platforms.create(890, 520, 'armarioAlto1');
-        this.platforms.create(1700, 540, 'armarioAlto1');
-        this.platforms.create(1780, 520, 'armarioAlto1');
-        this.platforms.create(1850, 520, 'armarioAlto1');
-        this.platforms.create(1970, 540, 'armarioAlto1');
-        this.platforms.create(2040, 540, 'armarioAlto1');
-        this.platforms.create(2110, 540, 'armarioAlto1');
-        this.platforms.create(2472, 560, 'armarioAlto1');
-        this.platforms.create(2580, 540, 'armarioAlto1');
-        this.platforms.create(2510, 670, 'armarioBajo3');
-        this.platforms.create(2635, 670, 'armarioBajo3');
-        this.platforms.create(2760, 670, 'armarioBajo3');
-        */
+
+        this.platforms.create(155, 670, 'armarioAlto1');
+
 
         //OBSTACULOS ESTATICOS NIVEL 1 PLAYER 2
 
@@ -314,6 +296,7 @@ class LevelTwo extends Phaser.Scene {
         this.activateFogon(this.obstFogon19);
         this.activateFogon(this.obstFogon20);
         this.activateFogon(this.obstFogon21);
+       // this.activateTrampaOso(this.obstOso1);
 
         //OBSTACULOS DINÁMICOS
         //Phaser.Actions.IncY(this.Cacerolas1,-1,-0.025);
@@ -359,6 +342,9 @@ class LevelTwo extends Phaser.Scene {
 
     activateFogon(obj) {
         obj.anims.play('fogon_encendido', true);
+    }
+    activateTrampaOso(obj){
+        obj.anims.play('trampa_cerrada',true);
     }
 
     hitAnyObstacle(player, obstacle) {
