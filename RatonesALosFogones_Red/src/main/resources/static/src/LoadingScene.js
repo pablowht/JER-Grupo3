@@ -85,6 +85,7 @@ class LoadingScene extends Phaser.Scene {
         //GameOver
         this.load.image('FondoGameOver','../assets/INTERFACES/LevelEnd/Fondo_FinDeNivel.png');
         this.load.image('Boton_Menu','../assets/INTERFACES/LevelEnd/BOTON_MENU.png');
+        this.load.image('Boton_Niveles','../assets/INTERFACES/LevelEnd/Boton_Niveles.png');
         this.load.image('RatónGanadorB','../assets/INTERFACES/LevelEnd/RatonBlanco_Winner.png');
         this.load.image('RatónPerdedorB','../assets/INTERFACES/LevelEnd/RatonBlanco_Loser.png');
         this.load.image('RatónGanadorM','../assets/INTERFACES/LevelEnd/RatonMarron_Winner.png');

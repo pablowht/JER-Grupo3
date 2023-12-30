@@ -14,12 +14,13 @@ class LoginCreateScene extends Phaser.Scene{
 
         BotonCrearCuenta.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
             this.sound.play('InteractSound');
-            this.scene.start('CreateAccountScene');
+            this.scene.start('CreateAccountScene',{activeUsers:activeUsersNumber, activePrevUsers: activePrevUsersNumber});
         });
 
         BotonIniciar.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
             this.sound.play('InteractSound');
-            this.scene.start('LoginScene');
+            this.scene.start('LoginScene',{activeUsers: activeUsersNumber, activePrevUsers: activePrevUsersNumber});
         });
+
     }
 }

@@ -6,6 +6,7 @@ var url;
 var infoDataUser;
 var infoDataPassword;
 
+
 class ChangePasswordScene extends Phaser.Scene {
     constructor() {
         super("ChangePassword");
@@ -14,6 +15,8 @@ class ChangePasswordScene extends Phaser.Scene {
 	init(data){
 		this.dataObj = data;
 	}
+
+
 
     create() {
         var canChange = false;
@@ -30,6 +33,11 @@ class ChangePasswordScene extends Phaser.Scene {
 
         var user = changePassword_html.getChildByName('username');
         var new_password = changePassword_html.getChildByName('new-password');
+
+        var errorPassword;
+        var changedPassword;
+
+        var changed = false;
 		
         let BotonConfirmar = this.add.image(960, 960, 'Boton_Confirmar');
         BotonConfirmar.setInteractive();
@@ -55,25 +63,31 @@ class ChangePasswordScene extends Phaser.Scene {
                         user: "" + user.value,
                         password: "" + new_password.value
                     }));
-                    canChange = true;
+                    changed = true;
                 })
             }
-            if(!canChange){
-				this.add.text(200, 800, 'CAMPO NO VÁLIDO', {
+            if(!changed){
+                this.errorPassword = this.add.text(200, 800, 'CONTRASEÑA NO VÁLIDA', {
                      fontFamily: 'Lexend',
                      font: (40).toString() + "px Lexend",
                      color: '#e82138'
                 })
+                this.time.delayedCall(3000, () => this.errorPassword.setVisible(false));
 			}
-			if(canChange){
-				    this.sound.play('InteractSound');
-                    this.scene.start('UserScene');
-			}
+			if(changed){
+                this.changedPassword = this.add.text(200, 800, 'CONTRASEÑA CAMBIADA', {
+                    fontFamily: 'Lexend',
+                    font: (40).toString() + "px Lexend",
+                    color: '#5701d9'
+                })
+                this.time.delayedCall(3000, () => this.changedPassword.setVisible(false));
+            }
+            this.sound.play('InteractSound');
         });
 
         BotonReturnMenu.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
             this.sound.play('InteractSound');
-            this.scene.start("UserScene");
+            this.scene.start('UserScene');
         });
 
     }

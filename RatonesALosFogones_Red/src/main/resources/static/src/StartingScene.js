@@ -5,7 +5,6 @@ class StartingScene extends Phaser.Scene {
     }
     preload() {
         this.load.image('CompanyBackground', '../assets/INTERFACES/CompanyBackground.png');
-
         //Pantalla de carga
         this.load.image('Fondo_Loading', '../assets/INTERFACES/Loading/Fondo_ConBarraCargando.png');
         this.load.image('Barra_Loading', '../assets/INTERFACES/Loading/BarraLoading_Barra.png');

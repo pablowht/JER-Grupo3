@@ -12,13 +12,7 @@ class GameOverScene extends Phaser.Scene {
     ganador2;
 
     init(data){
-        //this.colorRaton1 = data.raton1;
-        //this.colorRaton2 = data.raton2;
-        //this.ganador1 = data.ganador1;
-        //this.ganador2 = data.ganador2;
         this.dataObj = data;
-        //this.user = data.user;
-        //this.password = data.password;
     }
     preload() { }
 
@@ -29,10 +23,6 @@ class GameOverScene extends Phaser.Scene {
         this.ganador1 = this.dataObj.ganador1;
         this.ganador2 = this.dataObj.ganador2;
 
-
-        console.log("gameover scene\t user: "+this.user);
-        console.log("gameover scene\t color raton 1: "+this.colorRaton1);
-        console.log("gameover scene\t color raton 2: "+this.colorRaton2);
         this.sound.stopAll();
         this.sound.play('GameEndSound');
 
@@ -87,12 +77,20 @@ class GameOverScene extends Phaser.Scene {
             }
             this.add.image(1315,250,'TextoPierde1');
         }
-        let BotonMenu = this.add.image(1020,465,'Boton_Menu');
+        let BotonMenu = this.add.image(991.5,415.5,'Boton_Menu');
         BotonMenu.setInteractive();
 
         BotonMenu.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
             this.sound.play('InteractSound');
             this.scene.start('Menu');
+        });
+
+        let BotonNiveles = this.add.image(1346.5,415.5,'Boton_Niveles');
+        BotonNiveles.setInteractive();
+
+        BotonNiveles.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
+            this.sound.play('InteractSound');
+            this.scene.start('LevelSelection');
         });
 
         this.sound.play('MenuMusic',{loop:true});

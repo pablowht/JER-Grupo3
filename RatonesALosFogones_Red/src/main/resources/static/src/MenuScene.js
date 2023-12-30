@@ -3,12 +3,12 @@ $(document).ready(function(){
 });
 
 var url;
+var user;
+var password;
+
 let activeUsersNumber;
 let activePrevUsersNumber;
 let textActiveUsers;
-
-var user;
-var password;
 
 class MenuScene extends Phaser.Scene{
 
@@ -28,9 +28,9 @@ class MenuScene extends Phaser.Scene{
     backgroundMusic;
 
     create(){
-        //variables usuarios activos:
         activeUsersNumber = 0;
         activePrevUsersNumber = 0;
+
         url= window.location.href;
 		user = this.dataObj.user;
 		password = this.dataObj.password;
@@ -52,7 +52,7 @@ class MenuScene extends Phaser.Scene{
         //CAMBIO DE ESCENA DEL MENU A LA ESCENA IN-GAME
         BotonJugar.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
             this.sound.play('InteractSound');
-            this.scene.start('PlayerSelection', {user: user, password: password}); //Niveles
+            this.scene.start('PlayerSelection', {user: this.user, password: this.password,  activeUsers: this.activeUsersNumber, activePrevUsers: this.activePrevUsersNumber}); //Niveles
             //Cuando este selector de nivel, poner que al jugar vaya antes a "Niveles"
         });
 
@@ -80,13 +80,10 @@ class MenuScene extends Phaser.Scene{
             color: 'black'
         });
 
-        //COMPLETARLO
-        window.addEventListener('beforeunload', () => 
+        window.addEventListener('beforeunload', () =>
         {
-			console.log("se cerró la ventana")
             deleteActiveUser(user);
         });
-
     }
 
     update(time, delta)
@@ -97,10 +94,9 @@ class MenuScene extends Phaser.Scene{
     }
 }
 
-//métodos para peticiones AJAX:
 function updateActiveUsers(){
 
-    if(activePrevUsersNumber != activeUsersNumber)
+    if(activePrevUsersNumber !== activeUsersNumber)
     {
         if(activePrevUsersNumber < activeUsersNumber){
             console.log("Se ha conectado alguien. El número actual de usuarios es: " + activeUsersNumber);
@@ -123,7 +119,7 @@ function deleteActiveUser(user) {
         },
         error : function () {
             console.log("Failed to delete");
-            console.log("The URL was:\n" + url + "users/"+username)
+            console.log("The URL was:\n" + url + "users/" + user)
         }
     });
 }

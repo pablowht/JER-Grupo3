@@ -30,7 +30,6 @@ public class UserController {
 				String data[] = reader.nextLine().split(";");
 				User auxUser = new User(data[0], data[1]);
 				
-				auxUser.setRecordObstacles(Integer.parseInt(data[2]));
 				usersMap.put(auxUser.getUser(), auxUser);
 	
 			}
@@ -66,8 +65,6 @@ public class UserController {
 		{
 			User user = usersMap.get(username);
 			
-			System.out.println("el user: " + user.getUser() + " existe y es xulisime"+"\nSu contraseña es: "+user.getPassword());
-
 			return user;
 		}
 		else 
@@ -95,13 +92,14 @@ public class UserController {
 
     	if(!usersMap.containsKey(username)) 
     	{
+    	System.out.println("El usuario no está guardado");
     		usersMap.put(username, newUser); 
     		activeUsers.put(username, newUser);
     		
             try (Writer writer = new BufferedWriter(new FileWriter(usersFileURL, true)))
             {
                 String contents = "";
-                contents = newUser.getUser() + ";" + newUser.getPassword() + ";" + newUser.getRecordObstacles() + System.getProperty("line.separator");
+                contents = newUser.getUser() + ";" + newUser.getPassword() + System.getProperty("line.separator");
                 
                 writer.write(contents);
                 writer.close();
@@ -112,12 +110,9 @@ public class UserController {
                 System.out.println("Error writing user");
             }
     		return true; 
-    	} else { 
-    		if(usersMap.get(username).getPassword().equals(password)) { 
-    	    	activeUsers.put(username, newUser);
-    			return true; 
-    		} else 
-    			return false; 
+    	} else {
+    	    System.out.println("User already exist");
+    		return false;
     	}	
     }
 	
@@ -127,47 +122,20 @@ public class UserController {
     	String username = newUser.getUser();
     	String password = newUser.getPassword();
 
-    	if(usersMap.containsKey(username)) 
+    	if(usersMap.containsKey(username) && usersMap.get(username).getPassword() == password)
     	{
-    		usersMap.put(username, newUser); 
-    		activeUsers.put(username, newUser);
-    		
-            try (Writer writer = new BufferedWriter(new FileWriter(usersFileURL, true)))
-            {
-                String contents = "";
-                contents = newUser.getUser() + ";" + newUser.getPassword() + ";" + newUser.getRecordObstacles() + System.getProperty("line.separator");
-                
-                writer.write(contents);
-                writer.close();
-                System.out.println("User written succesfully");
-                
-            } catch (IOException e) {
-                e.printStackTrace();
-                System.out.println("Error writing user");
-            }
     		return true; 
-    	} else { 
-    		if(usersMap.get(username).getPassword().equals(password)) { 
-    	    	activeUsers.put(username, newUser);
-    			return true; 
-    		} else 
-    			return false; 
+    	} else {
+    		return false;
     	}	
     }
 	
 	//MÉTODO PUT:
 	@PutMapping("/users/{user}")
 	public boolean changePassword(@RequestBody User newUser) {
-		//User userAux = new User( usersMap.get(newUser).getUser(), usersMap.get(newUser).getPassword());
-		System.out.println("comprobación atributos del método put:\n contraseña argumento: "+ newUser.getPassword() + "\tUsuario recibido: "+ newUser.getUser());
 		if (usersMap.containsKey(newUser.getUser()) && !usersMap.get(newUser.getUser()).getPassword().equals(newUser.getPassword()))
 		{
-			System.out.println("entraste a cambiar la contraseña");
-			//usersMap.get(newUser.getUser()).setPassword(newUser.getPassword());
-			
-			System.out.println("usuario a cambiar: " + newUser.getUser() + "\t\tcontraseña nueva: " + newUser.getPassword());
-			System.out.println("comprobación de cambio de contraseña: " + usersMap.get(newUser.getUser()).getUser() + "\t\tcomprobación contraseña nueva: " + usersMap.get(newUser.getUser()).getPassword());			try {
-				System.out.println("entraste a borrar usuario y añadirlo");
+			try {
 				deleteUser(newUser.getUser());
 				createUser(newUser);
 			} catch (IOException e) {
@@ -178,11 +146,9 @@ public class UserController {
 		}
 		else if(usersMap.containsKey(newUser.getUser()) && usersMap.get(newUser.getUser()).getPassword().equals(newUser.getPassword()))
 		{
-			System.out.println("no se ha poducido cambiar la contraseña, contraseñas iguales");
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "the new password is the same with the last");
 		}
 		else {
-			System.out.println("no se ha encontrado ningun usuario con ese nombre");
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "user not found");
 		}
 	}
@@ -216,7 +182,7 @@ public class UserController {
 		   BufferedReader reader = new BufferedReader(new FileReader(inputFile));
 		   BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
 	
-		   String lineToRemove = deleteUser.getUser() + ";" + deleteUser.getPassword() + ";" + deleteUser.getRecordObstacles();
+		   String lineToRemove = deleteUser.getUser() + ";" + deleteUser.getPassword();
 		   String currentLine;
 	
 		   while((currentLine = reader.readLine()) != null) {

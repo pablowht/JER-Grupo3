@@ -24,6 +24,7 @@ class LevelTwo extends Phaser.Scene {
     barraDivisoria;
     velocity=-50;
     Cacerolas;
+    esc;
 
     init(data) {
         this.colorRaton1 = data.colorRaton1;
@@ -51,10 +52,10 @@ class LevelTwo extends Phaser.Scene {
         this.walkable.create(2150, 64, 'techoMapa2_N2');
 
         //MAPA
-        this.walkable.create(100, 250, 'suelo1_N2');
-        this.walkable.create(150, 305, 'suelo2_N2');
-        this.walkable.create(353, 240, 'suelo3_N2');
-        this.walkable.create(890, 250, 'suelo4_N2');
+        this.walkable.create(0,150, 'suelo1_N2');
+        this.walkable.create(150, 200, 'suelo2_N2');
+        this.walkable.create(1521, 305, 'suelo3_N2');
+        this.walkable.create(1300, 250, 'suelo4_N2'); //Creo que bien
         this.walkable.create(2997, 266, 'suelo5_N2');
 
         //Colocar las plataformas
@@ -143,17 +144,15 @@ class LevelTwo extends Phaser.Scene {
 
         //MAPA PLAYER2
         //SEGURO QUE HAY QUE MODIFICAR LOS VALORES  (colocar primero el 1 y luego añadir 400 en y)
-        
-        /*this.walkable.create(1600, 410, 'techoMapa_N2');
-        this.walkable.create(1437, 864, 'techoMapa2_N2');
-        this.walkable.create(353, 640, 'pared_N2');
-        this.walkable.create(800, 305, 'suelo1_N2');
-        this.walkable.create(2200, 305, 'suelo2_N2');
-        this.walkable.create(2997, 266, 'suelo3_N2');
-        this.walkable.create(2280, 247, 'suelo4_N2');
-        this.walkable.create(2280, 247, 'suelo5_N2');
+
+        this.walkable.create(200, 650, 'suelo1_N2');
+        this.walkable.create(150, 640, 'suelo2_N2');
+        this.walkable.create(800, 705, 'suelo3_N2');
+        this.walkable.create(1090, 650, 'suelo4_N2');
+        this.walkable.create(2997, 666, 'suelo5_N2');
 
         //Colocar plataformas
+        /*
         this.platforms.create(155, 670, 'armarioBajo1');
         this.platforms.create(553, 670, 'armarioBajo2');
         this.platforms.create(1010, 670, 'armarioBajo1');
@@ -177,7 +176,7 @@ class LevelTwo extends Phaser.Scene {
         this.platforms.create(2510, 670, 'armarioBajo3');
         this.platforms.create(2635, 670, 'armarioBajo3');
         this.platforms.create(2760, 670, 'armarioBajo3');
-*/
+        */
 
         //OBSTACULOS ESTATICOS NIVEL 1 PLAYER 2
 

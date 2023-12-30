@@ -22,6 +22,7 @@ class LevelOne extends Phaser.Scene {
     meta;
     backgroundMusic;
     barraDivisoria;
+    esc;
 
     preload() { }
 
@@ -337,7 +338,6 @@ class LevelOne extends Phaser.Scene {
     }
 
     EndGame(){
-        console.log("level 1: "+this.user);
         this.scene.start("GameOver", {
 			raton1: this.colorRaton1, 
 			raton2:this.colorRaton2, 
