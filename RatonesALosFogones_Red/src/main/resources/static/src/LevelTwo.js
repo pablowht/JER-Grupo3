@@ -60,10 +60,16 @@ class LevelTwo extends Phaser.Scene {
 
         //Colocar las plataformas
 		//Colocados
+        this.platforms.create(360,200, 'armarioBajo2');
+        this.platforms.create(420, 120, 'armarioAlto1');
+        this.platforms.create(510, 95, 'armarioAlto2');
+        this.platforms.create(580, 95, 'armarioAlto2');
+        this.platforms.create(650, 95, 'armarioAlto2');
+        this.platforms.create(720, 95, 'armarioAlto2');
         this.platforms.create(555, 230, 'armarioAlto1');
         this.platforms.create(695, 270, 'armarioBajo2');
         this.platforms.create(760, 270, 'armarioBajo2');
-        this.platforms.create(820, 170, 'armarioAlto1');
+        this.platforms.create(820, 185, 'armarioAlto1');
         this.platforms.create(955, 150, 'armarioBajo3');
         this.platforms.create(1030, 150, 'armarioBajo1');
  		this.platforms.create(1100, 150, 'armarioBajo2');
@@ -85,12 +91,7 @@ class LevelTwo extends Phaser.Scene {
         this.platforms.create(2775, 90, 'armarioAlto1');
  		this.platforms.create(2755, 270, 'armarioBajo2');
  		
- 		//Por colocar
 
-
-        //this.platforms.create(1840, 210, 'armarioAlto1');
-        //this.platforms.create(1770, 225, 'armarioAlto1');
-        //this.platforms.create(1910, 225, 'armarioAlto1');
 
 
         //Meta
@@ -98,7 +99,8 @@ class LevelTwo extends Phaser.Scene {
         this.meta.create(3100, 520, 'Meta');
 
         //OBSTACULOS NIVEL 1 PLAYER 1
-        this.obstaculos.create(400, 170, 'CascaraPlatano');
+        this.obstaculos.create(500, 190, 'CascaraPlatano');
+        this.obstaculos.create(800, 190, 'CascaraPlatano');
         this.obstaculos.create(280, 170, 'TrampaRatones');
 
 
@@ -110,11 +112,11 @@ class LevelTwo extends Phaser.Scene {
             collideWorldBounds: false,
             velocityY:-100
         });
-        this.Cacerolas.create(1960,220,'Cacerola');
-        this.Cacerolas.create(2060,200,'Cacerola');
-        this.Cacerolas.create(2160,220,'Cacerola');
-        this.Cacerolas.create(2260,200,'Cacerola');
-        this.Cacerolas.create(2360,220,'Cacerola');
+        this.Cacerolas.create(1950,250,'Cacerola');
+        this.Cacerolas.create(2050,200,'Cacerola');
+        this.Cacerolas.create(2150,250,'Cacerola');
+        this.Cacerolas.create(2250,200,'Cacerola');
+        this.Cacerolas.create(2350,250,'Cacerola');
         this.physics.add.collider(this.Cacerolas,this.walkable);
 
         ////////////////////////////////////////////////
@@ -130,22 +132,22 @@ class LevelTwo extends Phaser.Scene {
             frameRate: 5,
         });*/
 
-        this.obstFogon2 = this.add.sprite(543, 220, 'Fogon', 0);
+        /*this.obstFogon2 = this.add.sprite(543, 220, 'Fogon', 0);
         this.obstFogon3 = this.add.sprite(565, 220, 'Fogon', 0);
         this.obstFogon4 = this.add.sprite(1130, 275, 'Fogon', 0);
         this.obstFogon5 = this.add.sprite(1155, 275, 'Fogon', 0);
         this.obstFogon6 = this.add.sprite(1330, 275, 'Fogon', 0);
-        this.obstFogon7 = this.add.sprite(1355, 275, 'Fogon', 0);
+        this.obstFogon7 = this.add.sprite(1355, 275, 'Fogon', 0);*/
         this.obstFogon14 = this.add.sprite(2560, 275, 'Fogon', 0);
         this.obstFogon15 = this.add.sprite(2585, 275, 'Fogon', 0);
         this.obstFogon16 = this.add.sprite(2685, 275, 'Fogon', 0);
         this.obstFogon17 = this.add.sprite(2710, 275, 'Fogon', 0);
 
-        this.obstaculos.create(543, 220, 'Fogon');
+       /* this.obstaculos.create(543, 220, 'Fogon');
         this.obstaculos.create(565, 220, 'Fogon');
         this.obstaculos.create(1130, 275, 'Fogon');
         this.obstaculos.create(1155, 275, 'Fogon');
-        this.obstaculos.create(1330, 275, 'Fogon');
+        this.obstaculos.create(1330, 275, 'Fogon');*/
         this.obstaculos.create(2560, 275, 'Fogon');
         this.obstaculos.create(2585, 275, 'Fogon');
         this.obstaculos.create(2685, 275, 'Fogon');
@@ -283,7 +285,7 @@ class LevelTwo extends Phaser.Scene {
         this.player1.update(timeNum, timeDelta);
         this.player2.update(timeNum, timeDelta);
 
-        this.activateFogon(this.obstFogon2);
+        /*this.activateFogon(this.obstFogon2);
         this.activateFogon(this.obstFogon3);
         this.activateFogon(this.obstFogon4);
         this.activateFogon(this.obstFogon5);
@@ -294,15 +296,15 @@ class LevelTwo extends Phaser.Scene {
         this.activateFogon(this.obstFogon10);
         this.activateFogon(this.obstFogon11);
         this.activateFogon(this.obstFogon12);
-        this.activateFogon(this.obstFogon13);
+        this.activateFogon(this.obstFogon13);*/
         this.activateFogon(this.obstFogon14);
         this.activateFogon(this.obstFogon15);
         this.activateFogon(this.obstFogon16);
         this.activateFogon(this.obstFogon17);
-        this.activateFogon(this.obstFogon18);
+       /* this.activateFogon(this.obstFogon18);
         this.activateFogon(this.obstFogon19);
         this.activateFogon(this.obstFogon20);
-        this.activateFogon(this.obstFogon21);
+        this.activateFogon(this.obstFogon21);*/
        // this.activateTrampaOso(this.obstOso1);
 
         //OBSTACULOS DINÁMICOS

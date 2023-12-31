@@ -85,7 +85,7 @@ public class UserController {
 	}
 	
 	@PostMapping("/users")
-    public ResponseEntity<> createUser(@RequestBody User newUser)
+    public boolean createUser(@RequestBody User newUser)
     {
     	String username = newUser.getUser();
     	String password = newUser.getPassword();
@@ -109,15 +109,16 @@ public class UserController {
                 e.printStackTrace();
                 System.out.println("Error writing user");
             }
-    		return new ResponseEntity<>(HttpStatus.OK);
+    		//return new ResponseEntity<>(HttpStatus.OK);
+            return true; 
     	} else {
     	    System.out.println("User already exist");
-    		return new ResponseStatusException(HttpStatus.BAD_REQUEST);
+    		throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
     	}	
     }
 	
 	@PostMapping("/usersLogin")
-    public ResponseEntity<> loginUser(@RequestBody User newUser)
+    public boolean loginUser(@RequestBody User newUser)
     {
     	String username = newUser.getUser();
     	String password = newUser.getPassword();
@@ -125,11 +126,12 @@ public class UserController {
     	if(usersMap.containsKey(username) && usersMap.get(username).getPassword() == password)
     	{
     	    System.out.println("usuario y contraseña existen");
-    		return new ResponseEntity<>(HttpStatus.OK);
+    	//	return new ResponseEntity<>(HttpStatus.OK);
+    	    return true; 
     	} else {
     	    	System.out.println("usuario y contraseña NO existen");
 
-    		return new ResponseStatusException(HttpStatus.NOT_FOUND);
+    		throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     	}
     }
 	
