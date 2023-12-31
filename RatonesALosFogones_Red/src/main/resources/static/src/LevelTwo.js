@@ -49,32 +49,38 @@ class LevelTwo extends Phaser.Scene {
         this.obstaculos = this.physics.add.staticGroup();
         //MAPA PLAYER1
         this.walkable.create(1600, 10, 'techoMapa_N2');
-        this.walkable.create(2150, 64, 'techoMapa2_N2');
+        this.walkable.create(2146, 67, 'techoMapa2_N2');
 
         //MAPA
-        this.walkable.create(0,150, 'suelo1_N2');
-        this.walkable.create(150, 200, 'suelo2_N2');
-        this.walkable.create(1521, 305, 'suelo3_N2');
-        this.walkable.create(1300, 250, 'suelo4_N2'); //Creo que bien
+        this.walkable.create(160,212, 'suelo1_N2');
+        this.walkable.create(415, 274, 'suelo2_N2');
+        this.walkable.create(1656, 308, 'suelo3_N2');
+        this.walkable.create(1239, 247, 'suelo4_N2'); 
         this.walkable.create(2997, 266, 'suelo5_N2');
 
         //Colocar las plataformas
-
-        this.platforms.create(555, 155, 'armarioAlto1');
-        this.platforms.create(655, 130, 'armarioAlto2');
-        this.platforms.create(720, 130, 'armarioAlto2');
+		//Colocados
+        this.platforms.create(555, 230, 'armarioAlto1');
+        this.platforms.create(655, 230, 'armarioAlto2');
+        this.platforms.create(720, 230, 'armarioAlto2');
         this.platforms.create(820, 170, 'armarioAlto1');
- 		this.platforms.create(1030, 145, 'armarioBajo1');
- 		this.platforms.create(1100, 145, 'armarioBajo2');
+        this.platforms.create(1030, 150, 'armarioBajo1');
+ 		this.platforms.create(1100, 150, 'armarioBajo2');
+ 		this.platforms.create(1870, 270, 'armarioBajo2');
+ 		this.platforms.create(2515, 270, 'armarioBajo2');
+ 		this.platforms.create(2635, 270, 'armarioBajo1');
+ 		this.platforms.create(2755, 270, 'armarioBajo2');
+ 		
+ 		//Por colocar
         this.platforms.create(1185, 100, 'armarioAlto1');
         this.platforms.create(1250, 100, 'armarioAlto1');
         this.platforms.create(1380, 100, 'armarioAlto1');
         this.platforms.create(1510, 100, 'armarioAlto1');
         this.platforms.create(1640, 100, 'armarioAlto1');
         this.platforms.create(1770, 130, 'armarioAlto1');
-        this.platforms.create(1840, 210, 'armarioAlto1');
-        this.platforms.create(1770, 225, 'armarioAlto1');
-        this.platforms.create(1910, 225, 'armarioAlto1');
+        //this.platforms.create(1840, 210, 'armarioAlto1');
+        //this.platforms.create(1770, 225, 'armarioAlto1');
+        //this.platforms.create(1910, 225, 'armarioAlto1');
 
 
         //Meta
@@ -149,10 +155,10 @@ class LevelTwo extends Phaser.Scene {
         //MAPA PLAYER2
         //SEGURO QUE HAY QUE MODIFICAR LOS VALORES  (colocar primero el 1 y luego añadir 400 en y)
 
-        this.walkable.create(200, 650, 'suelo1_N2');
-        this.walkable.create(150, 640, 'suelo2_N2');
-        this.walkable.create(800, 705, 'suelo3_N2');
-        this.walkable.create(1090, 650, 'suelo4_N2');
+        this.walkable.create(160, 612, 'suelo1_N2');
+        this.walkable.create(415, 674, 'suelo2_N2');
+        this.walkable.create(1656, 708, 'suelo3_N2');
+        this.walkable.create(1239, 647, 'suelo4_N2'); 
         this.walkable.create(2997, 666, 'suelo5_N2');
 
         //Colocar plataformas
