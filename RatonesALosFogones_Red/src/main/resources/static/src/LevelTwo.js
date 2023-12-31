@@ -61,23 +61,33 @@ class LevelTwo extends Phaser.Scene {
         //Colocar las plataformas
 		//Colocados
         this.platforms.create(555, 230, 'armarioAlto1');
-        this.platforms.create(655, 230, 'armarioAlto2');
-        this.platforms.create(720, 230, 'armarioAlto2');
+        this.platforms.create(695, 270, 'armarioBajo2');
+        this.platforms.create(760, 270, 'armarioBajo2');
         this.platforms.create(820, 170, 'armarioAlto1');
+        this.platforms.create(955, 150, 'armarioBajo3');
         this.platforms.create(1030, 150, 'armarioBajo1');
  		this.platforms.create(1100, 150, 'armarioBajo2');
- 		this.platforms.create(1870, 270, 'armarioBajo2');
+        this.platforms.create(1185, 120, 'armarioAlto1');
+        this.platforms.create(1250, 120, 'armarioAlto1');
+        this.platforms.create(1380, 120, 'armarioAlto1');
+        this.platforms.create(1510, 120, 'armarioAlto1');
+        this.platforms.create(1640, 120, 'armarioAlto1');
+        this.platforms.create(1680, 220, 'armarioAlto1');
+        this.platforms.create(1770, 130, 'armarioAlto1');
+        this.platforms.create(1860, 220, 'armarioAlto1');
  		this.platforms.create(2515, 270, 'armarioBajo2');
+        this.platforms.create(2400, 170, 'armarioAlto1');
  		this.platforms.create(2635, 270, 'armarioBajo1');
+        this.platforms.create(2495, 90, 'armarioAlto1');
+        this.platforms.create(2565, 95, 'armarioAlto2');
+        this.platforms.create(2635, 90, 'armarioAlto1');
+        this.platforms.create(2705, 95, 'armarioAlto2');
+        this.platforms.create(2775, 90, 'armarioAlto1');
  		this.platforms.create(2755, 270, 'armarioBajo2');
  		
  		//Por colocar
-        this.platforms.create(1185, 100, 'armarioAlto1');
-        this.platforms.create(1250, 100, 'armarioAlto1');
-        this.platforms.create(1380, 100, 'armarioAlto1');
-        this.platforms.create(1510, 100, 'armarioAlto1');
-        this.platforms.create(1640, 100, 'armarioAlto1');
-        this.platforms.create(1770, 130, 'armarioAlto1');
+
+
         //this.platforms.create(1840, 210, 'armarioAlto1');
         //this.platforms.create(1770, 225, 'armarioAlto1');
         //this.platforms.create(1910, 225, 'armarioAlto1');
@@ -90,16 +100,7 @@ class LevelTwo extends Phaser.Scene {
         //OBSTACULOS NIVEL 1 PLAYER 1
         this.obstaculos.create(400, 170, 'CascaraPlatano');
         this.obstaculos.create(280, 170, 'TrampaRatones');
-        this.obstaculos.create(700, 295, 'TrampaRatones');
-        this.obstaculos.create(1845, 103, 'CascaraPlatano');
-        this.obstaculos.create(2050, 125, 'CascaraPlatano');
-        this.obstaculos.create(1278, 235, 'CascaraPlatano');
-        this.obstaculos.create(1970, 251, 'CascaraPlatano');
-        this.obstaculos.create(2100, 251, 'CascaraPlatano');
-        this.obstaculos.create(889, 295, 'TrampaRatones');
-        this.obstaculos.create(2898, 210, 'CascaraPlatano');
-        this.obstaculos.create(2282, 210, 'TrampaRatones');
-        this.obstaculos.create(1660, 290, 'TrampaRatones');
+
 
         //OBSTACULOS MOVIBLES NIVEL 2 PLAYER 1
         this.Cacerolas = this.physics.add.group({

@@ -41,7 +41,7 @@ class LoginScene extends Phaser.Scene{
             this.sound.play('InteractSound');
             if (user.value !== "" && password.value !== "") {
                 this.emptyText.setVisible(false);
-                var userURL = user.value;
+                //var userURL = user.value;
                 $.ajax({
                     method: "POST",
                     async: false,
@@ -50,10 +50,18 @@ class LoginScene extends Phaser.Scene{
                         'Content-type': 'application/json'
                     },
                     url: url + 'usersLogin',
-                    data: JSON.stringify({user: "" + userURL}),
+                    data: JSON.stringify({user: "" + user.value, password:""+password.value}),
                     dataType: "json"
-                }).done(function (value) {
+                }).done((data, textStatus, jqXHR) => {
                     loginCompleto = true;
+                    console.log(textStatus+" "+ jqXHR.status);
+                    console.log(data);
+                    console.log(jqXHR.statusCode())
+                }).fail((data, textStatus, jqXHR) =>
+                {
+                    loginCompleto = false;
+                    console.log(textStatus+" "+jqXHR.status);
+                    console.log("User or Password Not Found");
                 });
 
                 if (loginCompleto) {

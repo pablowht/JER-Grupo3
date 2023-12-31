@@ -46,7 +46,18 @@ class CreateAccountScene extends Phaser.Scene{
                     success: function (valor) {
                         usuarioCreado = valor;
                     }
-                }).done(function (item) {  });
+                })
+                .done((data, textStatus, jqXHR) => {
+                    console.log(textStatus+" "+ jqXHR.status);
+                    console.log(data);
+                    console.log(jqXHR.statusCode())
+                })
+                .fail((data, textStatus, jqXHR) =>
+                {
+                    usuarioCreado = false;
+                    console.log(textStatus+" "+jqXHR.status);
+                    console.log("User already Exists");
+                });
 
                 if(usuarioCreado === true)
                 {

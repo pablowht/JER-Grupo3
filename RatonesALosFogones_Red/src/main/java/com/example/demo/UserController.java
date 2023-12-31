@@ -17,8 +17,8 @@ public class UserController {
 	private Map<String, User> activeUsers = new HashMap<String, User>();
 	
 	String usersFileURL =  System.getProperty("user.dir") + "/src/main/resources/static/dataSaving/usersData.txt";
-	String tempUsersFileURL =  "src/main/resources/static/dataSaving/tempUsersData.txt"; 
-	
+	String tempUsersFileURL =  "src/main/resources/static/dataSaving/tempUsersData.txt";
+
 	public UserController() 
 	{
 		try 
@@ -85,7 +85,7 @@ public class UserController {
 	}
 	
 	@PostMapping("/users")
-    public boolean createUser(@RequestBody User newUser) 
+    public ResponseEntity<> createUser(@RequestBody User newUser)
     {
     	String username = newUser.getUser();
     	String password = newUser.getPassword();
@@ -109,25 +109,28 @@ public class UserController {
                 e.printStackTrace();
                 System.out.println("Error writing user");
             }
-    		return true; 
+    		return new ResponseEntity<>(HttpStatus.OK);
     	} else {
     	    System.out.println("User already exist");
-    		return false;
+    		return new ResponseStatusException(HttpStatus.BAD_REQUEST);
     	}	
     }
 	
 	@PostMapping("/usersLogin")
-    public boolean loginUser(@RequestBody User newUser) 
+    public ResponseEntity<> loginUser(@RequestBody User newUser)
     {
     	String username = newUser.getUser();
     	String password = newUser.getPassword();
 
     	if(usersMap.containsKey(username) && usersMap.get(username).getPassword() == password)
     	{
-    		return true; 
+    	    System.out.println("usuario y contraseña existen");
+    		return new ResponseEntity<>(HttpStatus.OK);
     	} else {
-    		return false;
-    	}	
+    	    	System.out.println("usuario y contraseña NO existen");
+
+    		return new ResponseStatusException(HttpStatus.NOT_FOUND);
+    	}
     }
 	
 	//MÉTODO PUT:
@@ -142,11 +145,11 @@ public class UserController {
 				e.printStackTrace();
 			}
 				
-			throw new ResponseStatusException(HttpStatus.OK, "user password is changed succesfully");
+			throw new ResponseStatusException(HttpStatus.OK, "User password is changed succesfully");
 		}
 		else if(usersMap.containsKey(newUser.getUser()) && usersMap.get(newUser.getUser()).getPassword().equals(newUser.getPassword()))
 		{
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "the new password is the same with the last");
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "The new password is the same with the last");
 		}
 		else {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "user not found");
@@ -178,10 +181,10 @@ public class UserController {
 		   
 		   File inputFile = new File(usersFileURL);
 		   File tempFile = new File(tempUsersFileURL);
-	
+
 		   BufferedReader reader = new BufferedReader(new FileReader(inputFile));
 		   BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
-	
+
 		   String lineToRemove = deleteUser.getUser() + ";" + deleteUser.getPassword();
 		   String currentLine;
 	
