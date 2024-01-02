@@ -12,12 +12,16 @@ class LevelTwo extends Phaser.Scene {
     colorRaton1;
     colorRaton2;
     camera;
-    powerupAma = new Powerup(3, 1090, 230, this);
-    powerupAz = new Powerup(2, 1543, 250, this);
+    powerupAma = new Powerup(3, 2390, 220, this);
+  //  powerupAz = new Powerup(2, 1543, 200, this);
     powerupRoj = new Powerup(1, 2760, 190, this);
-    powerupAma2 = new Powerup(3, 1090, 630, this);
-    powerupAz2 = new Powerup(2, 1543, 650, this);
+    powerupRoj3 = new Powerup(1, 600, 190, this);
+    powerupRoj5 = new Powerup(1, 1035, 115, this);
+    powerupAma2 = new Powerup(3, 2390, 620, this);
+    //powerupAz2 = new Powerup(2, 1543, 600, this);
     powerupRoj2 = new Powerup(1, 2760, 590, this);
+    powerupRoj4 = new Powerup(1, 600, 590, this);
+    powerupRoj6 = new Powerup(1, 1035, 515, this);
     obstaculos;
     meta;
     backgroundMusic;
@@ -66,7 +70,7 @@ class LevelTwo extends Phaser.Scene {
 
         //MUEBLES PLAYER 1
         this.platforms.create(360,200, 'armarioBajo2');
-        this.platforms.create(420, 120, 'armarioAlto1');
+        this.platforms.create(420, 100, 'armarioAlto1');
         this.platforms.create(510, 95, 'armarioAlto2');
         this.platforms.create(580, 95, 'armarioAlto2');
         this.platforms.create(650, 95, 'armarioAlto2');
@@ -104,8 +108,7 @@ class LevelTwo extends Phaser.Scene {
         this.obstaculos.create(260, 170, 'TrampaRatones');
         this.obstaculos.create(480, 215, 'CascaraPlatano');
         this.obstaculos.create(730, 230, 'CascaraPlatano');
-        this.obstaculos.create(1035, 105, 'CascaraPlatano');
-        this.obstaculos.create(1220, 100, 'CascaraPlatano');
+        //this.obstaculos.create(1035, 115, 'CascaraPlatano');
         this.obstaculos.create(1330, 170, 'TrampaRatones');
         this.obstaculos.create(1445, 170, 'TrampaRatones');
         this.obstaculos.create(1750, 290, 'CascaraPlatano');
@@ -123,10 +126,10 @@ class LevelTwo extends Phaser.Scene {
         this.Cacerolas.create(2050,200,'Cacerola');
         this.Cacerolas.create(2150,250,'Cacerola');
         this.Cacerolas.create(2250,200,'Cacerola');
-        this.Cacerolas.create(2350,250,'Cacerola');
-        this.Cacerolas.create(2890,215,'Cacerola');
-        this.Cacerolas.create(2990,150,'Cacerola');
-        this.Cacerolas.create(3090,120,'Cacerola');
+        this.Cacerolas.create(2350,220,'Cacerola');
+        this.Cacerolas.create(2870,215,'Cacerola');
+        this.Cacerolas.create(2960,150,'Cacerola');
+        this.Cacerolas.create(3050,120,'Cacerola');
 
         this.physics.add.collider(this.Cacerolas,this.walkable);
 
@@ -164,7 +167,7 @@ class LevelTwo extends Phaser.Scene {
         //MUEBLES PLAYER 2
 
         this.platforms.create(360,600, 'armarioBajo2');
-        this.platforms.create(420, 520, 'armarioAlto1');
+        this.platforms.create(420, 500, 'armarioAlto1');
         this.platforms.create(510, 495, 'armarioAlto2');
         this.platforms.create(580, 495, 'armarioAlto2');
         this.platforms.create(650, 495, 'armarioAlto2');
@@ -197,13 +200,20 @@ class LevelTwo extends Phaser.Scene {
         this.obstaculos.create(260, 570, 'TrampaRatones');
         this.obstaculos.create(480, 615, 'CascaraPlatano');
         this.obstaculos.create(730, 630, 'CascaraPlatano');
-        this.obstaculos.create(1035, 505, 'CascaraPlatano');
-        this.obstaculos.create(1220, 500, 'CascaraPlatano');
+       // this.obstaculos.create(1035, 515, 'CascaraPlatano');
         this.obstaculos.create(1330, 570, 'TrampaRatones');
         this.obstaculos.create(1445, 570, 'TrampaRatones');
         this.obstaculos.create(1750, 690, 'CascaraPlatano');
         this.obstaculos.create(2410, 690, 'TrampaRatones');
-
+        
+        this.Cacerolas.create(1950,650,'Cacerola');
+        this.Cacerolas.create(2050,600,'Cacerola');
+        this.Cacerolas.create(2150,650,'Cacerola');
+        this.Cacerolas.create(2250,600,'Cacerola');
+        this.Cacerolas.create(2350,650,'Cacerola');
+        this.Cacerolas.create(2870,615,'Cacerola');
+        this.Cacerolas.create(2960,550,'Cacerola');
+        this.Cacerolas.create(3050,520,'Cacerola');
 
         this.obstFogon18 = this.add.sprite(2560, 675, 'Fogon', 0);
         this.obstFogon19 = this.add.sprite(2585, 675, 'Fogon', 0);
@@ -247,20 +257,29 @@ class LevelTwo extends Phaser.Scene {
 
         //POWERUPS:
         this.powerupAma.createPhysics();
-        this.powerupAz.createPhysics();
+        this.powerupRoj3.createPhysics();
+        //this.powerupAz.createPhysics();
         this.powerupRoj.createPhysics();
         this.powerupAma2.createPhysics();
-        this.powerupAz2.createPhysics();
+        this.powerupRoj4.createPhysics();
+        //this.powerupAz2.createPhysics();
         this.powerupRoj2.createPhysics();
+        this.powerupRoj5.createPhysics();
+        this.powerupRoj6.createPhysics();
         this.physics.add.overlap(this.player1.fisicas, this.powerupAma.fisicas, this.collectPowerUp, null, this);
-        this.physics.add.overlap(this.player1.fisicas, this.powerupAz.fisicas, this.collectPowerUp, null, this);
+        //this.physics.add.overlap(this.player1.fisicas, this.powerupAz.fisicas, this.collectPowerUp, null, this);
         this.physics.add.overlap(this.player1.fisicas, this.powerupRoj.fisicas, this.collectPowerUp, null, this);
+        this.physics.add.overlap(this.player1.fisicas, this.powerupRoj3.fisicas, this.collectPowerUp, null, this);
+        this.physics.add.overlap(this.player2.fisicas, this.powerupRoj4.fisicas, this.collectPowerUp, null, this);
+        this.physics.add.overlap(this.player1.fisicas, this.powerupRoj5.fisicas, this.collectPowerUp, null, this);
+        this.physics.add.overlap(this.player2.fisicas, this.powerupRoj6.fisicas, this.collectPowerUp, null, this);
         this.physics.add.overlap(this.player2.fisicas, this.powerupAma2.fisicas, this.collectPowerUp, null, this);
-        this.physics.add.overlap(this.player2.fisicas, this.powerupAz2.fisicas, this.collectPowerUp, null, this);
+     //   this.physics.add.overlap(this.player2.fisicas, this.powerupAz2.fisicas, this.collectPowerUp, null, this);
         this.physics.add.overlap(this.player2.fisicas, this.powerupRoj2.fisicas, this.collectPowerUp, null, this);
         this.physics.add.overlap(this.player1.fisicas, this.obstaculos, this.hitAnyObstacle, null, this);
         this.physics.add.overlap(this.player2.fisicas, this.obstaculos, this.hitAnyObstacle, null, this);
         this.physics.add.overlap(this.player1.fisicas, this.Cacerolas, this.hitAnyObstacle, null, this);
+        this.physics.add.overlap(this.player2.fisicas, this.Cacerolas, this.hitAnyObstacle, null, this);
         //META
         this.physics.add.overlap(this.player1.fisicas, this.meta, this.hitMeta, null, this);
         this.physics.add.overlap(this.player2.fisicas, this.meta, this.hitMeta, null, this);
