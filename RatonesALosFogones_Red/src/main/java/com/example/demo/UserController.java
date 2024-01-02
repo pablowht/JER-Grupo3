@@ -6,6 +6,7 @@ import java.io.*;
 import java.util.Scanner;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -84,15 +85,15 @@ public class UserController {
 		return true;
 	}
 	
-	@PostMapping("/users")
-    public boolean createUser(@RequestBody User newUser)
+	@PostMapping("/user")
+    public ResponseEntity<User> createUser(@RequestBody User newUser)
     {
     	String username = newUser.getUser();
     	String password = newUser.getPassword();
 
-    	if(!usersMap.containsKey(username)) 
+    	if(usersMap.containsKey(username) == false)
     	{
-    	System.out.println("El usuario no está guardado");
+    		System.out.println("El usuario no está guardado");
     		usersMap.put(username, newUser); 
     		activeUsers.put(username, newUser);
     		
@@ -109,36 +110,37 @@ public class UserController {
                 e.printStackTrace();
                 System.out.println("Error writing user");
             }
-    		//return new ResponseEntity<>(HttpStatus.OK);
-            return true; 
-    	} else {
-    	    System.out.println("User already exist");
-    		throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
-    	}	
+    		return new ResponseEntity<>(newUser,HttpStatus.OK);
+    	}
+    	
+    	System.out.println("User already exist");
+    	return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 	
 	@PostMapping("/usersLogin")
-    public boolean loginUser(@RequestBody User newUser)
+    public ResponseEntity<User> loginUser(@RequestBody User newUser)
     {
     	String username = newUser.getUser();
     	String password = newUser.getPassword();
-
-    	if(usersMap.containsKey(username) && usersMap.get(username).getPassword() == password)
+    	
+    	if(usersMap.containsKey(username) == true)
     	{
-    	    System.out.println("usuario y contraseña existen");
-    	//	return new ResponseEntity<>(HttpStatus.OK);
-    	    return true; 
-    	} else {
-    	    	System.out.println("usuario y contraseña NO existen");
-
-    		throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-    	}
+    		System.out.println("Contains User");
+    		if(usersMap.get(username).getPassword().equals(password))
+    	    {
+    			System.out.println("User and Password exist");
+    			return new ResponseEntity<>(newUser,HttpStatus.OK);
+    	    }
+    		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    	} 
+	    System.out.println("User dont Exist");
+		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 	
 	//MÉTODO PUT:
 	@PutMapping("/users/{user}")
-	public boolean changePassword(@RequestBody User newUser) {
-		if (usersMap.containsKey(newUser.getUser()) && !usersMap.get(newUser.getUser()).getPassword().equals(newUser.getPassword()))
+	public ResponseEntity<User> changePassword(@RequestBody User newUser) {
+		if (usersMap.containsKey(newUser.getUser()) == true && !usersMap.get(newUser.getUser()).getPassword().equals(newUser.getPassword()))
 		{
 			try {
 				deleteUser(newUser.getUser());
@@ -146,16 +148,16 @@ public class UserController {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-				
-			throw new ResponseStatusException(HttpStatus.OK, "User password is changed succesfully");
+			return new ResponseEntity<>(newUser,HttpStatus.OK);
 		}
-		else if(usersMap.containsKey(newUser.getUser()) && usersMap.get(newUser.getUser()).getPassword().equals(newUser.getPassword()))
-		{
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "The new password is the same with the last");
-		}
-		else {
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "user not found");
-		}
+// 		else if(usersMap.containsKey(newUser.getUser()) && usersMap.get(newUser.getUser()).getPassword().equals(newUser.getPassword()))
+// 		{
+// 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+// 		}
+// 		else {
+// 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+// 		}
+		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 	
 	//MÉTODOS DELETE:

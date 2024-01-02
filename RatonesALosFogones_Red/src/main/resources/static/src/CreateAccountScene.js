@@ -16,7 +16,6 @@ class CreateAccountScene extends Phaser.Scene{
         var user = formulario.getChildByName('username');
         var password = formulario.getChildByName('password');
 
-        var usuarioCreado = false;
 
         let BotonCrearCuenta = this.add.image(960, 960, 'Boton_Crear');
         BotonCrearCuenta.setInteractive();
@@ -35,43 +34,43 @@ class CreateAccountScene extends Phaser.Scene{
             if (user.value !== "" && password.value !== "") {
                 $.ajax({
                     type: "POST",
-                    async: false,
                     headers: {
                         'Accept': 'application/json',
                         'Content-type': 'application/json'
                     },
-                    url: url + 'users',
+                    url: url + 'user',
                     data: JSON.stringify({user: "" + user.value, password: "" + password.value}),
-                    dataType: "json",
-                    success: function (valor) {
-                        usuarioCreado = valor;
-                    }
                 })
                 .done((data, textStatus, jqXHR) => {
+                    this.success(user.value, password.value);
                     console.log(textStatus+" "+ jqXHR.status);
-                    console.log(data);
-                    console.log(jqXHR.statusCode())
+                    console.log(jqXHR.statusCode());
                 })
                 .fail((data, textStatus, jqXHR) =>
                 {
-                    usuarioCreado = false;
+                    this.messageError();
                     console.log(textStatus+" "+jqXHR.status);
                     console.log("User already Exists");
                 });
-
-                if(usuarioCreado === true)
-                {
-                    this.scene.stop();
-                    this.scene.start('Menu', {user: user.value, password: password.value});
-                }
-                if (!usuarioCreado) {
-                    this.emptyText = this.add.text(40, 590, 'EL USUARIO YA EXISTE', {
-                        fontFamily: 'Lexend',
-                        font: (40).toString() + "px Lexend",
-                        color: '#e82138'
-                    })
-                }
             }
+        });
+    }
+    messageError(){
+        this.wrongPasswordText = this.add.text(50, 590, 'USUARIO YA EXISTENTE', {
+            fontFamily: 'Lexend',
+            font: (40).toString() + "px Lexend",
+            color: '#e82138',
+            boundsAlignH: "center",
+            boundsAlignV: "middle"
+        });
+        this.time.delayedCall(3000, () => this.wrongPasswordText.setVisible(false));
+    }
+
+    success(user,password){
+        this.scene.stop();
+        this.scene.start('Menu', {
+            user: user,
+            password: password
         });
     }
 }

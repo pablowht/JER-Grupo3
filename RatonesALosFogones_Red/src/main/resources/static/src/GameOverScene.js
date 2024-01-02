@@ -28,17 +28,17 @@ class GameOverScene extends Phaser.Scene {
 
 
         this.add.image(0,0,'FondoGameOver').setOrigin(0, 0);
-        this.add.image(1315,220,'RecuadroTextos')
+        this.add.image(1315,180,'RecuadroTextos')
         if(this.ganador1){ //En caso de que gane el jugador 1
             //GANADOR
             if(this.raton1 === 'raton_blanco'){
-                this.add.image(470,600,'RatónGanadorB');
+                this.add.image(470,560,'RatónGanadorB');
             }
             else if(this.raton1 === 'raton_marron'){
-                this.add.image(470,600,'RatónGanadorM');
+                this.add.image(470,560,'RatónGanadorM');
             }
             else if(this.raton1 === 'raton_gris'){
-                this.add.image(470,600,'RatónGanadorG');
+                this.add.image(470,560,'RatónGanadorG');
             }
             //PERDEDOR
             this.add.image(1315,150,'TextoGana1');

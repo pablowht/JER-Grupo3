@@ -1,4 +1,4 @@
- .form-style {
+ .form-style{
      font-family: Lexend, sans-serif;
      font-size: 40px;
      height: 85px;
@@ -10,6 +10,16 @@
  }
  input:focus {
       outline: none;
+ }
+
+ #login-form{
+     display: block;
+     position: absolute;
+ }
+
+ #changePassword-box{
+     display: block;
+     position: absolute;
  }
 
 

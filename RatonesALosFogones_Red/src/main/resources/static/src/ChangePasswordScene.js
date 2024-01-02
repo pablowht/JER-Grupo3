@@ -50,37 +50,24 @@ class ChangePasswordScene extends Phaser.Scene {
             if (user.value !== "" && new_password.value !== "") {
                 $.ajax({
                     type: "PUT",
-                    dataType: "json",
-                    async: false,
                     headers: {
                         'Accept': 'application/json',
                         'Content-type': 'application/json'
                     },
                     url: url + 'users/' + user.value,
                     data: JSON.stringify({user: user.value, password: new_password.value})
-                }).done(function (item) {
-                    console.log("Contraseña cambiada: " + JSON.stringify({
-                        user: "" + user.value,
-                        password: "" + new_password.value
-                    }));
-                    changed = true;
                 })
-            }
-            if(!changed){
-                this.errorPassword = this.add.text(200, 800, 'CONTRASEÑA NO VÁLIDA', {
-                     fontFamily: 'Lexend',
-                     font: (40).toString() + "px Lexend",
-                     color: '#e82138'
+                .done((data, textStatus, jqXHR) => {
+                    this.success();
+                    console.log(textStatus+" "+ jqXHR.status);
+                    console.log(jqXHR.statusCode());
                 })
-                this.time.delayedCall(3000, () => this.errorPassword.setVisible(false));
-			}
-			if(changed){
-                this.changedPassword = this.add.text(200, 800, 'CONTRASEÑA CAMBIADA', {
-                    fontFamily: 'Lexend',
-                    font: (40).toString() + "px Lexend",
-                    color: '#5701d9'
-                })
-                this.time.delayedCall(3000, () => this.changedPassword.setVisible(false));
+                .fail((data, textStatus, jqXHR) =>
+                {
+                    this.messageError();
+                    console.log(textStatus+" "+jqXHR.status);
+                    console.log("User Password is the same that last");
+                });
             }
             this.sound.play('InteractSound');
         });
@@ -89,6 +76,22 @@ class ChangePasswordScene extends Phaser.Scene {
             this.sound.play('InteractSound');
             this.scene.start('UserScene');
         });
+    }
+    messageError(){
+        this.errorPassword = this.add.text(100, 800, 'CONTRASEÑA NO VÁLIDA', {
+            fontFamily: 'Lexend',
+            font: (40).toString() + "px Lexend",
+            color: '#e82138'
+        })
+        this.time.delayedCall(2000, () => this.errorPassword.setVisible(false));
+    }
 
+    success(){
+        this.changedPassword = this.add.text(100, 800, 'CONTRASEÑA CAMBIADA', {
+            fontFamily: 'Lexend',
+            font: (40).toString() + "px Lexend",
+            color: '#5701d9'
+        })
+        this.time.delayedCall(2000, () => this.changedPassword.setVisible(false));
     }
 }

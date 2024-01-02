@@ -128,7 +128,6 @@ function getActiveUsers() {
     $.ajax({
         url: url + "activeUsersNum",
         method: 'GET',
-        dataType: 'json'
     }).done(function (data) {
         activeUsersNumber = data;
     });
