@@ -2,6 +2,8 @@ $(document).ready(function(){
     console.log('DOM cargado (CHAT)')
 });
 
+var user;
+
 class GameOverScene extends Phaser.Scene {
     constructor() {
         super("GameOver");
@@ -17,11 +19,16 @@ class GameOverScene extends Phaser.Scene {
     preload() { }
 
     create(){
-        this.user = this.dataObj.user;
+
+        this.input.keyboard.disableGlobalCapture();
+
+        user = this.dataObj.user;
         this.colorRaton1 = this.dataObj.raton1;
         this.colorRaton2 = this.dataObj.raton2;
         this.ganador1 = this.dataObj.ganador1;
         this.ganador2 = this.dataObj.ganador2;
+        this.activeUsers = 0;
+        this.activeUsersPrev = 0;
 
         this.sound.stopAll();
         this.sound.play('GameEndSound');
@@ -31,62 +38,62 @@ class GameOverScene extends Phaser.Scene {
         this.add.image(1315,180,'RecuadroTextos')
         if(this.ganador1){ //En caso de que gane el jugador 1
             //GANADOR
-            if(this.raton1 === 'raton_blanco'){
+            if(this.colorRaton1 === 'raton_blanco'){
                 this.add.image(470,560,'RatónGanadorB');
             }
-            else if(this.raton1 === 'raton_marron'){
+            else if(this.colorRaton1 === 'raton_marron'){
                 this.add.image(470,560,'RatónGanadorM');
             }
-            else if(this.raton1 === 'raton_gris'){
+            else if(this.colorRaton1 === 'raton_gris'){
                 this.add.image(470,560,'RatónGanadorG');
             }
+            this.add.image(1315,110,'TextoGana1');
             //PERDEDOR
-            this.add.image(1315,150,'TextoGana1');
-            if(this.raton2 === 'raton_blanco'){
-                this.add.image(1050,800,'RatónPerdedorB');
+            if(this.colorRaton2 === 'raton_blanco'){
+                this.add.image(1050,760,'RatónPerdedorB');
             }
-            else if(this.raton2 === 'raton_marron'){
-                this.add.image(1050,800,'RatónPerdedorM');
+            else if(this.colorRaton2 === 'raton_marron'){
+                this.add.image(1050,760,'RatónPerdedorM');
             }
-            else if (this.raton2 === 'raton_gris'){
-                this.add.image(1050,800,'RatónPerdedorG');
+            else if (this.colorRaton2 === 'raton_gris'){
+                this.add.image(1050,760,'RatónPerdedorG');
             }
-            this.add.image(1315,250,'TextoPierde2');
+            this.add.image(1315,210,'TextoPierde2');
         }
         else{   //En caso de que gane el jugador 2
             //GANADOR
-            if(this.raton2 === 'raton_blanco'){
-                this.add.image(470,600,'RatónGanadorB');
+            if(this.colorRaton2 === 'raton_blanco'){
+                this.add.image(470,560,'RatónGanadorB');
             }
-            else if(this.raton2 === 'raton_marron'){
-                this.add.image(470,600,'RatónGanadorM');
+            else if(this.colorRaton2 === 'raton_marron'){
+                this.add.image(470,560,'RatónGanadorM');
             }
-            else if(this.raton2 === 'raton_gris'){
-                this.add.image(470,600,'RatónGanadorG');
+            else if(this.colorRaton2 === 'raton_gris'){
+                this.add.image(470,560,'RatónGanadorG');
             }
-            this.add.image(1315,150,'TextoGana2');
+            this.add.image(1315,110,'TextoGana2');
             //PERDEDOR
-            if(this.raton1 === 'raton_blanco'){
-                this.add.image(1050,800,'RatónPerdedorB');
+            if(this.colorRaton1 === 'raton_blanco'){
+                this.add.image(1050,760,'RatónPerdedorB');
             }
-            else if(this.raton1 === 'raton_marron'){
-                this.add.image(1050,800,'RatónPerdedorM');
+            else if(this.colorRaton1 === 'raton_marron'){
+                this.add.image(1050,760,'RatónPerdedorM');
             }
-            else if(this.raton1 === 'raton_gris'){
-                this.add.image(1050,800,'RatónPerdedorG');
+            else if(this.colorRaton1 === 'raton_gris'){
+                this.add.image(1050,760,'RatónPerdedorG');
             }
-            this.add.image(1315,250,'TextoPierde1');
+            this.add.image(1315,210,'TextoPierde1');
         }
-        let BotonMenu = this.add.image(991.5,415.5,'Boton_Menu');
-        BotonMenu.setInteractive();
+        let BotonMenu = this.add.image(991.5,400,'Boton_Menu');
+        BotonMenu.setInteractive({ cursor: 'pointer' });
 
         BotonMenu.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
             this.sound.play('InteractSound');
             this.scene.start('Menu');
         });
 
-        let BotonNiveles = this.add.image(1346.5,415.5,'Boton_Niveles');
-        BotonNiveles.setInteractive();
+        let BotonNiveles = this.add.image(1346.5,400,'Boton_Niveles');
+        BotonNiveles.setInteractive({ cursor: 'pointer' });
 
         BotonNiveles.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
             this.sound.play('InteractSound');
@@ -105,28 +112,37 @@ class GameOverScene extends Phaser.Scene {
         var botonEnviar = chat.getChildByName('botonEnviarMsj');
         var recuadroEscribir = chat.getChildByName('cuadro-escribir');
 
-        console.log("user antes de darle al click user: "+ this.user);
         chat.addListener('click');
         chat.on('click', function(){
-            console.log("user dentro de darle al click: "+ user);
-
             if(event.target.name  === 'botonEnviarMsj')
             {
-                console.log("recuadro y le das a enviar");
                 if (recuadroEscribir.value !== "") {
-                    console.log("recuadro no vacio y envias");
-                    console.log("mensaje a enviar: " + recuadroEscribir.value + "\tdel user: " + user);
                     sendMessage(user, recuadroEscribir.value);
                     recuadroEscribir.value = "";
                 }
             }
         });
+        window.addEventListener('beforeunload', () =>
+        {
+            deleteActiveUser(user);
+        });
+
+        textActiveUsers = this.add.text(117, 935, 'Usuarios activos: ' + this.activeUsers , {
+            fontFamily: 'Lexend',
+            font: (40).toString() + "px Lexend",
+            color: 'black'
+        });
+        setInterval (getMessage, 500);
 	}
+    update(){
+        getActiveUsers();
+        updateActiveUsers();
+        textActiveUsers.setText('Usuarios activos: ' + this.activeUsers);
+    }
 }
 		function sendMessage(user, message)
 		{
             console.log("estas en la función sendMessage\nel user es: "+user + "\tel mensaje es: "+message)
-            console.log("url: " + url + "chat")
 			$.ajax({
 				method: "POST",
 				async: false,
@@ -135,8 +151,8 @@ class GameOverScene extends Phaser.Scene {
 					'Content-type' : 'application/json'	
 				},
 				url: url + "chat",
-				data: JSON.stringify( { user: "" + user, message: "" + message } ),
-				dataType: "json" 
+				data: JSON.stringify( { user: "&#128001; " + user, message: "" + message } ),
+				dataType: "json"
 			})
 			getMessage();
 		}
@@ -146,14 +162,54 @@ class GameOverScene extends Phaser.Scene {
 				$.ajax({
 					method: "GET",
 					url: url + "chat/" + i.toString()
-				}).done(function(data){
-                    console.log("valor de la data: "+data)
-
-                    if(data != "")
-						document.getElementById("message"+i.toString()).innerHTML = data;
 				})
+				.done((data, textStatus, jqXHR) =>
+                {
+                    if(data != "") document.getElementById("mensaje"+i.toString()).innerHTML = data;                
+				})
+                .fail((data, textStatus, jqXHR) =>
+                {
+                    console.log("Problem with Chat Message");
+                });
 			}
 		}
-		
+function updateActiveUsers(){
+
+    if(this.activeUsersPrev !== this.activeUsers)
+    {
+        if(this.activeUsersPrev < this.activeUsers){
+            console.log("Se ha conectado alguien. El número actual de usuarios es: " + this.activeUsers);
+        }else if(this.activeUsersPrev > this.activeUsers){
+            console.log("Alguien se ha desconectado. El número actual de usuarios es: " + this.activeUsers);
+        }
+        this.activeUsersPrev = this.activeUsers;
+    }
+
+}
+
+function deleteActiveUser(user) {
+    console.log("user funcion deleteActive: " + user);
+    $.ajax({
+        method: "DELETE",
+        url: url + "activeUsers/" + user,
+        data: user,
+        success : function () {
+            console.log("User removed");
+        },
+        error : function () {
+            console.log("Failed to delete");
+            console.log("The URL was:\n" + url + "users/" + user)
+        }
+    });
+}
+
+function getActiveUsers() {
+    $.ajax({
+        method: 'GET',
+        url: url + "activeUsersNum",
+    }).done(function (data) {
+        this.activeUsers = data;
+    });
+}
 
     

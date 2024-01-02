@@ -4,14 +4,15 @@ class SelectLevelScene extends Phaser.Scene {
     }
 
 	init(data){
-		this.user = data.user;
-		this.password = data.password;
-		this.raton1 = data.colorRaton1;
-		this.raton2 = data.colorRaton2;
-	}
-
+		this.dataObj = data;
+    }
 
     create(){
+        this.raton1 = this.dataObj.colorRaton1;
+        this.raton2 = this.dataObj.colorRaton2;
+        this.user = this.dataObj.user;
+        this.activeUsers = 0;
+        this.activeUsersPrev = 0;
 
         this.add.image(0,0,'FondoSeleccionNiveles').setOrigin(0, 0);
 
@@ -21,7 +22,7 @@ class SelectLevelScene extends Phaser.Scene {
         let Meme2 = this.add.image(452,530,'MemeN2').setVisible(false);
 
         let BotonVolver = this.add.image(150,150,'Flecha');
-        BotonVolver.setInteractive();
+        BotonVolver.setInteractive({ cursor: 'pointer' });
 
         BotonVolver.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
             this.sound.play('InteractSound');
@@ -29,10 +30,10 @@ class SelectLevelScene extends Phaser.Scene {
         });
 
         let BotonNivel1 = this.add.image(960.5,529.5,'BotonN1');
-        BotonNivel1.setInteractive();
+        BotonNivel1.setInteractive({ cursor: 'pointer' });
 
         let BotonNivel2 = this.add.image(960.5,795.5,'BotonN2');
-        BotonNivel2.setInteractive();
+        BotonNivel2.setInteractive({ cursor: 'pointer' });
 
         BotonNivel1.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
             this.sound.play('InteractSound');
@@ -66,23 +67,65 @@ class SelectLevelScene extends Phaser.Scene {
             //this.sound.play('InteractSound');
             Meme2.setVisible(false);
         });
+
+        window.addEventListener('beforeunload', () =>
+        {
+            deleteActiveUser(this.user);
+        });
+
+        textActiveUsers = this.add.text(117, 935, 'Usuarios activos login: ' + this.activeUsers , {
+            fontFamily: 'Lexend',
+            font: (40).toString() + "px Lexend",
+            color: 'black'
+        });
     }
 
     StartPlaying(level){
-        console.log("select level scene: user: "+this.user);
-        this.scene.start(level, {colorRaton1: this.raton1, colorRaton2:this.raton2, user : this.user, password: this.password});
+        this.scene.start(level, {colorRaton1: this.raton1, colorRaton2:this.raton2, user : this.user,  activeUsers: this.activeUsersNumber, activePrevUsers: this.activePrevUsersNumber});
     }
 
     update(){
-
-        /*this.Meme1.on(Phaser.Input.Events.GAMEOBJECT_POINTER_OUT,()=>{
-            this.Meme1.setVisible(false);
-        });*/
-
-
-
-        /*this.Meme2.on(Phaser.Input.Events.GAMEOBJECT_POINTER_OUT,()=>{
-            this.Meme2.setVisible(false);
-        });*/
+        getActiveUsers();
+        updateActiveUsers();
+        textActiveUsers.setText('Usuarios activos: ' + this.activeUsers);
     }
+}
+
+function updateActiveUsers(){
+
+    if(this.activeUsersPrev !== this.activeUsers)
+    {
+        if(this.activeUsersPrev < this.activeUsers){
+            console.log("Se ha conectado alguien. El número actual de usuarios es: " + this.activeUsers);
+        }else if(this.activeUsersPrev > this.activeUsers){
+            console.log("Alguien se ha desconectado. El número actual de usuarios es: " + this.activeUsers);
+        }
+        this.activeUsersPrev = this.activeUsers;
+    }
+
+}
+
+function deleteActiveUser(user) {
+    console.log("user funcion deleteActive: " + user);
+    $.ajax({
+        method: "DELETE",
+        url: url + "activeUsers/" + user,
+        data: user,
+        success : function () {
+            console.log("User removed");
+        },
+        error : function () {
+            console.log("Failed to delete");
+            console.log("The URL was:\n" + url + "users/" + user)
+        }
+    });
+}
+
+function getActiveUsers() {
+    $.ajax({
+        url: url + "activeUsersNum",
+        method: 'GET',
+    }).done(function (data) {
+        this.activeUsers = data;
+    });
 }

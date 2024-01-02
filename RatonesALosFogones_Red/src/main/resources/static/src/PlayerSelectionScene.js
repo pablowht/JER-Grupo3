@@ -1,7 +1,5 @@
 
 class PlayerSelectionScene extends Phaser.Scene {
-
-
     constructor(numRaton) {
         super("PlayerSelection");
     }
@@ -22,11 +20,14 @@ class PlayerSelectionScene extends Phaser.Scene {
     ratonMElegido;
 
 	init(data){
-		this.user = data.user;
-		this.password = data.password;
+		this.dataObj = data;
 	}
 	
     create(){
+        this.user = this.dataObj.user;
+        this.activeUsers = 0;
+        this.activeUsersPrev = 0;
+
         //Se reinician las variables para que si se vuelve a entrar después de una partida los valores estén correctos
         this.ReiniciarVariables();
 
@@ -35,20 +36,20 @@ class PlayerSelectionScene extends Phaser.Scene {
 
         //BOTONES
         let BotonP1Listo = this.add.image(300,870,'BotonP1Listo');
-        BotonP1Listo.setInteractive();
+        BotonP1Listo.setInteractive({ cursor: 'pointer' });
 
         let BotonP2Listo = this.add.image(1630,870,'BotonP2Listo');
-        BotonP2Listo.setInteractive();
+        BotonP2Listo.setInteractive({ cursor: 'pointer' });
 
         let BotonVolver = this.add.image(150,100,'Flecha');
-        BotonVolver.setInteractive();
+        BotonVolver.setInteractive({ cursor: 'pointer' });
 
         let BotonRatonGris = this.add.image(866,265,'BotonRatonGris');
-        BotonRatonGris.setInteractive();
+        BotonRatonGris.setInteractive({ cursor: 'pointer' });
         let BotonRatonBlanco = this.add.image(1200,530,'BotonRatonBlanco');
-        BotonRatonBlanco.setInteractive();
+        BotonRatonBlanco.setInteractive({ cursor: 'pointer' });
         let BotonRatonMarron = this.add.image(866,800,'BotonRatonMarron');
-        BotonRatonMarron.setInteractive();
+        BotonRatonMarron.setInteractive({ cursor: 'pointer' });
 
         BotonVolver.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
             this.sound.play('InteractSound');
@@ -68,8 +69,7 @@ class PlayerSelectionScene extends Phaser.Scene {
             if(this.raton2 !== undefined && this.boton2Pulsado){
                 this.BotonP2Listo = this.add.image(31630,870,'Boton2ListoPressed');
                 this.p2Ready = true;
-                console.log("player selection scene: user: "+this.user);
-                this.scene.start('LevelSelection', {colorRaton1: this.raton1, colorRaton2:this.raton2, user : this.user, password: this.password});
+                this.scene.start('LevelSelection', {colorRaton1: this.raton1, colorRaton2:this.raton2, user: this.user,  activeUsers: this.activeUsersNumber, activePrevUsers: this.activePrevUsersNumber});
             }
         });
         
@@ -171,6 +171,24 @@ class PlayerSelectionScene extends Phaser.Scene {
                 this.boton2Pulsado = true;
             }
         });
+
+        window.addEventListener('beforeunload', () =>
+        {
+            deleteActiveUser(this.user);
+        });
+
+        textActiveUsers = this.add.text(117, 935, 'Usuarios activos login: ' + this.activeUsers , {
+            fontFamily: 'Lexend',
+            font: (40).toString() + "px Lexend",
+            color: 'black'
+        });
+    }
+
+    update(time, delta)
+    {
+        getActiveUsers();
+        updateActiveUsers();
+        textActiveUsers.setText('Usuarios activos: ' + this.activeUsers);
     }
 
     ReiniciarVariables(){
@@ -184,5 +202,42 @@ class PlayerSelectionScene extends Phaser.Scene {
         this.ratonBElegido = false;
         this.ratonMElegido = false;
     }
+}
+function updateActiveUsers(){
 
+    if(this.activeUsersPrev !== this.activeUsers)
+    {
+        if(this.activeUsersPrev < this.activeUsers){
+            console.log("Se ha conectado alguien. El número actual de usuarios es: " + this.activeUsers);
+        }else if(this.activeUsersPrev > this.activeUsers){
+            console.log("Alguien se ha desconectado. El número actual de usuarios es: " + this.activeUsers);
+        }
+        this.activeUsersPrev = this.activeUsers;
+    }
+
+}
+
+function deleteActiveUser(user) {
+    console.log("user funcion deleteActive: " + user);
+    $.ajax({
+        method: "DELETE",
+        url: url + "activeUsers/" + user,
+        data: user,
+        success : function () {
+            console.log("User removed");
+        },
+        error : function () {
+            console.log("Failed to delete");
+            console.log("The URL was:\n" + url + "users/" + user)
+        }
+    });
+}
+
+function getActiveUsers() {
+    $.ajax({
+        url: url + "activeUsersNum",
+        method: 'GET',
+    }).done(function (data) {
+        this.activeUsers = data;
+    });
 }

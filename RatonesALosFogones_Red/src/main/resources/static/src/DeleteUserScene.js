@@ -22,9 +22,9 @@ class DeleteUserScene extends Phaser.Scene{
        // url= window.location.href;
         this.add.image(0,0,'Fondo_Eliminar').setOrigin(0,0);
         let BotonVolver =  this.add.image(700,860,'Boton_Volver');
-        BotonVolver.setInteractive();
+        BotonVolver.setInteractive({ cursor: 'pointer' });
         let BotonDelete =  this.add.image(1250,860,'Boton_Delete');
-        BotonDelete.setInteractive();
+        BotonDelete.setInteractive({ cursor: 'pointer' });
 
         BotonVolver.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=> {
             this.sound.play('InteractSound');

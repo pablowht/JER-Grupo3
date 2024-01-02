@@ -19,7 +19,9 @@ class ChangePasswordScene extends Phaser.Scene {
 
 
     create() {
-        var canChange = false;
+
+        this.input.keyboard.disableGlobalCapture();
+
         url = window.location.href;
 
 		infoDataUser = this.dataObj.user;
@@ -34,16 +36,12 @@ class ChangePasswordScene extends Phaser.Scene {
         var user = changePassword_html.getChildByName('username');
         var new_password = changePassword_html.getChildByName('new-password');
 
-        var errorPassword;
-        var changedPassword;
 
-        var changed = false;
-		
         let BotonConfirmar = this.add.image(960, 960, 'Boton_Confirmar');
-        BotonConfirmar.setInteractive();
+        BotonConfirmar.setInteractive({ cursor: 'pointer' });
 
         let BotonReturnMenu = this.add.image(150, 150, 'Flecha');
-        BotonReturnMenu.setInteractive();
+        BotonReturnMenu.setInteractive({ cursor: 'pointer' });
 
 
         BotonConfirmar.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {         

@@ -7,15 +7,16 @@ class LevelOne extends Phaser.Scene {
     walkable;
     platforms;
     isPaused;
+    level;
     player1 = new Player(1, 200, 100, 100, -300, this);
     player2 = new Player(2, 200, 450, 100, -300, this);
     colorRaton1;
     colorRaton2;
     camera;
-    powerupAma = new Powerup(3, 1090, 230, this);
+    powerupAma = new Powerup(3, 1040, 200, this);
     powerupAz = new Powerup(2, 1543, 250, this);
     powerupRoj = new Powerup(1, 2760, 190, this);
-    powerupAma2 = new Powerup(3, 1090, 630, this);
+    powerupAma2 = new Powerup(3, 1040, 600, this);
     powerupAz2 = new Powerup(2, 1543, 650, this);
     powerupRoj2 = new Powerup(1, 2760, 590, this);
     obstaculos;
@@ -27,13 +28,19 @@ class LevelOne extends Phaser.Scene {
     preload() { }
 
     init(data){
-        this.colorRaton1 = data.colorRaton1;
-        this.colorRaton2 = data.colorRaton2;
-        this.user = data.user;
-        this.password = data.password;
+        this.dataObj = data;
     }
 
     create() {
+
+        this.input.keyboard.disableGlobalCapture();
+
+        this.colorRaton1 = this.dataObj.colorRaton1;
+        this.colorRaton2 = this.dataObj.colorRaton2;
+        this.user = this.dataObj.user;
+        this.activeUsers = 0;
+        this.activeUsersPrev = 0;
+
         this.camera = new CameraMovement(this);
         this.camera.cam.setZoom(1.2,1.85);
 
@@ -262,6 +269,17 @@ class LevelOne extends Phaser.Scene {
         this.player2.fisicas.setScale(1.25);
 
         this.esc = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
+
+        window.addEventListener('beforeunload', () =>
+        {
+            deleteActiveUser(this.user);
+        });
+
+        textActiveUsers = this.add.text(117, 935, 'Usuarios activos login: ' + this.activeUsers , {
+            fontFamily: 'Lexend',
+            font: (40).toString() + "px Lexend",
+            color: 'black'
+        });
     }
 
     update(timeNum, timeDelta) {
@@ -297,8 +315,12 @@ class LevelOne extends Phaser.Scene {
         if (this.esc.isDown) {
             this.sound.play('InteractSound');
             this.scene.pause();
-            this.scene.launch('Pause',{isPaused:true});
+            this.scene.launch('Pause',{isPaused:true, level:1});
         }
+
+        getActiveUsers();
+        updateActiveUsers();
+        textActiveUsers.setText('Usuarios activos: ' + this.activeUsers);
     }
 
     hitMeta(player, meta){
@@ -343,9 +365,47 @@ class LevelOne extends Phaser.Scene {
 			raton2:this.colorRaton2, 
 			ganador1:this.player1Won, 
 			ganador2:this.player2Won, 
-			user: this.user, 
-			password:this.password
+			user: this.user,
+            activeUsers: this.activeUsersNumber,
+            activePrevUsers: this.activePrevUsersNumber
 		});
     }
+}
 
+function updateActiveUsers(){
+
+    if(this.activeUsersPrev !== this.activeUsers)
+    {
+        if(this.activeUsersPrev < this.activeUsers){
+            console.log("Se ha conectado alguien. El número actual de usuarios es: " + this.activeUsers);
+        }else if(this.activeUsersPrev > this.activeUsers){
+            console.log("Alguien se ha desconectado. El número actual de usuarios es: " + this.activeUsers);
+        }
+        this.activeUsersPrev = this.activeUsers;
+    }
+
+}
+
+function deleteActiveUser(user) {
+    $.ajax({
+        method: "DELETE",
+        url: url + "activeUsers/" + user,
+        data: user,
+        success : function () {
+            console.log("User removed");
+        },
+        error : function () {
+            console.log("Failed to delete");
+            console.log("The URL was:\n" + url + "users/" + user)
+        }
+    });
+}
+
+function getActiveUsers() {
+    $.ajax({
+        url: url + "activeUsersNum",
+        method: 'GET',
+    }).done(function (data) {
+        this.activeUsers = data;
+    });
 }

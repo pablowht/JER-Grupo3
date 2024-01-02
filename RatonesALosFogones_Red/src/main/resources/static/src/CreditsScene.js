@@ -14,7 +14,7 @@ class CreditsScene extends Phaser.Scene {
         this.add.image(1440,840 ,'RatonG');
 
         let BotonVolver = this.add.image(150,150,'Flecha');
-        BotonVolver.setInteractive();
+        BotonVolver.setInteractive({ cursor: 'pointer' });
 
         BotonVolver.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
             this.sound.play('InteractSound');

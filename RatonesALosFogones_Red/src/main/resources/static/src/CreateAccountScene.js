@@ -7,6 +7,9 @@ class CreateAccountScene extends Phaser.Scene{
         super('CreateAccountScene');
     }
     create() {
+
+        this.input.keyboard.disableGlobalCapture();
+
         var url = window.location.href;
 
         this.add.image(0, 0, 'Fondo_Create').setOrigin(0, 0);
@@ -18,10 +21,10 @@ class CreateAccountScene extends Phaser.Scene{
 
 
         let BotonCrearCuenta = this.add.image(960, 960, 'Boton_Crear');
-        BotonCrearCuenta.setInteractive();
+        BotonCrearCuenta.setInteractive({ cursor: 'pointer' });
 
         let BotonReturn = this.add.image(150, 150, 'Flecha');
-        BotonReturn.setInteractive();
+        BotonReturn.setInteractive({ cursor: 'pointer' });
 
         BotonReturn.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
             this.sound.play('InteractSound');
@@ -32,6 +35,8 @@ class CreateAccountScene extends Phaser.Scene{
         BotonCrearCuenta.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
             this.sound.play('InteractSound');
             if (user.value !== "" && password.value !== "") {
+                this.user = user.value;
+                this.password = password.value;
                 $.ajax({
                     type: "POST",
                     headers: {
@@ -39,17 +44,16 @@ class CreateAccountScene extends Phaser.Scene{
                         'Content-type': 'application/json'
                     },
                     url: url + 'user',
-                    data: JSON.stringify({user: "" + user.value, password: "" + password.value}),
+                    data: JSON.stringify({user: "" + this.user, password: "" + this.password}),
                 })
                 .done((data, textStatus, jqXHR) => {
-                    this.success(user.value, password.value);
+                    this.success(this.user);
                     console.log(textStatus+" "+ jqXHR.status);
                     console.log(jqXHR.statusCode());
                 })
                 .fail((data, textStatus, jqXHR) =>
                 {
                     this.messageError();
-                    console.log(textStatus+" "+jqXHR.status);
                     console.log("User already Exists");
                 });
             }
@@ -66,11 +70,10 @@ class CreateAccountScene extends Phaser.Scene{
         this.time.delayedCall(3000, () => this.wrongPasswordText.setVisible(false));
     }
 
-    success(user,password){
+    success(user){
         this.scene.stop();
         this.scene.start('Menu', {
-            user: user,
-            password: password
+            user: user
         });
     }
 }

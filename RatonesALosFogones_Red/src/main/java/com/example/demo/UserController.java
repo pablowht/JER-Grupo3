@@ -57,7 +57,7 @@ public class UserController {
 	
 	@GetMapping("/activeUsersNum")
 	public int getActiveUsersNum() {
-    	return activeUsers.size();
+		return activeUsers.size();
     }
 	
 	@GetMapping("/users/{user}")
@@ -78,6 +78,7 @@ public class UserController {
 	@PostMapping("/activeUsers")
 	public boolean addCurrentUser(@RequestBody User newUser) 
 	{
+		System.out.println("Estas añadiendo un user...");
 		String username = newUser.getUser();
 		
 		activeUsers.put(username, newUser);
@@ -95,7 +96,7 @@ public class UserController {
     	{
     		System.out.println("El usuario no está guardado");
     		usersMap.put(username, newUser); 
-    		activeUsers.put(username, newUser);
+    		addCurrentUser(newUser); 
     		
             try (Writer writer = new BufferedWriter(new FileWriter(usersFileURL, true)))
             {
@@ -128,12 +129,13 @@ public class UserController {
     		System.out.println("Contains User");
     		if(usersMap.get(username).getPassword().equals(password))
     	    {
+        		addCurrentUser(newUser); 
     			System.out.println("User and Password exist");
     			return new ResponseEntity<>(newUser,HttpStatus.OK);
     	    }
     		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     	} 
-	    System.out.println("User dont Exist");
+	    System.out.println("User does not Exist");
 		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 	
@@ -206,7 +208,8 @@ public class UserController {
 		   inputFile.delete();
 		   boolean successful = tempFile.renameTo(inputFile);
 		   
-		   activeUsers.remove(username);
+		   if(activeUsers.size()>0) activeUsers.remove(username);
+		   
 		   usersMap.remove(username);
 	   }
 	}	

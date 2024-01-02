@@ -2,6 +2,9 @@ package com.example.demo;
 
 import java.io.*;
 import java.util.Stack;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -15,9 +18,10 @@ public class ChatController {
 	}
 	
 	@GetMapping("/chat/{i}")
-	public String getMessageAPI(@PathVariable("i") String i) {
+	public ResponseEntity<String> getMessageAPI(@PathVariable("i") String i) {
 		int size = messages.size();
 		String message = "";
+		
 		if(i.equals("0") && size>=1) {
 			message = messages.get(size-1);
 		}
@@ -40,7 +44,7 @@ public class ChatController {
 			message = messages.get(size-7);
 		}
 			
-		return message; 
+		return new ResponseEntity<>(message,HttpStatus.OK);
 	}
 	
 	@PostMapping("/chat")

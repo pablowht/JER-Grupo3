@@ -5,12 +5,12 @@ public class ChatMessage {
 	private String message;
 	
 	public ChatMessage(String _user, String _message) {
-		this.setUser(_user);
-		this.setMessage(_message);
+		this.user = _user;
+		this.message = _message;
 	}
 
 	public String getUser() {
-		return user;
+		return this.user;
 	}
 
 	public void setUser(String _user) {
@@ -18,7 +18,7 @@ public class ChatMessage {
 	}
 
 	public String getMessage() {
-		return message;
+		return this.message;
 	}
 
 	public void setMessage(String _message) {

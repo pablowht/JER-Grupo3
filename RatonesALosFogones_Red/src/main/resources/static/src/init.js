@@ -2,7 +2,7 @@
 var config = {
     type: Phaser.AUTO,
     gameTitle: "Ratones a los Fogones",
-    fullscreenTarget: juego,
+    fullscreenTarget: "juego",
     //pixelArt: true,
     scale: {
         mode: Phaser.Scale.FIT,
@@ -10,7 +10,7 @@ var config = {
         width: 1920,
         height: 1080
     },
-    parent: juego,
+    parent: "juego",
     dom: {
         createContainer: true,
     },

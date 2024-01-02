@@ -32,27 +32,27 @@ class MenuScene extends Phaser.Scene{
         activePrevUsersNumber = 0;
 
         url= window.location.href;
-		user = this.dataObj.user;
-		password = this.dataObj.password;
-		
+		this.user = this.dataObj.user;
+        console.log("user: "+this.user)
+
         //variables y funciones menú
         this.add.image(0,0,'Fondo_Menu').setOrigin(0, 0);
         let BotonJugar = this.add.image(990,540,'BOTON_JUGAR');
-        BotonJugar.setInteractive();
+        BotonJugar.setInteractive({ cursor: 'pointer' });
 
         let BotonCreditos = this.add.image(990,680,'BOTON_CREDITOS');
-        BotonCreditos.setInteractive();
+        BotonCreditos.setInteractive({ cursor: 'pointer' });
 
         let BotonAjustes = this.add.image(990,820,'BOTON_AJUSTES');
-        BotonAjustes.setInteractive();
+        BotonAjustes.setInteractive({ cursor: 'pointer' });
 
         let BotonUsuario = this.add.image(1750,100,'BOTON_USUARIO');
-        BotonUsuario.setInteractive();
+        BotonUsuario.setInteractive({ cursor: 'pointer' });
 
         //CAMBIO DE ESCENA DEL MENU A LA ESCENA IN-GAME
         BotonJugar.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
             this.sound.play('InteractSound');
-            this.scene.start('PlayerSelection', {user: this.user, password: this.password,  activeUsers: this.activeUsersNumber, activePrevUsers: this.activePrevUsersNumber}); //Niveles
+            this.scene.start('PlayerSelection', {user: this.user, activeUsers: this.activeUsersNumber, activePrevUsers: this.activePrevUsersNumber}); //Niveles
             //Cuando este selector de nivel, poner que al jugar vaya antes a "Niveles"
         });
 
@@ -71,7 +71,7 @@ class MenuScene extends Phaser.Scene{
         //CAMBIO DE ESCENA DEL MENU A USUARIO
         BotonUsuario.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
             this.sound.play('InteractSound');
-            this.scene.start("UserScene", {user: user, password: password});
+            this.scene.start("UserScene", {user: this.user});
         });
 
         textActiveUsers = this.add.text(117, 935, 'Usuarios activos login: ' + activeUsersNumber , {
@@ -86,7 +86,7 @@ class MenuScene extends Phaser.Scene{
         });
     }
 
-    update(time, delta)
+    update()
     {
         getActiveUsers();
         updateActiveUsers();
@@ -109,7 +109,6 @@ function updateActiveUsers(){
 }
 
 function deleteActiveUser(user) {
-	console.log("user funcion deleteActive: " + user);
     $.ajax({
         method: "DELETE",
         url: url + "activeUsers/" + user,
@@ -125,10 +124,12 @@ function deleteActiveUser(user) {
 }
 
 function getActiveUsers() {
+	console.log("url getactiveusers: "+url+"activeUsersNum");
     $.ajax({
-        url: url + "activeUsersNum",
         method: 'GET',
+        url: url + "activeUsersNum",
     }).done(function (data) {
+		console.log("data menu scene: "+data)
         activeUsersNumber = data;
     });
 }

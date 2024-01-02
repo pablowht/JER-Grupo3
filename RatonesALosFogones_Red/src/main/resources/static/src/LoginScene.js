@@ -8,6 +8,8 @@ class LoginScene extends Phaser.Scene{
     }
     create() {
 
+        this.input.keyboard.disableGlobalCapture();
+
         var url = window.location.href;
         this.add.image(0, 0, 'Fondo_Login').setOrigin(0, 0);
 
@@ -24,10 +26,10 @@ class LoginScene extends Phaser.Scene{
         this.emptyText.setVisible(false);
 
         let BotonAcceder = this.add.image(960, 960, 'Boton_Acceder');
-        BotonAcceder.setInteractive();
+        BotonAcceder.setInteractive({ cursor: 'pointer' });
 
         let BotonReturn = this.add.image(150, 150, 'Flecha');
-        BotonReturn.setInteractive();
+        BotonReturn.setInteractive({ cursor: 'pointer' });
 
         BotonReturn.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
             this.sound.play('InteractSound');
@@ -37,6 +39,8 @@ class LoginScene extends Phaser.Scene{
         BotonAcceder.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
             this.sound.play('InteractSound');
             if (user.value !== "" && password.value !== "") {
+                this.user = user.value;
+                this.password = password.value;
                 this.emptyText.setVisible(false);
                 $.ajax({
                     method: "POST",
@@ -45,18 +49,17 @@ class LoginScene extends Phaser.Scene{
                         'Content-type': 'application/json'
                     },
                     url: url + 'usersLogin',
-                    data: JSON.stringify({user: "" + user.value, password:"" + password.value}),
+                    data: JSON.stringify({user: "" + this.user, password:"" + this.password}),
                 })
                 .done((data, textStatus, jqXHR) =>
                 {
                     console.log(textStatus+" "+ jqXHR.status);
                     console.log(jqXHR.statusCode());
-                    this.success(user.value,password.value);
+                    this.success(this.user);
                 })
                 .fail((data, textStatus, jqXHR) =>
                 {
 					this.messageError();
-                    console.log(textStatus+" "+jqXHR.status);
                     console.log("User or Password Not Found");
                 });
             }
@@ -68,17 +71,15 @@ class LoginScene extends Phaser.Scene{
             fontFamily: 'Lexend',
             font: (40).toString() + "px Lexend",
             color: '#e82138',
-            boundsAlignH: "center",
-            boundsAlignV: "middle"
+            align: 'center'
         });
         this.time.delayedCall(3000, () => this.wrongPasswordText.setVisible(false));
 	}
 	
-	 success(user,password){
+	 success(user){
 		this.scene.stop();
         this.scene.start('Menu', {
             user: user,
-            password: password
         });
 	}
 }

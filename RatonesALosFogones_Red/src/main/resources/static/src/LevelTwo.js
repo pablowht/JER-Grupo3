@@ -27,13 +27,19 @@ class LevelTwo extends Phaser.Scene {
     esc;
 
     init(data) {
-        this.colorRaton1 = data.colorRaton1;
-        this.colorRaton2 = data.colorRaton2;
-        this.user = data.user;
-        this.password = data.password;
+        this.dataObj = data;
     }
 
     create() {
+
+        this.input.keyboard.disableGlobalCapture();
+
+        this.colorRaton1 = this.dataObj.colorRaton1;
+        this.colorRaton2 = this.dataObj.colorRaton2;
+        this.user = this.dataObj.user;
+        this.activeUsers = 0;
+        this.activeUsersPrev = 0;
+
         this.camera = new CameraMovement(this);
         this.camera.cam.setZoom(1.2, 1.85);
 
@@ -58,8 +64,7 @@ class LevelTwo extends Phaser.Scene {
         this.walkable.create(1239, 247, 'suelo4_N2'); 
         this.walkable.create(2997, 266, 'suelo5_N2');
 
-        //Colocar las plataformas
-		//Colocados
+        //MUEBLES PLAYER 1
         this.platforms.create(360,200, 'armarioBajo2');
         this.platforms.create(420, 120, 'armarioAlto1');
         this.platforms.create(510, 95, 'armarioAlto2');
@@ -90,15 +95,12 @@ class LevelTwo extends Phaser.Scene {
         this.platforms.create(2705, 95, 'armarioAlto2');
         this.platforms.create(2775, 90, 'armarioAlto1');
  		this.platforms.create(2755, 270, 'armarioBajo2');
- 		
-
-
 
         //Meta
         this.meta.create(3100, 120, 'Meta');
         this.meta.create(3100, 520, 'Meta');
 
-        //OBSTACULOS NIVEL 1 PLAYER 1
+        //OBSTACULOS PLAYER 1
         this.obstaculos.create(260, 170, 'TrampaRatones');
         this.obstaculos.create(480, 215, 'CascaraPlatano');
         this.obstaculos.create(730, 230, 'CascaraPlatano');
@@ -109,7 +111,7 @@ class LevelTwo extends Phaser.Scene {
         this.obstaculos.create(1750, 290, 'CascaraPlatano');
         this.obstaculos.create(2410, 290, 'TrampaRatones');
 
-        //OBSTACULOS MOVIBLES NIVEL 2 PLAYER 1
+        //OBSTACULOS MOVIBLES  PLAYER 1
         this.Cacerolas = this.physics.add.group({
             allowGravity:false,
             bounceX:1,
@@ -135,37 +137,23 @@ class LevelTwo extends Phaser.Scene {
             frames: this.anims.generateFrameNumbers('Fogon', {start: 2, end: 11}),
             frameRate: 5,
         });
-      /*  this.anims.create({
-            key: 'trampa_cerrada',
-            frames: this.anims.generateFrameNumbers('TrampaOso', {start: 1, end: 1}),
-            frameRate: 5,
-        });*/
 
-        /*this.obstFogon2 = this.add.sprite(543, 220, 'Fogon', 0);
-        this.obstFogon3 = this.add.sprite(565, 220, 'Fogon', 0);
-        this.obstFogon4 = this.add.sprite(1130, 275, 'Fogon', 0);
-        this.obstFogon5 = this.add.sprite(1155, 275, 'Fogon', 0);
-        this.obstFogon6 = this.add.sprite(1330, 275, 'Fogon', 0);
-        this.obstFogon7 = this.add.sprite(1355, 275, 'Fogon', 0);*/
+
         this.obstFogon14 = this.add.sprite(2560, 275, 'Fogon', 0);
         this.obstFogon15 = this.add.sprite(2585, 275, 'Fogon', 0);
         this.obstFogon16 = this.add.sprite(2685, 275, 'Fogon', 0);
         this.obstFogon17 = this.add.sprite(2710, 275, 'Fogon', 0);
 
-       /* this.obstaculos.create(543, 220, 'Fogon');
-        this.obstaculos.create(565, 220, 'Fogon');
-        this.obstaculos.create(1130, 275, 'Fogon');
-        this.obstaculos.create(1155, 275, 'Fogon');
-        this.obstaculos.create(1330, 275, 'Fogon');*/
+
         this.obstaculos.create(2560, 275, 'Fogon');
         this.obstaculos.create(2585, 275, 'Fogon');
         this.obstaculos.create(2685, 275, 'Fogon');
         this.obstaculos.create(2710, 275, 'Fogon');
 
-        //this.obstOso1 = this.add.sprite(400,170,'Trampa0s0',0);
-        //this.obstaculos.create(400,170,'TrampaOso');
         //MAPA PLAYER2
-        //SEGURO QUE HAY QUE MODIFICAR LOS VALORES  (colocar primero el 1 y luego añadir 400 en y)
+
+        this.walkable.create(1600, 410, 'techoMapa_N2');
+        this.walkable.create(2146, 467, 'techoMapa2_N2');
 
         this.walkable.create(160, 612, 'suelo1_N2');
         this.walkable.create(415, 674, 'suelo2_N2');
@@ -173,7 +161,7 @@ class LevelTwo extends Phaser.Scene {
         this.walkable.create(1239, 647, 'suelo4_N2'); 
         this.walkable.create(2997, 666, 'suelo5_N2');
 
-        //OBSTACULOS ESTATICOS NIVEL 1 PLAYER 2
+        //MUEBLES PLAYER 2
 
         this.platforms.create(360,600, 'armarioBajo2');
         this.platforms.create(420, 520, 'armarioAlto1');
@@ -229,12 +217,8 @@ class LevelTwo extends Phaser.Scene {
         this.obstaculos.create(2710, 675, 'Fogon');
 
         //OBSTACULOS DINAMICOS PLAYER 2
-        /*this.Cacerolas2.push(this.add.image(400,570,'Cacerola'));
-        this.Cacerolas2.push(this.add.image(400,570,'Cacerola'));
-        this.Cacerolas2.push(this.add.image(400,570,'Cacerola'));
-        this.Cacerolas2.push(this.add.image(400,570,'Cacerola'));
-    */
-        //this.Cacerolas.create(400,570,'Cacerola');
+
+
         //Carteles Ratones
         this.add.image(340, 70, 'Raton1Ingame').setScale(0.4);
         this.add.image(340, 470, 'Raton2Ingame').setScale(0.4);
@@ -295,6 +279,16 @@ class LevelTwo extends Phaser.Scene {
 
         this.esc = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
 
+        window.addEventListener('beforeunload', () =>
+        {
+            deleteActiveUser(this.user);
+        });
+
+        textActiveUsers = this.add.text(117, 935, 'Usuarios activos login: ' + this.activeUsers , {
+            fontFamily: 'Lexend',
+            font: (40).toString() + "px Lexend",
+            color: 'black'
+        });
     }
 
     update(timeNum, timeDelta) {
@@ -313,27 +307,19 @@ class LevelTwo extends Phaser.Scene {
         this.activateFogon(this.obstFogon19);
         this.activateFogon(this.obstFogon20);
         this.activateFogon(this.obstFogon21);
-       // this.activateTrampaOso(this.obstOso1);
-
-        //OBSTACULOS DINÁMICOS
-        //Phaser.Actions.IncY(this.Cacerolas1,-1,-0.025);
-
-
 
         //Para pausa
         if (this.esc.isDown) {
             this.sound.play('InteractSound');
             this.scene.pause();
-            this.scene.launch('Pause', {isPaused: true});
+            this.scene.launch('Pause', {isPaused: true, level:2});
         }
-    }
-   /* changeVelocity(Cacerolas,walkable){
-        let velocity=-50
-        console.log("dentro de changeVelocity");
 
-    velocity=velocity*(-1);
-    this.Cacerolas.setVelocityY(velocity);
-    }*/s
+        getActiveUsers();
+        updateActiveUsers();
+        textActiveUsers.setText('Usuarios activos: ' + this.activeUsers);
+    }
+
     hitMeta(player, meta) {
         if (player.texture.key === 1) {
             this.player1.gestionCollision(meta);
@@ -375,16 +361,52 @@ class LevelTwo extends Phaser.Scene {
     }
 
     EndGame() {
-        console.log("level2: user: "+this.user);
-
         this.scene.start("GameOver", {
             raton1: this.colorRaton1, 
             raton2:this.colorRaton2, 
             ganador1:this.player1Won, 
             ganador2:this.player2Won, 
-            user: this.user, 
-            password:this.password
+            user: this.user,
+            activeUsers: this.activeUsersNumber,
+            activePrevUsers: this.activePrevUsersNumber
         });
     }
+}
 
+function updateActiveUsers(){
+
+    if(this.activeUsersPrev !== this.activeUsers)
+    {
+        if(this.activeUsersPrev < this.activeUsers){
+            console.log("Se ha conectado alguien. El número actual de usuarios es: " + this.activeUsers);
+        }else if(this.activeUsersPrev > this.activeUsers){
+            console.log("Alguien se ha desconectado. El número actual de usuarios es: " + this.activeUsers);
+        }
+        this.activeUsersPrev = this.activeUsers;
+    }
+
+}
+
+function deleteActiveUser(user) {
+    $.ajax({
+        method: "DELETE",
+        url: url + "activeUsers/" + user,
+        data: user,
+        success : function () {
+            console.log("User removed");
+        },
+        error : function () {
+            console.log("Failed to delete");
+            console.log("The URL was:\n" + url + "users/" + user)
+        }
+    });
+}
+
+function getActiveUsers() {
+    $.ajax({
+        url: url + "activeUsersNum",
+        method: 'GET',
+    }).done(function (data) {
+        this.activeUsers = data;
+    });
 }

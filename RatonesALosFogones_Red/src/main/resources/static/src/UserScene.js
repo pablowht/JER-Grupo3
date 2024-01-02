@@ -20,7 +20,7 @@ class UserScene extends Phaser.Scene {
         url = window.location.href;
 
         infoDataUser = this.dataObj.user;
-        infoDataPassword = this.dataObj.password;
+
         console.log("info data user: " +  infoDataUser);
         console.log("info data pass: " +  infoDataPassword);
 
@@ -35,7 +35,7 @@ class UserScene extends Phaser.Scene {
             }).setOrigin(0.5, 0.5);
 
         let BotonChangePassword = this.add.image(700, 730, 'Boton_ChangePassword');
-        BotonChangePassword.setInteractive();
+        BotonChangePassword.setInteractive({ cursor: 'pointer' });
 
         BotonChangePassword.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
             this.sound.play('InteractSound');
@@ -44,7 +44,7 @@ class UserScene extends Phaser.Scene {
         });
 
         let BotonReturn = this.add.image(150, 150, 'Flecha');
-        BotonReturn.setInteractive();
+        BotonReturn.setInteractive({ cursor: 'pointer' });
 
         BotonReturn.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
             this.sound.play('InteractSound');
@@ -52,7 +52,7 @@ class UserScene extends Phaser.Scene {
         });
 
         let BotonEliminar = this.add.image(1248, 730, 'Boton_Eliminar');
-        BotonEliminar.setInteractive();
+        BotonEliminar.setInteractive({ cursor: 'pointer' });
 
         BotonEliminar.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
             this.sound.play('InteractSound');
