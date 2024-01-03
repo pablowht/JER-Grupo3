@@ -69,10 +69,10 @@ class SelectLevelScene extends Phaser.Scene {
 
         window.addEventListener('beforeunload', () =>
         {
-            deleteActiveUser(this.user);
+            this.deleteActiveUser(this.user);
         });
 
-        this.textActiveUsers = this.add.text(117, 935, 'Usuarios activos login: ' + this.activeUsers , {
+        this.textActiveUsers = this.add.text(117, 935, 'Usuarios activos login: ' + this.activeUsersNumber , {
             fontFamily: 'Lexend',
             font: (40).toString() + "px Lexend",
             color: 'black'
@@ -84,13 +84,13 @@ class SelectLevelScene extends Phaser.Scene {
     }
 
     StartPlaying(level){
-        this.scene.start(level, {colorRaton1: this.raton1, colorRaton2:this.raton2, user : this.user,  activeUsers: this.activeUsersNumber, activePrevUsers: this.activePrevUsersNumber});
+        this.scene.start(level, {colorRaton1: this.raton1, colorRaton2:this.raton2, user : this.user});
     }
 
     update(){
         this.getActiveUsers();
         this.updateActiveUsers();
-        this.textActiveUsers.setText('Usuarios activos: ' + this.activeUsers);
+        this.textActiveUsers.setText('Usuarios activos: ' + this.activeUsersNumber);
     }
     updateActiveUsers()
     {

@@ -271,10 +271,10 @@ class LevelOne extends Phaser.Scene {
 
         window.addEventListener('beforeunload', () =>
         {
-            deleteActiveUser(this.user);
+            this.deleteActiveUser(this.user);
         });
 
-        this.textActiveUsers = this.add.text(117, 935, 'Usuarios activos login: ' + this.activeUsers , {
+        this.textActiveUsers = this.add.text(117, 935, 'Usuarios activos login: ' + this.activeUsersNumber , {
             fontFamily: 'Lexend',
             font: (40).toString() + "px Lexend",
             color: 'black'
@@ -322,7 +322,7 @@ class LevelOne extends Phaser.Scene {
 
         this.getActiveUsers();
         this.updateActiveUsers();
-        this.textActiveUsers.setText('Usuarios activos: ' + this.activeUsers);
+        this.textActiveUsers.setText('Usuarios activos: ' + this.activeUsersNumber);
     }
 
     hitMeta(player, meta){
@@ -367,9 +367,7 @@ class LevelOne extends Phaser.Scene {
 			raton2:this.colorRaton2, 
 			ganador1:this.player1Won, 
 			ganador2:this.player2Won, 
-			user: this.user,
-            activeUsers: this.activeUsersNumber,
-            activePrevUsers: this.activePrevUsersNumber
+			user: this.user
 		});
     }
     updateActiveUsers()

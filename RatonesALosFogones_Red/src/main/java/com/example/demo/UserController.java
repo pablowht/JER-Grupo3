@@ -163,7 +163,7 @@ public class UserController {
 	@DeleteMapping("/activeUsers")
     public void closeSession(@PathVariable("_user") String username)throws IOException{
  	   if(activeUsers.containsKey(username)) {
- 		   activeUsers.remove(username);
+ 		   if(activeUsers.size()>0) activeUsers.remove(username);
  		   System.out.println("Un usuario se ha desconectado.");
  	   }
     }

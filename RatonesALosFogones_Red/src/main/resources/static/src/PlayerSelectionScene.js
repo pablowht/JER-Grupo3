@@ -173,7 +173,7 @@ class PlayerSelectionScene extends Phaser.Scene {
 
         window.addEventListener('beforeunload', () =>
         {
-            deleteActiveUser(this.user);
+            this.deleteActiveUser(this.user);
         });
 
         this.textActiveUsers = this.add.text(117, 935, 'Usuarios activos login: ' + this.activeUsers , {
@@ -190,7 +190,7 @@ class PlayerSelectionScene extends Phaser.Scene {
     {
         this.getActiveUsers();
         this.updateActiveUsers();
-        this.textActiveUsers.setText('Usuarios activos: ' + this.activeUsers);
+        this.textActiveUsers.setText('Usuarios activos: ' + this.activeUsersNumber);
     }
 
     ReiniciarVariables(){
@@ -244,7 +244,6 @@ class PlayerSelectionScene extends Phaser.Scene {
             this.assignValue(data);
         })
     }
-
     assignValue(data){
         this.activeUsersNumber = data;
     }

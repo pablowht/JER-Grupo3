@@ -17,6 +17,7 @@ class ChangePasswordScene extends Phaser.Scene {
 	}
 
     create() {
+        this.activePrevUsersNumber = 0;
 
         this.input.keyboard.disableGlobalCapture();
 

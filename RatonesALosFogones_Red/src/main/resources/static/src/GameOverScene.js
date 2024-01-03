@@ -22,6 +22,7 @@ class GameOverScene extends Phaser.Scene {
     create(){
 
         this.input.keyboard.disableGlobalCapture();
+        this.activePrevUsersNumber = 0;
 
         user = this.dataObj.user;
         this.colorRaton1 = this.dataObj.raton1;
@@ -131,10 +132,10 @@ class GameOverScene extends Phaser.Scene {
         });
         window.addEventListener('beforeunload', () =>
         {
-            deleteActiveUser(user);
+            this.deleteActiveUser(user);
         });
 
-        this.textActiveUsers = this.add.text(117, 935, 'Usuarios activos: ' + this.activeUsers , {
+        this.textActiveUsers = this.add.text(117, 935, 'Usuarios activos: ' + this.activeUsersNumber , {
             fontFamily: 'Lexend',
             font: (40).toString() + "px Lexend",
             color: 'black'
@@ -149,7 +150,7 @@ class GameOverScene extends Phaser.Scene {
     update(){
         this.getActiveUsers();
         this.updateActiveUsers();
-        this.textActiveUsers.setText('Usuarios activos: ' + this.activeUsers);
+        this.textActiveUsers.setText('Usuarios activos: ' + this.activeUsersNumber);
 
         if(!this.gameOverOn){
             this.gameOverOn = true;
