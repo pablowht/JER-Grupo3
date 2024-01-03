@@ -58,6 +58,9 @@ class CreateAccountScene extends Phaser.Scene{
                 });
             }
         });
+
+        var chat = this.add.dom(1420, 820).createFromCache('chat_html');
+        chat.setVisible(false);
     }
     messageError(){
         this.wrongPasswordText = this.add.text(50, 590, 'USUARIO YA EXISTENTE', {

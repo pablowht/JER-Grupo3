@@ -22,5 +22,8 @@ class LoginCreateScene extends Phaser.Scene{
             this.scene.start('LoginScene');
         });
 
+        var chat = this.add.dom(1420, 820).createFromCache('chat_html');
+        chat.setVisible(false);
+
     }
 }

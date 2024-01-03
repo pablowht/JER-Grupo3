@@ -32,11 +32,8 @@ public class UserController {
 				User auxUser = new User(data[0], data[1]);
 				
 				usersMap.put(auxUser.getUser(), auxUser);
-	
 			}
-			
 			reader.close();
-			
 		}catch(FileNotFoundException e) 
 		{
 			System.out.println("Error reading the users");

@@ -6,9 +6,6 @@ var url;
 var user;
 var password;
 
-let activeUsersNumber;
-let activePrevUsersNumber;
-let textActiveUsers;
 
 class MenuScene extends Phaser.Scene{
 
@@ -20,7 +17,7 @@ class MenuScene extends Phaser.Scene{
         this.backgroundMusic = this.sound.add('MenuMusic', {loop: true});
     }
 
-	init(data)
+    init(data)
     {
         this.dataObj = data;
     }
@@ -28,11 +25,10 @@ class MenuScene extends Phaser.Scene{
     backgroundMusic;
 
     create(){
-        activeUsersNumber = 0;
-        activePrevUsersNumber = 0;
+        this.activePrevUsersNumber = 0;
 
         url= window.location.href;
-		this.user = this.dataObj.user;
+        this.user = this.dataObj.user;
         console.log("user: "+this.user)
 
         //variables y funciones menú
@@ -74,7 +70,7 @@ class MenuScene extends Phaser.Scene{
             this.scene.start("UserScene", {user: this.user});
         });
 
-        textActiveUsers = this.add.text(117, 935, 'Usuarios activos login: ' + activeUsersNumber , {
+        this.textActiveUsers = this.add.text(117, 935, 'Usuarios activos login: ' + this.activeUsersNumber , {
             fontFamily: 'Lexend',
             font: (40).toString() + "px Lexend",
             color: 'black'
@@ -82,54 +78,64 @@ class MenuScene extends Phaser.Scene{
 
         window.addEventListener('beforeunload', () =>
         {
-            deleteActiveUser(user);
+            this.deleteActiveUser(user);
         });
+
+        var chat = this.add.dom(1420, 820).createFromCache('chat_html');
+        chat.setVisible(false);
     }
 
     update()
     {
-        getActiveUsers();
-        updateActiveUsers();
-        textActiveUsers.setText('Usuarios activos: ' + activeUsersNumber);
+        this.getActiveUsers();
+        this.updateActiveUsers();
+        this.textActiveUsers.setText('Usuarios activos: ' + this.activeUsersNumber);
     }
-}
 
-function updateActiveUsers(){
-
-    if(activePrevUsersNumber !== activeUsersNumber)
+    updateActiveUsers()
     {
-        if(activePrevUsersNumber < activeUsersNumber){
-            console.log("Se ha conectado alguien. El número actual de usuarios es: " + activeUsersNumber);
-        }else if(activePrevUsersNumber > activeUsersNumber){
-            console.log("Alguien se ha desconectado. El número actual de usuarios es: " + activeUsersNumber);
+
+        if(this.activePrevUsersNumber !== this.activeUsersNumber)
+        {
+            if(this.activePrevUsersNumber < this.activeUsersNumber){
+                console.log("Se ha conectado alguien. El número actual de usuarios es: " + this.activeUsersNumber);
+            }else if(this.activePrevUsersNumber > this.activeUsersNumber){
+                console.log("Alguien se ha desconectado. El número actual de usuarios es: " + this.activeUsersNumber);
+            }
+            this.activePrevUsersNumber = this.activeUsersNumber;
         }
-        activePrevUsersNumber = activeUsersNumber;
+
     }
 
+    deleteActiveUser(user)
+    {
+        $.ajax({
+            method: "DELETE",
+            url: url + "activeUsers/" + user,
+            data: user,
+            success : function () {
+                console.log("User removed");
+            },
+            error : function () {
+                console.log("Failed to delete");
+                console.log("The URL was:\n" + url + "users/" + user)
+            }
+        });
+    }
+
+    getActiveUsers()
+    {
+        $.ajax({
+            method: 'GET',
+            url: url + "activeUsersNum",
+        }).done((data)=> {
+            this.assignValue(data);
+        })
+    }
+
+    assignValue(data){
+        this.activeUsersNumber = data;
+    }
 }
 
-function deleteActiveUser(user) {
-    $.ajax({
-        method: "DELETE",
-        url: url + "activeUsers/" + user,
-        data: user,
-        success : function () {
-            console.log("User removed");
-        },
-        error : function () {
-            console.log("Failed to delete");
-            console.log("The URL was:\n" + url + "users/" + user)
-        }
-    });
-}
 
-function getActiveUsers() {
-	console.log("url getactiveusers: "+url+"activeUsersNum");
-    $.ajax({
-        method: 'GET',
-        url: url + "activeUsersNum",
-    }).done(function (data) {
-		console.log("data menu scene: "+data)
-        activeUsersNumber = data;
-    });
-}

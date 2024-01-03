@@ -25,8 +25,7 @@ class PlayerSelectionScene extends Phaser.Scene {
 	
     create(){
         this.user = this.dataObj.user;
-        this.activeUsers = 0;
-        this.activeUsersPrev = 0;
+        this.activePrevUsersNumber = 0;
 
         //Se reinician las variables para que si se vuelve a entrar después de una partida los valores estén correctos
         this.ReiniciarVariables();
@@ -177,18 +176,21 @@ class PlayerSelectionScene extends Phaser.Scene {
             deleteActiveUser(this.user);
         });
 
-        textActiveUsers = this.add.text(117, 935, 'Usuarios activos login: ' + this.activeUsers , {
+        this.textActiveUsers = this.add.text(117, 935, 'Usuarios activos login: ' + this.activeUsers , {
             fontFamily: 'Lexend',
             font: (40).toString() + "px Lexend",
             color: 'black'
         });
+
+        var chat = this.add.dom(1420, 820).createFromCache('chat_html');
+        chat.setVisible(false);
     }
 
     update(time, delta)
     {
-        getActiveUsers();
-        updateActiveUsers();
-        textActiveUsers.setText('Usuarios activos: ' + this.activeUsers);
+        this.getActiveUsers();
+        this.updateActiveUsers();
+        this.textActiveUsers.setText('Usuarios activos: ' + this.activeUsers);
     }
 
     ReiniciarVariables(){
@@ -202,42 +204,50 @@ class PlayerSelectionScene extends Phaser.Scene {
         this.ratonBElegido = false;
         this.ratonMElegido = false;
     }
-}
-function updateActiveUsers(){
-
-    if(this.activeUsersPrev !== this.activeUsers)
+    updateActiveUsers()
     {
-        if(this.activeUsersPrev < this.activeUsers){
-            console.log("Se ha conectado alguien. El número actual de usuarios es: " + this.activeUsers);
-        }else if(this.activeUsersPrev > this.activeUsers){
-            console.log("Alguien se ha desconectado. El número actual de usuarios es: " + this.activeUsers);
+
+        if(this.activePrevUsersNumber !== this.activeUsersNumber)
+        {
+            if(this.activePrevUsersNumber < this.activeUsersNumber){
+                console.log("Se ha conectado alguien. El número actual de usuarios es: " + this.activeUsersNumber);
+            }else if(this.activePrevUsersNumber > this.activeUsersNumber){
+                console.log("Alguien se ha desconectado. El número actual de usuarios es: " + this.activeUsersNumber);
+            }
+            this.activePrevUsersNumber = this.activeUsersNumber;
         }
-        this.activeUsersPrev = this.activeUsers;
+
     }
 
+    deleteActiveUser(user)
+    {
+        $.ajax({
+            method: "DELETE",
+            url: url + "activeUsers/" + user,
+            data: user,
+            success : function () {
+                console.log("User removed");
+            },
+            error : function () {
+                console.log("Failed to delete");
+                console.log("The URL was:\n" + url + "users/" + user)
+            }
+        });
+    }
+
+    getActiveUsers()
+    {
+        $.ajax({
+            method: 'GET',
+            url: url + "activeUsersNum",
+        }).done((data)=> {
+            this.assignValue(data);
+        })
+    }
+
+    assignValue(data){
+        this.activeUsersNumber = data;
+    }
 }
 
-function deleteActiveUser(user) {
-    console.log("user funcion deleteActive: " + user);
-    $.ajax({
-        method: "DELETE",
-        url: url + "activeUsers/" + user,
-        data: user,
-        success : function () {
-            console.log("User removed");
-        },
-        error : function () {
-            console.log("Failed to delete");
-            console.log("The URL was:\n" + url + "users/" + user)
-        }
-    });
-}
 
-function getActiveUsers() {
-    $.ajax({
-        url: url + "activeUsersNum",
-        method: 'GET',
-    }).done(function (data) {
-        this.activeUsers = data;
-    });
-}

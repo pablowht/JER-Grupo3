@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import java.io.*;
+import java.util.Scanner;
 import java.util.Stack;
 
 import org.springframework.http.HttpStatus;
@@ -11,7 +12,32 @@ import org.springframework.web.bind.annotation.*;
 public class ChatController {
 	Stack<String> messages = new Stack<String>();
 	String charFileURL = "src/main/resources/static/dataSaving/chatData.txt";
-	
+
+	public ChatController()
+    	{
+    		try
+    		{
+    			File obj = new File(charFileURL);
+    			Scanner reader = new Scanner(obj);
+
+    			while (reader.hasNextLine()) {
+    				String data[] = reader.nextLine().split(";");
+    				ChatMessage auxMessage = new ChatMessage(data[0], data[1]);
+    				
+    				String contents = auxMessage.getUser() + ": " + auxMessage.getMessage();
+    				
+    				messages.add(contents);
+    			}
+
+    			reader.close();
+
+    		}catch(FileNotFoundException e)
+    		{
+    			System.out.println("Error reading the chat");
+    			e.printStackTrace();
+    		}
+    	}
+
 	@GetMapping("/allMessages")
 	public Stack<String> getAllMessages(){
 		return messages;
