@@ -60,7 +60,8 @@ class UserScene extends Phaser.Scene {
         var chat = this.add.dom(1420, 820).createFromCache('chat_html');
         chat.setVisible(false);
 
-        this.textActiveUsers = this.add.text(117, 935, 'Usuarios activos login: ' + this.activeUsersNumber , {
+        this.add.image(960, 935, 'Recuadro_UsuariosActivos');
+        this.textActiveUsers = this.add.text(800, 919.5, 'Usuarios activos: ' + this.activeUsersNumber , {
             fontFamily: 'Lexend',
             font: (40).toString() + "px Lexend",
             color: 'black'

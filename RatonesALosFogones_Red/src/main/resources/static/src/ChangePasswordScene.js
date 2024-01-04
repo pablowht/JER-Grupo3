@@ -77,11 +77,11 @@ class ChangePasswordScene extends Phaser.Scene {
         var chat = this.add.dom(1420, 820).createFromCache('chat_html');
         chat.setVisible(false);
 
-        this.textActiveUsers = this.add.text(117, 935, 'Usuarios activos login: ' + this.activeUsersNumber , {
-            fontFamily: 'Lexend',
-            font: (40).toString() + "px Lexend",
-            color: 'black'
-        });
+        //this.textActiveUsers = this.add.text(117, 935, 'Usuarios activos login: ' + this.activeUsersNumber , {
+        //    fontFamily: 'Lexend',
+        //    font: (40).toString() + "px Lexend",
+        //    color: 'black'
+        //});
 
         window.addEventListener('beforeunload', () =>
         {
@@ -93,7 +93,7 @@ class ChangePasswordScene extends Phaser.Scene {
     update(){
         this.getActiveUsers();
         this.updateActiveUsers();
-        this.textActiveUsers.setText('Usuarios activos: ' + this.activeUsersNumber);
+        //this.textActiveUsers.setText('Usuarios activos: ' + this.activeUsersNumber);
     }
     messageError(){
         this.errorPassword = this.add.text(100, 800, 'CONTRASEÑA NO VÁLIDA', {

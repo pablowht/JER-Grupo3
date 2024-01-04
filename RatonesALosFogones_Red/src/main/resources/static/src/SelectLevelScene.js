@@ -7,6 +7,8 @@ class SelectLevelScene extends Phaser.Scene {
 		this.dataObj = data;
     }
 
+    //time;
+
     create(){
         this.raton1 = this.dataObj.colorRaton1;
         this.raton2 = this.dataObj.colorRaton2;
@@ -72,7 +74,8 @@ class SelectLevelScene extends Phaser.Scene {
             this.deleteActiveUser(this.user);
         });
 
-        this.textActiveUsers = this.add.text(117, 935, 'Usuarios activos login: ' + this.activeUsersNumber , {
+        this.add.image(960, 1005, 'Recuadro_UsuariosActivos');
+        this.textActiveUsers = this.add.text(800, 939.5, 'Usuarios activos: ' + this.activeUsersNumber , {
             fontFamily: 'Lexend',
             font: (40).toString() + "px Lexend",
             color: 'black'

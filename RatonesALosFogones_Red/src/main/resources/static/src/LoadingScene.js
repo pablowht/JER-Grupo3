@@ -13,6 +13,8 @@ class LoadingScene extends Phaser.Scene {
         });
 
         //ASSETS DEL JUEGO
+        this.load.image('Recuadro_UsuariosActivos','../assets/INTERFACES/Menu/Rectangulo.png');
+
 
         //Menu de Login/Create
         this.load.image('Fondo_LoginCreate','../assets/INTERFACES/LoginCreate/Fondo_LoginCreate.png');

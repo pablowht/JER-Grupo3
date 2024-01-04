@@ -135,6 +135,7 @@ class GameOverScene extends Phaser.Scene {
             this.deleteActiveUser(user);
         });
 
+        this.add.image(289, 960, 'Recuadro_UsuariosActivos');
         this.textActiveUsers = this.add.text(117, 935, 'Usuarios activos: ' + this.activeUsersNumber , {
             fontFamily: 'Lexend',
             font: (40).toString() + "px Lexend",

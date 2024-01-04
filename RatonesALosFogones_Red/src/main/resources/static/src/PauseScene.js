@@ -9,7 +9,6 @@ class PauseScene extends Phaser.Scene {
     muted;
     level;
 
-
     init(data){
         this.isPaused=data.isPaused;
         this.levelNumber = data.level;
@@ -26,10 +25,20 @@ class PauseScene extends Phaser.Scene {
         if(this.isPaused){ BotonContinuar.setVisible(true); BotonContinuar.setInteractive({ cursor: 'pointer' }); }
 
         let BotonSalir=this.add.image(1167, 960, 'BotonSalir');
-        BotonSalir.setInteractive({ cursor: 'pointer' });
-
+        BotonSalir.setInteractive({ cursor: 'pointer' })
         let BotonSonido=this.add.image(960,810,'BotonSonido');
         BotonSonido.setInteractive({ cursor: 'pointer' });
+
+        //confirmacion de salir
+        let imgConfirmar= this.add.image(0, 0, 'FondoSalir').setOrigin(0, 0);
+        imgConfirmar.setVisible(false) ;
+        let botonAceptar = this.add.image(700, 860, 'BotonAceptar');
+        //
+        botonAceptar.setVisible(false);
+        let botonCancelar = this.add.image(1250, 860, 'BotonCancelar');
+        //
+        botonCancelar.setVisible(false);
+
 
         this.esc = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
 
@@ -45,16 +54,29 @@ class PauseScene extends Phaser.Scene {
             if(!this.isPaused) {
                 this.scene.start("Menu");
             }else{
-                //this.sound.stopAll();
-                //this.sound.play('MenuMusic');
-                this.CheckLevel();
-                let levelGame = this.level;
-                this.scene.pause(this.level);
-                this.scene.start('ExitGameConfirmation',{levelExit:levelGame,isPaused:this.isPaused});
-                //this.CheckLevel();
-                //this.scene.stop(this.level);
+
+                imgConfirmar.setVisible(true);
+                botonAceptar.setVisible(true);
+                botonCancelar.setVisible(true);
+                botonAceptar.setInteractive({cursor: 'pointer'});
+                botonCancelar.setInteractive({cursor: 'pointer'});
             }
         });
+        botonAceptar.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
+            this.sound.stopAll();
+            this.sound.play('MenuMusic');
+            this.CheckLevel();
+            this.scene.stop(this.level);
+            this.scene.start('Menu')
+        });
+        botonCancelar.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=> {
+            imgConfirmar.setVisible(false);
+            botonAceptar.setVisible(false);
+            botonCancelar.setVisible(false);
+            botonAceptar.disableInteractive();
+
+        });
+
 
         BotonSonido.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
             this.sound.play('InteractSound');
@@ -72,11 +94,14 @@ class PauseScene extends Phaser.Scene {
         var chat = this.add.dom(1420, 820).createFromCache('chat_html');
         chat.setVisible(false);
 
-        this.textActiveUsers = this.add.text(117, 935, 'Usuarios activos login: ' + this.activeUsersNumber , {
+        this.add.image(289, 960, 'Recuadro_UsuariosActivos');
+        this.textActiveUsers = this.add.text(117, 935, 'Usuarios activos: ' + this.activeUsersNumber , {
             fontFamily: 'Lexend',
             font: (40).toString() + "px Lexend",
             color: 'black'
         });
+
+
 
         window.addEventListener('beforeunload', () =>
         {

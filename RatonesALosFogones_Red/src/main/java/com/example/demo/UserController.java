@@ -171,7 +171,7 @@ public class UserController {
 	@DeleteMapping("/activeUsers/{username}")
    	public void deleteCurrentUser(@PathVariable String username)throws IOException{
 		if(activeUsers.containsKey(username)) {
-		   activeUsers.remove(username);
+		   if(activeUsers.size()>0) activeUsers.remove(username);
 		   System.out.println("Un usuario se ha desconectado.");
 		}
    }
@@ -206,7 +206,6 @@ public class UserController {
 		   boolean successful = tempFile.renameTo(inputFile);
 		   
 		   if(activeUsers.size()>0) activeUsers.remove(username);
-		   
 		   usersMap.remove(username);
 	   }
 	}	

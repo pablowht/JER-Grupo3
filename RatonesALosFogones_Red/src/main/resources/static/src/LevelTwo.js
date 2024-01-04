@@ -171,7 +171,7 @@ class LevelTwo extends Phaser.Scene {
         this.platforms.create(580, 495, 'armarioAlto2');
         this.platforms.create(650, 495, 'armarioAlto2');
         this.platforms.create(720, 495, 'armarioAlto2');
-        this.platforms.create(555, 6230, 'armarioAlto1');
+        this.platforms.create(555, 630, 'armarioAlto1');
         this.platforms.create(695, 670, 'armarioBajo2');
         this.platforms.create(760, 670, 'armarioBajo2');
         this.platforms.create(820, 585, 'armarioAlto1');
@@ -199,7 +199,7 @@ class LevelTwo extends Phaser.Scene {
         this.obstaculos.create(260, 570, 'TrampaRatones');
         this.obstaculos.create(480, 615, 'CascaraPlatano');
         this.obstaculos.create(730, 630, 'CascaraPlatano');
-       // this.obstaculos.create(1035, 515, 'CascaraPlatano');
+
         this.obstaculos.create(1330, 570, 'TrampaRatones');
         this.obstaculos.create(1445, 570, 'TrampaRatones');
         this.obstaculos.create(1750, 690, 'CascaraPlatano');
@@ -229,8 +229,8 @@ class LevelTwo extends Phaser.Scene {
 
 
         //Carteles Ratones
-        this.add.image(320, 60, 'Raton1Ingame').setScale(0.4);
-        this.add.image(320, 460, 'Raton2Ingame').setScale(0.4);
+        this.add.image(240, 60, 'Raton1Ingame').setScale(0.4);
+        this.add.image(240, 460, 'Raton2Ingame').setScale(0.4);
 
         //Inicialización de los jugadores
         this.player1.assignControls();
@@ -302,11 +302,11 @@ class LevelTwo extends Phaser.Scene {
             this.deleteActiveUser(this.user);
         });
 
-        this.textActiveUsers = this.add.text(117, 935, 'Usuarios activos login: ' + this.activeUsersNumber , {
-            fontFamily: 'Lexend',
-            font: (40).toString() + "px Lexend",
-            color: 'black'
-        });
+        //this.textActiveUsers = this.add.text(117, 935, 'Usuarios activos login: ' + this.activeUsersNumber , {
+        //    fontFamily: 'Lexend',
+        //    font: (40).toString() + "px Lexend",
+        //    color: 'black'
+        //});
 
         var chat = this.add.dom(1420, 820).createFromCache('chat_html');
         chat.setVisible(false);
@@ -338,7 +338,7 @@ class LevelTwo extends Phaser.Scene {
 
         this.getActiveUsers();
         this.updateActiveUsers();
-        this.textActiveUsers.setText('Usuarios activos: ' + this.activeUsersNumber);
+        //this.textActiveUsers.setText('Usuarios activos: ' + this.activeUsersNumber);
     }
 
     hitMeta(player, meta) {

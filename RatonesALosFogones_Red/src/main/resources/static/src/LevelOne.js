@@ -274,11 +274,11 @@ class LevelOne extends Phaser.Scene {
             this.deleteActiveUser(this.user);
         });
 
-        this.textActiveUsers = this.add.text(117, 935, 'Usuarios activos login: ' + this.activeUsersNumber , {
-            fontFamily: 'Lexend',
-            font: (40).toString() + "px Lexend",
-            color: 'black'
-        });
+        //this.textActiveUsers = this.add.text(117, 935, 'Usuarios activos login: ' + this.activeUsersNumber , {
+        //    fontFamily: 'Lexend',
+        //    font: (40).toString() + "px Lexend",
+        //    color: 'black'
+        //});
 
         var chat = this.add.dom(1420, 820).createFromCache('chat_html');
         chat.setVisible(false);
@@ -322,7 +322,7 @@ class LevelOne extends Phaser.Scene {
 
         this.getActiveUsers();
         this.updateActiveUsers();
-        this.textActiveUsers.setText('Usuarios activos: ' + this.activeUsersNumber);
+        //this.textActiveUsers.setText('Usuarios activos: ' + this.activeUsersNumber);
     }
 
     hitMeta(player, meta){
