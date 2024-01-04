@@ -76,6 +76,11 @@ class LoadingScene extends Phaser.Scene {
         this.load.image('BotonSonido','../assets/INTERFACES/Pause/BOTON_SONIDO.png');
         this.load.image('BotonMute','../assets/INTERFACES/Pause/BOTON_MUTE.png');
 
+        //Salir desde pausa
+        this.load.image('FondoSalir','../assets/INTERFACES/SalirPartida/SALIR.png');
+        this.load.image('BotonAceptar','../assets/INTERFACES/SalirPartida/BotonAceptar.png');
+        this.load.image('BotonCancelar','../assets/INTERFACES/SalirPartida/BotonCancelar.png');
+
         //InGame
         this.load.image('BarraDivisoria', '../assets/INTERFACES/InGame/BarraDivisoriaMorada.png');
         this.load.image('BarraPlayer1', '../assets/INTERFACES/InGame/BarraProgresoP1_Fondo.png');

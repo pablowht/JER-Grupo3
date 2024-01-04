@@ -9,6 +9,7 @@ class PauseScene extends Phaser.Scene {
     muted;
     level;
 
+
     init(data){
         this.isPaused=data.isPaused;
         this.levelNumber = data.level;
@@ -44,11 +45,13 @@ class PauseScene extends Phaser.Scene {
             if(!this.isPaused) {
                 this.scene.start("Menu");
             }else{
-                this.sound.stopAll();
-                this.sound.play('MenuMusic');
-                this.scene.start('Menu');
+                //this.sound.stopAll();
+                //this.sound.play('MenuMusic');
                 this.CheckLevel();
-                this.scene.stop(this.level);
+                let levelGame= this.level;
+                this.scene.start('ExitGameConfirmation',{levelExit:levelGame});
+                //this.CheckLevel();
+                //this.scene.stop(this.level);
             }
         });
 

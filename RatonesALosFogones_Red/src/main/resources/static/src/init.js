@@ -16,7 +16,7 @@ var config = {
     },
     autoResize: true,
     //ESCENAS
-    scene:[StartingScene, MenuScene, LoginCreateScene, LoginScene, CreateAccountScene, UserScene, ChangePasswordScene, DeleteUserScene, LoadingScene, Lobby, PlayerSelectionScene, SelectLevelScene, LevelOne, LevelTwo, CreditsScene, PauseScene, GameOverScene],
+    scene:[StartingScene, MenuScene, LoginCreateScene, LoginScene, CreateAccountScene, UserScene, ChangePasswordScene, DeleteUserScene, LoadingScene, Lobby, PlayerSelectionScene, SelectLevelScene, LevelOne, LevelTwo, CreditsScene, PauseScene, GameOverScene,ExitGameConfirmation],
     //FISICAS
     physics:{ 
         default: 'arcade',
