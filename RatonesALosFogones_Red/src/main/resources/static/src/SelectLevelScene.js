@@ -67,6 +67,34 @@ class SelectLevelScene extends Phaser.Scene {
             Meme2.setVisible(false);
         });
 
+        var alaboActivo = false;
+        var imagenProfe = this.add.image(360.5,930,'AlaboProfes').setVisible(false);
+
+        Meme2Boton.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
+            this.sound.play('InteractSound');
+            if(!alaboActivo){
+                imagenProfe.setVisible(true);
+                alaboActivo = !alaboActivo;
+            } else{
+                imagenProfe.setVisible(false);
+                alaboActivo = !alaboActivo;
+            }
+
+        });
+
+        Meme1Boton.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
+            this.sound.play('InteractSound');
+            if(!alaboActivo){
+                imagenProfe.setVisible(true);
+                alaboActivo = !alaboActivo;
+            } else{
+                imagenProfe.setVisible(false);
+                alaboActivo = !alaboActivo;
+            }
+        });
+
+
+
         window.addEventListener('beforeunload', () =>
         {
             this.deleteActiveUser(this.user);
