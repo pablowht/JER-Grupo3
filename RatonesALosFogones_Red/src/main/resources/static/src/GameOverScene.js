@@ -12,6 +12,7 @@ class GameOverScene extends Phaser.Scene {
     colorRaton2;
     ganador1;
     ganador2;
+    gameOverOn;
 
     init(data){
         this.dataObj = data;
@@ -21,17 +22,19 @@ class GameOverScene extends Phaser.Scene {
     create(){
 
         this.input.keyboard.disableGlobalCapture();
+        this.activePrevUsersNumber = 0;
 
         user = this.dataObj.user;
         this.colorRaton1 = this.dataObj.raton1;
         this.colorRaton2 = this.dataObj.raton2;
         this.ganador1 = this.dataObj.ganador1;
         this.ganador2 = this.dataObj.ganador2;
-        this.activeUsers = 0;
-        this.activeUsersPrev = 0;
+        this.activePrevUsersNumber = 0;
 
         this.sound.stopAll();
         this.sound.play('GameEndSound');
+
+        this.gameOverOn = true;
 
 
         this.add.image(0,0,'FondoGameOver').setOrigin(0, 0);
@@ -84,21 +87,26 @@ class GameOverScene extends Phaser.Scene {
             }
             this.add.image(1315,210,'TextoPierde1');
         }
+
         let BotonMenu = this.add.image(991.5,400,'Boton_Menu');
         BotonMenu.setInteractive({ cursor: 'pointer' });
 
         BotonMenu.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
             this.sound.play('InteractSound');
+            this.gameOverOn = false;
+            this.scene.sleep('GameOver');
             this.scene.start('Menu');
         });
 
-        let BotonNiveles = this.add.image(1346.5,400,'Boton_Niveles');
-        BotonNiveles.setInteractive({ cursor: 'pointer' });
+        //let BotonNiveles = this.add.image(1346.5,400,'Boton_Niveles');
+        //BotonNiveles.setInteractive({ cursor: 'pointer' });
 
-        BotonNiveles.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
-            this.sound.play('InteractSound');
-            this.scene.start('LevelSelection');
-        });
+        //BotonNiveles.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
+        //    this.sound.play('InteractSound');
+        //    this.gameOverOn = false;
+        //    this.scene.sleep('GameOver');
+        //    this.scene.start('LevelSelection');
+        //});
 
         this.sound.play('MenuMusic',{loop:true});
         //Al tocar la meta se pausa el juego durante segundo y medio y luego salta está escena
@@ -124,20 +132,73 @@ class GameOverScene extends Phaser.Scene {
         });
         window.addEventListener('beforeunload', () =>
         {
-            deleteActiveUser(user);
+            this.deleteActiveUser(user);
         });
 
-        textActiveUsers = this.add.text(117, 935, 'Usuarios activos: ' + this.activeUsers , {
+        this.textActiveUsers = this.add.text(117, 935, 'Usuarios activos: ' + this.activeUsersNumber , {
             fontFamily: 'Lexend',
             font: (40).toString() + "px Lexend",
             color: 'black'
         });
-        setInterval (getMessage, 500);
+
+        if(this.gameOverOn){
+            setInterval (getMessage, 500);
+        }
+
 	}
+
     update(){
-        getActiveUsers();
-        updateActiveUsers();
-        textActiveUsers.setText('Usuarios activos: ' + this.activeUsers);
+        this.getActiveUsers();
+        this.updateActiveUsers();
+        this.textActiveUsers.setText('Usuarios activos: ' + this.activeUsersNumber);
+
+        if(!this.gameOverOn){
+            this.gameOverOn = true;
+        }
+    }
+    updateActiveUsers()
+    {
+
+        if(this.activePrevUsersNumber !== this.activeUsersNumber)
+        {
+            if(this.activePrevUsersNumber < this.activeUsersNumber){
+                console.log("Se ha conectado alguien. El número actual de usuarios es: " + this.activeUsersNumber);
+            }else if(this.activePrevUsersNumber > this.activeUsersNumber){
+                console.log("Alguien se ha desconectado. El número actual de usuarios es: " + this.activeUsersNumber);
+            }
+            this.activePrevUsersNumber = this.activeUsersNumber;
+        }
+
+    }
+
+    deleteActiveUser(user)
+    {
+        $.ajax({
+            method: "DELETE",
+            url: url + "activeUsers/" + user,
+            data: user,
+            success : function () {
+                console.log("User removed");
+            },
+            error : function () {
+                console.log("Failed to delete");
+                console.log("The URL was:\n" + url + "users/" + user)
+            }
+        });
+    }
+
+    getActiveUsers()
+    {
+        $.ajax({
+            method: 'GET',
+            url: url + "activeUsersNum",
+        }).done((data)=> {
+            this.assignValue(data);
+        })
+    }
+
+    assignValue(data){
+        this.activeUsersNumber = data;
     }
 }
 		function sendMessage(user, message)
@@ -158,58 +219,18 @@ class GameOverScene extends Phaser.Scene {
 		}
 
 		function getMessage() {
-			for (let i = 0; i < 7; i++) {
-				$.ajax({
-					method: "GET",
-					url: url + "chat/" + i.toString()
-				})
-				.done((data, textStatus, jqXHR) =>
-                {
-                    if(data != "") document.getElementById("mensaje"+i.toString()).innerHTML = data;                
-				})
-                .fail((data, textStatus, jqXHR) =>
-                {
-                    console.log("Problem with Chat Message");
-                });
-			}
-		}
-function updateActiveUsers(){
-
-    if(this.activeUsersPrev !== this.activeUsers)
-    {
-        if(this.activeUsersPrev < this.activeUsers){
-            console.log("Se ha conectado alguien. El número actual de usuarios es: " + this.activeUsers);
-        }else if(this.activeUsersPrev > this.activeUsers){
-            console.log("Alguien se ha desconectado. El número actual de usuarios es: " + this.activeUsers);
+            for (let i = 0; i < 7; i++) {
+                $.ajax({
+                    method: "GET",
+                    url: url + "chat/" + i.toString()
+                })
+                    .done((data, textStatus, jqXHR) => {
+                        if (data != "") document.getElementById("mensaje" + i.toString()).innerHTML = data;
+                    })
+                    .fail((data, textStatus, jqXHR) => {
+                        console.log("Problem with Chat Message");
+                    });
+            }
         }
-        this.activeUsersPrev = this.activeUsers;
-    }
-
-}
-
-function deleteActiveUser(user) {
-    console.log("user funcion deleteActive: " + user);
-    $.ajax({
-        method: "DELETE",
-        url: url + "activeUsers/" + user,
-        data: user,
-        success : function () {
-            console.log("User removed");
-        },
-        error : function () {
-            console.log("Failed to delete");
-            console.log("The URL was:\n" + url + "users/" + user)
-        }
-    });
-}
-
-function getActiveUsers() {
-    $.ajax({
-        method: 'GET',
-        url: url + "activeUsersNum",
-    }).done(function (data) {
-        this.activeUsers = data;
-    });
-}
 
     

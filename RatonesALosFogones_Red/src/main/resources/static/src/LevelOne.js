@@ -38,8 +38,7 @@ class LevelOne extends Phaser.Scene {
         this.colorRaton1 = this.dataObj.colorRaton1;
         this.colorRaton2 = this.dataObj.colorRaton2;
         this.user = this.dataObj.user;
-        this.activeUsers = 0;
-        this.activeUsersPrev = 0;
+        this.activePrevUsersNumber = 0;
 
         this.camera = new CameraMovement(this);
         this.camera.cam.setZoom(1.2,1.85);
@@ -272,14 +271,17 @@ class LevelOne extends Phaser.Scene {
 
         window.addEventListener('beforeunload', () =>
         {
-            deleteActiveUser(this.user);
+            this.deleteActiveUser(this.user);
         });
 
-        textActiveUsers = this.add.text(117, 935, 'Usuarios activos login: ' + this.activeUsers , {
+        this.textActiveUsers = this.add.text(117, 935, 'Usuarios activos login: ' + this.activeUsersNumber , {
             fontFamily: 'Lexend',
             font: (40).toString() + "px Lexend",
             color: 'black'
         });
+
+        var chat = this.add.dom(1420, 820).createFromCache('chat_html');
+        chat.setVisible(false);
     }
 
     update(timeNum, timeDelta) {
@@ -318,9 +320,9 @@ class LevelOne extends Phaser.Scene {
             this.scene.launch('Pause',{isPaused:true, level:1});
         }
 
-        getActiveUsers();
-        updateActiveUsers();
-        textActiveUsers.setText('Usuarios activos: ' + this.activeUsers);
+        this.getActiveUsers();
+        this.updateActiveUsers();
+        this.textActiveUsers.setText('Usuarios activos: ' + this.activeUsersNumber);
     }
 
     hitMeta(player, meta){
@@ -365,47 +367,51 @@ class LevelOne extends Phaser.Scene {
 			raton2:this.colorRaton2, 
 			ganador1:this.player1Won, 
 			ganador2:this.player2Won, 
-			user: this.user,
-            activeUsers: this.activeUsersNumber,
-            activePrevUsers: this.activePrevUsersNumber
+			user: this.user
 		});
     }
-}
-
-function updateActiveUsers(){
-
-    if(this.activeUsersPrev !== this.activeUsers)
+    updateActiveUsers()
     {
-        if(this.activeUsersPrev < this.activeUsers){
-            console.log("Se ha conectado alguien. El número actual de usuarios es: " + this.activeUsers);
-        }else if(this.activeUsersPrev > this.activeUsers){
-            console.log("Alguien se ha desconectado. El número actual de usuarios es: " + this.activeUsers);
+
+        if(this.activePrevUsersNumber !== this.activeUsersNumber)
+        {
+            if(this.activePrevUsersNumber < this.activeUsersNumber){
+                console.log("Se ha conectado alguien. El número actual de usuarios es: " + this.activeUsersNumber);
+            }else if(this.activePrevUsersNumber > this.activeUsersNumber){
+                console.log("Alguien se ha desconectado. El número actual de usuarios es: " + this.activeUsersNumber);
+            }
+            this.activePrevUsersNumber = this.activeUsersNumber;
         }
-        this.activeUsersPrev = this.activeUsers;
+
     }
 
-}
+    deleteActiveUser(user)
+    {
+        $.ajax({
+            method: "DELETE",
+            url: url + "activeUsers/" + user,
+            data: user,
+            success : function () {
+                console.log("User removed");
+            },
+            error : function () {
+                console.log("Failed to delete");
+                console.log("The URL was:\n" + url + "users/" + user)
+            }
+        });
+    }
 
-function deleteActiveUser(user) {
-    $.ajax({
-        method: "DELETE",
-        url: url + "activeUsers/" + user,
-        data: user,
-        success : function () {
-            console.log("User removed");
-        },
-        error : function () {
-            console.log("Failed to delete");
-            console.log("The URL was:\n" + url + "users/" + user)
-        }
-    });
-}
+    getActiveUsers()
+    {
+        $.ajax({
+            method: 'GET',
+            url: url + "activeUsersNum",
+        }).done((data)=> {
+            this.assignValue(data);
+        })
+    }
 
-function getActiveUsers() {
-    $.ajax({
-        url: url + "activeUsersNum",
-        method: 'GET',
-    }).done(function (data) {
-        this.activeUsers = data;
-    });
+    assignValue(data){
+        this.activeUsersNumber = data;
+    }
 }

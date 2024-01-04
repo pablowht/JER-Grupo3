@@ -64,6 +64,9 @@ class LoginScene extends Phaser.Scene{
                 });
             }
         });
+
+        var chat = this.add.dom(1420, 820).createFromCache('chat_html');
+        chat.setVisible(false);
     }
     
     messageError(){
