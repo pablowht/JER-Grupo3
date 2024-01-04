@@ -98,15 +98,15 @@ class GameOverScene extends Phaser.Scene {
             this.scene.start('Menu');
         });
 
-        let BotonNiveles = this.add.image(1346.5,400,'Boton_Niveles');
-        BotonNiveles.setInteractive({ cursor: 'pointer' });
+        //let BotonNiveles = this.add.image(1346.5,400,'Boton_Niveles');
+        //BotonNiveles.setInteractive({ cursor: 'pointer' });
 
-        BotonNiveles.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
-            this.sound.play('InteractSound');
-            this.gameOverOn = false;
-            this.scene.sleep('GameOver');
-            this.scene.start('LevelSelection');
-        });
+        //BotonNiveles.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
+        //    this.sound.play('InteractSound');
+        //    this.gameOverOn = false;
+        //    this.scene.sleep('GameOver');
+        //    this.scene.start('LevelSelection');
+        //});
 
         this.sound.play('MenuMusic',{loop:true});
         //Al tocar la meta se pausa el juego durante segundo y medio y luego salta está escena
