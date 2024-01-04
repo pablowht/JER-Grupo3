@@ -52,7 +52,7 @@ class PlayerSelectionScene extends Phaser.Scene {
 
         BotonVolver.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
             this.sound.play('InteractSound');
-            this.scene.start("Menu");
+            this.scene.start('Menu');
         });
 
         BotonP1Listo.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{

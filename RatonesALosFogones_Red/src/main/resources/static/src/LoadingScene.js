@@ -51,6 +51,11 @@ class LoadingScene extends Phaser.Scene {
         this.load.image('Boton_Volver','../assets/INTERFACES/DeleteUser/Boton_Volver.png');
         this.load.image('Fondo_Eliminar','../assets/INTERFACES/DeleteUser/Fondo_Delete.png');
 
+        //Menú de Lobby
+        this.load.image('Fondo_Lobby','../assets/INTERFACES/Lobby/Lobby_Fondo.png');
+        this.load.image('Texto_Encontrado','../assets/INTERFACES/Lobby/Lobby_Encontrado.png');
+        this.load.image('Texto_Buscando','../assets/INTERFACES/Lobby/Lobby_Esperando.png');
+
         //Chat
         this.load.image('Cuadro_Chat','../assets/INTERFACES/Chat/Cuadro_Chat.png');
         this.load.image('CuadroEscribirMensaje','../assets/INTERFACES/Chat/Cuadro_Texto_Chat.png');

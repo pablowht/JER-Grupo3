@@ -1,20 +1,7 @@
-$(document).ready(function(){
-    console.log('DOM cargado (MENÚ)')
-});
+class Lobby extends Phaser.Scene {
 
-var url;
-var user;
-var password;
-
-
-class MenuScene extends Phaser.Scene{
-
-    constructor(){
-        super("Menu");
-    }
-
-    preload(){
-        this.backgroundMusic = this.sound.add('MenuMusic', {loop: true});
+    constructor() {
+        super('Lobby');
     }
 
     init(data)
@@ -22,54 +9,72 @@ class MenuScene extends Phaser.Scene{
         this.dataObj = data;
     }
 
-    backgroundMusic;
+    TextoBuscando;
+    TextoEncontrado;
+    TextoRaton1;
+    TextoRaton2;
 
     create(){
+
+        //DATA
         this.activePrevUsersNumber = 0;
 
         url= window.location.href;
         this.user = this.dataObj.user;
         console.log("user: "+this.user)
 
-        //variables y funciones menú
-        this.add.image(0,0,'Fondo_Menu').setOrigin(0, 0);
-        let BotonJugar = this.add.image(990,540,'BOTON_JUGAR');
-        BotonJugar.setInteractive({ cursor: 'pointer' });
+        //VISUALES
+        this.add.image(0,0,'Fondo_Lobby').setOrigin(0, 0);
 
-        let BotonCreditos = this.add.image(990,680,'BOTON_CREDITOS');
-        BotonCreditos.setInteractive({ cursor: 'pointer' });
+        this.TextoRaton1 = this.add.image(960.5,390,'Raton1Ingame').setVisible(false);
+        this.TextoRaton2 = this.add.image(960.5,390,'Raton2Ingame').setVisible(false);
 
-        let BotonAjustes = this.add.image(990,820,'BOTON_AJUSTES');
-        BotonAjustes.setInteractive({ cursor: 'pointer' });
+        this.TextoBuscando = this.add.image(960.5,875,'Texto_Buscando');
+        this.tweens.add({
+            targets: this.TextoBuscando,
+            alpha: 0.2,
+            duration: 1400,
+            ease: 'Sine.easeOut',
+            yoyo: true,
+            repeat: -1
+        });
 
-        let BotonUsuario = this.add.image(1750,100,'BOTON_USUARIO');
-        BotonUsuario.setInteractive({ cursor: 'pointer' });
+        this.TextoEncontrado = this.add.image(960,822,'Texto_Encontrado').setVisible(false);
 
-        //CAMBIO DE ESCENA DEL MENU A LA ESCENA IN-GAME
+        //BOTONES
+        let BotonVolver = this.add.image(150,150,'Flecha');
+        BotonVolver.setInteractive({ cursor: 'pointer' });
+
+        BotonVolver.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
+            this.sound.play('InteractSound');
+            this.scene.start('Menu');
+        });
+
+        let BotonJugar = this.add.image(960.5,936.5,'BOTON_JUGAR').setVisible(false);
+        //BotonJugar.setInteractive({ cursor: 'pointer' });
+
         BotonJugar.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
             this.sound.play('InteractSound');
-            this.scene.start('Lobby', {user: this.user, activeUsers: this.activeUsersNumber, activePrevUsers: this.activePrevUsersNumber}); //Niveles
-            //Cuando este selector de nivel, poner que al jugar vaya antes a "Niveles"
+            this.scene.start('PlayerSelection', {user: this.user, activeUsers: this.activeUsersNumber, activePrevUsers: this.activePrevUsersNumber});
         });
 
-        //CAMBIO DE ESCENA DEL MENU A CREDITOS
-        BotonCreditos.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
-            this.sound.play('InteractSound');
-            this.scene.start("Creditos")
-        });
+        //NUMERO RATON
+        //if(activeUsersNumber === 1)
+        //{
+        //    id = 0;
+        //    playerText.setFrame(0);
+        //} else if (activeUsersNumber === 2 && id==null)
+        //{
+        //    id = 1;
+        //    playerText.setFrame(1);
+        //}
 
-        //CAMBIO DE ESCENA DEL MENU A AJUSTES
-        BotonAjustes.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
-            this.sound.play('InteractSound');
-            this.scene.start("Pause", {isPaused:false});
-        });
 
-        //CAMBIO DE ESCENA DEL MENU A USUARIO
-        BotonUsuario.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
-            this.sound.play('InteractSound');
-            this.scene.start("UserScene", {user: this.user});
-        });
+        //CHAT para evitar errores
+        var chat = this.add.dom(1420, 820).createFromCache('chat_html');
+        chat.setVisible(false);
 
+        //ActiveUsers
         this.textActiveUsers = this.add.text(117, 935, 'Usuarios activos: ' + this.activeUsersNumber , {
             fontFamily: 'Lexend',
             font: (40).toString() + "px Lexend",
@@ -80,10 +85,8 @@ class MenuScene extends Phaser.Scene{
         {
             this.deleteActiveUser(user);
         });
-
-        var chat = this.add.dom(1420, 820).createFromCache('chat_html');
-        chat.setVisible(false);
     }
+
 
     update()
     {
@@ -137,5 +140,3 @@ class MenuScene extends Phaser.Scene{
         this.activeUsersNumber = data;
     }
 }
-
-
