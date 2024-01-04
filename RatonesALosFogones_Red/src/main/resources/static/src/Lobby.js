@@ -50,8 +50,8 @@ class Lobby extends Phaser.Scene {
             this.scene.start('Menu');
         });
 
-        let BotonJugar = this.add.image(960.5,936.5,'BOTON_JUGAR').setVisible(false);
-        //BotonJugar.setInteractive({ cursor: 'pointer' });
+        let BotonJugar = this.add.image(960.5,936.5,'BOTON_JUGAR').setVisible(true);
+        BotonJugar.setInteractive({ cursor: 'pointer' });
 
         BotonJugar.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
             this.sound.play('InteractSound');

@@ -21,15 +21,12 @@ class ExitGameConfirmation extends Phaser.Scene {
             this.sound.stopAll();
             this.sound.play('MenuMusic');
             this.CheckLevel();
+            this.scene.sleep(this.level);
             this.scene.start('Menu');
-            //this.CheckLevel();
-            this.scene.stop(this.level);
-
         });
         botonCancelar.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
             this.CheckLevel();
             this.scene.start('Pause',{isPaused: this.isPaused,levelNumber:this.levelExit });
-            
         });
 
     }

@@ -49,7 +49,7 @@ class MenuScene extends Phaser.Scene{
         BotonJugar.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
             this.sound.play('InteractSound');
             this.scene.start('Lobby', {user: this.user, activeUsers: this.activeUsersNumber, activePrevUsers: this.activePrevUsersNumber}); //Niveles
-           // this.scene.start('PlayerSelection', {user: this.user, activeUsers: this.activeUsersNumber, activePrevUsers: this.activePrevUsersNumber});
+           //this.scene.start('PlayerSelection', {user: this.user, activeUsers: this.activeUsersNumber, activePrevUsers: this.activePrevUsersNumber});
             //Cuando este selector de nivel, poner que al jugar vaya antes a "Niveles"
         });
 

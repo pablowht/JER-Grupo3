@@ -229,8 +229,8 @@ class LevelTwo extends Phaser.Scene {
 
 
         //Carteles Ratones
-        this.add.image(340, 70, 'Raton1Ingame').setScale(0.4);
-        this.add.image(340, 470, 'Raton2Ingame').setScale(0.4);
+        this.add.image(320, 60, 'Raton1Ingame').setScale(0.4);
+        this.add.image(320, 460, 'Raton2Ingame').setScale(0.4);
 
         //Inicialización de los jugadores
         this.player1.assignControls();
