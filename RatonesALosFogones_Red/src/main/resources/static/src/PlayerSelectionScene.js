@@ -20,6 +20,7 @@ class PlayerSelectionScene extends Phaser.Scene {
     ratonMElegido;
 
 	init(data){
+
 		this.dataObj = data;
 	}
 	

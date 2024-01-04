@@ -6,7 +6,8 @@ class ExitGameConfirmation extends Phaser.Scene {
     level;
 
     init(data) {
-        this.levelExit = data.level
+        this.levelExit = data.levelExit;
+        this.isPaused= data.isPaused;
     }
 
     create() {
@@ -25,6 +26,12 @@ class ExitGameConfirmation extends Phaser.Scene {
             this.scene.stop(this.level);
 
         });
+        botonCancelar.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
+            this.CheckLevel();
+            this.scene.start('Pause',{isPaused: this.isPaused,levelNumber:this.levelExit });
+            
+        });
+
     }
 
     CheckLevel() {

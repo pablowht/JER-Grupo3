@@ -49,7 +49,7 @@ class PauseScene extends Phaser.Scene {
                 //this.sound.play('MenuMusic');
                 this.CheckLevel();
                 let levelGame= this.level;
-                this.scene.start('ExitGameConfirmation',{levelExit:levelGame});
+                this.scene.start('ExitGameConfirmation',{levelExit:levelGame,isPaused:this.isPaused});
                 //this.CheckLevel();
                 //this.scene.stop(this.level);
             }
