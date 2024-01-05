@@ -31,8 +31,10 @@ class SelectLevelScene extends Phaser.Scene {
 
         BotonNivel1.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
             this.sound.play('InteractSound');
-            //this.add.image(0,0, 'PlayersReady').setOrigin(0,0);
-            this.time.delayedCall(7000, this.StartPlaying('LevelOne'),[], this);
+            this.add.image(0,0, 'PlayersReady').setOrigin(0,0);
+            //this.time.delayedCall(7000, this.StartPlaying('LevelOne'),[], this);
+            this.time.delayedCall(7000, () => {this.StartPlaying('LevelOne');}, [], this);
+            //By using an arrow function (() => { ... }), you ensure that the context (this) is preserved when the function is executed after the delay
         });
         let BotonNivel2 = this.add.image(960.5,795.5,'BotonN2');
         BotonNivel2.setInteractive();
@@ -40,7 +42,7 @@ class SelectLevelScene extends Phaser.Scene {
         BotonNivel2.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
             this.sound.play('InteractSound');
             this.add.image(0,0, 'PlayersReady').setOrigin(0,0);
-            this.time.delayedCall(7000, this.StartPlaying('LevelTwo'), [], this);
+            this.time.delayedCall(7000, () => {this.StartPlaying('LevelTwo');}, [], this);
         });
         Meme1Boton.on(Phaser.Input.Events.GAMEOBJECT_POINTER_OVER,()=>{
             //this.sound.play('InteractSound');
