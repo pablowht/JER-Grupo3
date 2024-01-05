@@ -3,8 +3,6 @@ class CreditsScene extends Phaser.Scene {
         super("Creditos");
     }
 
-    preload(){}
-
     create(){
         this.activePrevUsersNumber = 0;
 

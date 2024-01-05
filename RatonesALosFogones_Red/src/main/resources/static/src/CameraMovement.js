@@ -11,7 +11,5 @@ class CameraMovement {
     getScrollCam(){
         return this.cam.scrollX;
     }
-
-
 }
 
