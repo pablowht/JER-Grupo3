@@ -64,8 +64,9 @@ class PlayerSelectionScene extends Phaser.Scene {
             if(this.raton2 !== undefined && this.boton2Pulsado){
                 this.BotonP2Listo = this.add.image(31630,870,'Boton2ListoPressed');
                 this.p2Ready = true;
-                this.add.image(0,0, 'PlayersReady').setOrigin(0,0);
-                this.time.delayedCall(7000, this.StartPlaying, [], this);
+                //this.add.image(0,0, 'PlayersReady').setOrigin(0,0);
+                //this.time.delayedCall(7000, this.StartPlaying, [], this);
+                this.scene.start('LevelSelection', {colorRaton1: this.raton1, colorRaton2:this.raton2});
             }
         });
         

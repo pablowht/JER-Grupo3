@@ -7,9 +7,11 @@ class PauseScene extends Phaser.Scene {
 
     isPaused;
     muted;
+    level;
 
     init(data){
         this.isPaused=data.isPaused;
+        this.levelNumber = data.level;
     }
     create(){
         //FONDO
@@ -21,16 +23,17 @@ class PauseScene extends Phaser.Scene {
         if(this.isPaused){ BotonContinuar.setVisible(true); BotonContinuar.setInteractive(); }
 
         let BotonSalir=this.add.image(1167, 960, 'BotonSalir');
-        BotonSalir.setInteractive();
-
+        BotonSalir.setInteractive({ cursor: 'pointer' })
         let BotonSonido=this.add.image(960,810,'BotonSonido');
-        BotonSonido.setInteractive();
+        BotonSonido.setInteractive({ cursor: 'pointer' });
 
         this.esc = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
 
         BotonContinuar.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
             this.sound.play('InteractSound');
-            this.scene.resume("Game");
+            //this.scene.resume("");
+            this.CheckLevel()
+            this.scene.resume(this.level);
             this.scene.sleep();
         });
 
@@ -58,6 +61,15 @@ class PauseScene extends Phaser.Scene {
                 this.muted = !this.muted;
             }
         });
+
+
+    }
+    CheckLevel(){
+        if(this.levelNumber === 1){
+            this.level = 'LevelOne';
+        } else if(this.levelNumber === 2){
+            this.level = 'LevelTwo';
+        }
     }
 
 }

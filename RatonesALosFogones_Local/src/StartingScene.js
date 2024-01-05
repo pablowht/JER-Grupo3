@@ -20,7 +20,7 @@ class StartingScene extends Phaser.Scene {
             this.scene.start("Loading");
         });
         this.input.on('pointerdown', event => {
-            this.scene.start("Loading");
+            this.scene.start('Loading');
         });
     }
 }

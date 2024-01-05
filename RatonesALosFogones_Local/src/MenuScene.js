@@ -23,8 +23,8 @@ class MenuScene extends Phaser.Scene{
         //CAMBIO DE ESCENA DEL MENU A LA ESCENA IN-GAME
         BotonJugar.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
             this.sound.play('InteractSound');
-            this.scene.start('PlayerSelection'); //Niveles
-            //Cuando este selector de nivel, poner que al jugar vaya antes a "Niveles"
+            this.scene.start('PlayerSelection');
+
         });
 
         //CAMBIO DE ESCENA DEL MENU A CREDITOS
@@ -38,6 +38,12 @@ class MenuScene extends Phaser.Scene{
             this.sound.play('InteractSound');
             this.scene.start("Pause", {isPaused:false});
         });
+
+         this.textActiveUsers = this.add.text(160, 980, 'KioreBThek', {
+            fontFamily: 'Lexend',
+            font: (50).toString() + "px Lexend",
+            color: 'black'
+         });
 
     }
 
