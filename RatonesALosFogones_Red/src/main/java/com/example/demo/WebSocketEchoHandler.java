@@ -16,7 +16,6 @@ public class WebSocketEchoHandler extends TextWebSocketHandler {
     private Map<String, WebSocketSession> sessions = new ConcurrentHashMap<>();
 	private ObjectMapper mapper = new ObjectMapper();
 
-	private int maxOnline = 2;
 
 	//Notificar cuando un usuario se ha conectado
     @Override
@@ -54,12 +53,12 @@ public class WebSocketEchoHandler extends TextWebSocketHandler {
     	
    		if(node.get("positionX")!= null) //POSICIONES
    		{
-   				newNode.put("positionX",node.get("positionX").asInt());
+   			newNode.put("positionX",node.get("positionX").asInt());
    		}
    		
    		if(node.get("positionY")!= null) //POSICIONES
    		{
-   				newNode.put("positionY",node.get("positionY").asInt());
+   			newNode.put("positionY",node.get("positionY").asInt());
    		}
 
    		if(node.get("animationFrame")!= null) //EL FRAME DE LA ANIMACIÓN
@@ -69,15 +68,15 @@ public class WebSocketEchoHandler extends TextWebSocketHandler {
    		
     	if(node.get("ratonReady")!= null) //SABER SI EL OTRO PLAYER ESTÁ READY PARA JUGAR
     	{
-   			newNode.put("ratonReady", node.get("ratonReady").asInt());
+   			newNode.put("ratonReady", node.get("ratonReady").asBoolean());
     	}
    		
     	////////////
-    	if(node.get("visibleCharacter")!= null) //?
+    	if(node.get("ratonSeleccionado")!= null) //Para el ratón fijado por el jugador
     	{
-    		newNode.put("visibleCharacter", node.get("visibleCharacter").asBoolean());
+    		newNode.put("ratonSeleccionado", node.get("ratonSeleccionado").asBoolean());
     	}
-    	if(node.get("frameCharacter")!= null) //?
+    	if(node.get("frameCharacter")!= null) //Frame del tipo de jugador
     	{
     		newNode.put("frameCharacter", node.get("frameCharacter").asInt());
         }
@@ -94,7 +93,7 @@ public class WebSocketEchoHandler extends TextWebSocketHandler {
 
     	if(node.get("type")!= null) //NO SE
     	{
-    			newNode.put("type", node.get("type").asText());
+    		newNode.put("type", node.get("type").asText());
     	}
 
     	////////////

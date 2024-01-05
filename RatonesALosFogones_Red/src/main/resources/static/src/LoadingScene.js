@@ -15,6 +15,8 @@ class LoadingScene extends Phaser.Scene {
         //ASSETS DEL JUEGO
         this.load.image('Recuadro_UsuariosActivos','../assets/INTERFACES/Menu/Rectangulo.png');
 
+        //Feedback Server
+        this.load.image('Fondo_Desconexion','../assets/INTERFACES/FeedbackServer/RatonDesconectado.png');
 
         //Menu de Login/Create
         this.load.image('Fondo_LoginCreate','../assets/INTERFACES/LoginCreate/Fondo_LoginCreate.png');
@@ -58,6 +60,8 @@ class LoadingScene extends Phaser.Scene {
         this.load.image('Fondo_Lobby','../assets/INTERFACES/Lobby/Lobby_Fondo.png');
         this.load.image('Texto_Encontrado','../assets/INTERFACES/Lobby/Lobby_Encontrado.png');
         this.load.image('Texto_Buscando','../assets/INTERFACES/Lobby/Lobby_Esperando.png');
+        this.load.image('Jugar_Presionado','../assets/INTERFACES/Lobby/BotonJugarInvertido.png');
+
 
         //Chat
         this.load.image('Cuadro_Chat','../assets/INTERFACES/Chat/Cuadro_Chat.png');
@@ -127,9 +131,6 @@ class LoadingScene extends Phaser.Scene {
         this.load.spritesheet('raton_blanco','../assets/RATONES/SpriteSheets/Raton_Blanco.png',{ frameWidth: 32, frameHeight: 32 } );
         this.load.spritesheet('raton_marron','../assets/RATONES/SpriteSheets/Raton_Marron.png',{ frameWidth: 32, frameHeight: 32 } );
 
-        //PAJARO
-        this.load.spritesheet('pajaro','../assets/PAJARO/Bird.png',{ frameWidth: 32, frameHeight: 32 } );
-
         //POWERUPS
         this.load.image('powerupAmarillo','../assets/POWERUPS/QUESO/QuesoAmarillo_12x14.png');
         this.load.image('powerupAzul','../assets/POWERUPS/QUESO/QuesoAzul_14x14.png');
@@ -150,7 +151,8 @@ class LoadingScene extends Phaser.Scene {
         this.load.image('Boton1ListoPressed', '../assets/INTERFACES/PlayerSelection/BotonP_P1_Listo.png');
         this.load.image('Boton2ListoPressed', '../assets/INTERFACES/PlayerSelection/BotonP_P2_Listo.png');
         this.load.image('PlayersReady', '../assets/INTERFACES/PlayersReadyBackground.png');
-
+        this.load.image('Turno1','../assets/INTERFACES/PlayerSelection/TURNO1.png');
+        this.load.image('Turno2','../assets/INTERFACES/PlayerSelection/TURNO 2.png');
         //Mapa Nivel1
         this.load.image('techoMapa', '../assets/TILES/MAPAS/Nivel1/Tope_techo_3200x27.png');
         this.load.image('techoMapa2', '../assets/TILES/MAPAS/Nivel1/Tope_techo_444x129.png');
@@ -195,10 +197,10 @@ class LoadingScene extends Phaser.Scene {
         this.load.image('CascaraPlatano', '../assets/obstaculos/Cascara_Platano.png');
         this.load.image('TrampaRatones', '../assets/obstaculos/MouseTrapR_48x18.png');
         this.load.spritesheet('Fogon', '../assets/obstaculos/Fogon_25x55.png', {frameWidth: 25, frameHeight: 55});
-        this.load.spritesheet('TrampaOso','../assets/obstaculos/BearTrap_96x36.png',{frameWidth: 36, frameHeight: 96})
+
         //MUSICA
-        this.load.audio('RaceMusic', ['../assets/AUDIO/Race_Music.ogg', '/ASSETS/AUDIO/Race_Music.mp3']);
-        this.load.audio('MenuMusic', ['../assets/AUDIO/Menu_Music.ogg', '/ASSETS/AUDIO/Menu_Music.mp3']);
+        this.load.audio('RaceMusic', ['../assets/AUDIO/Race_Music.ogg', '../assets/AUDIO/Race_Music.mp3']);
+        this.load.audio('MenuMusic', ['../assets/AUDIO/Menu_Music.ogg', '../assets/AUDIO/Menu_Music.mp3']);
         this.load.audio('InteractSound', '../assets/AUDIO/Interact_Sound.ogg');
         this.load.audio('HurtSound', '../assets/AUDIO/Hurt_Sound.ogg');
         this.load.audio('PowerUpGoneSound', '../assets/AUDIO/PowerUp_Gone.ogg');
