@@ -6,6 +6,7 @@ var url;
 var user;
 var password;
 var BotonJugar;
+var CocinaLena;
 
 
 class MenuScene extends Phaser.Scene{
@@ -86,6 +87,7 @@ class MenuScene extends Phaser.Scene{
         chat.setVisible(false);
         
         this.JugarPresionado = this.add.image(990,540, 'Jugar_Presionado').setVisible(false);
+        this.CocinaLlena = this.add.image(0,0, 'CocinaLlena').setOrigin(0,0).setVisible(false);
 
     }
 
@@ -98,7 +100,9 @@ class MenuScene extends Phaser.Scene{
         if(this.activeUsersNumber > 2){ //el juego se centra en 2 jugadores
             BotonJugar.setVisible(false);
             this.JugarPresionado.setVisible(true);
+            this.CocinaLlena.setVisible(true);
             BotonJugar.disableInteractive(true);
+            this.time.delayedCall(3000, () => {this.hideCocina();}, [], this);
 		}
 		else if(this.activeUsersNumber <= 2){
             this.JugarPresionado.setVisible(false);
@@ -150,6 +154,10 @@ class MenuScene extends Phaser.Scene{
 
     assignValue(data){
         this.activeUsersNumber = data;
+    }
+
+    hideCocina(){
+        this.CocinaLlena.setVisible(false);
     }
 }
 

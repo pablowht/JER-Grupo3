@@ -17,6 +17,7 @@ class LoadingScene extends Phaser.Scene {
 
         //Feedback Server
         this.load.image('Fondo_Desconexion','../assets/INTERFACES/FeedbackServer/RatonDesconectado.png');
+        this.load.image('CocinaLlena','../assets/INTERFACES/FeedbackServer/CocinaLlena.png');
 
         //Menu de Login/Create
         this.load.image('Fondo_LoginCreate','../assets/INTERFACES/LoginCreate/Fondo_LoginCreate.png');
@@ -60,8 +61,8 @@ class LoadingScene extends Phaser.Scene {
         this.load.image('Fondo_Lobby','../assets/INTERFACES/Lobby/Lobby_Fondo.png');
         this.load.image('Texto_Encontrado','../assets/INTERFACES/Lobby/Lobby_Encontrado.png');
         this.load.image('Texto_Buscando','../assets/INTERFACES/Lobby/Lobby_Esperando.png');
+        this.load.image('Texto_EsperandoRespuesta','../assets/INTERFACES/Lobby/Esperando_Respuesta.png');
         this.load.image('Jugar_Presionado','../assets/INTERFACES/Lobby/BotonJugarInvertido.png');
-
 
         //Chat
         this.load.image('Cuadro_Chat','../assets/INTERFACES/Chat/Cuadro_Chat.png');
