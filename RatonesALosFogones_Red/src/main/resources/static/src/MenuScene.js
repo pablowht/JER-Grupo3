@@ -5,6 +5,7 @@ $(document).ready(function(){
 var url;
 var user;
 var password;
+var BotonJugar;
 
 
 class MenuScene extends Phaser.Scene{
@@ -29,11 +30,10 @@ class MenuScene extends Phaser.Scene{
 
         url= window.location.href;
         this.user = this.dataObj.user;
-        console.log("user: "+this.user)
 
         //variables y funciones menú
         this.add.image(0,0,'Fondo_Menu').setOrigin(0, 0);
-        let BotonJugar = this.add.image(990,540,'BOTON_JUGAR');
+        BotonJugar = this.add.image(990,540,'BOTON_JUGAR');
         BotonJugar.setInteractive({ cursor: 'pointer' });
 
         let BotonCreditos = this.add.image(990,680,'BOTON_CREDITOS');
@@ -84,6 +84,9 @@ class MenuScene extends Phaser.Scene{
 
         var chat = this.add.dom(1420, 820).createFromCache('chat_html');
         chat.setVisible(false);
+        
+        this.JugarPresionado = this.add.image(990,540, 'Jugar_Presionado').setVisible(false);
+
     }
 
     update()
@@ -91,6 +94,17 @@ class MenuScene extends Phaser.Scene{
         this.getActiveUsers();
         this.updateActiveUsers();
         this.textActiveUsers.setText('Usuarios activos: ' + this.activeUsersNumber);
+        
+        if(this.activeUsersNumber > 2){ //el juego se centra en 2 jugadores
+            BotonJugar.setVisible(false);
+            this.JugarPresionado.setVisible(true);
+            BotonJugar.disableInteractive(true);
+		}
+		else if(this.activeUsersNumber <= 2){
+            this.JugarPresionado.setVisible(false);
+			BotonJugar.setVisible(true);
+	        BotonJugar.setInteractive({ cursor: 'pointer' });
+		}
     }
 
     updateActiveUsers()

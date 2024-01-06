@@ -71,14 +71,15 @@ public class WebSocketEchoHandler extends TextWebSocketHandler {
    			newNode.put("ratonReady", node.get("ratonReady").asBoolean());
     	}
    		
-    	////////////
     	if(node.get("ratonSeleccionado")!= null) //Para el ratón fijado por el jugador
     	{
     		newNode.put("ratonSeleccionado", node.get("ratonSeleccionado").asBoolean());
     	}
-    	if(node.get("frameCharacter")!= null) //Frame del tipo de jugador
+    	
+    	////////////
+    	if(node.get("skin")!= null) //Lo mismo del tipo xd
     	{
-    		newNode.put("frameCharacter", node.get("frameCharacter").asInt());
+    		newNode.put("skin", node.get("skin").asInt());
         }
     	
         if(node.get("ready")!= null) //?

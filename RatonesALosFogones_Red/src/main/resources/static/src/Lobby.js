@@ -1,5 +1,8 @@
-var  isSocketOpen;
-var rivalReady = false;
+var isSocketOpen;
+var rivalReady;
+var playerReady;
+var id;
+var connection;
 
 class Lobby extends Phaser.Scene {
 
@@ -26,7 +29,9 @@ class Lobby extends Phaser.Scene {
         this.maxUsersReady = 2;
         this.url= window.location.href;
         this.user = this.dataObj.user;
-        this.playerReady = false;
+		rivalReady = false;
+		playerReady = false;
+		id = null;
 
         //VISUALES
         this.add.image(0,0,'Fondo_Lobby').setOrigin(0, 0);
@@ -53,10 +58,10 @@ class Lobby extends Phaser.Scene {
         BotonVolver.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
             this.sound.play('InteractSound');
             this.scene.start('Menu');
+            playerReady = false;
             rivalReady = false;
-            this.id = null;
-            // this.rivalDisconnect(this.user);
-            //elefante
+            id = null;
+            
             //this.userDisconected();
         });
 
@@ -67,7 +72,7 @@ class Lobby extends Phaser.Scene {
 
         this.BotonJugar.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
             this.sound.play('InteractSound');
-            this.playerReady = true;
+            playerReady = true;
             this.BotonJugar.setVisible(false);
             this.JugarPresionado.setVisible(true);
             this.BotonJugar.disableInteractive(true);
@@ -96,31 +101,32 @@ class Lobby extends Phaser.Scene {
         // console.log(this.url);
         this.wsURL = this.url.replace("http://", "");
 
-        if(this.connection == null || this.connection == undefined)
+        if(connection == null || connection == undefined)
         {
             console.log("estableciendo conexión con WS...");
-            this.connection = new WebSocket("ws://"+ this.wsURL + "echo");
-            this.dataObj.connection = this.connection;
+            connection = new WebSocket("ws://"+ this.wsURL + "echo");
         }
         // console.log("Ws URL: \n" + this.wsURL + "echo");
 
         //Atributos de la conexión
-        this.connection.onopen = function (){
+        connection.onopen = function (){
             isSocketOpen = true;
             console.log("Socket abierto");
         }
-        this.connection.onclose = function(){
+        connection.onclose = function(){
             //this.deleteActiveUser(this.user);
             isSocketOpen = false;
             console.log("Closing socket.");
-            //elefante
+            
             //this.userDisconected();
         }
 
-        this.connection.onmessage = function (message){
+        connection.onmessage = function (message){
             //console.log("mensaje recibido");
             let msg = JSON.parse(message.data);
-            updatePlayerInfo(msg.ratonReady);
+            rivalReady = msg.ratonReady;
+
+            //updatePlayerInfo(msg.ratonReady);
         }
 
         this.timedEventUpdateConnection = this.time.addEvent({
@@ -128,13 +134,6 @@ class Lobby extends Phaser.Scene {
             callback: this.sendCharacterInfo,
             callbackScope: this,
             loop: true });
-
-        this.countDownText = this.add.text(900, 250, 'Ambos readys!', {
-            fontFamily: 'Lexend',
-            font: (40).toString() + "px Lexend",
-            color: 'black'
-        });
-        this.countDownText.setVisible(false);
     }
 
     update()
@@ -147,12 +146,14 @@ class Lobby extends Phaser.Scene {
         //NUMERO RATON
         if(this.activeUsersNumber == 1)
         {
-            this.id = 0;
+            id = 0;
+            this.TextoRaton2.setVisible(false);
             this.TextoRaton1.setVisible(true);
 
-        } else if (this.activeUsersNumber == 2 && this.id == null)
+        } else if (this.activeUsersNumber == 2 && id == null)
         {
-            this.id = 1;
+            id = 1;
+            this.TextoRaton1.setVisible(false);
             this.TextoRaton2.setVisible(true);
         }
 
@@ -161,6 +162,7 @@ class Lobby extends Phaser.Scene {
             this.TextoBuscando.setVisible(true);
             this.TextoEncontrado.setVisible(false);
             this.BotonJugar.setVisible(false);
+            this.JugarPresionado.setVisible(false);
         }
         if(this.activeUsersNumber == 2){
             this.TextoBuscando.setVisible(false);
@@ -170,11 +172,11 @@ class Lobby extends Phaser.Scene {
 
         if(this.activeUsersNumber == this.maxUsersReady)
         {
-            //console.log("player ready: "+this.playerReady)
-            //console.log("rival ready: "+rivalReady)
-            if(this.playerReady && rivalReady)
+            //console.log("player ready: " + playerReady)
+            //console.log("rival ready: " + rivalReady)
+            if(playerReady && rivalReady)
             {
-                console.log("Ambos jugadores están listos");
+                //console.log("Ambos jugadores están listos");
                 this.countdownFunction();
             }
         }
@@ -183,11 +185,11 @@ class Lobby extends Phaser.Scene {
     sendCharacterInfo() {
         let message;
         message = {
-            ratonReady: this.playerReady,
+            ratonReady: playerReady
         }
         // console.log(message);
         if (isSocketOpen && this.activeUsersNumber == 2) {
-            this.connection.send(JSON.stringify(message))
+            connection.send(JSON.stringify(message))
         }
     }
 
@@ -207,11 +209,14 @@ class Lobby extends Phaser.Scene {
 
     countdownFunction()
     {
-        this.scene.start('PlayerSelection', {user: this.user, id: this.id, connection: this.connection});
+		this.time.delayedCall(2000, () => {this.StartPlaying('PlayerSelection');}, [], this);
     }
 
     deleteActiveUser(user)
     {
+		id = null;
+        connection.close();
+        
         $.ajax({
             method: "DELETE",
             url: url + "activeUsers/" + user,
@@ -224,7 +229,6 @@ class Lobby extends Phaser.Scene {
                 console.log("The URL was:\n" + url + "users/" + user)
             }
         });
-        this.id = null;
     }
 
     getActiveUsers()
@@ -243,20 +247,22 @@ class Lobby extends Phaser.Scene {
 
     userDisconected(){
         this.add.image(0,0, 'Fondo_Desconexion').setOrigin(0,0);
-        this.id = null;
-        this.playerReady = false;
-        rivalReady = false;
+        id = null;
+        playerReady = false;
+        //rivalReady = false;
         this.time.delayedCall(3000, () => {this.StartPlaying('Menu');}, [], this);
     }
 
     StartPlaying(escena){
-        this.scene.start(escena, {colorRaton1: this.raton1, colorRaton2:this.raton2, user : this.user});
+        this.scene.start(escena, {colorRaton1: this.raton1, colorRaton2:this.raton2, user : this.user, id: id, connection: connection});
     }
 }
 
-function updatePlayerInfo(data)
+
+/*function updatePlayerInfo(data)
 {
-    console.log("Rival listo: " + data);
+	console.log("holaaaaaaa????????????????????")
+    console.log("Rival listo actualizar data: " + data);
     rivalReady = data;
-}
+}*/
     
