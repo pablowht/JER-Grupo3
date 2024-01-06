@@ -1,4 +1,5 @@
 var  isSocketOpen;
+var rivalReady = false;
 
 class Lobby extends Phaser.Scene {
 
@@ -16,6 +17,7 @@ class Lobby extends Phaser.Scene {
     TextoRaton1;
     TextoRaton2;
     BotonJugar;
+    JugarPresionado;
 
 
     create(){
@@ -25,9 +27,6 @@ class Lobby extends Phaser.Scene {
         this.url= window.location.href;
         this.user = this.dataObj.user;
         this.playerReady = false;
-        this.rivalReady = false;
-        this.countdown = 5;
-        this.rivalOut = false;
 
         //VISUALES
         this.add.image(0,0,'Fondo_Lobby').setOrigin(0, 0);
@@ -54,29 +53,24 @@ class Lobby extends Phaser.Scene {
         BotonVolver.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
             this.sound.play('InteractSound');
             this.scene.start('Menu');
-            this.rivalReady = false;
+            rivalReady = false;
             this.id = null;
             // this.rivalDisconnect(this.user);
+            //elefante
+            //this.userDisconected();
         });
 
         this.BotonJugar = this.add.image(960.5,936.5,'BOTON_JUGAR').setVisible(false);
         this.BotonJugar.setInteractive({ cursor: 'pointer' });
 
+        this.JugarPresionado = this.add.image(960.5,936.5, 'Jugar_Presionado').setVisible(false);
+
         this.BotonJugar.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
             this.sound.play('InteractSound');
             this.playerReady = true;
             this.BotonJugar.setVisible(false);
-
-            // if(this.playerReady && this.rivalReady)
-            // {
-            //     console.log("pasando a la siguiente pantalla");
-            //     // this.scene.start('PlayerSelection', {user: this.user, activeUsers: this.activeUsersNumber, activePrevUsers: this.activePrevUsersNumber});
-            // }
-            if(this.countdown <=0){
-                console.log("pulsando al boton");
-                this.scene.start('PlayerSelection', {user: this.user, activeUsers: this.activeUsersNumber, activePrevUsers: this.activePrevUsersNumber});
-            }
-            this.sendCharacterInfo();
+            this.JugarPresionado.setVisible(true);
+            this.BotonJugar.disableInteractive(true);
         });
 
         //CHAT para evitar errores
@@ -93,8 +87,9 @@ class Lobby extends Phaser.Scene {
 
         window.addEventListener('beforeunload', () =>
         {
-            // this.deleteActiveUser(this.user);
-            this.rivalDisconnect(this.user);
+            this.deleteActiveUser(this.user);
+            //elefante
+            //this.userDisconected();
         });
 
         // ------------WEBSOCKETS--------------
@@ -115,15 +110,17 @@ class Lobby extends Phaser.Scene {
             console.log("Socket abierto");
         }
         this.connection.onclose = function(){
-            this.deleteActiveUser(this.user);
+            //this.deleteActiveUser(this.user);
             isSocketOpen = false;
             console.log("Closing socket.");
+            //elefante
+            //this.userDisconected();
         }
 
         this.connection.onmessage = function (message){
-            console.log("mensaje recibido");
+            //console.log("mensaje recibido");
             let msg = JSON.parse(message.data);
-            this.updatePlayerInfo(msg);
+            updatePlayerInfo(msg.ratonReady);
         }
 
         this.timedEventUpdateConnection = this.time.addEvent({
@@ -174,40 +171,24 @@ class Lobby extends Phaser.Scene {
         if(this.activeUsersNumber == this.maxUsersReady)
         {
             //console.log("player ready: "+this.playerReady)
-            //console.log("rival ready: "+this.rivalReady)
-            if(this.playerReady && this.rivalReady)
+            //console.log("rival ready: "+rivalReady)
+            if(this.playerReady && rivalReady)
             {
-                console.log("ambos jugadores están listos\nComienza la cuenta atrás");
+                console.log("Ambos jugadores están listos");
                 this.countdownFunction();
             }
         }
     }
 
-    sendCharacterInfo()
-    {
+    sendCharacterInfo() {
         let message;
         message = {
             ratonReady: this.playerReady,
         }
         // console.log(message);
-        if(isSocketOpen && (this.activeUsersNumber == 2))
-        {
-            console.log("sending message");
+        if (isSocketOpen && this.activeUsersNumber == 2) {
             this.connection.send(JSON.stringify(message))
         }
-    }
-
-    rivalDisconnect()
-    {
-            this.deleteActiveUser(this.user);
-            //alert.setVisible(true); -> PONER ALERTA CORRECTA DE USUARIO DESCONECTADO
-            //FALTA TEMPORIZADOR PARA QUE TE LLEVE A LA PANTALLA DE INICIO/LOBBY
-    }
-
-    updatePlayerInfo(data)
-    {
-        // console.log("Rival listo: " + data.ratonReady);
-        this.rivalReady = data.ratonReady;
     }
 
     updateActiveUsers()
@@ -217,9 +198,7 @@ class Lobby extends Phaser.Scene {
             if(this.activePrevUsersNumber < this.activeUsersNumber){
                 console.log("Se ha conectado alguien. El número actual de usuarios es: " + this.activeUsersNumber);
             }else if(this.activePrevUsersNumber > this.activeUsersNumber){
-                // this.rivalOut = true;
-                this.rivalReady = false;//??
-
+                rivalReady = false;
                 console.log("Alguien se ha desconectado. El número actual de usuarios es: " + this.activeUsersNumber);
             }
             this.activePrevUsersNumber = this.activeUsersNumber;
@@ -228,14 +207,7 @@ class Lobby extends Phaser.Scene {
 
     countdownFunction()
     {
-        console.log(this.playerReady);
-        console.log(this.rivalReady);
-        while(this.countdown >= 0) {
-            console.log("countdown: "+this.countdown);
-            this.countDownText.setVisible(true);
-            this.countdown--;
-            this.countDownText.add.text(this.countdown.toString());
-        }
+        this.scene.start('PlayerSelection', {user: this.user, id: this.id, connection: this.connection});
     }
 
     deleteActiveUser(user)
@@ -252,6 +224,7 @@ class Lobby extends Phaser.Scene {
                 console.log("The URL was:\n" + url + "users/" + user)
             }
         });
+        this.id = null;
     }
 
     getActiveUsers()
@@ -267,4 +240,23 @@ class Lobby extends Phaser.Scene {
     assignValue(data){
         this.activeUsersNumber = data;
     }
+
+    userDisconected(){
+        this.add.image(0,0, 'Fondo_Desconexion').setOrigin(0,0);
+        this.id = null;
+        this.playerReady = false;
+        rivalReady = false;
+        this.time.delayedCall(3000, () => {this.StartPlaying('Menu');}, [], this);
+    }
+
+    StartPlaying(escena){
+        this.scene.start(escena, {colorRaton1: this.raton1, colorRaton2:this.raton2, user : this.user});
+    }
 }
+
+function updatePlayerInfo(data)
+{
+    console.log("Rival listo: " + data);
+    rivalReady = data;
+}
+    

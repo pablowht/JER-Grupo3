@@ -39,13 +39,21 @@ class SelectLevelScene extends Phaser.Scene {
         BotonNivel1.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
             this.sound.play('InteractSound');
             this.add.image(0,0, 'PlayersReady').setOrigin(0,0);
-            this.time.delayedCall(7000, this.StartPlaying('LevelOne'), [], this);
+            //this.time.delayedCall(7000, this.StartPlaying('LevelOne'), [], this);
+            this.time.delayedCall(3000, () => {this.StartPlaying('LevelOne');}, [], this);
+            //Usamos (() => {}) Para asegurarnos de que cumple el this
+
         });
+
+        //this.add.image(0,0, 'PlayersReady').setOrigin(0,0);
+        //this.time.delayedCall(2000, this.StartPlaying, [], this);
+
 
         BotonNivel2.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
             this.sound.play('InteractSound');
             this.add.image(0,0, 'PlayersReady').setOrigin(0,0);
-            this.time.delayedCall(7000, this.StartPlaying('LevelTwo'), [], this);
+            //this.time.delayedCall(7000, this.StartPlaying('LevelTwo'), [], this);
+            this.time.delayedCall(3000, () => {this.StartPlaying('LevelTwo');}, [], this);
         });
 
 
@@ -103,7 +111,7 @@ class SelectLevelScene extends Phaser.Scene {
         });
 
         this.add.image(960, 1005, 'Recuadro_UsuariosActivos');
-        this.textActiveUsers = this.add.text(800, 939.5, 'Usuarios activos: ' + this.activeUsersNumber , {
+        this.textActiveUsers = this.add.text(780, 980, 'Usuarios activos: ' + this.activeUsersNumber , {
             fontFamily: 'Lexend',
             font: (40).toString() + "px Lexend",
             color: 'black'

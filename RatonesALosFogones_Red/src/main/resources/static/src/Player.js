@@ -70,44 +70,12 @@ class Player {
             frameRate: 10
         });
 
-        //Animaciones PAJARO
 
-        //this.scene.anims.create({
-        //    key: 'idlePajaro'+this.playerNumber,
-        //    frames: this.scene.anims.generateFrameNumbers('pajaro', { start: 6, end: 9 }),
-        //    frameRate: 5,
-        //    repeat: -1
-        //});
 
-        //this.scene.anims.create({
-        //    key: 'walkPajaro'+this.playerNumber,
-        //    frames: this.scene.anims.generateFrameNumbers('pajaro', { start: 10, end: 15 }),
-        //    frameRate: 10,
-        //    repeat: -1
-        //});
-        //this.scene.anims.create({
-        //    key: 'jumpPajaro'+this.playerNumber,
-        //    frames: this.scene.anims.generateFrameNumbers('pajaro', { frames: [ 0, 1, 10, 11, 12, 13 ] }),
-        //    frameRate: 10
-        //});
-        //this.scene.anims.create({
-        //    key: 'downPajaro'+this.playerNumber,
-        //    frames: this.scene.anims.generateFrameNumbers('pajaro', { frames: [ 15, 12, 2, 1, 0 ] }),
-        //    frameRate: 5
-        //});
-        //this.scene.anims.create({
-        //    key: 'hurtPajaro'+this.playerNumber,
-        //    frames: this.scene.anims.generateFrameNumbers('pajaro', { frames: [ 4, 5 ] } ),
-        //    frameRate: 10
-        //});
     }
 
     createPhysics(){
-        //if(!this.pajaroCreado){
-        //    //ESTO SEGURAMENTE DÉ PROBLEMAS PORQUE SE SOBREESCRIBIRÁN LAS FISICAS
-        //    this.fisicas = this.scene.physics.add.sprite(this.x, this.y, 'pajaro', 0);
-        //    this.pajaroCreado = true;
-        //}
+
         this.fisicas = this.scene.physics.add.sprite(this.x, this.y, this.color, 0); 
         this.fisicas.setCollideWorldBounds(true);
         this.fisicas.body.setGravityY(500);
@@ -146,36 +114,9 @@ class Player {
         }
     }
 
-    //movementControlsPlayerPAJARO(pajarito) {
-    //    //CONTROLES MOVIMIENTO PLAYER 1
-    //    if (this.flechaIzquierda.isDown && pajarito) {
-    //        this.fisicas.setVelocityX(-this.velocity);
-    //        this.fisicas.play('walkPajaro'+this.playerNumber, true);
-    //        this.fisicas.flipX = true;
-    //    } else if (this.flechaDerecha.isDown && pajarito) {
-    //        this.fisicas.setVelocityX(this.velocity);
-    //        this.fisicas.play('walkPajaro'+this.playerNumber, true);
-    //        this.fisicas.flipX = false;
-    //    } else if(pajarito){
-    //        this.fisicas.setVelocityX(0);
-    //        this.fisicas.play('idlePajaro'+this.playerNumber, true);
-    //    }
-    //    if (this.flechaArriba.isDown && this.fisicas.body.touching.down && pajarito) {
-    //        this.fisicas.setVelocityY(this.jumpAmount);
-    //        this.fisicas.play('jumpPajaro'+this.playerNumber, true);
-    //    }
-    //    if (this.flechaAbajo.isDown && pajarito) {
-    //        this.fisicas.play('downPajaro'+this.playerNumber, true);
-    //    }
-    //}
 
 
     update(time, delta){
-
-
-        //if(this.flechaPajarito.isDown) { this.pajarito = !this.pajarito; }
-        //if(this.pajarito) { this.movementControlsPlayerPAJARO(this.pajarito); }
-        //else { this.movementControlsPlayer(this.pajarito); }
 
         this.movementControlsPlayer();
 

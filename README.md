@@ -1,4 +1,4 @@
-## Ratones a los fogones
+## Ratones a los Fogones
 ### Repositorio de GitHub para la asignatura de Juegos en Red del grupo 3. Curso 2023-24.
 ___
 • **Nombre del juego**: Ratones a los fogones  
@@ -35,16 +35,38 @@ ___
 ___
 ### Cambios ###  
 Cambios con respecto a versiones anteriores:
+
 Versión Fase 2:
+
 1. Referencias de juegos similares
 2. Cambio de imágenes de las interfaces por las definitivas
 3. Imágenes de los objetos incluidas
 4. Actualizaciones de cambios en las mecánicas de los niveles
+
 Versión Fase 3:
-5. Actualizaciones de las interfaces para incluir las nuevas funcionalidades
-6. Login, cambiar contraseña, eliminar cuenta y usuarios activos
-7. Creación de un servidor con Spring
-8. Funcionalidades con API Rest
+
+6. Actualizaciones de las interfaces para incluir las nuevas funcionalidades
+7. Login, cambiar contraseña, eliminar cuenta y usuarios activos
+8. Creación de un servidor con Spring
+9. Funcionalidades con API Rest
+
+Versión Fase 4 y 5:
+
+10. Añadido nuevo nivel
+11. Añadido nuevo tipo de obstáculos: Cacerolas
+12. Diversificación del Login y el Create
+13. Arreglos en el inicio de sesión
+14. Feedback en el login y el create
+15. Implementado el CHAT
+16. Añadidas interfaces de confirmación de salida
+17. Actualizada la pestaña de Usuario
+18. Añadido feedback general
+19. Añadida página de error personalizada
+20. Arreglos pendientes de errores de fases anteriores
+21. Añadida comunicación por WebSockets
+22. Añadido Lobby
+23. Añadido feedback del servidor
+24. Subida la versión de itch.io
 ___
 ### Introducción ###  
 <p align="center">
@@ -67,9 +89,11 @@ Las características principales del juego son:
 **3. Género**  
 El género principal de Ratones a los fogones es de plataformas. En este género los jugadores avanzan por el escenario evitando obstáculos de cualquier forma (saltando, agachándose, etc.).  
 Al género plataformas se añade el de juegos de carreras, donde el principal objetivo es alcanzar la meta antes que el contrincante. De esta forma, mezclando los dos géneros, se consigue un juego competitivo y multijugador, donde la forma de alcanzar el objetivo es esquivando obstáculos.  
+
 **4. Propósito y público objetivo**  
 El principal objetivo de Ratones a los fogones es ofrecer un entretenimiento en pareja para desconectar y pasar un rato divertido. No busca tener un gran trasfondo o mensaje detrás, sino ofrecer un momento de distracción para pasarlo entre amigos.  
 Ratones a los fogones está dirigido a jugadores de un amplio rango de edades sin demasiado tiempo que poder dedicar al ocio en el día a día. Es por ello por lo que se apuesta por un sistema de partidas cortas y recompensas rápidas, incentivando la rejugabilidad y una competición sana entre amigos. Alienta a poder jugar de forma esporádica en los tiempos libres.  
+
 **5. Jugabilidad**  
 Ratones a los fogones está formado por tres niveles con diferente complejidad. La principal motivación es salir el primero de la cocina, esquivando obstáculos y, perjudicando al otro jugador mediante power-ups. Para que sea posible se encuentran diferentes elementos:  
 1.	Movilidad: cada personaje será controlado por un jugador. Los movimientos que se pueden realizar son: desplazamiento lateral, salto y agacharse. De esta manera se esquivarán los obstáculos y/o se cogerán los power-ups.  
@@ -122,6 +146,7 @@ Dentro del escenario se encuentran los obstáculos y los power-ups, pero la inte
 
 **4.	Personajes**  
 Ambos ratones tienen las mismas mecánicas, pero con diferentes controles. La única diferencia es el color que pueda tener, a libre elección del jugador.  
+
 **5.	Objetos**  
 Un eje fundamental de Ratones a los fogones son los objetos, los cuales se dividen en tres categorías: obstáculos estáticos, obstáculos dinámicos y power-ups.  
 Los obstáculos tomarán el papel de la dificultad del nivel que se esté ejecutando, alterando sus efectos y sus velocidades dependiendo del momento. Se tomará la forma de enseñanza de refuerzo negativo, en concreto condicionamiento de evitación, por la cual el jugador tiene más probabilidades de no repetir las acciones que conlleven problemas negativos. Cuando el jugador colisione con alguno de estos obstáculos recibirá una penalización en su velocidad de movimiento, pues su personaje quedará aturdido y su contrincante podrá tomarle la delantera.  
@@ -172,100 +197,137 @@ La pantalla de carga simplemente tendrá una barra de color amarillo y un peque�
  <br><br>
 </p>
 
-**5. Pantalla de Inicio de Sesión**  
+**5. Pantalla de Cuenta**  
+La pantalla de cuenta tiene dos botones para elegir o iniciar sesión o crear cuenta.  
+<p align="center">
+  <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/f7ec3f37-4cb5-4b13-85d6-4a60ec30ef04">
+  <br><br>
+  <b>Ilustración 6. Interfaz de Cuenta</b>
+ <br><br>
+</p>
+
+**6. Pantalla de Inicio de Sesión**  
 La pantalla de login tiene dos campos de texto para introducir el usuario y la contraseña, y un simple botón de acceder.  
 <p align="center">
   <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/f7ec3f37-4cb5-4b13-85d6-4a60ec30ef04">
   <br><br>
-  <b>Ilustración 6. Interfaz de Login</b>
+  <b>Ilustración 7. Interfaz de Login</b>
+ <br><br>
+</p>
+
+**7. Pantalla de Crear Cuenta**  
+La pantalla de crear cuenta tiene dos campos de texto para introducir el usuario y la contraseña, y un simple botón de crear.  
+<p align="center">
+  <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/f7ec3f37-4cb5-4b13-85d6-4a60ec30ef04">
+  <br><br>
+  <b>Ilustración 8. Interfaz de Crear Cuenta</b>
  <br><br>
 </p>
   
-**6. Menú Principal**  
+**8. Menú Principal**  
 La interfaz del menú principal muestra los botones básicos de jugar y ajustes (que en un futuro se añadirá la opción de local u online), y de los créditos.  
 <p align="center">
   <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/3b6b35b5-630b-43e4-9156-533b71e054e6">
    <br><br>
-  <b>Ilustración 7. Menú Principal</b>
+  <b>Ilustración 9. Menú Principal</b>
   <br><br>
 </p>
 
-**7. Pantalla de Usuario**  
-La pantalla de la cuenta del usuario permite cambiar la contraseña y eliminar la cuenta.  
+**9. Pantalla de Usuario**  
+La pantalla de la cuenta del usuario muestra el nombre del usuario y tiene dos botones para cambiar la contraseña y eliminar la cuenta.  
 <p align="center">
   <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/e2c24615-f14d-4b84-9f27-5d25a28ce3d0">
   <br><br>
-  <b>Ilustración 8. Interfaz de Usuario</b>
+  <b>Ilustración 10. Interfaz de Usuario</b>
  <br><br>
 </p>
 
-**8. Pantalla de Confirmar Eliminar Cuenta**  
+**10. Pantalla de Cambiar Contraseña**  
+La pantalla de cambiar contraseña tiene dos campos para introducir el usuario y la contraseña a cambiar.  
+<p align="center">
+  <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/e2c24615-f14d-4b84-9f27-5d25a28ce3d0">
+  <br><br>
+  <b>Ilustración 11. Interfaz de Cambiar Contraseña</b>
+ <br><br>
+</p>
+
+**11. Pantalla de Confirmar Eliminar Cuenta**  
 Esta interfaz incluye un simple texto para ofrecerle al jugador la opción de no eliminar la cuenta con un botón de confirmar y otro de volver.  
 <p align="center">
   <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/9983411f-3c9e-4576-b37d-f7972666f5a8">
   <br><br>
-  <b>Ilustración 9. Interfaz de Eliminar Cuenta</b>
+  <b>Ilustración 12. Interfaz de Eliminar Cuenta</b>
  <br><br>
 </p>
 
-**9. Selección de Ratón**  
+**12. Pantalla de Lobby**  
+Esta interfaz un texto parpadeante mientras encuentra un ratón con quien jugar que cambia y hace aparecer un botón de jugar cuando haya un rival.  
+<p align="center">
+  <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/9983411f-3c9e-4576-b37d-f7972666f5a8">
+  <br><br>
+  <b>Ilustración 13. Interfaz de Eliminar Cuenta</b>
+ <br><br>
+</p>
+
+**13. Selección de Ratón**  
 Después de elegir el modo de juego que se prefiere, se pasará a la selección del perfil de los jugadores 1 y 2. Los dos personajes que representarán a cada jugador serán ratones con distintos colores. Cuando el jugador esté listo, pulsará el botón LISTO, y proseguirá a la pantalla de niveles.   
 <p align="center">
   <img src="https://github.com/pablowht/JER-Grupo3/assets/139124884/c335edcb-beed-4cd8-af64-a5b80f5973f4">
   <br><br>
-  <b>Ilustración 10. Menú de Selección de Ratón</b>
+  <b>Ilustración 14. Menú de Selección de Ratón</b>
  <br><br>
 </p>
 
-**10. Selección de Nivel**  
-La pantalla de selección de nivel tiene un estilo minimalista, dando lugar a elegir entre 3 niveles diferentes. Para esta fase no se ha implementado.  
+**14. Selección de Nivel**  
+La pantalla de selección de nivel tiene dos botones para cada nivel, dos memes cuando se pasa el cursor por encima de los cubiertos y un mensaje hacia los profesores no cierto para la insignia. 
 <p align="center">
   <img src="https://github.com/pablowht/JER-Grupo3/assets/139124884/df003123-fbad-4c43-b8a6-487ffc3433b7">
   <br><br>
-  <b>Ilustración 11. Menú de Selección de Nivel</b>
+  <b>Ilustración 15. Menú de Selección de Nivel</b>
  <br><br>
 </p>
 
-**11. Menú de pausa, ajustes y controles**  
+**15. Menú de pausa, ajustes y controles**  
+La pantalla de ajustes tiene un botón de salir al menú, un bloqueador de audio e instrucciones para jugar. 
 <p align="center">
   <img src="https://github.com/pablowht/JER-Grupo3/assets/139124884/dd7f0118-4bed-4e0c-a127-91f97354d793">
   <br><br>
-  <b>Ilustración 12. Interfaz de Pausa, Ajustes y Controles</b>
+  <b>Ilustración 16. Interfaz de Pausa, Ajustes y Controles</b>
  <br><br>
 </p>
 
-**12. Nivel**  
-La interfaz in-game se basa en una pantalla dividida a la mitad horizontalmente donde el jugador 1 (el cual usará las teclas W, A, S, D) utilizará la pantalla de arriba, y el jugador 2 (mediante las teclas de las flechas) utilizará la de abajo. Cada jugador dispondrá de una barra arriba de su pantalla que mostrará el porcentaje de recorrido que han avanzado dentro del nivel y a ser posible un dibujo significativo del power up del que se esté haciendo uso.  
+**16. Nivel**  
+La interfaz in-game se basa en una pantalla dividida a la mitad horizontalmente donde el jugador 1 (el cual usará las teclas W, A, S, D) utilizará la pantalla de arriba, y el jugador 2 (mediante las teclas de las flechas) utilizará la de abajo. 
 <p align="center">
   <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/a9e59464-c0db-40be-b0d7-2619d49f865c">
   <br><br>
-  <b>Ilustración 13. Interfaz de Nivel</b>
+  <b>Ilustración 17. Interfaz de Nivel</b>
  <br><br>
 </p>
 
-**13. Fin de Nivel**  
-La pantalla de fin de nivel mostrará el ganador en el podio y las opciones de volver al menú principal o pasar al siguiente nivel.  
+**17. Fin de Nivel**  
+La pantalla de fin de nivel mostrará el ganador en el podio y la opción de volver al menú principal. También tiene el chat para comunicarse con el otro jugador. 
 <p align="center">
   <img src="https://github.com/pablowht/JER-Grupo3/assets/100694175/1cd669c4-816d-4f3f-96d8-60f3bfbb41a4">
   <br><br>
-  <b>Ilustración 14. Interfaz de Fin de Nivel</b>
+  <b>Ilustración 18. Interfaz de Fin de Nivel</b>
  <br><br>
 </p>
 
-**14. Créditos**    
+**18. Créditos**    
 <p align="center">
   <img src="https://github.com/pablowht/JER-Grupo3/assets/139124884/2ee834df-e380-4d48-b39f-4bb26bc83340">
   <br><br>
-  <b>Ilustración 15. Interfaz de Créditos</b>
+  <b>Ilustración 19. Interfaz de Créditos</b>
  <br><br>
 </p>
 
-**15. ¡A correr!**  
+**19. ¡A correr!**  
 Al iniciar el juego y probar varias veces, se descubrió que al terminar de elegir a los personajes el juego se iniciaba inmediatemente, debido a esto, se ha decidido añadir una nueva interfaz entre la selección de personaje y el juego en sí. Además se le ha incluído un pequeño tutorial visual para explicar el funcionamiento del juego.
 <p align="center">
   <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/aa3dfcf3-338f-4227-8891-9919f8b0b941">
   <br><br>
-  <b>Ilustración 16. ¡A correr!</b>
+  <b>Ilustración 20. ¡A correr!</b>
  <br><br>
 </p>
 
@@ -275,11 +337,11 @@ ___
 Mediante las siguientes implementaciones se consigue persistencia (pues los datos de los usuarios se guardan en un .txt), pudiendo guardar sus récords, cambiar la contraseña y borrar la cuenta si así se desea; conexión pues el servidor puede saber en todo momento los usuarios conectados mediante los usuarios activos y su información guardada en ficheros; e intercambio de información pues, aunque no se ha llegado a implementar un chat de momento, todos los usuarios pueden ver los usuarios que están conectados al servidor de forma simultánea. 
 1. Inicio de sesión: se crea una cuenta para el usuario si no la tenía y se le loguea al usuario.
   * Métodos utilizados: POST 
-4. Usuarios activos: muestra todos los usuarios conectados a la misma sesión del servidor. 
+4. Usuarios activos: muestra todos los usuarios conectados a la misma sesión del servidor. También se usa en el chat.
   * Métodos utilizados: GET, DELETE 
 3. Eliminar cuenta: permite eliminar la cuenta del usuario que se acaba de loguear. 
   * Métodos utilizados: DELETE 
-4. Cambio de contraseña: en una cuenta creada se permite cambiar la contraseña para iniciar sesión en otro momento.
+4. Cambio de contraseña: en una cuenta creada se permite cambiar la contraseña para iniciar sesión en otro momento. También se usa en el chat.
   * Métodos utilizados: PUT 
 ___
 

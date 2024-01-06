@@ -1,3 +1,14 @@
+var id;
+var scene;
+var characters1;
+var characters2;
+var connection;
+var isSocketOpen = false;
+var bothReady = false;
+var player1Type;
+var player2Type;
+var turno1;
+var turno2;
 
 class PlayerSelectionScene extends Phaser.Scene {
     constructor(numRaton) {
@@ -27,6 +38,8 @@ class PlayerSelectionScene extends Phaser.Scene {
     create(){
         this.user = this.dataObj.user;
         this.activePrevUsersNumber = 0;
+        id = this.dataObj.id;
+        connection = this.dataObj.connection;
 
         //Se reinician las variables para que si se vuelve a entrar después de una partida los valores estén correctos
         this.ReiniciarVariables();
@@ -67,9 +80,9 @@ class PlayerSelectionScene extends Phaser.Scene {
         BotonP2Listo.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
             this.sound.play('InteractSound');
             if(this.raton2 !== undefined && this.boton2Pulsado){
-                this.BotonP2Listo = this.add.image(31630,870,'Boton2ListoPressed');
+                this.BotonP2Listo = this.add.image(1630,870,'Boton2ListoPressed');
                 this.p2Ready = true;
-                this.scene.start('LevelSelection', {colorRaton1: this.raton1, colorRaton2:this.raton2, user: this.user,  activeUsers: this.activeUsersNumber, activePrevUsers: this.activePrevUsersNumber});
+                this.scene.start('LevelSelection', {colorRaton1: this.raton1, colorRaton2:this.raton2, user: this.user});
             }
         });
         
@@ -171,6 +184,12 @@ class PlayerSelectionScene extends Phaser.Scene {
                 this.boton2Pulsado = true;
             }
         });
+        //TURNO JUGADORES
+        turno1 = this.add.image(296.5,175.5,'Turno1');
+        turno1.setVisible(false);
+        turno2 = this.add.image(1628,175.5,'Turno1');
+        turno2.setVisible(false);
+
 
         window.addEventListener('beforeunload', () =>
         {
@@ -178,7 +197,7 @@ class PlayerSelectionScene extends Phaser.Scene {
         });
 
         this.add.image(960, 1005, 'Recuadro_UsuariosActivos');
-        this.textActiveUsers = this.add.text(800, 939.5, 'Usuarios activos: ' + this.activeUsersNumber , {
+        this.textActiveUsers = this.add.text(780, 980, 'Usuarios activos: ' + this.activeUsersNumber , {
             fontFamily: 'Lexend',
             font: (40).toString() + "px Lexend",
             color: 'black'
@@ -187,6 +206,30 @@ class PlayerSelectionScene extends Phaser.Scene {
 
         var chat = this.add.dom(1420, 820).createFromCache('chat_html');
         chat.setVisible(false);
+        
+        
+        //WEBSOCKETS:
+        isSocketOpen = true;
+        connection.onopen = function (){
+            console.log("Socket abierto")
+            isSocketOpen = true;
+        }
+
+        connection.onclose = function (){
+			//this.deleteActiveUser(this.user);
+            console.log("Socket cerrado")
+            isSocketOpen = false;
+        }
+
+        connection.onmessage = function (message){
+            let msg = JSON.parse(message.data);
+            updatePlayerInfo(msg);
+        }
+        this.timedEventUpdateConnection = this.time.addEvent({
+            delay: 13,
+            callback: this.sendCharacterInfo,
+            callbackScope: this,
+            loop: true });
     }
 
     update(time, delta)
@@ -194,6 +237,14 @@ class PlayerSelectionScene extends Phaser.Scene {
         this.getActiveUsers();
         this.updateActiveUsers();
         this.textActiveUsers.setText('Usuarios activos: ' + this.activeUsersNumber);
+
+        if(id == 0)
+        {
+            player1Type = this.raton1;
+        } else if(id == 1)
+        {
+            player2Type = this.raton2;
+        }
     }
 
     ReiniciarVariables(){
@@ -209,7 +260,6 @@ class PlayerSelectionScene extends Phaser.Scene {
     }
     updateActiveUsers()
     {
-
         if(this.activePrevUsersNumber !== this.activeUsersNumber)
         {
             if(this.activePrevUsersNumber < this.activeUsersNumber){
@@ -219,7 +269,6 @@ class PlayerSelectionScene extends Phaser.Scene {
             }
             this.activePrevUsersNumber = this.activeUsersNumber;
         }
-
     }
 
     deleteActiveUser(user)
@@ -250,6 +299,67 @@ class PlayerSelectionScene extends Phaser.Scene {
     assignValue(data){
         this.activeUsersNumber = data;
     }
+
+    sendCharacterInfo()
+    {
+        let message;
+
+        if(id == 0)
+        {
+            message = {
+                id: id,
+                ratonReady: true,
+                ratonSeleccionado: this.Boton2RatonSelected,
+                //visibleCharacter: runes[0].currentCharacter.visible,
+                frameCharacter: this.raton2,
+                //text: runes[0].currentText.frame.name,
+                ready: this.p1Ready,
+                type: player1Type,
+            }
+        }
+        else if (id == 1)
+        {
+            //runes[0].currentCharacter = characters2;
+            message = {
+                id: id,
+                ratonReady: true,
+                ratonSeleccionado: this.Boton1RatonSelected,
+                //visibleCharacter: runes[0].currentCharacter.visible,
+                frameCharacter: this.raton1,
+                //text: runes[0].currentText.frame.name,
+                ready: this.p2Ready,
+                type: player2Type,
+            }
+        }
+        if(isSocketOpen)
+        {
+            connection.send(JSON.stringify(message))
+        }
+    }
 }
+
+function updatePlayerInfo(data)
+{
+    if (id == 0)
+    {
+        characters2.setFrame(data.frameCharacter);
+        characters2.setVisible(data.visibleCharacter);
+        //textP2.setFrame(data.text);
+        turno1.setVisible(true);
+        turno2.setVisible(false);
+        player2Type = data.type;
+        this.p1Ready = data.ready;
+    } else if (id == 1)
+    {
+        characters1.setFrame(data.frameCharacter);
+        characters1.setVisible(data.visibleCharacter);
+        //textP1.setFrame(data.text);
+        turno2.setVisible(true);
+        turno1.setVisible(false);
+        player1Type = data.type;
+        this.p2Ready = data.ready;
+    }
+}
+
 
 
