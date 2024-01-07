@@ -74,6 +74,7 @@ class Lobby extends Phaser.Scene {
             rivalReady = false;
             if(id == 1) id = 0;
             if(id == 0) id = null;
+            this.sendCharacterInfo();
             //this.userDisconected();
         });
 
@@ -88,6 +89,16 @@ class Lobby extends Phaser.Scene {
             this.BotonJugar.setVisible(false);
             this.JugarPresionado.setVisible(true);
             this.BotonJugar.disableInteractive(true);
+
+            let message;
+            message = {
+                ratonReady: playerReady
+            }
+            // console.log(message);
+            if (isSocketOpen && this.activeUsersNumber >= 2) {
+                connection.send(JSON.stringify(message))
+            }
+
         });
 
         //CHAT para evitar errores
@@ -136,20 +147,21 @@ class Lobby extends Phaser.Scene {
             //console.log("mensaje recibido");
             let msg = JSON.parse(message.data);
             rivalReady = msg.ratonReady;
-
-            //updatePlayerInfo(msg.ratonReady);
         }
 
-        this.timedEventUpdateConnection = this.time.addEvent({
+        /*this.timedEventUpdateConnection = this.time.addEvent({
             delay: 13,
             callback: this.sendCharacterInfo,
             callbackScope: this,
-            loop: true });
+            loop: true });*/
     }
 
     update()
     {
-		//console.log("abierto???"+isSocketOpen)
+        //console.log("user ready: "+playerReady)
+        //console.log("rival ready: "+rivalReady)
+
+        //console.log("abierto???"+isSocketOpen)
         this.getActiveUsers();
         this.updateActiveUsers();
         this.textActiveUsers.setText('Usuarios activos: ' + this.activeUsersNumber);
@@ -186,7 +198,7 @@ class Lobby extends Phaser.Scene {
             this.BotonJugar.setVisible(true);
         }
 
-        if(this.activeUsersNumber == this.maxUsersReady)
+        /*if(this.activeUsersNumber == this.maxUsersReady)
         {
             if(playerReady && rivalReady)
             {
@@ -196,8 +208,17 @@ class Lobby extends Phaser.Scene {
                 bEsperandoRespuesta = true;
                 this.countdownFunction();
             }
+        }*/
+
+        if(playerReady && rivalReady)
+        {
+            this.TextoEncontrado.setVisible(false);
+            this.TextoBuscando.setVisible(false);
+            esperandoRespuesta.setVisible(true);
+            bEsperandoRespuesta = true;
+            this.countdownFunction();
         }
-        
+
         if(playerReady || rivalReady) 
         {
 			this.TextoEncontrado.setVisible(false);
@@ -213,7 +234,7 @@ class Lobby extends Phaser.Scene {
             ratonReady: playerReady
         }
         // console.log(message);
-        if (isSocketOpen && this.activeUsersNumber == 2) {
+        if (isSocketOpen && this.activeUsersNumber >= 2) {
             connection.send(JSON.stringify(message))
         }
     }
@@ -285,20 +306,12 @@ class Lobby extends Phaser.Scene {
         rivalReady = false;
         let message;
         message = {
-            ratonReady:playerReady
+            ratonReady: playerReady
         }
-        if (isSocketOpen && this.activeUsersNumber == 2) {
+        if (isSocketOpen && this.activeUsersNumber >= 2) {
             connection.send(JSON.stringify(message))
         }
         this.scene.start(escena, {colorRaton1: this.raton1, colorRaton2:this.raton2, user : this.user, id: id, connection: connection});
     }
 }
-
-
-/*function updatePlayerInfo(data)
-{
-	console.log("holaaaaaaa????????????????????")
-    console.log("Rival listo actualizar data: " + data);
-    rivalReady = data;
-}*/
     

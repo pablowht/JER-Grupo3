@@ -1,3 +1,25 @@
+var id;
+var connection;
+var player1;
+var player2;
+var player1Won;
+var player2Won;
+var colorRaton1;
+var colorRaton2;
+var moveLeft1;
+var moveRight1;
+var nomove1;
+var jump1;
+var down1;
+var moveLeft2;
+var moveRight2;
+var nomove2;
+var jump2;
+var down2;
+
+var pausa1;
+var pausa2;
+
 class LevelTwo extends Phaser.Scene {
     constructor() {
         super("LevelTwo");
@@ -6,19 +28,14 @@ class LevelTwo extends Phaser.Scene {
     //variables:
     walkable;
     platforms;
-    isPaused;
-    player1 = new Player(1, 200, 100, 100, -300, this);
-    player2 = new Player(2, 200, 450, 100, -300, this);
-    colorRaton1;
-    colorRaton2;
+
     camera;
     powerupAma = new Powerup(3, 2390, 220, this);
-  //  powerupAz = new Powerup(2, 1543, 200, this);
+  
     powerupRoj = new Powerup(1, 2760, 190, this);
     powerupRoj3 = new Powerup(1, 600, 190, this);
     powerupRoj5 = new Powerup(1, 1035, 115, this);
     powerupAma2 = new Powerup(3, 2390, 620, this);
-    //powerupAz2 = new Powerup(2, 1543, 600, this);
     powerupRoj2 = new Powerup(1, 2760, 590, this);
     powerupRoj4 = new Powerup(1, 600, 590, this);
     powerupRoj6 = new Powerup(1, 1035, 515, this);
@@ -35,11 +52,22 @@ class LevelTwo extends Phaser.Scene {
     }
 
     create() {
-
+		colorRaton1 = this.dataObj.colorRaton1;
+        colorRaton2 = this.dataObj.colorRaton2;
+		playerReady = false;
+        rivalReady = false;
+        player1Won = false;
+        player2Won = false;
+        isSocketOpen = false;
+        id = this.dataObj.id;
+    	connection = this.dataObj.connection;
+    	this.url= window.location.href;
+    	
+    	////
+		player1 = new Player(1, 200, 100, 100, -300, this);
+    	player2 = new Player(2, 200, 450, 100, -300, this);
         this.input.keyboard.disableGlobalCapture();
 
-        this.colorRaton1 = this.dataObj.colorRaton1;
-        this.colorRaton2 = this.dataObj.colorRaton2;
         this.user = this.dataObj.user;
         this.activePrevUsersNumber = 0;
 
@@ -233,26 +261,26 @@ class LevelTwo extends Phaser.Scene {
         this.add.image(240, 460, 'Raton2Ingame').setScale(0.4);
 
         //Inicialización de los jugadores
-        this.player1.assignControls();
-        this.player2.assignControls();
+        player1.assignControls();
+        player2.assignControls();
 
         //Color Ratones
-        this.player1.color = this.colorRaton1;
-        this.player2.color = this.colorRaton2;
+        player1.color = colorRaton1;
+        player2.color = colorRaton2;
 
         //añadimos las animaciones
-        this.player1.createAnimsPlayer(this.player1.color);
-        this.player2.createAnimsPlayer(this.player2.color);
+        player1.createAnimsPlayer(player1.color);
+        player2.createAnimsPlayer(player2.color);
 
         //PLAYER 1
-        this.player1.createPhysics();
-        this.player1.establishColliderObj(this.walkable);
-        this.player1.establishColliderObj(this.platforms);
+        player1.createPhysics();
+        player1.establishColliderObj(this.walkable);
+        player1.establishColliderObj(this.platforms);
 
         //PLAYER 2
-        this.player2.createPhysics();
-        this.player2.establishColliderObj(this.walkable);
-        this.player2.establishColliderObj(this.platforms);
+        player2.createPhysics();
+        player2.establishColliderObj(this.walkable);
+        player2.establishColliderObj(this.platforms);
 
         //POWERUPS:
         this.powerupAma.createPhysics();
@@ -265,23 +293,23 @@ class LevelTwo extends Phaser.Scene {
         this.powerupRoj2.createPhysics();
         this.powerupRoj5.createPhysics();
         this.powerupRoj6.createPhysics();
-        this.physics.add.overlap(this.player1.fisicas, this.powerupAma.fisicas, this.collectPowerUp, null, this);
-        //this.physics.add.overlap(this.player1.fisicas, this.powerupAz.fisicas, this.collectPowerUp, null, this);
-        this.physics.add.overlap(this.player1.fisicas, this.powerupRoj.fisicas, this.collectPowerUp, null, this);
-        this.physics.add.overlap(this.player1.fisicas, this.powerupRoj3.fisicas, this.collectPowerUp, null, this);
-        this.physics.add.overlap(this.player2.fisicas, this.powerupRoj4.fisicas, this.collectPowerUp, null, this);
-        this.physics.add.overlap(this.player1.fisicas, this.powerupRoj5.fisicas, this.collectPowerUp, null, this);
-        this.physics.add.overlap(this.player2.fisicas, this.powerupRoj6.fisicas, this.collectPowerUp, null, this);
-        this.physics.add.overlap(this.player2.fisicas, this.powerupAma2.fisicas, this.collectPowerUp, null, this);
-     //   this.physics.add.overlap(this.player2.fisicas, this.powerupAz2.fisicas, this.collectPowerUp, null, this);
-        this.physics.add.overlap(this.player2.fisicas, this.powerupRoj2.fisicas, this.collectPowerUp, null, this);
-        this.physics.add.overlap(this.player1.fisicas, this.obstaculos, this.hitAnyObstacle, null, this);
-        this.physics.add.overlap(this.player2.fisicas, this.obstaculos, this.hitAnyObstacle, null, this);
-        this.physics.add.overlap(this.player1.fisicas, this.Cacerolas, this.hitAnyObstacle, null, this);
-        this.physics.add.overlap(this.player2.fisicas, this.Cacerolas, this.hitAnyObstacle, null, this);
+        this.physics.add.overlap(player1.fisicas, this.powerupAma.fisicas, this.collectPowerUp, null, this);
+        //this.physics.add.overlap(player1.fisicas, this.powerupAz.fisicas, this.collectPowerUp, null, this);
+        this.physics.add.overlap(player1.fisicas, this.powerupRoj.fisicas, this.collectPowerUp, null, this);
+        this.physics.add.overlap(player1.fisicas, this.powerupRoj3.fisicas, this.collectPowerUp, null, this);
+        this.physics.add.overlap(player2.fisicas, this.powerupRoj4.fisicas, this.collectPowerUp, null, this);
+        this.physics.add.overlap(player1.fisicas, this.powerupRoj5.fisicas, this.collectPowerUp, null, this);
+        this.physics.add.overlap(player2.fisicas, this.powerupRoj6.fisicas, this.collectPowerUp, null, this);
+        this.physics.add.overlap(player2.fisicas, this.powerupAma2.fisicas, this.collectPowerUp, null, this);
+     //   this.physics.add.overlap(player2.fisicas, this.powerupAz2.fisicas, this.collectPowerUp, null, this);
+        this.physics.add.overlap(player2.fisicas, this.powerupRoj2.fisicas, this.collectPowerUp, null, this);
+        this.physics.add.overlap(player1.fisicas, this.obstaculos, this.hitAnyObstacle, null, this);
+        this.physics.add.overlap(player2.fisicas, this.obstaculos, this.hitAnyObstacle, null, this);
+        this.physics.add.overlap(player1.fisicas, this.Cacerolas, this.hitAnyObstacle, null, this);
+        this.physics.add.overlap(player2.fisicas, this.Cacerolas, this.hitAnyObstacle, null, this);
         //META
-        this.physics.add.overlap(this.player1.fisicas, this.meta, this.hitMeta, null, this);
-        this.physics.add.overlap(this.player2.fisicas, this.meta, this.hitMeta, null, this);
+        this.physics.add.overlap(player1.fisicas, this.meta, this.hitMeta, null, this);
+        this.physics.add.overlap(player2.fisicas, this.meta, this.hitMeta, null, this);
 
         //INTERFAZ
         this.barraDivisoria = this.add.image(0, 310, 'BarraDivisoria').setOrigin(0);
@@ -292,8 +320,8 @@ class LevelTwo extends Phaser.Scene {
         this.backgroundMusic.play();
         this.backgroundMusic.setVolume(0.2);
 
-        this.player1.fisicas.setScale(1.25);
-        this.player2.fisicas.setScale(1.25);
+        player1.fisicas.setScale(1.25);
+        player2.fisicas.setScale(1.25);
 
         this.esc = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
 
@@ -302,14 +330,53 @@ class LevelTwo extends Phaser.Scene {
             this.deleteActiveUser(this.user);
         });
 
-        //this.textActiveUsers = this.add.text(117, 935, 'Usuarios activos login: ' + this.activeUsersNumber , {
-        //    fontFamily: 'Lexend',
-        //    font: (40).toString() + "px Lexend",
-        //    color: 'black'
-        //});
-
         var chat = this.add.dom(1420, 820).createFromCache('chat_html');
         chat.setVisible(false);
+        
+        // ------------WEBSOCKETS--------------
+        //Atributos de la conexión
+        isSocketOpen = true;
+        connection.onopen = function (){
+            isSocketOpen = true;
+            console.log("Socket abierto");
+        }
+        connection.onclose = function(){
+            isSocketOpen = false;
+            console.log("Closing socket."); 
+        }
+
+        connection.onmessage = function (message){
+            //console.log("mensaje recibido");
+            let msg = JSON.parse(message.data);
+            if(id == 0)
+            {
+				player2.fisicas.setPosition(msg.positionX,msg.positionY);
+				player2Won = msg.ganador;
+                moveLeft2 = msg.left;
+                moveRight2 = msg.right;
+                down2 = msg.down;
+                jump2 = msg.jump;
+                nomove2 = msg.idle;
+                pausa2 = msg.pausa;
+            } else if (id == 1)
+    		{
+        		player1.fisicas.setPosition(msg.positionX,msg.positionY);
+                moveLeft1 = msg.left;
+                moveRight1 = msg.right;
+                down1 = msg.down;
+                jump1 = msg.jump;
+                nomove1 = msg.idle;
+        		player1Won = msg.ganador;
+                pausa1 = msg.pausa;
+            }
+        }
+        
+        this.timedEventUpdateConnection = this.time.addEvent({  	
+            delay: 13,
+            callback: this.sendCharacterInfo,
+            callbackScope: this,
+            loop: true });
+
     }
 
     update(timeNum, timeDelta) {
@@ -317,41 +384,69 @@ class LevelTwo extends Phaser.Scene {
         this.camera.moveCameraFunction();
         this.physics.world.setBounds(this.camera.getScrollCam() + 324, 0, 3200, 1080);
 
-        this.player1.update(timeNum, timeDelta);
-        this.player2.update(timeNum, timeDelta);
+        //player1.update(timeNum, timeDelta);
+        //player2.update(timeNum, timeDelta);
         
         this.activateFogon(this.obstFogon14);
         this.activateFogon(this.obstFogon15);
         this.activateFogon(this.obstFogon16);
         this.activateFogon(this.obstFogon17);
-       this.activateFogon(this.obstFogon18);
+      	this.activateFogon(this.obstFogon18);
         this.activateFogon(this.obstFogon19);
         this.activateFogon(this.obstFogon20);
         this.activateFogon(this.obstFogon21);
-
-        //Para pausa
-        if (this.esc.isDown) {
-            this.sound.play('InteractSound');
-            this.scene.pause();
-            this.scene.launch('Pause', {isPaused: true, level:2});
-        }
 
         this.getActiveUsers();
         this.updateActiveUsers();
         //this.textActiveUsers.setText('Usuarios activos: ' + this.activeUsersNumber);
 
+        if(id == 0 && !player1Won && !player2Won) player1.update(timeNum, timeDelta);
+        if(id == 1 && !player1Won && !player2Won) player2.update(timeNum, timeDelta);
+
+        if(id == 0){
+            if(moveRight2){
+                player2.fisicas.play('walk'+2, true);
+                player2.fisicas.flipX = false;
+            } else if(moveLeft2){
+                player2.fisicas.play('walk'+2, true);
+                player2.fisicas.flipX = true;
+            } else if(nomove2){
+                player2.fisicas.play('idle'+2, true);
+            } else if(down2){
+                player2.fisicas.play('down'+2, true);
+            } else if(jump2){
+                player2.fisicas.play('jump'+2, true);
+            }
+        }
+        if(id == 1){
+            if(moveRight1){
+                player1.fisicas.play('walk'+1, true);
+                player1.fisicas.flipX = false;
+            } else if(moveLeft1){
+                player1.fisicas.play('walk'+1, true);
+                player1.fisicas.flipX = true;
+            } else if(nomove1){
+                player1.fisicas.play('idle'+1, true);
+            } else if(down1){
+                player1.fisicas.play('down'+1, true);
+            } else if(jump1){
+                player1.fisicas.play('jump'+1, true);
+            }
+        }
         if(this.activeUsersNumber == 1) this.userDisconected();
     }
 
-    hitMeta(player, meta) {
+    hitMeta(player, meta){
         if (player.texture.key === 1) {
-            this.player1.gestionCollision(meta);
-            this.player1Won = true;
-            this.EndGame();
+            player1.gestionCollision(meta);
+            player1Won = true;
+			this.sendCharacterInfo();
+            this.countdownFunction();
         } else if (player.texture.key === 2) {
-            this.player2.gestionCollision(meta);
-            this.player2Won = true;
-            this.EndGame();
+            player2.gestionCollision(meta);
+            player2Won = true;
+			this.sendCharacterInfo();
+            this.countdownFunction();
         }
     }
 
@@ -359,11 +454,10 @@ class LevelTwo extends Phaser.Scene {
         this.sound.play('PowerUpGrabSound');
         powerup.disableBody(true, true);
         if (player.texture.key === 1) {
-            this.player1.gestionPowerUp(powerup);
+            player1.gestionPowerUp(powerup);
         } else if (player.texture.key === 2) {
-            this.player2.gestionPowerUp(powerup);
+            player2.gestionPowerUp(powerup);
         }
-
     }
 
     activateFogon(obj) {
@@ -377,18 +471,18 @@ class LevelTwo extends Phaser.Scene {
         this.sound.play('HurtSound');
         obstacle.disableBody(true, true);
         if (player.texture.key === 1) {
-            this.player1.gestionCollision(obstacle);
+            player1.gestionCollision(obstacle);
         } else if (player.texture.key === 2) {
-            this.player2.gestionCollision(obstacle);
+            player2.gestionCollision(obstacle);
         }
     }
 
     EndGame() {
         this.scene.start("GameOver", {
-            raton1: this.colorRaton1, 
-            raton2:this.colorRaton2, 
-            ganador1:this.player1Won, 
-            ganador2:this.player2Won, 
+            raton1: colorRaton1, 
+            raton2:colorRaton2, 
+            ganador1:player1Won, 
+            ganador2:player2Won, 
             user: this.user
         });
     }
@@ -409,6 +503,9 @@ class LevelTwo extends Phaser.Scene {
 
     deleteActiveUser(user)
     {
+		id = null;
+		connection = false;
+        connection.close();
         $.ajax({
             method: "DELETE",
             url: url + "activeUsers/" + user,
@@ -447,4 +544,60 @@ class LevelTwo extends Phaser.Scene {
         raton1 = false;
         this.time.delayedCall(2000, () => {this.StartPlaying('Menu');}, [], this);
     }
+    
+    sendCharacterInfo()
+    {
+        let message;
+		if(id == 0){
+			message = {
+                left: player1.left,
+                right: player1.right,
+                jump: player1.jump,
+                down: player1.down,
+                idle: player1.idle,
+                positionX: player1.fisicas.x,
+                positionY: player1.fisicas.y,
+                id: id,
+                color: raton1,
+                ganador: player1Won,
+                pausa: pausa1
+        	}
+        } else if(id == 1){
+			message = {
+                left: player2.left,
+                right: player2.right,
+                jump: player2.jump,
+                down: player2.down,
+                idle: player2.idle,
+                positionX: player2.fisicas.x,
+                positionY: player2.fisicas.y,
+                id: id,
+                color: raton2,
+                ganador: player2Won,
+                pausa: pausa2
+            }
+		}
+            		       
+        if(isSocketOpen && this.activeUsersNumber >= 2)
+        {
+            connection.send(JSON.stringify(message))
+        }
+    }
+    
+    countdownFunction()
+    {
+		this.time.delayedCall(3000, () => {this.StartPlaying('GameOver');}, [], this);
+    }
+    
+    StartPlaying(escena){
+		isSocketOpen = false;
+        connection.onclose();
+    	this.scene.start(escena, {
+				raton1: colorRaton1, 
+				raton2: colorRaton2, 
+				ganador1: player1Won, 
+				ganador2: player2Won, 
+				user: this.user
+		});
+  	}
 }

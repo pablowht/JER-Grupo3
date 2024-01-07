@@ -129,6 +129,10 @@ public class WebSocketEchoHandler extends TextWebSocketHandler {
         {
         	newNode.put("pausa", node.get("pausa").asBoolean());
         }
+        if(node.get("resumePause")!= null)
+        {
+        	newNode.put("resumePause", node.get("resumePause").asInt());
+        }
     	////////////
     	if(node.get("skin")!= null) //Lo mismo del tipo xd
     	{

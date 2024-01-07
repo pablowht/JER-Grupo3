@@ -50,6 +50,8 @@ class PlayerSelectionScene extends Phaser.Scene {
         this.activePrevUsersNumber = 0;
         id = this.dataObj.id;
         connection = this.dataObj.connection;
+        playerDisconected = false;
+        rivalDisconected = false;
 
         //Se reinician las variables para que si se vuelve a entrar después de una partida los valores estén correctos
         this.ReiniciarVariables();
@@ -59,6 +61,9 @@ class PlayerSelectionScene extends Phaser.Scene {
         coorGy = 265;
         coorMx = 866;
         coorMy = 800;
+
+        RatonGrande1 = false;
+        RatonGrande2 = false;
         
         //FONDO
         this.add.image(0,0,'FondoCustom').setOrigin(0, 0);
@@ -107,7 +112,7 @@ class PlayerSelectionScene extends Phaser.Scene {
             this.sound.play('InteractSound');
             if(this.boton1Pulsado && !p1Ready && id == 0){
                 //raton1Selection.destroy();
-                RatonGrande1.destroy();
+                //RatonGrande1.destroy();
                 //this.player1CleanSelec()
                 this.boton1Pulsado = false;
                 this.ratonBElegido = false;
@@ -117,7 +122,7 @@ class PlayerSelectionScene extends Phaser.Scene {
             }
             if(this.boton2Pulsado && !p2Ready && id == 1){
                 //raton2Selection.destroy();
-                RatonGrande2.destroy();
+                //RatonGrande2.destroy();
                 //this.player2CleanSelec()
                 this.boton2Pulsado = false;
                 return;
@@ -151,7 +156,7 @@ class PlayerSelectionScene extends Phaser.Scene {
             if(this.boton1Pulsado && !p1Ready && id == 0){
                 //raton1Selection.destroy();
                 //RatonGrande1.destroy();
-                this.player1CleanSelec();
+                //this.player1CleanSelec();
                 this.boton1Pulsado = false;
                 this.ratonBElegido = false;
                 this.ratonMElegido = false;
@@ -164,7 +169,7 @@ class PlayerSelectionScene extends Phaser.Scene {
 
                 //raton2Selection.destroy();
                 //RatonGrande2.destroy();
-                this.player2CleanSelec();
+                //this.player2CleanSelec();
                 return;
             }
 
@@ -200,7 +205,7 @@ class PlayerSelectionScene extends Phaser.Scene {
                 this.ratonBElegido = false;
                 this.ratonMElegido = false;
                 this.ratonGElegido = false;
-                this.player1CleanSelec()
+                //this.player1CleanSelec()
 
                 return;
             }
@@ -208,7 +213,7 @@ class PlayerSelectionScene extends Phaser.Scene {
                 this.boton2Pulsado = false;
                 //raton2Selection.destroy();
                 //RatonGrande2.destroy();
-                this.player2CleanSelec()
+                //this.player2CleanSelec()
                 return;
             }
 
@@ -371,9 +376,9 @@ class PlayerSelectionScene extends Phaser.Scene {
         raton1Selection = this.add.image(coorBx,coorBy,'Boton1RatonSeleccionado');
 	}
 	player2SelecBlanco(){
-		raton2Selection = false;
-        RatonGrande2 = false;
-		//RatonGrande2 = this.add.image(1625,510,'RatonBlancoGrande');
+		//raton2Selection = false;
+        //RatonGrande2 = false;
+		RatonGrande2 = this.add.image(1625,510,'RatonBlancoGrande');
         //raton2Selection.destroy();
         raton2Selection = this.add.image(coorBx,coorBy,'Boton2RatonSeleccionado');
 	}
@@ -493,7 +498,7 @@ class PlayerSelectionScene extends Phaser.Scene {
                 color: raton2,
             }
         }
-        if(isSocketOpen && this.activeUsersNumber == 2)
+        if(isSocketOpen && this.activeUsersNumber >= 2)
         {
             connection.send(JSON.stringify(message))
         }
@@ -526,6 +531,8 @@ class PlayerSelectionScene extends Phaser.Scene {
         p2Ready = false;
         raton2 = false;
         raton1 = false;
+        playerDisconected = false;
+        rivalDisconected = false;
         this.time.delayedCall(2000, () => {this.StartPlaying('Menu');}, [], this);
         
     }

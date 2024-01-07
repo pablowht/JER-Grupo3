@@ -19,6 +19,7 @@ var down2;
 
 var pausa1;
 var pausa2;
+
 class LevelOne extends Phaser.Scene {
     constructor() {
         super("LevelOne");
@@ -27,7 +28,6 @@ class LevelOne extends Phaser.Scene {
     //variables:
     walkable;
     platforms;
-    isPaused;
     level;
     camera;
     powerupAma = new Powerup(3, 1040, 200, this);
@@ -51,17 +51,22 @@ class LevelOne extends Phaser.Scene {
 
     create() {
         this.input.keyboard.disableGlobalCapture();
-        pausa1 = false;
-        pausa2 = false;
         colorRaton1 = this.dataObj.colorRaton1;
         colorRaton2 = this.dataObj.colorRaton2;
         this.user = this.dataObj.user;
         this.activePrevUsersNumber = 0;
-        id = this.dataObj.id;
-    	connection = this.dataObj.connection;
     	player1 = new Player(1, 200, 100, 100, -300, this);
     	player2 = new Player(2, 200, 450, 100, -300, this);
         this.url= window.location.href;
+        
+        //VARIABLES NUEVAS:
+        playerReady = false;
+        rivalReady = false;
+        player1Won = false;
+        player2Won = false;
+        isSocketOpen = false;
+        id = this.dataObj.id;
+    	connection = this.dataObj.connection;
 
 
         this.camera = new CameraMovement(this);
@@ -193,7 +198,6 @@ class LevelOne extends Phaser.Scene {
         this.platforms.create(2635,670, 'armarioBajo3');
         this.platforms.create(2760,670, 'armarioBajo3');
 
-
         //OBSTACULOS ESTATICOS NIVEL 1 PLAYER 2
 
         this.obstaculos.create(400, 570, 'CascaraPlatano');
@@ -298,28 +302,12 @@ class LevelOne extends Phaser.Scene {
             this.deleteActiveUser(this.user);
         });
 
-        //this.textActiveUsers = this.add.text(117, 935, 'Usuarios activos login: ' + this.activeUsersNumber , {
-        //    fontFamily: 'Lexend',
-        //    font: (40).toString() + "px Lexend",
-        //    color: 'black'
-        //});
-
         var chat = this.add.dom(1420, 820).createFromCache('chat_html');
         chat.setVisible(false);
-        
-        
+
         // ------------WEBSOCKETS--------------
-        // console.log(this.url);
-        this.wsURL = this.url.replace("http://", "");
-
-        if(connection == null || connection == undefined)
-        {
-            console.log("estableciendo conexión con WS...");
-            connection = new WebSocket("ws://"+ this.wsURL + "echo");
-        }
-        // console.log("Ws URL: \n" + this.wsURL + "echo");
-
         //Atributos de la conexión
+        isSocketOpen = true;
         connection.onopen = function (){
             isSocketOpen = true;
             console.log("Socket abierto");
@@ -392,27 +380,12 @@ class LevelOne extends Phaser.Scene {
         this.activateFogon(this.obstFogon20);
         this.activateFogon(this.obstFogon21);
 
-        //Para pausa
-        if (this.esc.isDown) {
-            if(id == 0) pausa1 = true;
-            if(id == 1) pausa2 = true;
-            this.sendCharacterInfo();
-        }
-
-        if(pausa1 || pausa2){
-            pausa1 = false;
-            pausa2 = false;
-            this.sound.play('InteractSound');
-            this.scene.pause();
-            this.scene.launch('Pause',{isPaused:true, level:1, id: id});
-        }
-
         this.getActiveUsers();
         this.updateActiveUsers();
         //this.textActiveUsers.setText('Usuarios activos: ' + this.activeUsersNumber);
         
-        if(id == 0) player1.update(timeNum, timeDelta);
-        if(id == 1) player2.update(timeNum, timeDelta);
+        if(id == 0 && !player1Won && !player2Won) player1.update(timeNum, timeDelta);
+        if(id == 1 && !player1Won && !player2Won) player2.update(timeNum, timeDelta);
 
         if(id == 0){
             if(moveRight2){
@@ -444,7 +417,6 @@ class LevelOne extends Phaser.Scene {
                 player1.fisicas.play('jump'+1, true);
             }
         }
-
         if(this.activeUsersNumber == 1) this.userDisconected();
     }
 
@@ -452,11 +424,13 @@ class LevelOne extends Phaser.Scene {
         if (player.texture.key === 1) {
             player1.gestionCollision(meta);
             player1Won = true;
-            this.EndGame();
+			this.sendCharacterInfo();
+            this.countdownFunction();
         } else if (player.texture.key === 2) {
             player2.gestionCollision(meta);
             player2Won = true;
-            this.EndGame();
+			this.sendCharacterInfo();
+            this.countdownFunction();
         }
     }
     collectPowerUp(player, powerup) {
@@ -511,6 +485,7 @@ class LevelOne extends Phaser.Scene {
     deleteActiveUser(user)
     {
         id = null;
+        connection = false;
         connection.close();
         $.ajax({
             method: "DELETE",
@@ -573,12 +548,10 @@ class LevelOne extends Phaser.Scene {
             }
 		}
             		       
-        if(isSocketOpen && this.activeUsersNumber == 2)
+        if(isSocketOpen && this.activeUsersNumber >= 2)
         {
             connection.send(JSON.stringify(message))
         }
-
-
     }
 
     userDisconected(){
@@ -589,4 +562,23 @@ class LevelOne extends Phaser.Scene {
         raton1 = false;
         this.time.delayedCall(2000, () => {this.StartPlaying('Menu');}, [], this);
     }
+    
+    countdownFunction()
+    {
+		this.time.delayedCall(3000, () => {this.StartPlaying('GameOver');}, [], this);
+    }
+    
+    StartPlaying(escena){
+		isSocketOpen = false;
+        connection.onclose();
+    	this.scene.start(escena, {
+				raton1: colorRaton1, 
+				raton2: colorRaton2, 
+				ganador1: player1Won, 
+				ganador2: player2Won, 
+				user: this.user
+		});
+
+    }
+
 }

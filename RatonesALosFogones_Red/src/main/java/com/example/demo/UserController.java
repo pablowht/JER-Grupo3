@@ -16,7 +16,7 @@ public class UserController {
 	private Map<String, User> usersMap = new HashMap<String, User>();
 	
 	private Map<String, User> activeUsers = new HashMap<String, User>();
-	
+		
 	String usersFileURL =  System.getProperty("user.dir") + "/src/main/resources/static/dataSaving/usersData.txt";
 	String tempUsersFileURL =  "src/main/resources/static/dataSaving/tempUsersData.txt";
 
@@ -79,7 +79,6 @@ public class UserController {
 		String username = newUser.getUser();
 		
 		activeUsers.put(username, newUser);
-		
 		return true;
 	}
 	
@@ -149,13 +148,6 @@ public class UserController {
 			}
 			return new ResponseEntity<>(newUser,HttpStatus.OK);
 		}
-// 		else if(usersMap.containsKey(newUser.getUser()) && usersMap.get(newUser.getUser()).getPassword().equals(newUser.getPassword()))
-// 		{
-// 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-// 		}
-// 		else {
-// 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-// 		}
 		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 	

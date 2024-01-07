@@ -1,3 +1,12 @@
+var id;
+var p1Ready;
+var p2Ready;
+var r1;
+var r2;
+var connection;
+var pause1;
+var pause2;
+var isSocketOpen;
 
 class PauseScene extends Phaser.Scene {
     constructor() {
@@ -12,9 +21,17 @@ class PauseScene extends Phaser.Scene {
     init(data){
         this.isPaused=data.isPaused;
         this.levelNumber = data.level;
+        this.dataObj = data;
     }
     create(){
         this.activePrevUsersNumber = 0;
+        id = this.dataObj.id;
+        p1Ready = this.dataObj.playerReady;
+        p2Ready = this.dataObj.rivalReady;
+        r1 = this.dataObj.r1;
+        r2 = this.dataObj.r2;
+        this.url= window.location.href;
+    	connection = this.dataObj.connection;
 
         //FONDO
         this.add.image(0, 0, 'FondoPausa').setOrigin(0, 0);
@@ -38,8 +55,6 @@ class PauseScene extends Phaser.Scene {
         let botonCancelar = this.add.image(1250, 860, 'BotonCancelar');
         //
         botonCancelar.setVisible(false);
-
-
         this.esc = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
 
         BotonContinuar.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
@@ -54,7 +69,6 @@ class PauseScene extends Phaser.Scene {
             if(!this.isPaused) {
                 this.scene.start("Menu");
             }else{
-
                 imgConfirmar.setVisible(true);
                 botonAceptar.setVisible(true);
                 botonCancelar.setVisible(true);
@@ -74,7 +88,6 @@ class PauseScene extends Phaser.Scene {
             botonAceptar.setVisible(false);
             botonCancelar.setVisible(false);
             botonAceptar.disableInteractive();
-
         });
 
 
@@ -101,21 +114,37 @@ class PauseScene extends Phaser.Scene {
             color: 'black'
         });
 
-
-
         window.addEventListener('beforeunload', () =>
         {
             this.deleteActiveUser(user);
         });
 
-    }
 
+        //Atributos de la conexión
+        isSocketOpen = true;
+        connection.onopen = function (){
+            isSocketOpen = true;
+            console.log("Socket abierto");
+        }
+        connection.onclose = function(){
+            isSocketOpen = false;
+            console.log("Closing socket.");
+        }
+
+        connection.onmessage = function (message){
+            //console.log("mensaje recibido");
+            let msg = JSON.parse(message.data);
+            if(id == 0) pausa2 = msg.pausa;
+            else if (id == 1) pausa1 = msg.pausa;
+        }
+    }
     update()
     {
         this.getActiveUsers();
         this.updateActiveUsers();
         this.textActiveUsers.setText('Usuarios activos: ' + this.activeUsersNumber);
         if(this.activeUsersNumber == 1) this.userDisconected();
+
     }
 
     CheckLevel(){
@@ -138,11 +167,13 @@ class PauseScene extends Phaser.Scene {
             }
             this.activePrevUsersNumber = this.activeUsersNumber;
         }
-
     }
 
     deleteActiveUser(user)
     {
+        id = null;
+        isSocketOpen = false;
+        //connection.onclose();
         $.ajax({
             method: "DELETE",
             url: url + "activeUsers/" + user,
@@ -180,5 +211,22 @@ class PauseScene extends Phaser.Scene {
         raton2 = false;
         raton1 = false;
         this.time.delayedCall(2000, () => {this.StartPlaying('Menu');}, [], this);
+    }
+
+    StartPlaying(escena){
+        p1Ready = false;
+        p2Ready = false;
+        this.scene.start(escena, {user : this.user, id: id, connection: connection});
+    }
+
+    sendCharacterInfo(){
+        let message;
+        if(id==0) pause1 = true;
+        if(id==1) pause2=true;
+        if(id == 0) message = { resumePause: pause1 }
+        if(id == 1) message = { resumePause: pause2 }
+        if(this.activeUsersNumber >= 2 && isSocketOpen){
+            connection.send(JSON.stringify(message))
+        }
     }
 }

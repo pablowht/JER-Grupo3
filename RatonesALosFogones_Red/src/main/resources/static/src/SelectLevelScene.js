@@ -58,7 +58,7 @@ class SelectLevelScene extends Phaser.Scene {
        		message = {
             	nivelSelec: levelSelect
         	}
-        	if (isSocketOpen && this.activeUsersNumber == 2) {
+        	if (isSocketOpen && this.activeUsersNumber >= 2) {
             	connection.send(JSON.stringify(message))
        		}
 
@@ -87,7 +87,7 @@ class SelectLevelScene extends Phaser.Scene {
        		message = {
             	nivelSelec: levelSelect
         	}
-        	if (isSocketOpen && this.activeUsersNumber == 2) {
+        	if (isSocketOpen && this.activeUsersNumber >= 2) {
             	connection.send(JSON.stringify(message))
        		}
 

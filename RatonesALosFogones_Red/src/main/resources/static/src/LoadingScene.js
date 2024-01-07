@@ -47,7 +47,7 @@ class LoadingScene extends Phaser.Scene {
 
         //User UI
         this.load.image('Boton_ChangePassword','../assets/INTERFACES/UserUI/Boton_ChangePassword.png');
-        this.load.image('Boton_Eliminar','../assets/INTERFACES/NewPassword/Boton_EliminarCuenta.png');
+        this.load.image('Boton_Eliminar','../assets/INTERFACES/NewPassword/BOTON_ELIMINARCUENTA.png');
         this.load.image('Fondo_Liso','../assets/INTERFACES/Interfaces_FondoRallado.png');
 
         //Menú cambiar contraseña
