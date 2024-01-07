@@ -1,6 +1,9 @@
 ## Ratones a los Fogones
 ### Repositorio de GitHub para la asignatura de Juegos en Red del grupo 3. Curso 2023-24.
 ___
+**Video del juego**  
+https://youtu.be/wltRnpYUbK4
+___
 • **Nombre del juego**: Ratones a los fogones  
 • **Descripción de la temática del juego**: Ratones a los fogones es un juego de carreras con plataformas en el que dos ratones deberán competir por ser el primero en salir de la cocina.  
 • **Integrantes del equipo de desarrollo**:   
