@@ -18,6 +18,9 @@ class LoadingScene extends Phaser.Scene {
         //Feedback Server
         this.load.image('Fondo_Desconexion','../assets/INTERFACES/FeedbackServer/RatonDesconectado.png');
         this.load.image('CocinaLlena','../assets/INTERFACES/FeedbackServer/CocinaLlena.png');
+        this.load.image('TextoRaton1Elige','../assets/INTERFACES/FeedbackServer/Texto_Raton1Elige.png');
+        this.load.image('TextoEsperandoMucho','../assets/INTERFACES/FeedbackServer/Texto_Esperando.png');
+
 
         //Menu de Login/Create
         this.load.image('Fondo_LoginCreate','../assets/INTERFACES/LoginCreate/Fondo_LoginCreate.png');

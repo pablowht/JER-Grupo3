@@ -8,13 +8,15 @@ class Player {
         this.jumpAmount = _jumpAmount;
         this.scene = _scene;
         this.colliderObstaculosPlayer = null;
-        this.isRecolected = false;
         this.powerUpRecolectedType = null;
-        this.timedEvent = null;
         this.color = null;
         this.initialVelocity = _velocity;
-        this.wasCollided = false;
         this.fisicas = null;
+        this.right = false;
+        this.left = false;
+        this.down = false;
+        this.idle = true;
+        this.jump = false;
     }
 
     //pajaroCreado = false;
@@ -63,11 +65,6 @@ class Player {
             frames: this.scene.anims.generateFrameNumbers(this.color, { start: 9, end: 10 }),
             frameRate: 5
         });
-        this.scene.anims.create({
-            key: 'hurt'+this.playerNumber,
-            frames: this.scene.anims.generateFrameNumbers(this.color, 11 ),
-            frameRate: 10
-        });
     }
 
     createPhysics(){
@@ -90,22 +87,39 @@ class Player {
     movementControlsPlayer() {
         //CONTROLES MOVIMIENTO PLAYER 1
         if (this.flechaIzquierda.isDown) {
+            this.left = true;
+            this.right = false;
+            this.idle = false;
             this.fisicas.setVelocityX(-this.velocity);
             this.fisicas.play('walk'+this.playerNumber, true);
             this.fisicas.flipX = true;
         } else if (this.flechaDerecha.isDown) {
+            this.right = true;
+            this.left = false;
+            this.idle = false;
             this.fisicas.setVelocityX(this.velocity);
             this.fisicas.play('walk'+this.playerNumber, true);
             this.fisicas.flipX = false;
         } else {
+            this.idle = true;
+            this.right = false;
+            this.left = false;
+            this.jump = false;
+            this.down = false;
             this.fisicas.setVelocityX(0);
             this.fisicas.play('idle'+this.playerNumber, true);
         }
         if (this.flechaArriba.isDown && this.fisicas.body.touching.down) {
+            this.jump = true;
+            this.idle = false;
+            this.down = false;
             this.fisicas.setVelocityY(this.jumpAmount);
             this.fisicas.play('jump'+this.playerNumber, true);
         }
         if (this.flechaAbajo.isDown) {
+            this.jump = false;
+            this.idle = false;
+            this.down = true;
             this.fisicas.play('down'+this.playerNumber, true);
         }
     }
@@ -115,7 +129,7 @@ class Player {
     update(time, delta){
 
         this.movementControlsPlayer();
-
+        /*
         if(this.isRecolected === true){
             this.timedEvent += delta;
             if(this.timedEvent >= 5000){
@@ -131,12 +145,16 @@ class Player {
                 this.timedEvent = 0;
             }
         }
+        */
     }
 
     gestionPowerUp(obj){
         this.isRecolected = true;
         this.powerUpRecolectedType = obj.texture.key;
-        if(obj.texture.key === 1) {
+        this.scene.time.delayedCall(5000, () => {this.removePowerUp();}, [], this);
+        //llamada timer a quitar -> this.removeP()
+        if(obj.texture.key === 1)
+        {
             this.fisicas.setTint(0xFF9728);
             this.velocity += 50;
         }
@@ -169,6 +187,8 @@ class Player {
         this.fisicas.setTint(0xC71E1E );
         this.velocity -= 30;
         this.wasCollided = true;
+        this.scene.time.delayedCall(3000, () => {this.removePenaltization();}, [], this);
+        //llamais al removePena
     }
 
     removePenaltization(){

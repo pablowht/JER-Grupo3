@@ -1,11 +1,8 @@
 var id;
 var connection;
 var isSocketOpen = false;
-var bothReady = false;
 var turno1;
 var turno2;
-var pj1;
-var pj2;
 var p1Ready;
 var p2Ready;
 var BotonP1Listo;
@@ -18,18 +15,21 @@ var playerDisconected;
 var rivalDisconected;
 var raton1;
 var raton2;
+var raton1Selection;
+var raton2Selection;
+var textoEsperandoMucho;
+var coorBx;
+var coorBy;
+var coorGx;
+var coorGy;
+var coorMx;
+var coorMy;
 
-
-///
-var raton1Selection = false;
-var raton2Selection = false;
 
 class PlayerSelectionScene extends Phaser.Scene {
     constructor(numRaton) {
         super("PlayerSelection");
     }
-    preload() {}
-
 
     boton1Pulsado;
     boton2Pulsado;
@@ -39,8 +39,8 @@ class PlayerSelectionScene extends Phaser.Scene {
     raton1;
 	raton2;
 
-	init(data){
-
+	init(data)
+    {
 		this.dataObj = data;
 	}
 	
@@ -53,6 +53,12 @@ class PlayerSelectionScene extends Phaser.Scene {
 
         //Se reinician las variables para que si se vuelve a entrar después de una partida los valores estén correctos
         this.ReiniciarVariables();
+        coorBx = 1200;
+        coorBy = 530;
+        coorGx = 866;
+        coorGy = 265;
+        coorMx = 866;
+        coorMy = 800;
         
         //FONDO
         this.add.image(0,0,'FondoCustom').setOrigin(0, 0);
@@ -84,6 +90,7 @@ class PlayerSelectionScene extends Phaser.Scene {
             if(raton1 !== undefined && this.boton1Pulsado && id == 0){
                 BotonP1Listo = this.add.image(300,870,'Boton1ListoPressed');
                 p1Ready = true;
+                this.sendCharacterInfo();
             }
         });
 
@@ -92,6 +99,7 @@ class PlayerSelectionScene extends Phaser.Scene {
             if(raton2 !== undefined && this.boton2Pulsado && id == 1){
                 BotonP2Listo = this.add.image(1630,870,'Boton2ListoPressed');
                 p2Ready = true;
+                this.sendCharacterInfo();
             }
         });
         
@@ -99,8 +107,8 @@ class PlayerSelectionScene extends Phaser.Scene {
             this.sound.play('InteractSound');
             if(this.boton1Pulsado && !p1Ready && id == 0){
                 //raton1Selection.destroy();
-                //RatonGrande1.destroy();
-                this.player1CleanSelec()
+                RatonGrande1.destroy();
+                //this.player1CleanSelec()
                 this.boton1Pulsado = false;
                 this.ratonBElegido = false;
                 this.ratonMElegido = false;
@@ -109,8 +117,8 @@ class PlayerSelectionScene extends Phaser.Scene {
             }
             if(this.boton2Pulsado && !p2Ready && id == 1){
                 //raton2Selection.destroy();
-                //RatonGrande2.destroy();
-                this.player2CleanSelec()
+                RatonGrande2.destroy();
+                //this.player2CleanSelec()
                 this.boton2Pulsado = false;
                 return;
             }
@@ -118,41 +126,54 @@ class PlayerSelectionScene extends Phaser.Scene {
             if(!p1Ready && !this.boton1Pulsado && id == 0){
                 raton1 = 1;
                 RatonGrande1W = 1;
+                //RatonGrande1 = this.add.image(300,510,'RatonBlancoGrande');
+                //raton1Selection = this.add.image(1200,530,'Boton1RatonSeleccionado');
+
+                this.player1SelecBlanco();
                 this.boton1Pulsado = true;
                 this.ratonBElegido = true;
-                this.player1SelecBlanco()
+
             }
             if(p1Ready && !p2Ready && !this.ratonBElegido && id == 1){
                 raton2 = 1
                 RatonGrande2W = 1;
+
+                //RatonGrande2 = this.add.image(1625,510,'RatonBlancoGrande');
+                //raton2Selection = this.add.image(1200,530,'Boton2RatonSeleccionado');
+
+                this.player2SelecBlanco();
                 this.boton2Pulsado = true;
-                this.player2SelecBlanco()
             }
         });
 
         BotonRatonMarron.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
             this.sound.play('InteractSound');
             if(this.boton1Pulsado && !p1Ready && id == 0){
+                //raton1Selection.destroy();
+                //RatonGrande1.destroy();
+                this.player1CleanSelec();
                 this.boton1Pulsado = false;
                 this.ratonBElegido = false;
                 this.ratonMElegido = false;
                 this.ratonGElegido = false;
-                this.player1CleanSelec()
-                //raton1Selection.destroy();
-                //RatonGrande1.destroy();
+
                 return;
             }
             if(this.boton2Pulsado && !p2Ready && id == 1){
                 this.boton2Pulsado = false;
+
                 //raton2Selection.destroy();
                 //RatonGrande2.destroy();
-                this.player2CleanSelec()
+                this.player2CleanSelec();
                 return;
             }
 
             if(!p1Ready && id == 0){
                 raton1 = 2;
                 RatonGrande1W = 2;
+                //RatonGrande1 = this.add.image(300,510,'RatonMarronGrande');
+                //raton1Selection = this.add.image(866,800,'Boton1RatonSeleccionado');
+
                 this.boton1Pulsado = true;
                 this.ratonMElegido = true;
                 this.player1SelecMarron();
@@ -161,6 +182,10 @@ class PlayerSelectionScene extends Phaser.Scene {
             if(p1Ready && !p2Ready && !this.ratonMElegido && id == 1){
                 raton2 = 2;
                 RatonGrande2W = 2;
+
+                //RatonGrande2 = this.add.image(1625,510,'RatonMarronGrande');
+                //raton1Selection = this.add.image(866,800,'Boton2RatonSeleccionado');
+
                 this.boton2Pulsado = true;
                 this.player2SelecMarron()
             }
@@ -169,13 +194,14 @@ class PlayerSelectionScene extends Phaser.Scene {
         BotonRatonGris.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
             this.sound.play('InteractSound');
             if(this.boton1Pulsado && !p1Ready && id == 0){
+                //raton1Selection.destroy();
+                //RatonGrande1.destroy();
                 this.boton1Pulsado = false;
                 this.ratonBElegido = false;
                 this.ratonMElegido = false;
                 this.ratonGElegido = false;
                 this.player1CleanSelec()
-                //raton1Selection.destroy();
-                //RatonGrande1.destroy();
+
                 return;
             }
             if(this.boton2Pulsado && !p2Ready && id == 1){
@@ -189,17 +215,25 @@ class PlayerSelectionScene extends Phaser.Scene {
             if(!p1Ready && id == 0){
                 raton1 = 0;
                 RatonGrande1W = 0;
+                //RatonGrande1 = this.add.image(300,510,'RatonGrisGrande');
+                //raton1Selection = this.add.image(866,265,'Boton1RatonSeleccionado');
+
                 this.boton1Pulsado = true;
                 this.ratonGElegido = true;
+
                 this.player1SelecGris()
             }
             if(p1Ready && !p2Ready && !this.ratonGElegido && id == 1){
                 raton2 = 0
                 RatonGrande2W = 0;
+                //RatonGrande2 = this.add.image(1625,510,'RatonGrisGrande');
+                //raton1Selection = this.add.image(866,265,'Boton2RatonSeleccionado');
+
                 this.boton2Pulsado = true;
                 this.player2SelecGris()
 	        }
         });
+
         
         //TURNO JUGADORES
         turno1 = this.add.image(296.5,175.5,'Turno1');
@@ -213,7 +247,7 @@ class PlayerSelectionScene extends Phaser.Scene {
         {
 			playerDisconected = true;
             this.deleteActiveUser(this.user);
-        });
+       });
 
         this.add.image(960, 1005, 'Recuadro_UsuariosActivos');
         this.textActiveUsers = this.add.text(780, 980, 'Usuarios activos: ' + this.activeUsersNumber , {
@@ -228,18 +262,18 @@ class PlayerSelectionScene extends Phaser.Scene {
         
         //WEBSOCKETS:
         isSocketOpen = true;
-        connection.onopen = function (){
+        connection.onopen = function () {
             console.log("Socket abierto")
             isSocketOpen = true;
         }
 
-        connection.onclose = function (){
+        connection.onclose = function () {
 			//this.deleteActiveUser(this.user);
             console.log("Socket cerrado")
             isSocketOpen = false;
         }
 
-        connection.onmessage = function (message){
+        connection.onmessage = function (message) {
             let msg = JSON.parse(message.data);
             //console.log("boton raton seleccionado: " + msg.ratonGrande)
 			//console.log("raton grande: " + msg.ratonGrande)
@@ -253,8 +287,7 @@ class PlayerSelectionScene extends Phaser.Scene {
 				if(msg.color == 2) raton2 = "raton_marron";
 				RatonGrande2W = msg.ratonGrande;
        			p2Ready = msg.ratonReady;
-       			rivalDisconected = msg.disconected;
-				
+
        		} else if(id == 1){
 				   
 				if(msg.color == 0) raton1 = "raton_gris";
@@ -262,7 +295,6 @@ class PlayerSelectionScene extends Phaser.Scene {
 				if(msg.color == 2) raton1 = "raton_marron";
 				RatonGrande1W = msg.ratonGrande;
        			p1Ready = msg.ratonReady;
-       			rivalDisconected = msg.disconected;
 			}
         }
         
@@ -270,7 +302,10 @@ class PlayerSelectionScene extends Phaser.Scene {
             delay: 13,
             callback: this.sendCharacterInfo,
             callbackScope: this,
-            loop: true });
+            loop: true
+        });
+
+        textoEsperandoMucho = this.add.image(1618, 1002.5, 'TextoEsperandoMucho').setVisible(false);
     }
 
     update(time, delta)
@@ -298,7 +333,8 @@ class PlayerSelectionScene extends Phaser.Scene {
         	turno1.setVisible(false);
 		} else if(p1Ready && p2Ready){
 			turno2.setVisible(false);
-      		this.time.delayedCall(3000, () => {this.StartPlaying('LevelSelection');}, [], this);
+            textoEsperandoMucho.setVisible(true);
+      		this.time.delayedCall(1000, () => {this.StartPlaying('LevelSelection');}, [], this);
 		}
 		
 		if(RatonGrande2W == 0){
@@ -326,37 +362,42 @@ class PlayerSelectionScene extends Phaser.Scene {
         
 		if(p2Ready) BotonP2Listo = this.add.image(1630,870,'Boton2ListoPressed');	
 		
-		if(rivalDisconected) this.userDisconected()
-		
+		if(this.activeUsersNumber == 1) this.userDisconected();
     }
     
     player1SelecBlanco(){
 		RatonGrande1 = this.add.image(300,510,'RatonBlancoGrande');
-        raton1Selection = this.add.image(1200,530,'Boton1RatonSeleccionado');
+        //raton1Selection.destroy();
+        raton1Selection = this.add.image(coorBx,coorBy,'Boton1RatonSeleccionado');
 	}
 	player2SelecBlanco(){
 		raton2Selection = false;
         RatonGrande2 = false;
-		RatonGrande2 = this.add.image(1625,510,'RatonBlancoGrande');
-        raton2Selection = this.add.image(1200,530,'Boton2RatonSeleccionado');
+		//RatonGrande2 = this.add.image(1625,510,'RatonBlancoGrande');
+        //raton2Selection.destroy();
+        raton2Selection = this.add.image(coorBx,coorBy,'Boton2RatonSeleccionado');
 	}
 	
 	player1SelecMarron(){
 		RatonGrande1 = this.add.image(300,510,'RatonMarronGrande');
-        raton1Selection = this.add.image(866,800,'Boton1RatonSeleccionado');
+        //raton1Selection.destroy();
+        raton1Selection = this.add.image(coorMx,coorMy,'Boton1RatonSeleccionado');
 	}
 	player2SelecMarron(){
 		RatonGrande2 = this.add.image(1625,510,'RatonMarronGrande');
-        raton2Selection = this.add.image(866,800,'Boton2RatonSeleccionado');
+        //raton2Selection.destroy();
+        raton2Selection = this.add.image(coorMx,coorMy,'Boton2RatonSeleccionado');
 	}
 	
 	player1SelecGris(){
 		RatonGrande1 = this.add.image(300,510,'RatonGrisGrande');
-        raton1Selection = this.add.image(866,265,'Boton1RatonSeleccionado');
+        //raton1Selection.destroy();
+        raton1Selection = this.add.image(coorGx,coorGy,'Boton1RatonSeleccionado');
 	}
 	player2SelecGris(){
 		RatonGrande2 = this.add.image(1625,510,'RatonGrisGrande');
-        raton2Selection = this.add.image(866,265,'Boton2RatonSeleccionado');
+        //raton2Selection.destroy();
+        raton2Selection = this.add.image(coorGx,coorGy,'Boton2RatonSeleccionado');
 	}
 	
 	player1CleanSelec(){
@@ -375,8 +416,8 @@ class PlayerSelectionScene extends Phaser.Scene {
         
         RatonGrande1 = false;
         RatonGrande2 = false;
-        raton1Selection = false;
-        raton2Selection = false;
+        raton1Selection = null;
+        raton2Selection = null;
 		
         this.boton1Pulsado = false;
         this.boton2Pulsado = false;
@@ -441,7 +482,6 @@ class PlayerSelectionScene extends Phaser.Scene {
                 ratonReady: p1Ready,
                 ratonGrande: RatonGrande1W,
                 color: raton1,
-                disconected: playerDisconected,
             }
         }
         else if (id == 1)
@@ -451,11 +491,9 @@ class PlayerSelectionScene extends Phaser.Scene {
                 ratonReady: p2Ready,
                 ratonGrande: RatonGrande2W,
                 color: raton2,
-                disconected: playerDisconected,
-
             }
         }
-        if(isSocketOpen)
+        if(isSocketOpen && this.activeUsersNumber == 2)
         {
             connection.send(JSON.stringify(message))
         }
@@ -481,13 +519,14 @@ class PlayerSelectionScene extends Phaser.Scene {
     }
     
     userDisconected(){
+        console.log("usuario desconectado...");
         this.add.image(0,0, 'Fondo_Desconexion').setOrigin(0,0);
         id = null;
         p1Ready = false;
         p2Ready = false;
         raton2 = false;
         raton1 = false;
-        this.time.delayedCall(3000, () => {this.StartPlaying('Menu');}, [], this);
+        this.time.delayedCall(2000, () => {this.StartPlaying('Menu');}, [], this);
         
     }
 }

@@ -6,7 +6,19 @@ var player1Won;
 var player2Won;
 var colorRaton1;
 var colorRaton2;
+var moveLeft1;
+var moveRight1;
+var nomove1;
+var jump1;
+var down1;
+var moveLeft2;
+var moveRight2;
+var nomove2;
+var jump2;
+var down2;
 
+var pausa1;
+var pausa2;
 class LevelOne extends Phaser.Scene {
     constructor() {
         super("LevelOne");
@@ -29,6 +41,7 @@ class LevelOne extends Phaser.Scene {
     backgroundMusic;
     barraDivisoria;
     esc;
+
     
     preload() { }
 
@@ -37,9 +50,9 @@ class LevelOne extends Phaser.Scene {
     }
 
     create() {
-
         this.input.keyboard.disableGlobalCapture();
-
+        pausa1 = false;
+        pausa2 = false;
         colorRaton1 = this.dataObj.colorRaton1;
         colorRaton2 = this.dataObj.colorRaton2;
         this.user = this.dataObj.user;
@@ -321,13 +334,25 @@ class LevelOne extends Phaser.Scene {
             let msg = JSON.parse(message.data);
             if(id == 0)
             {
-				player2.setPosition(msg.positionX,msg.positionY);
-			} else if (id == 1)
+				player2.fisicas.setPosition(msg.positionX,msg.positionY);
+				player2Won = msg.ganador;
+                moveLeft2 = msg.left;
+                moveRight2 = msg.right;
+                down2 = msg.down;
+                jump2 = msg.jump;
+                nomove2 = msg.idle;
+                pausa2 = msg.pausa;
+            } else if (id == 1)
     		{
-        		//player1.setFrame(data.animationFrame);
-        		player1.setPosition(msg.positionX,msg.positionY);
-        	}
-            //console.log("nivel seleccionado: "+msg.nivelSelec);
+        		player1.fisicas.setPosition(msg.positionX,msg.positionY);
+                moveLeft1 = msg.left;
+                moveRight1 = msg.right;
+                down1 = msg.down;
+                jump1 = msg.jump;
+                nomove1 = msg.idle;
+        		player1Won = msg.ganador;
+                pausa1 = msg.pausa;
+            }
         }
         
         this.timedEventUpdateConnection = this.time.addEvent({  	
@@ -335,6 +360,7 @@ class LevelOne extends Phaser.Scene {
             callback: this.sendCharacterInfo,
             callbackScope: this,
             loop: true });
+
     }
 
     update(timeNum, timeDelta) {
@@ -368,9 +394,17 @@ class LevelOne extends Phaser.Scene {
 
         //Para pausa
         if (this.esc.isDown) {
+            if(id == 0) pausa1 = true;
+            if(id == 1) pausa2 = true;
+            this.sendCharacterInfo();
+        }
+
+        if(pausa1 || pausa2){
+            pausa1 = false;
+            pausa2 = false;
             this.sound.play('InteractSound');
             this.scene.pause();
-            this.scene.launch('Pause',{isPaused:true, level:1});
+            this.scene.launch('Pause',{isPaused:true, level:1, id: id});
         }
 
         this.getActiveUsers();
@@ -379,6 +413,39 @@ class LevelOne extends Phaser.Scene {
         
         if(id == 0) player1.update(timeNum, timeDelta);
         if(id == 1) player2.update(timeNum, timeDelta);
+
+        if(id == 0){
+            if(moveRight2){
+                player2.fisicas.play('walk'+2, true);
+                player2.fisicas.flipX = false;
+            } else if(moveLeft2){
+                player2.fisicas.play('walk'+2, true);
+                player2.fisicas.flipX = true;
+            } else if(nomove2){
+                player2.fisicas.play('idle'+2, true);
+            } else if(down2){
+                player2.fisicas.play('down'+2, true);
+            } else if(jump2){
+                player2.fisicas.play('jump'+2, true);
+            }
+        }
+        if(id == 1){
+            if(moveRight1){
+                player1.fisicas.play('walk'+1, true);
+                player1.fisicas.flipX = false;
+            } else if(moveLeft1){
+                player1.fisicas.play('walk'+1, true);
+                player1.fisicas.flipX = true;
+            } else if(nomove1){
+                player1.fisicas.play('idle'+1, true);
+            } else if(down1){
+                player1.fisicas.play('down'+1, true);
+            } else if(jump1){
+                player1.fisicas.play('jump'+1, true);
+            }
+        }
+
+        if(this.activeUsersNumber == 1) this.userDisconected();
     }
 
     hitMeta(player, meta){
@@ -443,6 +510,8 @@ class LevelOne extends Phaser.Scene {
 
     deleteActiveUser(user)
     {
+        id = null;
+        connection.close();
         $.ajax({
             method: "DELETE",
             url: url + "activeUsers/" + user,
@@ -476,27 +545,48 @@ class LevelOne extends Phaser.Scene {
         let message;
 		if(id == 0){
 			message = {
-                	//animationFrame: this.Player1.player.frame.name,
-                	positionX: player1.x,
-                	positionY: player1.y,
-					id: id,
-                	ratonReady: p1Ready,
-                	color: raton1,
+                left: player1.left,
+                right: player1.right,
+                jump: player1.jump,
+                down: player1.down,
+                idle: player1.idle,
+                positionX: player1.fisicas.x,
+                positionY: player1.fisicas.y,
+                id: id,
+                color: raton1,
+                ganador: player1Won,
+                pausa: pausa1
         	}
         } else if(id == 1){
 			message = {
-                	//animationFrame: this.Player1.player.frame.name,
-                	positionX: player2.x,
-                	positionY: player2.y,
-					id: id,
-                	ratonReady: p2Ready,
-                	color: raton2,
-        	}
+                left: player2.left,
+                right: player2.right,
+                jump: player2.jump,
+                down: player2.down,
+                idle: player2.idle,
+                positionX: player2.fisicas.x,
+                positionY: player2.fisicas.y,
+                id: id,
+                color: raton2,
+                ganador: player2Won,
+                pausa: pausa2
+            }
 		}
             		       
-        if(isSocketOpen)
+        if(isSocketOpen && this.activeUsersNumber == 2)
         {
             connection.send(JSON.stringify(message))
         }
+
+
+    }
+
+    userDisconected(){
+        console.log("usuario desconectado...");
+        this.add.image(0,0, 'Fondo_Desconexion').setOrigin(0,0);
+        id = null;
+        raton2 = false;
+        raton1 = false;
+        this.time.delayedCall(2000, () => {this.StartPlaying('Menu');}, [], this);
     }
 }

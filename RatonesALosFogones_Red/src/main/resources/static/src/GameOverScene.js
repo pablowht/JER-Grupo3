@@ -113,7 +113,7 @@ class GameOverScene extends Phaser.Scene {
         //con el nombre de playerx gana y el nombre de playerx pierde
         
         //CHAT
-        var chat = this.add.dom(1420, 820).createFromCache('chat_html');
+        var chat = this.add.dom(1580, 800).createFromCache('chat_html');
 
         this.add.image(1580, 750, 'Cuadro_Chat');
 

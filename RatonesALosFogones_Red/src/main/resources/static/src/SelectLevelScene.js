@@ -3,6 +3,8 @@ var connection;
 var BotonNivel1;
 var BotonNivel2;
 var levelSelect;
+var esperandoRespuesta;
+var tutorial;
 
 class SelectLevelScene extends Phaser.Scene {
     constructor() {
@@ -59,8 +61,8 @@ class SelectLevelScene extends Phaser.Scene {
         	if (isSocketOpen && this.activeUsersNumber == 2) {
             	connection.send(JSON.stringify(message))
        		}
-            
-            
+
+
             //this.time.delayedCall(7000, this.StartPlaying('LevelOne'), [], this);
             
             
@@ -151,6 +153,8 @@ class SelectLevelScene extends Phaser.Scene {
             color: 'black'
         });
 
+        this.add.image(960.5, 379.5, 'TextoRaton1Elige');
+
 
         var chat = this.add.dom(1420, 820).createFromCache('chat_html');
         chat.setVisible(false);
@@ -182,10 +186,21 @@ class SelectLevelScene extends Phaser.Scene {
             if(id == 1) levelSelect = msg.nivelSelec;
             //console.log("nivel seleccionado: "+msg.nivelSelec);
         }
+
+        tutorial = this.add.image(0,0, 'PlayersReady').setOrigin(0,0).setVisible(false);
+        esperandoRespuesta = this.add.image(960,977, 'Texto_EsperandoRespuesta').setVisible(false);
+        this.tweens.add({
+            targets: esperandoRespuesta,
+            alpha: 0.2,
+            duration: 1400,
+            ease: 'Sine.easeOut',
+            yoyo: true,
+            repeat: -1
+        });
     }
     
-    StartPlaying(level){
-        this.scene.start(level, {colorRaton1: this.raton1, colorRaton2:this.raton2, user : this.user, id: id, connection: connection});
+    StartPlaying(escena){
+        this.scene.start(escena, {colorRaton1: this.raton1, colorRaton2:this.raton2, user : this.user, id: id, connection: connection});
     }
 
     update(){
@@ -198,10 +213,14 @@ class SelectLevelScene extends Phaser.Scene {
 			BotonNivel2.disableInteractive();
 		}
 	
-		if(levelSelect > 0)	this.add.image(0,0, 'PlayersReady').setOrigin(0,0);
+		if(levelSelect > 0){
+            tutorial.setVisible(true);
+            esperandoRespuesta.setVisible(true);
+        }
 		if(levelSelect == 1)	this.time.delayedCall(3000, () => {this.StartPlaying('LevelOne');}, [], this);		
-		if(levelSelect == 2)	this.time.delayedCall(3000, () => {this.StartPlaying('LevelTwo');}, [], this);			
+		if(levelSelect == 2)	this.time.delayedCall(3000, () => {this.StartPlaying('LevelTwo');}, [], this);
 
+        if(this.activeUsersNumber == 1) this.userDisconected();
 			
     }
     updateActiveUsers()
@@ -261,5 +280,18 @@ class SelectLevelScene extends Phaser.Scene {
 
     assignValue(data){
         this.activeUsersNumber = data;
+    }
+
+
+
+    userDisconected(){
+        console.log("usuario desconectado...");
+        this.add.image(0,0, 'Fondo_Desconexion').setOrigin(0,0);
+        id = null;
+        p1Ready = false;
+        p2Ready = false;
+        raton2 = false;
+        raton1 = false;
+        this.time.delayedCall(2000, () => {this.StartPlaying('Menu');}, [], this);
     }
 }

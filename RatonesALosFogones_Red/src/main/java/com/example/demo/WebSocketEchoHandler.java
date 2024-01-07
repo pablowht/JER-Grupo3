@@ -33,7 +33,6 @@ public class WebSocketEchoHandler extends TextWebSocketHandler {
     	sessions.remove(session.getId());
     }
 
-    //Para los Mensajes del Chat
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception
     {
@@ -63,7 +62,7 @@ public class WebSocketEchoHandler extends TextWebSocketHandler {
 
    		if(node.get("animationFrame")!= null) //EL FRAME DE LA ANIMACIÓN
         {
-            newNode.put("animationFrame", node.get("animationFrame").asInt());
+            newNode.put("animationFrame", node.get("animationFrame").toString());
         }
    		
     	if(node.get("ratonReady")!= null) //SABER SI EL OTRO PLAYER ESTÁ READY PARA JUGAR
@@ -96,6 +95,40 @@ public class WebSocketEchoHandler extends TextWebSocketHandler {
     		newNode.put("nivelSelec", node.get("nivelSelec").asInt());
         }
     	
+    	if(node.get("ganador")!= null) //quien gana?????
+    	{
+    		newNode.put("ganador", node.get("ganador").asBoolean());
+        }
+
+        if(node.get("left")!= null) //pa' donde se mueve
+        {
+        	newNode.put("left", node.get("left").asBoolean());
+        }
+
+        if(node.get("right")!= null)
+        {
+        	newNode.put("right", node.get("right").asBoolean());
+        }
+
+        if(node.get("idle")!= null)
+        {
+        	newNode.put("idle", node.get("idle").asBoolean());
+        }
+
+        if(node.get("down")!= null)
+        {
+        	newNode.put("down", node.get("down").asBoolean());
+        }
+
+        if(node.get("jump")!= null)
+        {
+        	newNode.put("jump", node.get("jump").asBoolean());
+        }
+
+        if(node.get("pausa")!= null)
+        {
+        	newNode.put("pausa", node.get("pausa").asBoolean());
+        }
     	////////////
     	if(node.get("skin")!= null) //Lo mismo del tipo xd
     	{
@@ -126,4 +159,5 @@ public class WebSocketEchoHandler extends TextWebSocketHandler {
    			}
    		}
    	}
+
 }

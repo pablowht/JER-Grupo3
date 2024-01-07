@@ -115,6 +115,7 @@ class PauseScene extends Phaser.Scene {
         this.getActiveUsers();
         this.updateActiveUsers();
         this.textActiveUsers.setText('Usuarios activos: ' + this.activeUsersNumber);
+        if(this.activeUsersNumber == 1) this.userDisconected();
     }
 
     CheckLevel(){
@@ -170,4 +171,14 @@ class PauseScene extends Phaser.Scene {
         this.activeUsersNumber = data;
     }
 
+    userDisconected(){
+        console.log("usuario desconectado...");
+        this.add.image(0,0, 'Fondo_Desconexion').setOrigin(0,0);
+        id = null;
+        p1Ready = false;
+        p2Ready = false;
+        raton2 = false;
+        raton1 = false;
+        this.time.delayedCall(2000, () => {this.StartPlaying('Menu');}, [], this);
+    }
 }

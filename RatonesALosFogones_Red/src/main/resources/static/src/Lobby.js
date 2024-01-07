@@ -4,6 +4,7 @@ var playerReady;
 var id;
 var connection;
 var esperandoRespuesta;
+var bEsperandoRespuesta;
 
 class Lobby extends Phaser.Scene {
 
@@ -32,6 +33,7 @@ class Lobby extends Phaser.Scene {
 		rivalReady = false;
 		playerReady = false;
 		id = null;
+        bEsperandoRespuesta = false;
 
         //VISUALES
         this.add.image(0,0,'Fondo_Lobby').setOrigin(0, 0);
@@ -39,7 +41,7 @@ class Lobby extends Phaser.Scene {
         this.TextoRaton1 = this.add.image(960.5,390,'Raton1Ingame').setVisible(false);
         this.TextoRaton2 = this.add.image(960.5,390,'Raton2Ingame').setVisible(false);
 
-        this.TextoBuscando = this.add.image(960.5,875,'Texto_Buscando').setVisible(false);
+        this.TextoBuscando = this.add.image(960.5,822,'Texto_Buscando').setVisible(false);
         this.tweens.add({
             targets: this.TextoBuscando,
             alpha: 0.2,
@@ -49,7 +51,7 @@ class Lobby extends Phaser.Scene {
             repeat: -1
         });
         
-        esperandoRespuesta = this.add.image(960.5,875, 'Texto_EsperandoRespuesta').setVisible(false);
+        esperandoRespuesta = this.add.image(960.5,822, 'Texto_EsperandoRespuesta').setVisible(false);
         this.tweens.add({
             targets: esperandoRespuesta,
             alpha: 0.2,
@@ -70,8 +72,8 @@ class Lobby extends Phaser.Scene {
             this.scene.start('Menu');
             playerReady = false;
             rivalReady = false;
-            id = null;
-            
+            if(id == 1) id = 0;
+            if(id == 0) id = null;
             //this.userDisconected();
         });
 
@@ -158,6 +160,11 @@ class Lobby extends Phaser.Scene {
             id = 0;
             this.TextoRaton2.setVisible(false);
             this.TextoRaton1.setVisible(true);
+            this.TextoBuscando.setVisible(true);
+            this.TextoEncontrado.setVisible(false);
+            this.BotonJugar.setVisible(false);
+            this.JugarPresionado.setVisible(false);
+
 
         } else if (this.activeUsersNumber == 2 && id == null)
         {
@@ -173,7 +180,7 @@ class Lobby extends Phaser.Scene {
             this.BotonJugar.setVisible(false);
             this.JugarPresionado.setVisible(false);
         }
-        if(this.activeUsersNumber == 2 && !playerReady){
+        if(this.activeUsersNumber == 2 && !playerReady && !bEsperandoRespuesta){
             this.TextoBuscando.setVisible(false);
             this.TextoEncontrado.setVisible(true);
             this.BotonJugar.setVisible(true);
@@ -186,6 +193,7 @@ class Lobby extends Phaser.Scene {
                 this.TextoEncontrado.setVisible(false);
                 this.TextoBuscando.setVisible(false);
 				esperandoRespuesta.setVisible(true);
+                bEsperandoRespuesta = true;
                 this.countdownFunction();
             }
         }
@@ -195,6 +203,7 @@ class Lobby extends Phaser.Scene {
 			this.TextoEncontrado.setVisible(false);
 			this.TextoBuscando.setVisible(false);
 			esperandoRespuesta.setVisible(true);
+            bEsperandoRespuesta = true;
 		}
     }
 
@@ -233,6 +242,7 @@ class Lobby extends Phaser.Scene {
     deleteActiveUser(user)
     {
 		id = null;
+		isSocketOpen = false;
         connection.close();
         
         $.ajax({
@@ -267,11 +277,19 @@ class Lobby extends Phaser.Scene {
         this.add.image(0,0, 'Fondo_Desconexion').setOrigin(0,0);
         id = null;
         playerReady = false;
-        //rivalReady = false;
-        this.time.delayedCall(3000, () => {this.StartPlaying('Menu');}, [], this);
+        this.time.delayedCall(2000, () => {this.StartPlaying('Menu');}, [], this);
     }
 
     StartPlaying(escena){
+        playerReady = false;
+        rivalReady = false;
+        let message;
+        message = {
+            ratonReady:playerReady
+        }
+        if (isSocketOpen && this.activeUsersNumber == 2) {
+            connection.send(JSON.stringify(message))
+        }
         this.scene.start(escena, {colorRaton1: this.raton1, colorRaton2:this.raton2, user : this.user, id: id, connection: connection});
     }
 }
