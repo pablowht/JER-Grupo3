@@ -299,7 +299,7 @@ La interfaz in-game se basa en una pantalla dividida a la mitad horizontalmente 
 <p align="center">
   <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/a9e59464-c0db-40be-b0d7-2619d49f865c">
   <br><br>
-  <b>Ilustración 17. Interfaz de Nivel</b>
+  <b>Ilustración 16. Interfaz de Nivel 1</b>
  <br><br>
 </p>
 
@@ -309,33 +309,42 @@ La interfaz in-game del nivel dos tiene la misma colocación que la del nivel un
 <p align="center">
   <img src="https://github.com/pablowht/JER-Grupo3/assets/101139120/cb1044aa-3d73-4516-a024-fccf5884e294">
   <br><br>
-  <b>Ilustración 17. Interfaz de Nivel</b>
+  <b>Ilustración 17. Interfaz de Nivel 2</b>
  <br><br>
 </p>
 
-**18. Fin de Nivel**  
+**18. Salida Usuario** 
+Si en mitad de una partida uno de los usuarios pausa el juego y le da a salir le saldrá una pantalla de confirmación por si le hubiera dado sin querer.
+<p align="center">
+  <img src="https://github.com/pablowht/JER-Grupo3/assets/101139120/5b7c8ded-ae6a-4bf9-afa2-1cc48c9a6451">
+  <br><br>
+  <b>Ilustración 18. Interfaz de Salida Uusario</b>
+ <br><br>
+</p>
+
+**19. Fin de Nivel**  
 La pantalla de fin de nivel mostrará el ganador en el podio y la opción de volver al menú principal. También tiene el chat para comunicarse con el otro jugador. 
 <p align="center">
   <img src="https://github.com/pablowht/JER-Grupo3/assets/100694175/1cd669c4-816d-4f3f-96d8-60f3bfbb41a4">
   <br><br>
-  <b>Ilustración 18. Interfaz de Fin de Nivel</b>
+  <b>Ilustración 19. Interfaz de Fin de Nivel</b>
  <br><br>
 </p>
 
-**19. Créditos**    
+**20. Créditos**    
 <p align="center">
   <img src="https://github.com/pablowht/JER-Grupo3/assets/139124884/2ee834df-e380-4d48-b39f-4bb26bc83340">
   <br><br>
-  <b>Ilustración 19. Interfaz de Créditos</b>
+  <b>Ilustración 20. Interfaz de Créditos</b>
  <br><br>
 </p>
 
-**20. ¡A correr!**  
+**21.- ¡A correr!**  
 Al iniciar el juego y probar varias veces, se descubrió que al terminar de elegir a los personajes el juego se iniciaba inmediatemente, debido a esto, se ha decidido añadir una nueva interfaz entre la selección de personaje y el juego en sí. Además se le ha incluído un pequeño tutorial visual para explicar el funcionamiento del juego.
 <p align="center">
   <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/aa3dfcf3-338f-4227-8891-9919f8b0b941">
   <br><br>
-  <b>Ilustración 20. ¡A correr!</b>
+  <b>Ilustración 21. ¡A correr!</b>
  <br><br>
 </p>
 
