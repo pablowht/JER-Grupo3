@@ -353,7 +353,7 @@ Al iniciar el juego y probar varias veces, se descubrió que al terminar de eleg
 
 ___
 
-### Funcionalidades API REST ###
+### Funcionalidades API REST ###  
 Mediante las siguientes implementaciones se consigue persistencia (pues los datos de los usuarios se guardan en un .txt), pudiendo guardar sus récords, cambiar la contraseña y borrar la cuenta si así se desea; conexión pues el servidor puede saber en todo momento los usuarios conectados mediante los usuarios activos y su información guardada en ficheros; e intercambio de información pues, aunque no se ha llegado a implementar un chat de momento, todos los usuarios pueden ver los usuarios que están conectados al servidor de forma simultánea. 
 1. Inicio de sesión: se crea una cuenta para el usuario si no la tenía y se le loguea al usuario.
   * Métodos utilizados: POST 
@@ -364,6 +364,15 @@ Mediante las siguientes implementaciones se consigue persistencia (pues los dato
 4. Cambio de contraseña: en una cuenta creada se permite cambiar la contraseña para iniciar sesión en otro momento. También se usa en el chat.
   * Métodos utilizados: PUT 
 ___
+
+### Funcionalidades WebSockets ###  
+
+La conexión al socket se establece en el lobby y en el resto de pantallas se mantiene abierta hasta que se termina el nivel, es decir, cuando uno de los dos ratones cruza la meta; momento en el que se cierra la conexión con el socket.
+Las funcionalidades implementadas son el paso de información entre ordenadores atraves del servidor. En este juego la información que necesitamos comunicar entre usuarios son:
+ - Las coordenadas de los ratones
+ - Los colores de estos (que cambian al chocarse con un objeto o powerUp)
+ - Las animaciones de los personajes 
+ - Otras variables de cambio de pantalla necesarias: Si un jugador está listo para empezar a jugar (esperando en todo momento a la comfirmación del otro jugador), la seleccion de personaje, la selección del nivel y el inicio de este.
 
 ### Arte ###
 *Ratones a los fogones* debe tener un estilo amigable y caricaturesco. Los personajes son unos pequeños ratones que tratan de escapar de una cocina evitando trampas. Los colores en todo momento deben ser llamativos y acorde al escenario.  
