@@ -8,7 +8,6 @@ var password;
 var BotonJugar;
 var CocinaLena;
 
-
 class MenuScene extends Phaser.Scene{
 
     constructor(){
@@ -49,7 +48,7 @@ class MenuScene extends Phaser.Scene{
         //CAMBIO DE ESCENA DEL MENU A LA ESCENA IN-GAME
         BotonJugar.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
             this.sound.play('InteractSound');
-            this.scene.start('Lobby', {user: this.user, activeUsers: this.activeUsersNumber, activePrevUsers: this.activePrevUsersNumber}); //Niveles
+            this.scene.start('Lobby', {user: this.user}); //Niveles
            //this.scene.start('PlayerSelection', {user: this.user, activeUsers: this.activeUsersNumber, activePrevUsers: this.activePrevUsersNumber});
             //Cuando este selector de nivel, poner que al jugar vaya antes a "Niveles"
         });

@@ -1,3 +1,12 @@
+var id;
+var connection;
+var player1;
+var player2;
+var player1Won;
+var player2Won;
+var colorRaton1;
+var colorRaton2;
+
 class LevelOne extends Phaser.Scene {
     constructor() {
         super("LevelOne");
@@ -8,10 +17,6 @@ class LevelOne extends Phaser.Scene {
     platforms;
     isPaused;
     level;
-    player1 = new Player(1, 200, 100, 100, -300, this);
-    player2 = new Player(2, 200, 450, 100, -300, this);
-    colorRaton1;
-    colorRaton2;
     camera;
     powerupAma = new Powerup(3, 1040, 200, this);
     powerupAz = new Powerup(2, 1543, 250, this);
@@ -24,7 +29,7 @@ class LevelOne extends Phaser.Scene {
     backgroundMusic;
     barraDivisoria;
     esc;
-
+    
     preload() { }
 
     init(data){
@@ -35,10 +40,16 @@ class LevelOne extends Phaser.Scene {
 
         this.input.keyboard.disableGlobalCapture();
 
-        this.colorRaton1 = this.dataObj.colorRaton1;
-        this.colorRaton2 = this.dataObj.colorRaton2;
+        colorRaton1 = this.dataObj.colorRaton1;
+        colorRaton2 = this.dataObj.colorRaton2;
         this.user = this.dataObj.user;
         this.activePrevUsersNumber = 0;
+        id = this.dataObj.id;
+    	connection = this.dataObj.connection;
+    	player1 = new Player(1, 200, 100, 100, -300, this);
+    	player2 = new Player(2, 200, 450, 100, -300, this);
+        this.url= window.location.href;
+
 
         this.camera = new CameraMovement(this);
         this.camera.cam.setZoom(1.2,1.85);
@@ -214,26 +225,26 @@ class LevelOne extends Phaser.Scene {
         this.add.image(340, 470, 'Raton2Ingame').setScale(0.4);
 
         //Inicialización de los jugadores
-        this.player1.assignControls();
-        this.player2.assignControls();
+        player1.assignControls();
+        player2.assignControls();
 
         //Color Ratones
-        this.player1.color = this.colorRaton1;
-        this.player2.color = this.colorRaton2;
+        player1.color = colorRaton1;
+        player2.color = colorRaton2;
 
         //añadimos las animaciones
-        this.player1.createAnimsPlayer(this.player1.color);
-        this.player2.createAnimsPlayer(this.player2.color);
+        player1.createAnimsPlayer(player1.color);
+        player2.createAnimsPlayer(player2.color);
 
         //PLAYER 1
-        this.player1.createPhysics();
-        this.player1.establishColliderObj(this.walkable);
-        this.player1.establishColliderObj(this.platforms);
+        player1.createPhysics();
+        player1.establishColliderObj(this.walkable);
+        player1.establishColliderObj(this.platforms);
 
         //PLAYER 2
-        this.player2.createPhysics();
-        this.player2.establishColliderObj(this.walkable);
-        this.player2.establishColliderObj(this.platforms);
+        player2.createPhysics();
+        player2.establishColliderObj(this.walkable);
+        player2.establishColliderObj(this.platforms);
 
         //POWERUPS:
         this.powerupAma.createPhysics();
@@ -242,18 +253,18 @@ class LevelOne extends Phaser.Scene {
         this.powerupAma2.createPhysics();
         this.powerupAz2.createPhysics();
         this.powerupRoj2.createPhysics();
-        this.physics.add.overlap(this.player1.fisicas, this.powerupAma.fisicas, this.collectPowerUp, null, this);
-        this.physics.add.overlap(this.player1.fisicas, this.powerupAz.fisicas, this.collectPowerUp, null, this);
-        this.physics.add.overlap(this.player1.fisicas, this.powerupRoj.fisicas, this.collectPowerUp, null, this);
-        this.physics.add.overlap(this.player2.fisicas, this.powerupAma2.fisicas, this.collectPowerUp, null, this);
-        this.physics.add.overlap(this.player2.fisicas, this.powerupAz2.fisicas, this.collectPowerUp, null, this);
-        this.physics.add.overlap(this.player2.fisicas, this.powerupRoj2.fisicas, this.collectPowerUp, null, this);
-        this.physics.add.overlap(this.player1.fisicas, this.obstaculos, this.hitAnyObstacle, null, this);
-        this.physics.add.overlap(this.player2.fisicas, this.obstaculos, this.hitAnyObstacle, null, this);
+        this.physics.add.overlap(player1.fisicas, this.powerupAma.fisicas, this.collectPowerUp, null, this);
+        this.physics.add.overlap(player1.fisicas, this.powerupAz.fisicas, this.collectPowerUp, null, this);
+        this.physics.add.overlap(player1.fisicas, this.powerupRoj.fisicas, this.collectPowerUp, null, this);
+        this.physics.add.overlap(player2.fisicas, this.powerupAma2.fisicas, this.collectPowerUp, null, this);
+        this.physics.add.overlap(player2.fisicas, this.powerupAz2.fisicas, this.collectPowerUp, null, this);
+        this.physics.add.overlap(player2.fisicas, this.powerupRoj2.fisicas, this.collectPowerUp, null, this);
+        this.physics.add.overlap(player1.fisicas, this.obstaculos, this.hitAnyObstacle, null, this);
+        this.physics.add.overlap(player2.fisicas, this.obstaculos, this.hitAnyObstacle, null, this);
 
         //META
-        this.physics.add.overlap(this.player1.fisicas, this.meta, this.hitMeta, null, this);
-        this.physics.add.overlap(this.player2.fisicas, this.meta, this.hitMeta, null, this);
+        this.physics.add.overlap(player1.fisicas, this.meta, this.hitMeta, null, this);
+        this.physics.add.overlap(player2.fisicas, this.meta, this.hitMeta, null, this);
 
         //INTERFAZ
         this.barraDivisoria = this.add.image(0,310, 'BarraDivisoria').setOrigin(0);
@@ -264,8 +275,8 @@ class LevelOne extends Phaser.Scene {
         this.backgroundMusic.play();
         this.backgroundMusic.setVolume(0.2);
         
-        this.player1.fisicas.setScale(1.25);
-        this.player2.fisicas.setScale(1.25);
+        player1.fisicas.setScale(1.25);
+        player2.fisicas.setScale(1.25);
 
         this.esc = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
 
@@ -282,6 +293,48 @@ class LevelOne extends Phaser.Scene {
 
         var chat = this.add.dom(1420, 820).createFromCache('chat_html');
         chat.setVisible(false);
+        
+        
+        // ------------WEBSOCKETS--------------
+        // console.log(this.url);
+        this.wsURL = this.url.replace("http://", "");
+
+        if(connection == null || connection == undefined)
+        {
+            console.log("estableciendo conexión con WS...");
+            connection = new WebSocket("ws://"+ this.wsURL + "echo");
+        }
+        // console.log("Ws URL: \n" + this.wsURL + "echo");
+
+        //Atributos de la conexión
+        connection.onopen = function (){
+            isSocketOpen = true;
+            console.log("Socket abierto");
+        }
+        connection.onclose = function(){
+            isSocketOpen = false;
+            console.log("Closing socket."); 
+        }
+
+        connection.onmessage = function (message){
+            //console.log("mensaje recibido");
+            let msg = JSON.parse(message.data);
+            if(id == 0)
+            {
+				player2.setPosition(msg.positionX,msg.positionY);
+			} else if (id == 1)
+    		{
+        		//player1.setFrame(data.animationFrame);
+        		player1.setPosition(msg.positionX,msg.positionY);
+        	}
+            //console.log("nivel seleccionado: "+msg.nivelSelec);
+        }
+        
+        this.timedEventUpdateConnection = this.time.addEvent({  	
+            delay: 13,
+            callback: this.sendCharacterInfo,
+            callbackScope: this,
+            loop: true });
     }
 
     update(timeNum, timeDelta) {
@@ -289,8 +342,8 @@ class LevelOne extends Phaser.Scene {
         this.camera.moveCameraFunction();
         this.physics.world.setBounds(this.camera.getScrollCam()+324,0,3200,1080);
 
-        this.player1.update(timeNum, timeDelta);
-        this.player2.update(timeNum, timeDelta);
+        //player1.update(timeNum, timeDelta);
+        //player2.update(timeNum, timeDelta);
 
         this.activateFogon(this.obstFogon2);
         this.activateFogon(this.obstFogon3);
@@ -323,16 +376,19 @@ class LevelOne extends Phaser.Scene {
         this.getActiveUsers();
         this.updateActiveUsers();
         //this.textActiveUsers.setText('Usuarios activos: ' + this.activeUsersNumber);
+        
+        if(id == 0) player1.update(timeNum, timeDelta);
+        if(id == 1) player2.update(timeNum, timeDelta);
     }
 
     hitMeta(player, meta){
         if (player.texture.key === 1) {
-            this.player1.gestionCollision(meta);
-            this.player1Won = true;
+            player1.gestionCollision(meta);
+            player1Won = true;
             this.EndGame();
         } else if (player.texture.key === 2) {
-            this.player2.gestionCollision(meta);
-            this.player2Won = true;
+            player2.gestionCollision(meta);
+            player2Won = true;
             this.EndGame();
         }
     }
@@ -340,9 +396,9 @@ class LevelOne extends Phaser.Scene {
         this.sound.play('PowerUpGrabSound');
         powerup.disableBody(true, true);
         if (player.texture.key === 1) {
-            this.player1.gestionPowerUp(powerup);
+            player1.gestionPowerUp(powerup);
         } else if (player.texture.key === 2) {
-            this.player2.gestionPowerUp(powerup);
+            player2.gestionPowerUp(powerup);
         }
 
     }
@@ -355,18 +411,18 @@ class LevelOne extends Phaser.Scene {
         this.sound.play('HurtSound');
         obstacle.disableBody(true,true);
         if (player.texture.key === 1) {
-            this.player1.gestionCollision(obstacle);
+            player1.gestionCollision(obstacle);
         } else if (player.texture.key === 2) {
-            this.player2.gestionCollision(obstacle);
+            player2.gestionCollision(obstacle);
         }
     }
 
     EndGame(){
         this.scene.start("GameOver", {
-			raton1: this.colorRaton1, 
-			raton2:this.colorRaton2, 
-			ganador1:this.player1Won, 
-			ganador2:this.player2Won, 
+			raton1: colorRaton1, 
+			raton2: colorRaton2, 
+			ganador1: player1Won, 
+			ganador2: player2Won, 
 			user: this.user
 		});
     }
@@ -413,5 +469,34 @@ class LevelOne extends Phaser.Scene {
 
     assignValue(data){
         this.activeUsersNumber = data;
+    }
+    
+    sendCharacterInfo()
+    {
+        let message;
+		if(id == 0){
+			message = {
+                	//animationFrame: this.Player1.player.frame.name,
+                	positionX: player1.x,
+                	positionY: player1.y,
+					id: id,
+                	ratonReady: p1Ready,
+                	color: raton1,
+        	}
+        } else if(id == 1){
+			message = {
+                	//animationFrame: this.Player1.player.frame.name,
+                	positionX: player2.x,
+                	positionY: player2.y,
+					id: id,
+                	ratonReady: p2Ready,
+                	color: raton2,
+        	}
+		}
+            		       
+        if(isSocketOpen)
+        {
+            connection.send(JSON.stringify(message))
+        }
     }
 }
