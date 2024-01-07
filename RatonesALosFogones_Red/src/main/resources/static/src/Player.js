@@ -38,7 +38,6 @@ class Player {
 
     }
 
-
     createAnimsPlayer(){
         //Animaciones
         this.scene.anims.create({
@@ -69,9 +68,6 @@ class Player {
             frames: this.scene.anims.generateFrameNumbers(this.color, 11 ),
             frameRate: 10
         });
-
-
-
     }
 
     createPhysics(){

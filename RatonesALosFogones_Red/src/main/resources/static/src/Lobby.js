@@ -3,6 +3,7 @@ var rivalReady;
 var playerReady;
 var id;
 var connection;
+var esperandoRespuesta;
 
 class Lobby extends Phaser.Scene {
 
@@ -21,8 +22,7 @@ class Lobby extends Phaser.Scene {
     TextoRaton2;
     BotonJugar;
     JugarPresionado;
-
-
+    
     create(){
         //DATA
         this.activePrevUsersNumber = 0;
@@ -48,6 +48,16 @@ class Lobby extends Phaser.Scene {
             yoyo: true,
             repeat: -1
         });
+        
+        esperandoRespuesta = this.add.image(960.5,875, 'Texto_EsperandoRespuesta').setVisible(false);
+        this.tweens.add({
+            targets: esperandoRespuesta,
+            alpha: 0.2,
+            duration: 1400,
+            ease: 'Sine.easeOut',
+            yoyo: true,
+            repeat: -1
+        });
 
         this.TextoEncontrado = this.add.image(960,822,'Texto_Encontrado').setVisible(false);
 
@@ -65,10 +75,10 @@ class Lobby extends Phaser.Scene {
             //this.userDisconected();
         });
 
-        this.BotonJugar = this.add.image(960.5,936.5,'BOTON_JUGAR').setVisible(false);
+        this.BotonJugar = this.add.image(960.5,940.5,'BOTON_JUGAR').setVisible(false);
         this.BotonJugar.setInteractive({ cursor: 'pointer' });
 
-        this.JugarPresionado = this.add.image(960.5,936.5, 'Jugar_Presionado').setVisible(false);
+        this.JugarPresionado = this.add.image(960.5,940.5, 'Jugar_Presionado').setVisible(false);
 
         this.BotonJugar.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
             this.sound.play('InteractSound');
@@ -93,7 +103,6 @@ class Lobby extends Phaser.Scene {
         window.addEventListener('beforeunload', () =>
         {
             this.deleteActiveUser(this.user);
-            //elefante
             //this.userDisconected();
         });
 
@@ -164,7 +173,7 @@ class Lobby extends Phaser.Scene {
             this.BotonJugar.setVisible(false);
             this.JugarPresionado.setVisible(false);
         }
-        if(this.activeUsersNumber == 2){
+        if(this.activeUsersNumber == 2 && !playerReady){
             this.TextoBuscando.setVisible(false);
             this.TextoEncontrado.setVisible(true);
             this.BotonJugar.setVisible(true);
@@ -172,14 +181,21 @@ class Lobby extends Phaser.Scene {
 
         if(this.activeUsersNumber == this.maxUsersReady)
         {
-            //console.log("player ready: " + playerReady)
-            //console.log("rival ready: " + rivalReady)
             if(playerReady && rivalReady)
             {
-                //console.log("Ambos jugadores están listos");
+                this.TextoEncontrado.setVisible(false);
+                this.TextoBuscando.setVisible(false);
+				esperandoRespuesta.setVisible(true);
                 this.countdownFunction();
             }
         }
+        
+        if(playerReady || rivalReady) 
+        {
+			this.TextoEncontrado.setVisible(false);
+			this.TextoBuscando.setVisible(false);
+			esperandoRespuesta.setVisible(true);
+		}
     }
 
     sendCharacterInfo() {
@@ -209,7 +225,9 @@ class Lobby extends Phaser.Scene {
 
     countdownFunction()
     {
-		this.time.delayedCall(2000, () => {this.StartPlaying('PlayerSelection');}, [], this);
+		playerReady = false;
+		rivalReady = false;
+		this.time.delayedCall(3000, () => {this.StartPlaying('PlayerSelection');}, [], this);
     }
 
     deleteActiveUser(user)

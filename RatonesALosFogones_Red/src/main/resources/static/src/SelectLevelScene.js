@@ -1,3 +1,9 @@
+var id;
+var connection;
+var BotonNivel1;
+var BotonNivel2;
+var levelSelect;
+
 class SelectLevelScene extends Phaser.Scene {
     constructor() {
         super('LevelSelection');
@@ -13,7 +19,11 @@ class SelectLevelScene extends Phaser.Scene {
         this.raton1 = this.dataObj.colorRaton1;
         this.raton2 = this.dataObj.colorRaton2;
         this.user = this.dataObj.user;
+        this.url= window.location.href;
         this.activePrevUsersNumber = 0;
+        id = this.dataObj.id;
+        connection = this.dataObj.connection;
+        levelSelect = -1;
 
         this.add.image(0,0,'FondoSeleccionNiveles').setOrigin(0, 0);
 
@@ -22,26 +32,43 @@ class SelectLevelScene extends Phaser.Scene {
         let Meme1 = this.add.image(1470,795,'MemeN1').setVisible(false);
         let Meme2 = this.add.image(452,530,'MemeN2').setVisible(false);
 
-        let BotonVolver = this.add.image(150,150,'Flecha');
-        BotonVolver.setInteractive({ cursor: 'pointer' });
+        //let BotonVolver = this.add.image(150,150,'Flecha');
+        //BotonVolver.setInteractive({ cursor: 'pointer' });
 
-        BotonVolver.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
-            this.sound.play('InteractSound');
-            this.scene.start('Menu');
-        });
+        //BotonVolver.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
+        //    this.sound.play('InteractSound');
+        //    this.scene.start('Menu');
+        //});
 
-        let BotonNivel1 = this.add.image(960.5,529.5,'BotonN1');
+        BotonNivel1 = this.add.image(960.5,529.5,'BotonN1');
         BotonNivel1.setInteractive({ cursor: 'pointer' });
 
-        let BotonNivel2 = this.add.image(960.5,795.5,'BotonN2');
+        BotonNivel2 = this.add.image(960.5,795.5,'BotonN2');
         BotonNivel2.setInteractive({ cursor: 'pointer' });
 
         BotonNivel1.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
             this.sound.play('InteractSound');
-            this.add.image(0,0, 'PlayersReady').setOrigin(0,0);
+            //this.add.image(0,0, 'PlayersReady').setOrigin(0,0);
+            levelSelect = 1;
+            
+            
+            let message;
+       		message = {
+            	nivelSelec: levelSelect
+        	}
+        	if (isSocketOpen && this.activeUsersNumber == 2) {
+            	connection.send(JSON.stringify(message))
+       		}
+            
+            
             //this.time.delayedCall(7000, this.StartPlaying('LevelOne'), [], this);
-            this.time.delayedCall(3000, () => {this.StartPlaying('LevelOne');}, [], this);
+            
+            
+            //this.time.delayedCall(3000, () => {this.StartPlaying('LevelOne');}, [], this);
+            
+            
             //Usamos (() => {}) Para asegurarnos de que cumple el this
+            
 
         });
 
@@ -51,9 +78,18 @@ class SelectLevelScene extends Phaser.Scene {
 
         BotonNivel2.on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN,()=>{
             this.sound.play('InteractSound');
-            this.add.image(0,0, 'PlayersReady').setOrigin(0,0);
+            //this.add.image(0,0, 'PlayersReady').setOrigin(0,0);
             //this.time.delayedCall(7000, this.StartPlaying('LevelTwo'), [], this);
-            this.time.delayedCall(3000, () => {this.StartPlaying('LevelTwo');}, [], this);
+            levelSelect = 2;
+            let message;
+       		message = {
+            	nivelSelec: levelSelect
+        	}
+        	if (isSocketOpen && this.activeUsersNumber == 2) {
+            	connection.send(JSON.stringify(message))
+       		}
+
+            //this.time.delayedCall(3000, () => {this.StartPlaying('LevelTwo');}, [], this);
         });
 
 
@@ -103,8 +139,6 @@ class SelectLevelScene extends Phaser.Scene {
             }
         });
 
-
-
         window.addEventListener('beforeunload', () =>
         {
             this.deleteActiveUser(this.user);
@@ -120,16 +154,55 @@ class SelectLevelScene extends Phaser.Scene {
 
         var chat = this.add.dom(1420, 820).createFromCache('chat_html');
         chat.setVisible(false);
-    }
+        
+        // ------------WEBSOCKETS--------------
+        // console.log(this.url);
+        this.wsURL = this.url.replace("http://", "");
 
+        if(connection == null || connection == undefined)
+        {
+            console.log("estableciendo conexión con WS...");
+            connection = new WebSocket("ws://"+ this.wsURL + "echo");
+        }
+        // console.log("Ws URL: \n" + this.wsURL + "echo");
+
+        //Atributos de la conexión
+        connection.onopen = function (){
+            isSocketOpen = true;
+            console.log("Socket abierto");
+        }
+        connection.onclose = function(){
+            isSocketOpen = false;
+            console.log("Closing socket."); 
+        }
+
+        connection.onmessage = function (message){
+            //console.log("mensaje recibido");
+            let msg = JSON.parse(message.data);
+            if(id == 1) levelSelect = msg.nivelSelec;
+            //console.log("nivel seleccionado: "+msg.nivelSelec);
+        }
+    }
+    
     StartPlaying(level){
-        this.scene.start(level, {colorRaton1: this.raton1, colorRaton2:this.raton2, user : this.user});
+        this.scene.start(level, {colorRaton1: this.raton1, colorRaton2:this.raton2, user : this.user, id: id, connection: connection});
     }
 
     update(){
         this.getActiveUsers();
         this.updateActiveUsers();
         this.textActiveUsers.setText('Usuarios activos: ' + this.activeUsersNumber);
+        
+        if(id == 1){
+			BotonNivel1.disableInteractive();
+			BotonNivel2.disableInteractive();
+		}
+	
+		if(levelSelect > 0)	this.add.image(0,0, 'PlayersReady').setOrigin(0,0);
+		if(levelSelect == 1)	this.time.delayedCall(3000, () => {this.StartPlaying('LevelOne');}, [], this);		
+		if(levelSelect == 2)	this.time.delayedCall(3000, () => {this.StartPlaying('LevelTwo');}, [], this);			
+
+			
     }
     updateActiveUsers()
     {
@@ -145,9 +218,23 @@ class SelectLevelScene extends Phaser.Scene {
         }
 
     }
+    
+    countdownFunction(level)
+    {
+		if(level == 1){
+			//this.time.delayedCall(3000, () => {this.StartPlaying('LevelOne');}, [], this);
+			this.StartPlaying('LevelOne');
+		} else if(level == 2){
+			this.StartPlaying('LevelTwo');
+		}
+		levelSelect = -1;
+    }
+
 
     deleteActiveUser(user)
     {
+		id = null;
+        connection.close();
         $.ajax({
             method: "DELETE",
             url: url + "activeUsers/" + user,

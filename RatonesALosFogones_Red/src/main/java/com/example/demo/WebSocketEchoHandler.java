@@ -73,8 +73,28 @@ public class WebSocketEchoHandler extends TextWebSocketHandler {
    		
     	if(node.get("ratonSeleccionado")!= null) //Para el ratón fijado por el jugador
     	{
-    		newNode.put("ratonSeleccionado", node.get("ratonSeleccionado").asBoolean());
+    		newNode.put("ratonSeleccionado", node.get("ratonSeleccionado").asInt());
     	}
+    	
+    	if(node.get("ratonGrande")!= null) //Para el ratón grande elegido por el jugador
+    	{
+    		newNode.put("ratonGrande", node.get("ratonGrande").asInt());
+    	}
+    	
+    	if(node.get("color")!= null) //Lo mismo del tipo xd
+    	{
+    		newNode.put("color", node.get("color").asInt());
+        }
+    	
+    	if(node.get("disconected")!= null) //Lo mismo del tipo xd
+    	{
+    		newNode.put("disconected", node.get("disconected").asInt());
+        }
+    	
+    	if(node.get("nivelSelec")!= null) //Lo mismo del tipo xd
+    	{
+    		newNode.put("nivelSelec", node.get("nivelSelec").asInt());
+        }
     	
     	////////////
     	if(node.get("skin")!= null) //Lo mismo del tipo xd
