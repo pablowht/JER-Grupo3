@@ -122,10 +122,8 @@ La mecánica principal se basa en evitar los diferentes objetos que van a aparec
 **2.	Flujo de juego y curva de dificultad**
 El desarrollo de una partida de *Ratones a los fogones* empieza en la pantalla de inicio. Aquí se podrán ver los créditos, ajustes y controles, y dos opciones para jugar online o en local.  Una vez dado a jugar, se dejará customizar el personaje y una vez terminado, se dará paso a la elección de nivel. Según se pase de nivel la velocidad de cada jugador irá en aumento para aumentar al mismo tiempo la dificultad.    
 * Nivel 1: únicamente aparecerán obstáculos estáticos que se deberán saltar o pasar por debajo y los diferentes power-ups.   
-* Nivel 2: se mantienen los obstáculos estáticos y aparecen los primeros power-ups que cruzan la pantalla de derecha a izquierda, permitiendo al jugador recogerlos.  
-* Nivel 3: se añade a todo lo anterior obstáculos dinámicos que se moverán de manera vertical y se deberá saltar o pasar por debajo según sea más conveniente.
-Finalmente, cuando uno de los dos llegue a la meta se da paso a la pantalla de fin de nivel, donde se mostrará el ganador y se dará a elegir si pasar al siguiente nivel o regresar a la pantalla de inicio.  
-De esta manera la curva de dificultad quedaría de la siguiente manera:  
+* Nivel 2: se mantienen los obstáculos estáticos junto a los power-ups y  aparecen los primeros obstáculos en movimiento vertical.  
+
 <p align="center">
   <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/f1cc9b0f-d8ad-40fd-be5d-802127f61e3c">
   <br><br>
@@ -165,7 +163,7 @@ Las interfaces que se han incluido quedan definidas a continuación.
 
 **1. Diagrama de flujo**  
 <p align="center">
-  <img src="https://github.com/pablowht/JER-Grupo3/assets/100694175/2f118418-d1ca-4f28-826f-707aa12094d3">
+  <img src="https://github.com/pablowht/JER-Grupo3/assets/101139120/85e2d81d-6cda-448c-96c6-721fbdde0b15">
   <br><br>
   <b>Ilustración 2. Diagrama de flujo</b>
  <br><br>
@@ -200,7 +198,7 @@ La pantalla de carga simplemente tendrá una barra de color amarillo y un peque�
 **5. Pantalla de Cuenta**  
 La pantalla de cuenta tiene dos botones para elegir o iniciar sesión o crear cuenta.  
 <p align="center">
-  <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/f7ec3f37-4cb5-4b13-85d6-4a60ec30ef04">
+  <img src="https://github.com/pablowht/JER-Grupo3/assets/101139120/f1d71209-07ff-47b0-bc24-e60de82880a0">
   <br><br>
   <b>Ilustración 6. Interfaz de Cuenta</b>
  <br><br>
@@ -218,7 +216,7 @@ La pantalla de login tiene dos campos de texto para introducir el usuario y la c
 **7. Pantalla de Crear Cuenta**  
 La pantalla de crear cuenta tiene dos campos de texto para introducir el usuario y la contraseña, y un simple botón de crear.  
 <p align="center">
-  <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/f7ec3f37-4cb5-4b13-85d6-4a60ec30ef04">
+  <img src="https://github.com/pablowht/JER-Grupo3/assets/101139120/1673f1b3-a6d3-45e9-9035-0a59a9a285bb">
   <br><br>
   <b>Ilustración 8. Interfaz de Crear Cuenta</b>
  <br><br>
@@ -236,7 +234,7 @@ La interfaz del menú principal muestra los botones básicos de jugar y ajustes 
 **9. Pantalla de Usuario**  
 La pantalla de la cuenta del usuario muestra el nombre del usuario y tiene dos botones para cambiar la contraseña y eliminar la cuenta.  
 <p align="center">
-  <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/e2c24615-f14d-4b84-9f27-5d25a28ce3d0">
+  <img src="https://github.com/pablowht/JER-Grupo3/assets/101139120/876faa17-6a51-4edb-a540-bbf0f1cfd8df">
   <br><br>
   <b>Ilustración 10. Interfaz de Usuario</b>
  <br><br>
@@ -263,7 +261,7 @@ Esta interfaz incluye un simple texto para ofrecerle al jugador la opción de no
 **12. Pantalla de Lobby**  
 Esta interfaz un texto parpadeante mientras encuentra un ratón con quien jugar que cambia y hace aparecer un botón de jugar cuando haya un rival.  
 <p align="center">
-  <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/9983411f-3c9e-4576-b37d-f7972666f5a8">
+  <img src="https://github.com/pablowht/JER-Grupo3/assets/101139120/1dc93782-69e0-4aa3-8974-0c473af2ba70">
   <br><br>
   <b>Ilustración 13. Interfaz de Eliminar Cuenta</b>
  <br><br>
@@ -281,7 +279,7 @@ Después de elegir el modo de juego que se prefiere, se pasará a la selección 
 **14. Selección de Nivel**  
 La pantalla de selección de nivel tiene dos botones para cada nivel, dos memes cuando se pasa el cursor por encima de los cubiertos y un mensaje hacia los profesores no cierto para la insignia. 
 <p align="center">
-  <img src="https://github.com/pablowht/JER-Grupo3/assets/139124884/df003123-fbad-4c43-b8a6-487ffc3433b7">
+  <img src="https://github.com/pablowht/JER-Grupo3/assets/101139120/13204e26-0720-46ce-9c3d-de7a090ab64f">
   <br><br>
   <b>Ilustración 15. Menú de Selección de Nivel</b>
  <br><br>
@@ -296,7 +294,7 @@ La pantalla de ajustes tiene un botón de salir al menú, un bloqueador de audio
  <br><br>
 </p>
 
-**16. Nivel**  
+**16. Nivel 1**  
 La interfaz in-game se basa en una pantalla dividida a la mitad horizontalmente donde el jugador 1 (el cual usará las teclas W, A, S, D) utilizará la pantalla de arriba, y el jugador 2 (mediante las teclas de las flechas) utilizará la de abajo. 
 <p align="center">
   <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/a9e59464-c0db-40be-b0d7-2619d49f865c">
@@ -305,7 +303,17 @@ La interfaz in-game se basa en una pantalla dividida a la mitad horizontalmente 
  <br><br>
 </p>
 
-**17. Fin de Nivel**  
+**17. Nivel 2** 
+
+La interfaz in-game del nivel dos tiene la misma colocación que la del nivel uno. 
+<p align="center">
+  <img src="https://github.com/pablowht/JER-Grupo3/assets/101139120/cb1044aa-3d73-4516-a024-fccf5884e294">
+  <br><br>
+  <b>Ilustración 17. Interfaz de Nivel</b>
+ <br><br>
+</p>
+
+**18. Fin de Nivel**  
 La pantalla de fin de nivel mostrará el ganador en el podio y la opción de volver al menú principal. También tiene el chat para comunicarse con el otro jugador. 
 <p align="center">
   <img src="https://github.com/pablowht/JER-Grupo3/assets/100694175/1cd669c4-816d-4f3f-96d8-60f3bfbb41a4">
@@ -314,7 +322,7 @@ La pantalla de fin de nivel mostrará el ganador en el podio y la opción de vol
  <br><br>
 </p>
 
-**18. Créditos**    
+**19. Créditos**    
 <p align="center">
   <img src="https://github.com/pablowht/JER-Grupo3/assets/139124884/2ee834df-e380-4d48-b39f-4bb26bc83340">
   <br><br>
@@ -322,7 +330,7 @@ La pantalla de fin de nivel mostrará el ganador en el podio y la opción de vol
  <br><br>
 </p>
 
-**19. ¡A correr!**  
+**20. ¡A correr!**  
 Al iniciar el juego y probar varias veces, se descubrió que al terminar de elegir a los personajes el juego se iniciaba inmediatemente, debido a esto, se ha decidido añadir una nueva interfaz entre la selección de personaje y el juego en sí. Además se le ha incluído un pequeño tutorial visual para explicar el funcionamiento del juego.
 <p align="center">
   <img src="https://github.com/pablowht/JER-Grupo3/assets/100693446/aa3dfcf3-338f-4227-8891-9919f8b0b941">
